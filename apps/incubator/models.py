@@ -21,7 +21,7 @@ class Organization(models.Model):
 
 
 class Expert(models.Model):
-    Organization = models.ForeignKey(Organization, verbose_name=u'所属类别')
+    Organization = models.ForeignKey(Organization, verbose_name=u'所属机构')
     name = models.CharField(max_length=100, verbose_name=u'专家名称')
     desc = models.TextField(verbose_name=u'专家描述')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')

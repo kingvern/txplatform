@@ -1,0 +1,1 @@
+default_app_config = 'incubator.apps.IncubatorConfig'

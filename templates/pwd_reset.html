@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>重置密码</title>
+</head>
+<body>
+<form action="{% url 'modify_pwd' %}" method="post">
+
+    <input name="email" type="hidden" value="{{ email }}"/>
+    <input name="password1" type="password" placeholder="新密码"/>
+    <input name="password2" type="password" placeholder="确认密码"/>
+    {{ reset_pwd_form.captcha }}
+    <input type="submit"/>
+    {% for key,error in modify_pwd_form.errors.items %}
+        {{ key }}:{{ error }}
+    {% endfor %}
+    {{ msg }}
+    {% csrf_token %}
+</form>
+</body>
+</html>

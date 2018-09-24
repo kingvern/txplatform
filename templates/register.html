@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+<form action="{% url 'register' %}" method="post">
+
+    <input name="email" type="text" placeholder="email" value="{{ register_form.email.value }}"/>
+    <input name="password" type="password" placeholder="password" value="{{ register_form.password.value }}"/>
+    {{ register_form.captcha }}
+    <input type="submit"/>
+    {% for key,error in register_form.errors.items %}
+        {{ key }}:{{ error }}
+    {% endfor %}
+    {{ msg }}
+    {% csrf_token %}
+</form>
+</body>
+</html>
