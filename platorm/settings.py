@@ -47,10 +47,12 @@ INSTALLED_APPS = [
     'operation',
     'patent',
     'policy',
+    'project',
 
     'xadmin',
     'crispy_forms',
     'captcha',
+    'pure_pagination'
 
 ]
 
@@ -81,6 +83,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.media'
             ],
         },
     },
@@ -97,7 +100,8 @@ DATABASES = {
         'NAME': 'platform',
         'USER': 'root',
         'PASSWORD': '123123',
-        'HOST': 'localhost'
+        'HOST': '47.94.160.142'
+        # 'HOST': 'localhost'
     }
 }
 
@@ -154,3 +158,6 @@ EMAIL_HOST_USER = 'kingvern@sina.com'
 EMAIL_HOST_PASSWORD = 'kingvern'
 EMAIL_USE_TLS = False
 EMAIL_FROM = 'kingvern@sina.com'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

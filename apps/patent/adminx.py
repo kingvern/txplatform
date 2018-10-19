@@ -12,9 +12,15 @@ class CategoryAdmin(object):
 
 
 class PatentAdmin(object):
-    list_display = ['Category', 'name', 'detail', 'click_num', 'fav_num', 'publish_time', 'add_time']
-    search_fields = ['Category', 'name', 'detail', 'click_num', 'fav_num']
-    list_filter = ['Category', 'name', 'detail', 'click_num', 'fav_num', 'publish_time', 'add_time']
+    list_display = ['name','seller', 'patent_id', 'field_category', 'patent_category', 'province', 'patent_expired', 'main_pic',
+                    'more_pic', 'price', 'bargain', 'hire', 'keyword', 'IPC_num', 'application_date', 'agent', 'agency',
+                    'inventor', 'applicant', 'contact', 'contact_mobile', 'detail', 'click_num', 'fav_num', 'add_time']
+    search_fields = ['name','seller', 'patent_id', 'field_category', 'patent_category', 'province', 'patent_expired', 'main_pic',
+                     'more_pic', 'price', 'bargain', 'hire', 'keyword', 'IPC_num', 'agent', 'agency',
+                     'inventor', 'applicant', 'contact', 'contact_mobile', 'detail', 'click_num', 'fav_num']
+    list_filter = ['name','seller', 'patent_id', 'field_category', 'patent_category', 'province', 'patent_expired', 'main_pic',
+                   'more_pic', 'price', 'bargain', 'hire', 'keyword', 'IPC_num', 'application_date', 'agent', 'agency',
+                   'inventor', 'applicant', 'contact', 'contact_mobile', 'detail', 'click_num', 'fav_num', 'add_time']
 
 
 xadmin.site.register(Category, CategoryAdmin)

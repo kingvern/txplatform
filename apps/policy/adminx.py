@@ -12,15 +12,15 @@ class ProvinceAdmin(object):
 
 
 class DepartmentAdmin(object):
-    list_display = ['Province', 'name']
-    search_fields = ['Province', 'name']
-    list_filter = ['Province', 'name']
+    list_display = ['name', 'Province']
+    search_fields = ['name', 'Province']
+    list_filter = ['name', 'Province']
 
 
 class PolicyAdmin(object):
-    list_display = ['Province', 'Department', 'name', 'detail', 'click_num', 'fav_num', 'publish_time', 'add_time']
-    search_fields = ['Province', 'Department', 'name', 'detail', 'click_num', 'fav_num']
-    list_filter = ['Province', 'Department', 'name', 'detail', 'click_num', 'fav_num', 'publish_time', 'add_time']
+    list_display = ['name', 'Province', 'Department', 'detail', 'click_num', 'fav_num', 'publish_time', 'add_time']
+    search_fields = ['name', 'Province', 'Department', 'detail', 'click_num', 'fav_num']
+    list_filter = ['name', 'Province', 'Department', 'detail', 'click_num', 'fav_num', 'publish_time', 'add_time']
 
 
 xadmin.site.register(Province, ProvinceAdmin)

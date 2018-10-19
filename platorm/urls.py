@@ -1,3 +1,4 @@
+# _*_ coding: utf-8 _*_
 """platorm URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,13 +17,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
+from django.views.static import serve
 
 import xadmin
 
+from platorm.settings import MEDIA_ROOT
+
 from users.views import LoginView, RegisterView, ActiveUserView, ResetPwdView, ResetView, ModifyPwdView
+from policy.views import PolicyView
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
+
     url('^$', TemplateView.as_view(template_name='index.html'), name='index'),
     # url('^login/$', user_login, name='login')
     url('^login/$', LoginView.as_view(), name='login'),
@@ -32,4 +38,9 @@ urlpatterns = [
     url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name='reset'),
     url(r'^modify_pwd/$', ModifyPwdView.as_view(), name='modify_pwd'),
     url(r'^reset_pwd/$', ResetPwdView.as_view(), name='reset_pwd'),
+
+    url(r'^policy/', include('policy.urls', namespace='policy')),
+
+    # 配置上传文件访问处理的函数
+    url(r'^media/(?P<path>.*)/$', serve, {'document_root': MEDIA_ROOT})
 ]

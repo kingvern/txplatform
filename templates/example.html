@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}政策展示{% endblock %}
+{% block custom_bread %}
+    <section>
+        <div>
+            <ul>
+                <li><a href="/">首页</a></li>
+                <li>政策展示</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+    <div>
+        {% for provice in all_province %}
+            <a href="/">{{ provice.name }}</a>
+        {% endfor %}
+    </div>
+    <div>
+        <a href="?department="><span
+                class="{% ifequal department_id '' %}active{% endifequal %}">全部</span> </a>
+        {% for department in all_department %}
+            <a href="?department={{ department.id }}"><span
+                    class="{% ifequal department_id department.id|stringformat:'i' %}active{% endifequal %}">{{ department.name }}</span>
+            </a>
+        {% endfor %}
+    </div>
+    <div>
+        <p>共{{ policy_nums }}个政策</p>
+    </div>
+    <div>
+        {% for policy in all_policy.object_list %}
+            <a href="/">{{ policy.name }}</a>
+            <p>{{ policy.detail }}</p>
+        {% endfor %}
+    </div>
+    {#    <div id="pagination">#}
+    {#        {{ all_policy.render }}#}
+    {#    </div>#}
+    <div class="pagination">
+        {% if all_policy.has_previous %}
+            <a href="?{{ all_policy.previous_page_number.querystring }}"
+               class="prev">&lsaquo;&lsaquo; 上一页</a>
+        {% else %}
+            <span class="disabled prev">&lsaquo;&lsaquo; 上一页</span>
+        {% endif %}
+        {% for page in all_policy.pages %}
+            {% if page %}
+                {% ifequal page all_policy.number %}
+                    <span class="current page">{{ page }}</span>
+                {% else %}
+                    <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+                {% endifequal %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+        {% if all_policy.has_next %}
+            <a href="?{{ all_policy.next_page_number.querystring }}" class="next">下一页
+                &rsaquo;&rsaquo;</a>
+        {% else %}
+            <span class="disabled next">下一页 &rsaquo;&rsaquo;</span>
+        {% endif %}
+    </div>
+
+
+    <div>
+        {% for policy in newest_policy %}
+            <a href="/">{{ policy.name }}</a>
+            <p>{{ policy.detail }}</p>
+        {% endfor %}
+    </div>
+
+    {#{{ MEDIA_URL }}{{ object.image }}#}
+
+{% endblock %}

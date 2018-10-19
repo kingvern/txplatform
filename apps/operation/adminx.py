@@ -3,7 +3,7 @@
 
 import xadmin
 
-from .models import UserAsk, UserFavorite, UserMessage, UserPatent
+from .models import UserAsk, UserFavorite, UserMessage, BuyerPatent, BuyerProject
 
 
 class UserAskAdmin(object):
@@ -24,13 +24,19 @@ class UserMessageAdmin(object):
     list_filter = ['user', 'message', 'has_read', 'add_time']
 
 
-class UserPatentAdmin(object):
-    list_display = ['user', 'patent', 'add_time']
-    search_fields = ['user', 'patent']
-    list_filter = ['user', 'patent', 'add_time']
+class BuyerPatentAdmin(object):
+    list_display = ['seller', 'patent', 'add_time']
+    search_fields = ['seller', 'patent']
+    list_filter = ['seller', 'patent', 'add_time']
+
+class BuyerProjectAdmin(object):
+    list_display = ['seller', 'project', 'add_time']
+    search_fields = ['seller', 'project']
+    list_filter = ['seller', 'project', 'add_time']
 
 
 xadmin.site.register(UserAsk, UserAskAdmin)
 xadmin.site.register(UserFavorite, UserFavoriteAdmin)
 xadmin.site.register(UserMessage, UserMessageAdmin)
-xadmin.site.register(UserPatent, UserPatentAdmin)
+xadmin.site.register(BuyerPatent, BuyerPatentAdmin)
+xadmin.site.register(BuyerProject, BuyerProjectAdmin)

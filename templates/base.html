@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}title{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    {% block custom_css %}{% endblock %}
+    {% block custom_js %}{% endblock %}
+</head>
+<body>
+<a href="{% url 'policy:policy_list' %}">政策</a>
+{% block custom_bread %}
+    <section>
+        <div>
+            <ul>
+                <li><a href="/">首页</a> </li>
+                <li>路径</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+
+{% endblock %}
+<footer>
+    footer
+</footer>
+</body>
+</html>
