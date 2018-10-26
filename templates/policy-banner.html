@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}政策详情{% endblock %}
+{% block custom_bread %}
+    <section>
+        <div>
+            <ul>
+                <li><a href="/">首页</a></li>
+                <li>政策</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+
+    <div>
+        <h1>政策名称：{{ banner.title }}</h1>
+        <p>{{ banner.pubDate }}</p>
+
+        <img src="{{ MEDIA_URL }}{{ banner.pic }}"/>
+        <p>{{ banner.detail }}</p>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,620 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}政策展示{% endblock %}
+{% block custom_bread %}
+{% endblock %}
+{% block content %}
+    <section class="container">
+
+        {% for banner_ in banners %}
+            {% if banner_.if_toutiao %}
+                <div class="col-md-12 row">
+                    <div class="col-md-6">
+                        <H1><a href="/policy/banner/{{ banner_.id }}/">{{ banner_.title }}</a></H1>
+                        <p>{{ banner_.detail }}</p>
+                    </div>
+                    <img class="col-md-6" src="{{ MEDIA_URL }}{{ banner_.pic }}"/>
+                </div>
+            {% else %}
+                <div class="col-md-12 row">
+                    <p><a href="/policy/banner/{{ banner_.id }}/">{{ banner_.title }}</a>{{ banner_.pubDate }}</p>
+                </div>
+            {% endif %}
+
+
+
+        {% endfor %}
+
+        <div class=" col-md-12">
+            <div class="">
+                <H3>中央部委政策</H3>
+                <div class="dropdown">
+                    <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">部门
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="?a_department=">全部</a>
+                        </li>
+                        {% for department in a_department %}
+
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1"
+                                   href="?a_department={{ department.id }}&b_department={{ b_department_id }}&b_page={{ b_policy.number }}"><span
+                                        class="{% ifequal a_department_id department.id|stringformat:'i' %}active{% endifequal %}">
+                                    {{ department.name }}</span></a>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="">
+                {% for policy in a_policy.object_list %}
+                    {#            <p>1</p>#}
+                    <a href="/policy/detail/{{ policy.policy_id }}/">{{ policy.title }}</a>
+                    <p>{{ policy.addr.id }}{{ policy.addr }}{{ policy.source }} {{ policy.pubDate }}</p>
+                {% endfor %}
+            </div>
+            {#    <div id="pagination">#}
+            {#        {{ a_policy.render }}#}
+            {#    </div>#}
+            <div class="pagination">
+                {% if a_policy.has_previous %}
+                    <a href="?a_department={{ a_department_id }}&b_department={{ b_department_id }}&b_page={{ b_policy.number }}&a_page={{ a_policy.previous_page_number }}"
+                       class="prev">&lsaquo;&lsaquo; 上一页</a>
+                {% else %}
+                    <span class="disabled prev">&lsaquo;&lsaquo; 上一页</span>
+                {% endif %}
+                {% for a_page in a_policy.pages %}
+                    {% if a_page %}
+                        {% ifequal a_page a_policy.number %}
+                            <span class="current page">{{ a_page }}</span>
+                        {% else %}
+                            <a href="?a_department={{ a_department_id }}&b_department={{ b_department_id }}&b_page={{ b_policy.number }}&a_page={{ a_page }}" class="page">{{ a_page }}</a>
+                        {% endifequal %}
+                    {% else %}
+                        ...
+                    {% endif %}
+                {% endfor %}
+                {% if a_policy.has_next %}
+                    <a href="?a_department={{ a_department_id }}&b_department={{ b_department_id }}&b_page={{ b_policy.number }}&a_page={{ a_policy.next_page_number }}" class="next">下一页
+                        &rsaquo;&rsaquo;</a>
+                {% else %}
+                    <span class="disabled next">下一页 &rsaquo;&rsaquo;</span>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="">
+                <H3>京津冀政策</H3>
+                <div class="dropdown">
+                    <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">部门
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="?b_department=">全部</a>
+                        </li>
+                        {% for department in b_department %}
+
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1"
+                                   href="?b_department={{ department.id }}&a_department={{ a_department_id }}&a_page={{ a_policy.number }}"><span
+                                        class="{% ifequal b_department_id department.id|stringformat:'i' %}active{% endifequal %}">
+                                    {{ department.name }}</span></a>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="">
+                {% for policy in b_policy.object_list %}
+                    {#            <p>2</p>#}
+                    <a href="/policy/detail/{{ policy.policy_id }}/">{{ policy.title }}</a>
+                    <p>{{ policy.addr }}{{ policy.source }} {{ policy.pubDate }}</p>
+                {% endfor %}
+            </div>
+            {#    <div id="pagination">#}
+            {#        {{ b_policy.render }}#}
+            {#    </div>#}
+            <div class="pagination">
+                {% if b_policy.has_previous %}
+                    <a href="?a_department={{ a_department_id }}&b_department={{ b_department_id }}&b_page={{ b_policy.previous_page_number }}&a_page={{ a_policy.number }}"
+                       class="prev">&lsaquo;&lsaquo; 上一页</a>
+                {% else %}
+                    <span class="disabled prev">&lsaquo;&lsaquo; 上一页</span>
+                {% endif %}
+                {% for b_page in b_policy.pages %}
+                    {% if b_page %}
+                        {% ifequal b_page b_policy.number %}
+                            <span class="current page">{{ b_page }}</span>
+                        {% else %}
+                            <a href="?a_department={{ a_department_id }}&b_department={{ b_department_id }}&a_page={{ a_policy.number }}&b_page={{ b_page }}" class="b_page">{{ b_page }}</a>
+                        {% endifequal %}
+                    {% else %}
+                        ...
+                    {% endif %}
+                {% endfor %}
+                {% if b_policy.has_next %}
+                    <a href="?a_department={{ a_department_id }}&b_department={{ b_department_id }}&b_page={{ b_policy.next_page_number }}&a_page={{ a_policy.number }}" class="next">下一页
+                        &rsaquo;&rsaquo;</a>
+                {% else %}
+                    <span class="disabled next">下一页 &rsaquo;&rsaquo;</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-12" id="chartBox">
+            <div id="chartBox1" class="col-md-6">
+            </div>
+            <div id="chartBox2" class="col-md-6">
+            </div>
+            <div id="chartBox3" class="col-md-6">
+            </div>
+            <div id="chartBox4" class="col-md-6">
+            </div>
+            <div id="chartBox5" class="col-md-12">
+            </div>
+        </div>
+
+
+    </section>
+
+{% endblock %}
+{% block custom_js %}
+    <script src="https://cdn.bootcss.com/echarts/4.2.0-rc.1/echarts.min.js"></script>
+
+    <script type="text/javascript">
+        genOption = (titleText, type, data) => {
+            data = JSON.parse(data)
+            let option = {}
+            let item = {};
+            switch (type) {
+                case 'pie':
+                    let dataPieArray = []
+                    console.log(data)
+                    data.forEach(dataItem => {
+                        let item = {};
+                        console.log(dataItem)
+                        item.name = dataItem[0];
+                        item.value = dataItem[1];
+                        dataPieArray.push(item)
+                    })
+                    console.log(dataPieArray)
+                    option = {
+                        backgroundColor: '#fff',
+
+                        title: {
+                            text: titleText,
+                            left: 'center',
+                            top: 20,
+                            textStyle: {
+                                color: '#ccc'
+                            }
+                        },
+
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+
+                        visualMap: {
+                            show: false,
+                            min: 80,
+                            max: 600,
+                            inRange: {
+                                colorLightness: [0, 1]
+                            }
+                        },
+                        series: [
+                            {
+                                name: '访问来源',
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '50%'],
+                                data: dataPieArray.sort(function (a, b) {
+                                    return a.value - b.value;
+                                }),
+                                roseType: '',
+                                label: {
+                                    normal: {
+                                        textStyle: {
+                                            color: 'rgba(0, 0, 0, 0.6)'
+                                        }
+                                    }
+                                },
+                                labelLine: {
+                                    normal: {
+                                        lineStyle: {
+                                            color: 'rgba(0, 0, 0, 0.3)'
+                                        },
+                                        smooth: 0.2,
+                                        length: 10,
+                                        length2: 20
+                                    }
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: '#c23531', //color:'#3fa8f4',//color:'#ff921e',
+                                        shadowBlur: 100,
+                                        shadowColor: 'rgba(0, 0, 0, 0.2)'
+                                    }
+                                },
+
+                                animationType: 'scale',
+                                animationEasing: 'elasticOut',
+                                animationDelay: function (idx) {
+                                    return Math.random() * 200;
+                                }
+                            }
+                        ]
+                    };
+
+                    break;
+                case 'bar':
+                    let dataBarAxis = []
+                    let dataBar = []
+                    let dataShadow = [];
+                    data.forEach(dataItem => {
+                        dataBarAxis.push(dataItem[0])
+                        dataBar.push(dataItem[1])
+                        dataShadow.push(500)
+                    })
+                    option = {
+                        title: {
+                            text: titleText,
+                            subtext: ''
+                        },
+
+                        tooltip: {
+                            trigger: 'axis',
+
+                        },
+                        xAxis: {
+                            data: dataBarAxis,
+                            axisLabel: {
+                                inside: false,
+                                textStyle: {
+                                    color: '#666'
+                                }
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLine: {
+                                show: false
+                            },
+                            z: 10
+                        },
+                        yAxis: {
+                            axisLine: {
+                                show: false
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#666'
+                                }
+                            }
+                        },
+
+                        series: [
+
+                            {
+                                type: 'bar',
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(
+                                            0, 0, 0, 1,
+                                            [
+                                                {offset: 0, color: '#83bff6'},
+                                                {offset: 0.5, color: '#188df0'},
+                                                {offset: 1, color: '#188df0'}
+                                            ]
+                                        )
+                                    },
+                                    emphasis: {
+                                        color: new echarts.graphic.LinearGradient(
+                                            0, 0, 0, 1,
+                                            [
+                                                {offset: 0, color: '#2378f7'},
+                                                {offset: 0.7, color: '#2378f7'},
+                                                {offset: 1, color: '#83bff6'}
+                                            ]
+                                        )
+                                    }
+                                },
+                                data: dataBar
+                            }
+                        ]
+                    };
+                    break;
+                case 'bar2':
+                    let dataBar2Axis = []
+                    let dataBar2 = []
+                    let dataShadow2 = [];
+                    data.forEach(dataItem => {
+                        dataBar2Axis.push(dataItem[0])
+                        dataBar2.push(dataItem[1])
+                        dataShadow2.push(500)
+                    })
+                    option = {
+                        title: {
+                            text: titleText,
+                            subtext: ''
+                        },
+
+                        tooltip: {
+                            trigger: 'axis',
+
+                        },
+                        yAxis: {
+                            data: dataBar2Axis,
+                            axisLabel: {
+                                inside: false,
+                                textStyle: {
+                                    color: '#666'
+                                }
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLine: {
+                                show: false
+                            },
+                            z: 10
+                        },
+                        xAxis: {
+                            axisLine: {
+                                show: false
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#666'
+                                }
+                            }
+                        },
+
+                        series: [
+
+                            {
+                                type: 'bar',
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(
+                                            1, 1, 0, 0,
+                                            [
+                                                {offset: 0, color: '#83bff6'},
+                                                {offset: 0.5, color: '#188df0'},
+                                                {offset: 1, color: '#188df0'}
+                                            ]
+                                        )
+                                    },
+                                    emphasis: {
+                                        color: new echarts.graphic.LinearGradient(
+                                            1, 1, 0, 0,
+                                            [
+                                                {offset: 0, color: '#2378f7'},
+                                                {offset: 0.7, color: '#2378f7'},
+                                                {offset: 1, color: '#83bff6'}
+                                            ]
+                                        )
+                                    }
+                                },
+                                data: dataBar2
+                            }
+                        ]
+                    };
+                    break;
+                case 'line':
+                    let map = {};
+                    let title = [];
+                    let time = [];
+                    console.log(data);
+                    data.sort(function (x, y) {
+                        return x[1].localeCompare(y[1]);
+                    });
+                    data.sort(function (x, y) {
+                        return x[0] - y[0];
+                    });
+
+                    data.forEach((item, index) => {
+                        const key = item[1];
+                        if (!map[key]) {  // 按key来进行分类
+                            map[key] = {
+                                name: key,
+                                type: 'line',
+                                stack: '总量',
+                                data: []
+                            }
+                            title.push(key)
+                        }
+                        if (time.indexOf(item[0]) === -1) {
+                            time.push(item[0])
+                        }
+                        map[key].data.push(item[2]
+                        );
+                    })
+                    console.log(map)
+                    console.log(title)
+                    console.log(time)
+                    let aa = []
+                    title.map((t, i) => aa.push(map[t]))
+                    console.log(aa)
+                    option = {
+                        title: {
+                            text: titleText,
+                            left: 'center',
+                            top: 20,
+                            textStyle: {
+                                color: '#ccc'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: title
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: '',
+                            boundaryGap: false,
+                            data: time
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: aa
+                    };
+                    break;
+                case 'map':
+                    let seriesData = []
+                    data.forEach(dataItem => {
+                        item.name = dataItem[0];
+                        item.value = dataItem[1];
+                        seriesData.push(item)
+                    })
+                    option = {
+                        backgroundColor: '#FFFFFF',
+                        title: {
+                            text: '全国地图大数据',
+                            subtext: '',
+                            x: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item'
+                        },
+
+                        //左侧小导航图标
+                        visualMap: {
+                            show: true,
+                            x: 'left',
+                            y: 'center',
+                            splitList: [
+                                {start: 500, end: 600}, {start: 400, end: 500},
+                                {start: 300, end: 400}, {start: 200, end: 300},
+                                {start: 100, end: 200}, {start: 0, end: 100},
+                            ],
+                            color: ['#5475f5', '#9feaa5', '#85daef', '#74e2ca', '#e6ac53', '#9fb5ea']
+                        },
+
+                        //配置属性
+                        series: [{
+                            name: '数据',
+                            type: 'map',
+                            mapType: 'china',
+                            roam: true,
+                            label: {
+                                normal: {
+                                    show: true  //省份名称
+                                },
+                                emphasis: {
+                                    show: false
+                                }
+                            },
+                            data: seriesData  //数据
+                        }]
+                    };
+                    break;
+                default:
+                    break;
+            }
+            return option
+        }
+        fillChartBoxData = (chartBoxIdSelector, tabName) => {
+            $.ajax({
+                cache: false,
+                type: "get",
+                url: "{% url "policy:chartData" %}",
+                data: {'tab': tabName},
+                async: true,
+                success: function (charts) {
+                    console.log(charts)
+                    let chartBoxId = chartBoxIdSelector.slice(1)
+                    $(chartBoxIdSelector).append('<h3>' + tabName + '</h3>')
+                    let i = 1;
+                    let chartsBoxTitle = '<ul class="nav nav-tabs">'
+                    let chartBoxTitle = ''
+                    charts.map((chart, idx) => {
+                        idx++;
+                        console.log('idx', idx)
+                        let chartTabId = chartBoxId + "Tab" + idx;
+                        let chartTabClass = "chartTab";
+                        if (idx === 1) {
+                            chartBoxTitle = '<li id="' + chartTabId + '" class="' + chartTabClass + ' active"><a>' + chart.fields.tab2 + '</a></li>'
+
+                        } else {
+                            chartBoxTitle = '<li id="' + chartTabId + '" class="' + chartTabClass + '"><a>' + chart.fields.tab2 + '</a></li>'
+
+                        }
+                        chartsBoxTitle += chartBoxTitle
+                    })
+                    chartsBoxTitle += '</ul>'
+                    $(chartBoxIdSelector).append(chartsBoxTitle)
+                    charts.forEach((chart) => {
+                        let chartId = chartBoxId + "-" + i;
+                        let chartClass = chartBoxId + ""
+                        let chartDiv = "<div id='" + chartId + "' class='" + chartClass + " ' style='height:400px;'></div>";
+                        $(chartBoxIdSelector).append(chartDiv)
+                        console.log(chartId, chartDiv)
+                        console.log(chart.fields.type, chart.fields.data)
+                        let theChart = echarts.init(document.getElementById(chartId));
+                        let option = genOption(chart.fields.title, chart.fields.type, chart.fields.data)
+                        theChart.setOption(option);
+                        if (i !== 1) {
+                            $("#" + chartId).addClass('dispear');
+                        }
+                        i++;
+                    })
+                },
+            });
+
+        }
+        fillChartBoxData('#chartBox1', '科技成果库分析')
+        fillChartBoxData('#chartBox2', '科研机构分析')
+        fillChartBoxData('#chartBox3', '科研人才分析')
+        fillChartBoxData('#chartBox4', '可转化成果分析')
+        fillChartBoxData('#chartBox5', '应用技术成果分析')
+
+
+        $(() => {
+            setTimeout(
+                () => {
+                    $(".chartTab").click(function () {
+                        let tabId = $(this).attr("id");
+                        console.log('tabId', tabId)
+                        let chartClass = tabId.slice(0, 9)
+                        let id = tabId.slice(12)
+                        console.log("#" + chartClass + "-" + id)
+                        $(this).parent().children().removeClass('active')
+                        $(this).addClass('active')
+                        $("." + chartClass).addClass('dispear')
+                        $("#" + chartClass + "-" + id).removeClass('dispear')
+                    })
+                }, 2000
+            )
+
+        });
+
+    </script>
+{% endblock %}

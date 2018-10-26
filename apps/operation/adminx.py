@@ -25,14 +25,18 @@ class UserMessageAdmin(object):
 
 
 class BuyerPatentAdmin(object):
-    list_display = ['seller', 'patent', 'add_time']
-    search_fields = ['seller', 'patent']
-    list_filter = ['seller', 'patent', 'add_time']
+    list_display = ['buyer', 'patent', 'order_name', 'order_address', 'order_contact', 'order_mobile', 'base_price',
+                    'serve_fee', 'total_price', 'step', 'add_time']
+    search_fields = ['buyer', 'patent', 'order_name', 'order_address', 'order_contact', 'order_mobile', 'base_price',
+                     'serve_fee', 'total_price', 'step', ]
+    list_filter = ['buyer', 'patent', 'order_name', 'order_address', 'order_contact', 'order_mobile', 'base_price',
+                   'serve_fee', 'total_price', 'step', 'add_time']
+
 
 class BuyerProjectAdmin(object):
-    list_display = ['seller', 'project', 'add_time']
-    search_fields = ['seller', 'project']
-    list_filter = ['seller', 'project', 'add_time']
+    list_display = ['buyer', 'project', 'step', 'contract', 'protocol', 'add_time']
+    search_fields = ['buyer', 'project', 'step', 'contract', 'protocol']
+    list_filter = ['buyer', 'project', 'step', 'contract', 'protocol', 'add_time']
 
 
 xadmin.site.register(UserAsk, UserAskAdmin)

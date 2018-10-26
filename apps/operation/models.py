@@ -65,17 +65,19 @@ class BuyerPatent(models.Model):
 
 
 class BuyerProject(models.Model):
-    user = models.ForeignKey(UserProfile, verbose_name=u'买家')
+    buyer = models.ForeignKey(UserProfile, verbose_name=u'买家')
     project = models.ForeignKey(Project, verbose_name=u'项目')
     step = models.CharField(max_length=10, default='0', choices=(('0', u'未付款'), ('1', u'已付款'), ('2', u'已提交专利局')),
                             verbose_name=u'合作阶段')
     contract = models.FileField(
         upload_to="contract/resource/%Y/%m",
         verbose_name=u"合同",
+        default='',
         max_length=100)
     protocol = models.FileField(
         upload_to="protocol/resource/%Y/%m",
         verbose_name=u"协议",
+        default='',
         max_length=100)
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 

@@ -12,9 +12,12 @@ class CategoryAdmin(object):
 
 
 class ProjectAdmin(object):
-    list_display = ['name', 'field_category', 'project_step', 'cooperation', 'province', 'price','bargain','hire','keyword','status','detail', 'click_num', 'fav_num', 'add_time']
-    search_fields = ['name', 'field_category', 'project_step', 'cooperation', 'province', 'price','bargain','hire','keyword','status','detail', 'click_num', 'fav_num']
-    list_filter = ['name', 'field_category', 'project_step', 'cooperation', 'province', 'price','bargain','hire','keyword','status','detail', 'click_num', 'fav_num', 'add_time']
+    list_display = ['name', 'field_category', 'project_step', 'cooperation', 'province', 'price', 'bargain', 'hire',
+                    'keyword', 'status', 'detail', 'click_num', 'fav_num', 'add_time']
+    search_fields = ['name', 'field_category', 'project_step', 'cooperation', 'province', 'price', 'bargain', 'hire',
+                     'keyword', 'status', 'detail', 'click_num', 'fav_num']
+    list_filter = ['name', 'field_category', 'project_step', 'cooperation', 'province', 'price', 'bargain', 'hire',
+                   'keyword', 'status', 'detail', 'click_num', 'fav_num', 'add_time']
 
 
 xadmin.site.register(Category, CategoryAdmin)

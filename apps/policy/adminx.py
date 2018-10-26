@@ -2,27 +2,41 @@
 
 import xadmin
 
-from .models import Province, Department, Policy
+from .models import Province, Department, Policy, Banner, Chart
 
 
 class ProvinceAdmin(object):
-    list_display = ['name']
-    search_fields = ['name']
-    list_filter = ['name']
+    list_display = ['name', 'if_show']
+    search_fields = ['name', 'if_show']
+    list_filter = ['name', 'if_show']
 
 
 class DepartmentAdmin(object):
-    list_display = ['name', 'Province']
-    search_fields = ['name', 'Province']
-    list_filter = ['name', 'Province']
+    list_display = ['name', 'if_show']
+    search_fields = ['name', 'if_show']
+    list_filter = ['name', 'if_show']
 
 
 class PolicyAdmin(object):
-    list_display = ['name', 'Province', 'Department', 'detail', 'click_num', 'fav_num', 'publish_time', 'add_time']
-    search_fields = ['name', 'Province', 'Department', 'detail', 'click_num', 'fav_num']
-    list_filter = ['name', 'Province', 'Department', 'detail', 'click_num', 'fav_num', 'publish_time', 'add_time']
+    list_display = ['policy_id', 'title', 'addr', 'source', 'click_num', 'fav_num', 'pubDate']
+    search_fields = ['policy_id', 'title', 'addr', 'source', 'click_num', 'fav_num', 'pubDate']
+    list_filter = ['policy_id', 'title', 'addr', 'source', 'click_num', 'fav_num', 'pubDate']
+
+
+class BannerAdmin(object):
+    list_display = ['title', 'detail', 'click_num', 'fav_num', 'if_show', 'add_time']
+    search_fields = ['title', 'detail', 'click_num', 'fav_num', 'if_show']
+    list_filter = ['title', 'detail', 'click_num', 'fav_num', 'if_show', 'add_time']
+
+
+class ChartAdmin(object):
+    list_display = ['tab', 'tab2', 'title', 'type', 'data', 'click_num', 'fav_num', 'add_time']
+    search_fields = ['tab', 'tab2', 'title', 'type', 'data', 'click_num', 'fav_num']
+    list_filter = ['tab', 'tab2', 'title', 'type', 'data', 'click_num', 'fav_num', 'add_time']
 
 
 xadmin.site.register(Province, ProvinceAdmin)
 xadmin.site.register(Department, DepartmentAdmin)
 xadmin.site.register(Policy, PolicyAdmin)
+xadmin.site.register(Banner, BannerAdmin)
+xadmin.site.register(Chart, ChartAdmin)

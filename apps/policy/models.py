@@ -10,9 +10,12 @@ from django.db import models
 
 class Province(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'行政名称')
+    main = models.CharField(max_length=100, choices=(('0', u'中央'), ('1', u'北京'), ('2', '天津'), ('3', '河北省')),
+                            default='0', null=True,verbose_name=u'上级名称')
+    if_show = models.BooleanField(default=True, verbose_name=u'是否显示')
 
     class Meta:
-        verbose_name = u'省份'
+        verbose_name = u'行政级别'
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
@@ -20,8 +23,8 @@ class Province(models.Model):
 
 
 class Department(models.Model):
-    Province = models.ForeignKey(Province, verbose_name=u'所属行政')
     name = models.CharField(max_length=100, verbose_name=u'部门名称')
+    if_show = models.BooleanField(default=True, verbose_name=u'是否显示')
 
     class Meta:
         verbose_name = u'部门'
@@ -32,13 +35,14 @@ class Department(models.Model):
 
 
 class Policy(models.Model):
-    name = models.CharField(max_length=100, verbose_name=u'政策名')
-    Province = models.ForeignKey(Province, verbose_name=u'所属行政')
-    Department = models.ForeignKey(Department, verbose_name=u'所属部门')
-    detail = models.TextField(verbose_name=u'政策详情')
+    title = models.CharField(max_length=100, default='', verbose_name=u'政策名')
+    policy_id = models.CharField(max_length=20, default='', verbose_name=u'政策ID')
+    addr = models.ForeignKey(Province, verbose_name=u'所属行政')
+    source = models.ForeignKey(Department, verbose_name=u'所属部门')
+    info = models.TextField(verbose_name=u'政策详情')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
-    publish_time = models.DateTimeField(default=datetime.now, verbose_name=u'发布日期')
+    pubDate = models.DateTimeField(default=datetime.now, verbose_name=u'发布日期')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加日期')
 
     class Meta:
@@ -46,7 +50,7 @@ class Policy(models.Model):
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
-        return self.name
+        return self.title
 
 
 class Banner(models.Model):
@@ -54,23 +58,31 @@ class Banner(models.Model):
     detail = models.TextField(verbose_name=u'咨讯详情')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
-    publish_time = models.DateTimeField(default=datetime.now, verbose_name=u'发布日期')
+    if_toutiao = models.BooleanField(default=False, verbose_name=u'是否是头条')
+    if_show = models.BooleanField(default=False, verbose_name=u'是否显示')
+    pic = models.ImageField(upload_to='image/%Y/%m', default='image/default.png', max_length=100,
+                            verbose_name=u'主图')
+    pubDate = models.DateTimeField(default=datetime.now, verbose_name=u'发布日期')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加日期')
 
     class Meta:
-        verbose_name = '咨询信息'
+        verbose_name = '头条信息'
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
-        return self.name
+        return self.title
 
 
 class Chart(models.Model):
-    title = models.CharField(max_length=100, verbose_name=u'图表名')
-    data = models.TextField(verbose_name=u'图表数据')
+    tab = models.CharField(default='', max_length=20, verbose_name='主菜单')
+    tab2 = models.CharField(default='', max_length=20, verbose_name='分菜单')
+    title = models.CharField(default='', max_length=100, verbose_name=u'图表名')
+    data = models.TextField(default='', verbose_name=u'图表数据')
+    type = models.CharField(default='pie', choices=(
+        ('pie', u'饼状图'), ('bar', u'柱状图'), ('bar2', u'横向柱状图'), ('line', u'折线图'), ('map', u'地图')), max_length=100,
+                            verbose_name=u'图表类型')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
-    publish_time = models.DateTimeField(default=datetime.now, verbose_name=u'发布日期')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加日期')
 
     class Meta:
@@ -78,4 +90,4 @@ class Chart(models.Model):
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
-        return self.name
+        return self.title

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}专利列表{% endblock %}
+{% block custom_bread %}
+    <section>
+        <div>
+            <ul>
+                <li><a href="/">首页</a></li>
+                <li>专利商品</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+    <div>
+        {% for provice in all_province %}
+            <a href="/">{{ provice.name }}</a>
+        {% endfor %}
+    </div>
+    <div>
+        <a href="?department="><span
+                class="{% ifequal department_id '' %}active{% endifequal %}">全部</span> </a>
+        {% for department in all_department %}
+            <a href="?department={{ department.id }}"><span
+                    class="{% ifequal department_id department.id|stringformat:'i' %}active{% endifequal %}">{{ department.name }}</span>
+            </a>
+        {% endfor %}
+    </div>
+    <div>
+        <p>共{{ patent_nums }}个专利</p>
+    </div>
+    <div>
+        {% for patent in all_patent.object_list %}
+            <a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a>
+            <p>{{ patent.detail }}</p>
+        {% endfor %}
+    </div>
+    {#    <div id="pagination">#}
+    {#        {{ all_patent.render }}#}
+    {#    </div>#}
+    <div class="pagination">
+        {% if all_patent.has_previous %}
+            <a href="?{{ all_patent.previous_page_number.querystring }}"
+               class="prev">&lsaquo;&lsaquo; 上一页</a>
+        {% else %}
+            <span class="disabled prev">&lsaquo;&lsaquo; 上一页</span>
+        {% endif %}
+        {% for page in all_patent.pages %}
+            {% if page %}
+                {% ifequal page all_patent.number %}
+                    <span class="current page">{{ page }}</span>
+                {% else %}
+                    <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+                {% endifequal %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+        {% if all_patent.has_next %}
+            <a href="?{{ all_patent.next_page_number.querystring }}" class="next">下一页
+                &rsaquo;&rsaquo;</a>
+        {% else %}
+            <span class="disabled next">下一页 &rsaquo;&rsaquo;</span>
+        {% endif %}
+    </div>
+
+
+    <div>
+        {% for patent in newest_patent %}
+            <a href="/">{{ patent.name }}</a>
+            <p>{{ patent.detail }}</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

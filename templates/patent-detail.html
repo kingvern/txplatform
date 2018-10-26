@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}专利展示{% endblock %}
+{% block custom_bread %}
+    <section>
+        <div>
+            <ul>
+                <li><a href="/">首页</a></li>
+                <li>专利商品</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+
+{#    <div>#}
+{#        {% for relate_patent in relate_patents %}#}
+{#            <a href="/patent/detail/{{ relate_patent.id }}/">{{ relate_patent.name }}</a>#}
+{#            <p>{{ relate_patent.detail }}</p>#}
+{#        {% endfor %}#}
+{#    </div>#}
+
+    <div>
+        <p>详情</p>
+        <p>专利名称：{{ patent.title }}</p>
+        <p>专利详情：{{ patent.info }}</p>
+    </div>
+
+
+{% endblock %}

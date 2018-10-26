@@ -27,7 +27,7 @@ SECRET_KEY = '!tm3u*pdu+j6v425slv@x@k-x8m-)%f(76oiyt&g6nwqpv6o88'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 AUTHENTICATION_BACKENDS = (
@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'platorm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'platform',
+        'NAME': 'txplatform',
         'USER': 'root',
         'PASSWORD': '123123',
         'HOST': '47.94.160.142'
