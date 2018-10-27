@@ -37,6 +37,8 @@ urlpatterns = [
     url(r'^modify_pwd/$', ModifyPwdView.as_view(), name='modify_pwd'),
     url(r'^reset_pwd/$', ResetPwdView.as_view(), name='reset_pwd'),
 
+    url(r'^users/', include('users.urls', namespace='users')),
+
     url(r'^policy/', include('policy.urls', namespace='policy')),
     url(r'^patent/', include('patent.urls', namespace='patent')),
     url(r'^project/', include('project.urls', namespace='project')),

@@ -77,12 +77,20 @@ class PolicyListViewBak(View):
         })
 
 
+class PolicyHomeView(View):
+    def get(self, request):
+        banners = Banner.objects.filter(if_show=True)
+
+        policy = Policy.objects.order_by('-pubDate')[:20]
+
+        return render(request, 'policy-home.html', {
+            'banners': banners,
+            'policy_list': policy,
+        })
+
+
 class PolicyListView(View):
     def get(self, request):
-
-        all_banner = Banner.objects.all()
-        banners = all_banner.filter(if_show=True)
-
         all_policy = Policy.objects.all()
         provinces = Province.objects.all()
         all_department = Department.objects.all()
@@ -92,25 +100,25 @@ class PolicyListView(View):
         main = '0'
         mains = [u'中央', u'北京', u'天津', u'河北']
 
-        department_id = request.GET.get('department', '')
-        if department_id:
-            policy = policy.filter(source=department_id)
         province_id = request.GET.get('province', '3')
         if province_id:
             policy = policy.filter(addr=province_id)
             main = provinces.get(id=province_id).main
-            # provinces = provinces.filter(main=main)
-            # print province.get(id=province_id)
-        provincesArray = []
+
+        provinceArray = []
         for main_ in range(4):
             province = provinces.filter(main=main_)
-            provincesArray.append(province)
+            provinceArray.append(province)
 
         policy = policy.order_by('source')
         departments_id = policy.values('source').distinct()
         departments = []
         for department_ in departments_id:
             departments.append(all_department.get(id=department_['source']))
+
+        department_id = request.GET.get('department', '')
+        if department_id:
+            policy = policy.filter(source=department_id)
 
         policy = policy.order_by('-pubDate')
         policy_nums = policy.count()
@@ -121,84 +129,16 @@ class PolicyListView(View):
         p = Paginator(policy, 15, request=request)
         policy_data = p.page(page)
 
-        all_chart = Chart.objects.all()
-
         return render(request, 'policy-list.html', {
-            'banners': banners,
-
             'main': main,
             'mains': mains,
-            'policy': policy_data,
-            'departments': departments,
             'policy_nums': policy_nums,
             'province_id': province_id,
-            'provincesArray': provincesArray,
+            'provincesArray': provinceArray,
             'department_id': department_id,
-
-            'all_chart': all_chart
+            'departments': departments,
+            'policy': policy_data,
         })
-
-
-class APolicyDataView(View):
-    def get(self, request):
-        all_policy = Policy.objects.all()
-        departments = Department.objects.all()
-
-        a_policy = all_policy.filter(addr_id__in=[3, 4])
-        a_departments_id = a_policy.values('source').distinct()
-        a_department = []
-        for a_department_ in a_departments_id:
-            a_department.append(departments.get(id=a_department_['source']))
-        a_department_id = request.GET.get('a_department', '')
-        if a_department_id:
-            a_policy = a_policy.filter(source=a_department_id)
-        a_policy = a_policy.order_by('-pubDate')
-        a_policy_nums = a_policy.count()
-        try:
-            a_page = request.GET.get('a_page', 1)
-        except PageNotAnInteger:
-            a_page = 1
-        a_p = Paginator(a_policy, 5, request=request)
-        a_policy_data = a_p.page(a_page)
-
-        res = {
-            'a_policy': a_policy_data,
-            'a_department': a_department,
-            'a_policy_nums': a_policy_nums,
-            'a_department_id': a_department_id,
-        }
-        return HttpResponse('{"status":"success", "data":"{0}"}'.format(res), content_type='application/json')
-
-
-class BPolicyDataView(View):
-    def get(self, request):
-        all_policy = Policy.objects.all()
-        departments = Department.objects.all()
-
-        b_policy = all_policy.exclude(addr_id__in=[3, 4])
-        b_departments_id = b_policy.values('source').distinct()
-        b_department = []
-        for b_department_ in b_departments_id:
-            b_department.append(departments.get(id=b_department_['source']))
-        b_department_id = request.GET.get('b_department', '')
-        if b_department_id:
-            b_policy = b_policy.filter(source=b_department_id)
-        b_policy = b_policy.order_by('-pubDate')
-        b_policy_nums = b_policy.count()
-        try:
-            b_page = request.GET.get('b_page', 1)
-        except PageNotAnInteger:
-            b_page = 1
-        b_p = Paginator(b_policy, 5, request=request)
-        b_policy_data = b_p.page(b_page)
-
-        res = {
-            'b_policy': b_policy_data,
-            'b_department': b_department,
-            'b_policy_nums': b_policy_nums,
-            'b_department_id': b_department_id,
-        }
-        return HttpResponse('{"status":"success", "data":"{0}"}'.format(res), content_type='application/json')
 
 
 class PolicyDetailView(View):
@@ -297,3 +237,65 @@ class AddUserAskView(View):
         else:
             return HttpResponse("{'status':'fail','msg':{0}}".format(userask_form.errors),
                                 content_type='application/json')
+
+
+# class APolicyDataView(View):
+#     def get(self, request):
+#         all_policy = Policy.objects.all()
+#         departments = Department.objects.all()
+#
+#         a_policy = all_policy.filter(addr_id__in=[3, 4])
+#         a_departments_id = a_policy.values('source').distinct()
+#         a_department = []
+#         for a_department_ in a_departments_id:
+#             a_department.append(departments.get(id=a_department_['source']))
+#         a_department_id = request.GET.get('a_department', '')
+#         if a_department_id:
+#             a_policy = a_policy.filter(source=a_department_id)
+#         a_policy = a_policy.order_by('-pubDate')
+#         a_policy_nums = a_policy.count()
+#         try:
+#             a_page = request.GET.get('a_page', 1)
+#         except PageNotAnInteger:
+#             a_page = 1
+#         a_p = Paginator(a_policy, 5, request=request)
+#         a_policy_data = a_p.page(a_page)
+#
+#         res = {
+#             'a_policy': a_policy_data,
+#             'a_department': a_department,
+#             'a_policy_nums': a_policy_nums,
+#             'a_department_id': a_department_id,
+#         }
+#         return HttpResponse('{"status":"success", "data":"{0}"}'.format(res), content_type='application/json')
+#
+#
+# class BPolicyDataView(View):
+#     def get(self, request):
+#         all_policy = Policy.objects.all()
+#         departments = Department.objects.all()
+#
+#         b_policy = all_policy.exclude(addr_id__in=[3, 4])
+#         b_departments_id = b_policy.values('source').distinct()
+#         b_department = []
+#         for b_department_ in b_departments_id:
+#             b_department.append(departments.get(id=b_department_['source']))
+#         b_department_id = request.GET.get('b_department', '')
+#         if b_department_id:
+#             b_policy = b_policy.filter(source=b_department_id)
+#         b_policy = b_policy.order_by('-pubDate')
+#         b_policy_nums = b_policy.count()
+#         try:
+#             b_page = request.GET.get('b_page', 1)
+#         except PageNotAnInteger:
+#             b_page = 1
+#         b_p = Paginator(b_policy, 5, request=request)
+#         b_policy_data = b_p.page(b_page)
+#
+#         res = {
+#             'b_policy': b_policy_data,
+#             'b_department': b_department,
+#             'b_policy_nums': b_policy_nums,
+#             'b_department_id': b_department_id,
+#         }
+#         return HttpResponse('{"status":"success", "data":"{0}"}'.format(res), content_type='application/json')

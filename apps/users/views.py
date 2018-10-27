@@ -1,14 +1,24 @@
 # _*_ encoding:utf-8 _*_
+import json
+
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
+from operation.models import UserFavorite, UserMessage
+from project.models import Project
+from patent.models import Patent
 from .models import UserProfile, EmailVerifyRecord
 from .forms import LoginForm, RegisterForm, ResetPwdForm, ModifyPwdForm
 from utils.email_send import send_register_email
+
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class CustomBackend(ModelBackend):
@@ -129,15 +139,170 @@ class ResetPwdView(View):
         else:
             return render(request, 'reset_pwd.html', {'reset_pwd_form': reset_pwd_form})
 
-# def user_login(request):
-#     if request.method == 'GET':
-#         return render(request, 'login.html', {})
-#     elif request.method == 'POST':
-#         user_name = request.POST.get('username', '')
-#         pass_word = request.POST.get('password', '')
-#         user = authenticate(username=user_name, password=pass_word)
-#         if user is not None:
-#             login(request, user)
-#             return render(request, 'index.html')
-#         else:
-#             return render(request, 'login.html', {'msg': '用户名或密码错误！'})
+
+class UpdatePwdView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
+    def post(self, request):
+        modify_form = ModifyPwdForm(request.POST)
+        if modify_form.is_valid():
+            pwd1 = request.POST.get("password1", "")
+            pwd2 = request.POST.get("password2", "")
+            # 如果两次密码不相等，返回错误信息
+            if pwd1 != pwd2:
+                return HttpResponse(
+                    '{"status":"fail", "msg":"密码不一致"}',
+                    content_type='application/json')
+            # 如果密码一致
+            user = request.user
+            # 加密成密文
+            user.password = make_password(pwd2)
+            # save保存到数据库
+            user.save()
+            return HttpResponse(
+                '{"status":"success"}',
+                content_type='application/json')
+        # 验证失败说明密码位数不够。
+        else:
+            # 通过json的dumps方法把字典转换为json字符串
+            return HttpResponse(
+                json.dumps(
+                    modify_form.errors),
+                content_type='application/json')
+
+
+class LogoutView(View):
+    def get(self, request):
+        # django自带的logout
+        logout(request)
+        # 重定向到首页,
+        return HttpResponseRedirect(reverse("index"))
+
+
+class UserInfoView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
+    def get(self, request):
+        return render(request, "usercenter-info.html", {
+
+        })
+
+    def post(self, request):
+        # 不像用户咨询是一个新的。需要指明instance。不然无法修改，而是新增用户
+        user_info_form = UserInfoForm(request.POST, instance=request.user)
+        if user_info_form.is_valid():
+            user_info_form.save()
+            return HttpResponse(
+                '{"status":"success"}',
+                content_type='application/json')
+        else:
+            # 通过json的dumps方法把字典转换为json字符串
+            return HttpResponse(
+                json.dumps(
+                    user_info_form.errors),
+                content_type='application/json')
+
+
+# 用户上传图片的view:用于修改头像
+
+class UploadImageView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
+    def post(self, request):
+        # 这时候用户上传的文件就已经被保存到imageform了 ，为modelform添加instance值直接保存
+        image_form = UploadImageForm(
+            request.POST, request.FILES, instance=request.user)
+        if image_form.is_valid():
+            image_form.save()
+            # # 取出cleaned data中的值,一个dict
+            # image = image_form.cleaned_data['image']
+            # request.user.image = image
+            # request.user.save()
+            return HttpResponse(
+                '{"status":"success"}',
+                content_type='application/json')
+        else:
+            return HttpResponse(
+                '{"status":"fail"}',
+                content_type='application/json')
+
+
+# 个人中心页我的订单
+
+class MyOrderView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
+    def get(self, request):
+        user_courses = UserCourse.objects.filter(user=request.user)
+        return render(request, "usercenter-mycourse.html", {
+            "user_courses": user_courses,
+        })
+
+
+# 我收藏的
+
+class MyFavView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
+    def get(self, request):
+        patent_list = []
+        patent_ids = UserFavorite.objects.filter(user=request.user, fav_type=0)
+        for patent_id in patent_ids:
+            patent = Patent.objects.get(id=patent_id)
+            patent_list.append(patent)
+
+        project_list = []
+        project_ids = UserFavorite.objects.filter(user=request.user, fav_type=1)
+        for project_id in project_ids:
+            project = Project.objects.get(id=project_id)
+            project_list.append(project)
+
+        return render(request, "usercenter-fav.html", {
+            "patent_list": patent_list,
+            "project_list": project_list
+        })
+
+
+# 我的消息
+class MyMessageView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
+    def get(self, request):
+        all_message = UserMessage.objects.filter(user=request.user.id)
+
+        # 用户进入个人中心消息页面，清空未读消息记录
+        all_unread_messages = UserMessage.objects.filter(user=request.user.id, has_read=False)
+        for unread_message in all_unread_messages:
+            unread_message.has_read = True
+            unread_message.save()
+        # 对课程机构进行分页
+        # 尝试获取前台get请求传递过来的page参数
+        # 如果是不合法的配置参数默认返回第一页
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+        # 这里指从allorg中取五个出来，每页显示5个
+        p = Paginator(all_message, 4)
+        messages = p.page(page)
+        return render(request, "usercenter-message.html", {
+            "messages": messages,
+        })
+
+
+## 首页view
+class IndexView(View):
+    def get(self, request):
+        project = Project.objects.all().order_by('index')[:5]
+        # 正常位课程
+        patent = Patent.objects.filter(is_banner=False)[:6]
+        return render(request, 'index.html', {
+            "project": project,
+            "patent": patent,
+        })

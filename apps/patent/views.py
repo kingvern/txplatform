@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from .models import Patent
 from operation.models import UserFavorite
 
+
 # Create your views here.
 
 class PatentListView(View):
@@ -16,6 +17,33 @@ class PatentListView(View):
         patent_category = request.GET.get('patent_category', '')
         price_down = request.GET.get('price_down', '')
         price_up = request.GET.get('price_up', '')
+
+        # field_categorys = all_patent.values_list('field_category').distinct()
+        # FIELD = {
+        #     '0': u'食品饮料', '1': u'建筑建材', '2': u'家居用品', '3': u'轻工纺织', '4': u'化学化工', '5': u'新能源', '6': u'机械',
+        #     '7': u'环保和资源', '8': u'橡胶塑料', '9': u'仪器仪表', '10': u'新型材料', '11': u'电子信息', '12': u'医药与医疗',
+        #     '13': u'农林牧业', '14': u'海洋开发', '15': u'航空航天', '16': u'采矿冶金', '17': u'电气自动化', '18': u'包装印刷',
+        #     '19': u'教育休闲', '20': u'钒钛产业', '21': u'安全防护', '22': u'交通运输'
+        # }
+        FIELD = (
+            ('0', u'食品饮料'), ('1', u'建筑建材'), ('2', u'家居用品'), ('3', u'轻工纺织'), ('4', u'化学化工'), ('5', u'新能源'),
+            ('6', u'机械'),
+            ('7', u'环保和资源'), ('8', u'橡胶塑料'), ('9', u'仪器仪表'), ('10', u'新型材料'), ('11', u'电子信息'), ('12', u'医药与医疗'),
+            ('13', u'农林牧业'), ('14', u'海洋开发'), ('15', u'航空航天'), ('16', u'采矿冶金'), ('17', u'电气自动化'), ('18', u'包装印刷'),
+            ('19', u'教育休闲'), ('20', u'钒钛产业'), ('21', u'安全防护'), ('22', u'交通运输'))
+
+        # field_categorys_array = []
+        # for field_category in field_categorys:
+        #     field_categorys_array.append({'key': field_category[0], 'value': FIELD[field_category[0]]})
+
+        patent_categorys = all_patent.values_list('patent_category').distinct()
+        # PATENT = {
+        #     'fmzl': u'发明专利', 'syxxzl': u'实用新型专利', 'wgzl': '外观专利'
+        # }
+        PATENT = (('fmzl', u'发明专利'), ('syxxzl', u'实用新型专利'), ('wgzl', '外观专利'))
+        # patent_categorys_array = []
+        # for patent_category in patent_categorys:
+        #     patent_categorys_array.append({'key': patent_category[0], 'value': PATENT[patent_category[0]]})
 
         if field_category:
             all_patent = all_patent.filter(field_category=field_category)
@@ -40,16 +68,19 @@ class PatentListView(View):
         return render(request, 'patent-list.html', {
             'all_patent': patent,
             'patent_nums': patent_nums,
-            'field_category': field_category,
-            'patent_category': patent_category,
+            'field_category_id': field_category,
+            'patent_category_id': patent_category,
             'price_down': price_down,
-            'price_up': price_up
+            'price_up': price_up,
+            'field_categorys': FIELD,
+            'patent_categorys': PATENT
         })
-    
+
+
 class PatentDetailView(View):
     def get(self, request, patent_id):
         # 此处的id为表默认为我们添加的值。
-        patent = Patent.objects.get(id = int(patent_id))
+        patent = Patent.objects.get(id=int(patent_id))
         # 增加专利点击数
         # patent.click_nums += 1
         patent.save()
@@ -68,8 +99,8 @@ class PatentDetailView(View):
             relate_patents = Patent.objects.filter(keyword=keyword)[1:2]
         else:
             relate_patents = []
-        return  render(request, "patent-detail.html", {
-            "patent":patent,
-            "relate_patents":relate_patents,
-            "has_fav_patent":has_fav_patent,
+        return render(request, "patent-detail.html", {
+            "patent": patent,
+            "relate_patents": relate_patents,
+            "has_fav_patent": has_fav_patent,
         })

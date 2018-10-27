@@ -3,65 +3,102 @@
 {% block title %}专利列表{% endblock %}
 {% block custom_bread %}
     <section>
-        <div>
-            <ul>
-                <li><a href="/">首页</a></li>
-                <li>专利商品</li>
-            </ul>
-        </div>
+        <ul class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li class="active">专利商品</li>
+        </ul>
     </section>
 {% endblock %}
 {% block content %}
-    <div>
-        {% for provice in all_province %}
-            <a href="/">{{ provice.name }}</a>
-        {% endfor %}
-    </div>
-    <div>
-        <a href="?department="><span
-                class="{% ifequal department_id '' %}active{% endifequal %}">全部</span> </a>
-        {% for department in all_department %}
-            <a href="?department={{ department.id }}"><span
-                    class="{% ifequal department_id department.id|stringformat:'i' %}active{% endifequal %}">{{ department.name }}</span>
-            </a>
-        {% endfor %}
-    </div>
-    <div>
-        <p>共{{ patent_nums }}个专利</p>
-    </div>
-    <div>
-        {% for patent in all_patent.object_list %}
-            <a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a>
-            <p>{{ patent.detail }}</p>
-        {% endfor %}
-    </div>
-    {#    <div id="pagination">#}
-    {#        {{ all_patent.render }}#}
-    {#    </div>#}
-    <div class="pagination">
-        {% if all_patent.has_previous %}
-            <a href="?{{ all_patent.previous_page_number.querystring }}"
-               class="prev">&lsaquo;&lsaquo; 上一页</a>
-        {% else %}
-            <span class="disabled prev">&lsaquo;&lsaquo; 上一页</span>
-        {% endif %}
-        {% for page in all_patent.pages %}
-            {% if page %}
-                {% ifequal page all_patent.number %}
-                    <span class="current page">{{ page }}</span>
-                {% else %}
-                    <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
-                {% endifequal %}
+    {#筛选#}
+    <div class=" col-md-12">
+        <div class="">
+            {#筛选行业分类#}
+            <div class="">
+                <span class="">行业分类</span>
+                <ul class="nav nav-tabs">
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1"
+                           href="?field_category=&patent_category={{ patent_category_id }}"><span
+                                class="{% ifequal field_category_id '' %}active{% endifequal %}">全部</span></a>
+                    </li>
+                    {% for field_category_ in field_categorys %}
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1"
+                               href="?field_category={{ field_category_.0 }}&patent_category={{ patent_category_id }}"><span
+                                    class="{% ifequal field_category_.0 field_category_id %}active{% endifequal %}">
+                                    {{ field_category_.1 }}</span></a>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+            {#筛选专利分类#}
+            <div class="">
+                <span class="">专利分类</span>
+                <ul class="nav nav-tabs">
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1"
+                           href="?patent_category=&field_categorys={{ field_categorys_id }}"><span
+                                class="{% ifequal patent_category_id '' %}active{% endifequal %}">全部</span></a>
+                    </li>
+                    {% for patent_category_ in patent_categorys %}
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1"
+                               href="?patent_category={{ patent_category_.0 }}&field_categorys={{ field_categorys_id }}"><span
+                                    class="{% ifequal patent_category_.0 patent_category_id %}active{% endifequal %}">
+                                    {{ patent_category_.1 }}</span></a>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+        <div>
+            <p>共{{ patent_nums }}个专利</p>
+        </div>
+
+        {#内容#}
+        <div>
+            {% for patent in all_patent.object_list %}
+                <a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a>
+                <p>{{ patent.detail }}</p>
+                <span>收藏</span>
+                <span>咨询</span>
+            {% endfor %}
+        </div>
+        {#分页#}
+        <ul class="pagination">
+            {% if all_patent.has_previous %}
+                <li>
+                    <a href="?field_category={{ field_category_id }}&patent_category={{ patent_category_id }}&page={{ all_patent.previous_page_number }}"
+                       class="prev">&lsaquo;&lsaquo; </a></li>
             {% else %}
-                ...
+                <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>
             {% endif %}
-        {% endfor %}
-        {% if all_patent.has_next %}
-            <a href="?{{ all_patent.next_page_number.querystring }}" class="next">下一页
-                &rsaquo;&rsaquo;</a>
-        {% else %}
-            <span class="disabled next">下一页 &rsaquo;&rsaquo;</span>
-        {% endif %}
+            {% for page in all_patent.pages %}
+                {% if page %}
+                    {% ifequal page all_patent.number %}
+                        <li><span class="current page">{{ page }}</span></li>
+                    {% else %}
+                        <li>
+                            <a href="?field_category={{ field_category_id }}&patent_category={{ patent_category_id }}&page={{ page }}"
+                               class="page">{{ page }}</a>
+                        </li>
+                    {% endifequal %}
+                {% else %}
+                    <li class="disabled"><span>...</span></li>
+                {% endif %}
+            {% endfor %}
+            {% if all_patent.has_next %}
+                <li>
+                    <a href="?field_category={{ field_category_id }}&patent_category={{ patent_category_id }}&page={{ all_patent.next_page_number }}"
+                       class="next">
+                        &rsaquo;&rsaquo;</a></li>
+            {% else %}
+                <li><span class="disabled next"> &rsaquo;&rsaquo;</span></li>
+            {% endif %}
+        </ul>
     </div>
 
 
