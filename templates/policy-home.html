@@ -4,21 +4,28 @@
 {% block title %}政策展示{% endblock %}
 {% block custom_bread %}
 {% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/policy.css' %}">
+{% endblock %}
 {% block content %}
-    <section class="container">
+    <section class="container module">
         {#头条#}
         {% for banner_ in banners %}
             {% if banner_.if_toutiao %}
-                <div class="col-md-12 row">
-                    <div class="col-md-6">
-                        <H1><a href="/policy/banner/{{ banner_.id }}/">{{ banner_.title }}</a></H1>
-                        <p>{{ banner_.detail }}</p>
+                <div class="row">
+                    <div class="col-md-7">
+                        <a class="toutiao-title" href="/policy/banner/{{ banner_.id }}/">{{ banner_.title }}</a>
+                        <p class="toutiao-content">{{ banner_.detail }}</p>
                     </div>
-                    <img class="col-md-6" src="{{ MEDIA_URL }}{{ banner_.pic }}"/>
+                    <div class="col-md-5">
+                        <img class="toutiao-img" src="{{ MEDIA_URL }}{{ banner_.pic }}"/>
+                    </div>
+
                 </div>
             {% else %}
-                <div class="col-md-12 row">
-                    <p><a href="/policy/banner/{{ banner_.id }}/">{{ banner_.title }}</a>{{ banner_.pubDate }}</p>
+                <div class="row  toutiao-list">
+                    <a class="toutiao-list-title" href="/policy/banner/{{ banner_.id }}/">{{ banner_.title }}</a>
+                    <span class="toutiao-list-time"> {{ banner_.pubDate }}</span>
                 </div>
             {% endif %}
 
@@ -27,41 +34,43 @@
         {% endfor %}
 
 
-
+    </section>
+    <section class="container module">
         {#政策列表#}
-        <div class="col-md-12">
-            <h2>政策</h2>
-            <a href="{% url 'policy:list' %}">更多</a>
+        <div class="">
+            <span class="module-title">政策跟踪</span>
+
             {% for policy in policy_list %}
-                <div class="">
+                <div class="policy-list">
                     <a href="/policy/detail/{{ policy.policy_id }}/">{{ policy.title }}</a>
                     <p>{{ policy.addr }}{{ policy.source }} {{ policy.pubDate }}</p>
                 </div>
 
             {% endfor %}
+            <a class="module-more"
+               href="{% url 'policy:list' %}">更多</a>
         </div>
-
+    </section>
+    <section class="container module">
         {#表格#}
-        <div class="col-md-12" id="chartBox">
-            <h2>图表</h2>
-            <div class="row">
-                <div id="chartBox1" class="col-md-6">
+        <div class="" id="chartBox">
+            <span class="module-title">数据统计</span>
+            <div class="col-md-12 row">
+                <div id="chartBox1" class="col-md-6 chart-box chart-box-left">
                 </div>
-                <div id="chartBox2" class="col-md-6">
-                </div>
-            </div>
-            <div class="row">
-                <div id="chartBox3" class="col-md-6">
-                </div>
-                <div id="chartBox4" class="col-md-6">
+                <div id="chartBox2" class="col-md-6 chart-box chart-box-right">
                 </div>
             </div>
-            <div class="row">
-                <div id="chartBox5" class="col-md-12">
+            <div class="col-md-12 row">
+                <div id="chartBox3" class="col-md-6 chart-box chart-box-left">
+                </div>
+                <div id="chartBox4" class="col-md-6 chart-box chart-box-right">
                 </div>
             </div>
-
-
+            <div class="col-md-12 row">
+                <div id="chartBox5" class="col-md-12 chart-box chart-box-bottom">
+                </div>
+            </div>
         </div>
 
 
@@ -69,7 +78,7 @@
 
 {% endblock %}
 {% block custom_js %}
-    <script src="https://cdn.bootcss.com/echarts/4.2.0-rc.1/echarts.min.js"></script>
+    <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
 
     <script type="text/javascript">
         genOption = (titleText, type, data) => {
@@ -449,9 +458,9 @@
                 success: function (charts) {
                     console.log(charts)
                     let chartBoxId = chartBoxIdSelector.slice(1)
-                    $(chartBoxIdSelector).append('<h3>' + tabName + '</h3>')
+                    $(chartBoxIdSelector).append('<span class="chart-tab">' + tabName + '</span>')
                     let i = 1;
-                    let chartsBoxTitle = '<ul class="nav nav-tabs">'
+                    let chartsBoxTitle = '<ul class="nav nav-tabs chart-tab-ul">'
                     let chartBoxTitle = ''
                     charts.map((chart, idx) => {
                         idx++;
@@ -459,10 +468,10 @@
                         let chartTabId = chartBoxId + "Tab" + idx;
                         let chartTabClass = "chartTab";
                         if (idx === 1) {
-                            chartBoxTitle = '<li id="' + chartTabId + '" class="' + chartTabClass + ' active"><a>' + chart.fields.tab2 + '</a></li>'
+                            chartBoxTitle = '<li id="' + chartTabId + '" class="' + chartTabClass + ' active"><a class="chart-tab2">' + chart.fields.tab2 + '</a></li>'
 
                         } else {
-                            chartBoxTitle = '<li id="' + chartTabId + '" class="' + chartTabClass + '"><a>' + chart.fields.tab2 + '</a></li>'
+                            chartBoxTitle = '<li id="' + chartTabId + '" class="' + chartTabClass + '"><a class="chart-tab2">' + chart.fields.tab2 + '</a></li>'
 
                         }
                         chartsBoxTitle += chartBoxTitle
