@@ -89,7 +89,15 @@
                 case 'pie':
                     let dataPieArray = []
                     console.log(data)
+                    let minValue=-10000000;
+                    let maxValue=+10000000;
                     data.forEach(dataItem => {
+                        if (minValue>dataItem[1]){
+                            minValue=dataItem[1]
+                        }
+                        if (maxValue<dataItem[1]){
+                            maxValue=dataItem[1]
+                        }
                         let item = {};
                         console.log(dataItem)
                         item.name = dataItem[0];
@@ -116,8 +124,8 @@
 
                         visualMap: {
                             show: false,
-                            min: 80,
-                            max: 600,
+                            min: minValue,
+                            max: maxValue,
                             inRange: {
                                 colorLightness: [0, 1]
                             }
