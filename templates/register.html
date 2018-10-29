@@ -7,8 +7,10 @@
 <body>
 <form action="{% url 'register' %}" method="post">
 
-    <input name="email" type="text" placeholder="email" value="{{ register_form.email.value }}"/>
-    <input name="password" type="password" placeholder="password" value="{{ register_form.password.value }}"/>
+    <input name="email" type="text" placeholder="phone"
+    />
+    <input name="password" type="password" placeholder="password"
+    />
     {{ register_form.captcha }}
     <input type="submit"/>
     {% for key,error in register_form.errors.items %}

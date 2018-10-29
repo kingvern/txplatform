@@ -87,19 +87,19 @@
                 </div>
             </span>
             <div class="col-md-12 row">
-                <div id="chartBox1" class="col-md-6 chart-box chart-box-left">
+                <div id="chartBox1" class="chart-box chart-box-left">
                 </div>
-                <div id="chartBox2" class="col-md-6 chart-box chart-box-right">
-                </div>
-            </div>
-            <div class="col-md-12 row">
-                <div id="chartBox3" class="col-md-6 chart-box chart-box-left">
-                </div>
-                <div id="chartBox4" class="col-md-6 chart-box chart-box-right">
+                <div id="chartBox2" class="chart-box chart-box-right">
                 </div>
             </div>
             <div class="col-md-12 row">
-                <div id="chartBox5" class="col-md-12 chart-box chart-box-bottom">
+                <div id="chartBox3" class="chart-box chart-box-left">
+                </div>
+                <div id="chartBox4" class="chart-box chart-box-right">
+                </div>
+            </div>
+            <div class="col-md-12 row">
+                <div id="chartBox5" class="chart-box chart-box-bottom">
                 </div>
             </div>
         </div>
@@ -144,7 +144,7 @@
                             left: 'center',
                             top: 20,
                             textStyle: {
-                                color: '#ccc'
+                                color: '#4d4d4d'
                             }
                         },
 
@@ -190,7 +190,7 @@
                                 },
                                 itemStyle: {
                                     normal: {
-                                        color: '#c23531', //color:'#3fa8f4',//color:'#ff921e',
+                                        color: '#3fa8f4', //color:'#3fa8f4',//color:'#ff921e',
                                         shadowBlur: 100,
                                         shadowColor: 'rgba(0, 0, 0, 0.2)'
                                     }
@@ -216,8 +216,16 @@
                         dataShadow.push(500)
                     })
                     option = {
+                        grid: {
+                            left: 100,
+                        },
                         title: {
                             text: titleText,
+                            left: 'center',
+                            top: 20,
+                            textStyle: {
+                                color: '#4d4d4d'
+                            },
                             subtext: ''
                         },
 
@@ -239,7 +247,9 @@
                             axisLine: {
                                 show: false
                             },
-                            z: 10
+                            z: 10,
+
+                            max: 'dataMax',
                         },
                         yAxis: {
                             axisLine: {
@@ -252,7 +262,8 @@
                                 textStyle: {
                                     color: '#666'
                                 }
-                            }
+                            },
+                            max: 'dataMax',
                         },
 
                         series: [
@@ -296,9 +307,16 @@
                         dataShadow2.push(500)
                     })
                     option = {
+                        grid: {
+                            left: 100,
+                        },
                         title: {
                             text: titleText,
-                            subtext: ''
+                            left: 'center',
+                            top: 20,
+                            textStyle: {
+                                color: '#4d4d4d'
+                            }
                         },
 
                         tooltip: {
@@ -310,7 +328,8 @@
                             axisLabel: {
                                 inside: false,
                                 textStyle: {
-                                    color: '#666'
+                                    color: '#666',
+                                    left: 'center',
                                 }
                             },
                             axisTick: {
@@ -319,7 +338,8 @@
                             axisLine: {
                                 show: false
                             },
-                            z: 10
+                            z: 10,
+                            max: 'dataMax',
                         },
                         xAxis: {
                             axisLine: {
@@ -332,7 +352,9 @@
                                 textStyle: {
                                     color: '#666'
                                 }
-                            }
+                            },
+
+                            max: 'dataMax',
                         },
 
                         series: [
@@ -405,9 +427,10 @@
                         title: {
                             text: titleText,
                             left: 'center',
+                            left: 'center',
                             top: 20,
                             textStyle: {
-                                color: '#ccc'
+                                color: '#4d4d4d'
                             }
                         },
                         tooltip: {
@@ -444,7 +467,11 @@
                         backgroundColor: '#FFFFFF',
                         title: {
                             text: '全国地图大数据',
-                            subtext: '',
+                            left: 'center',
+                            top: 20,
+                            textStyle: {
+                                color: '#4d4d4d'
+                            },
                             x: 'center'
                         },
                         tooltip: {

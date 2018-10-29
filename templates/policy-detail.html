@@ -1,33 +1,40 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}政策详情{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/policy.css' %}">
+{% endblock %}
 {% block custom_bread %}
-    <section>
+    <section class="container">
         <div>
-            <ul>
+            <ul class="breadcrumb">
                 <li><a href="/">首页</a></li>
-                <li>政策</li>
+                <li><a href="{% url 'policy:home' %}">政策展示</a></li>
+                <li><a>政策详情</a></li>
             </ul>
         </div>
     </section>
 {% endblock %}
 {% block content %}
 
+    <section class="container policy-banner-module">
+        <div class="module-content">
+
+            <h1 class="text-center">{{ policy.title }}</h1>
+            <p class="text-center">{{ policy.pubDate }}</p>
+            <div class="policy-content">
+                {% autoescape off %}
+                    {{ policy.info }}
+                {% endautoescape %}
+            </div>
+
+        </div>
+    </section>
     <div>
         {% for relate_policy in relate_policys %}
             <a href="/policy/detail/{{ relate_policy.id }}/">{{ relate_policy.name }}</a>
             <p>{{ relate_policy.detail }}</p>
         {% endfor %}
     </div>
-    <div>
-        <p>详情</p>
-        <p>政策名称：{{ policy.title }}</p>
-
-{% autoescape off %}
-        {{ policy.info }}
-
-{% endautoescape %}
-    </div>
-
 
 {% endblock %}

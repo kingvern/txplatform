@@ -27,6 +27,7 @@ from users.views import LoginView, RegisterView, ActiveUserView, ResetPwdView, R
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
+    # url('forcode/', ForCodeView.as_view(), name='forcode'),
 
     url('^$', TemplateView.as_view(template_name='index.html'), name='index'),
     url('^login/$', LoginView.as_view(), name='login'),

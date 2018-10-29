@@ -20,6 +20,13 @@ from utils.email_send import send_register_email
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+import re
+import random
+from platorm.settings import APIKEY
+# from .models import VerifyCode
+
+from utils.yunpian import YunPian
+
 
 class CustomBackend(ModelBackend):
     def authenticate(self, username=None, password=None, **kwargs):
@@ -309,3 +316,32 @@ class IndexView(View):
             "project": project,
             "patent": patent,
         })
+
+
+# class ForCodeView(View):
+#     """获取手机验证码"""
+#
+#     def post(self, request):
+#         mobile = request.POST.get('mobile', '')
+#         if mobile:
+#             # 验证是否为有效手机号
+#             mobile_pat = re.compile('^(13\d|14[5|7]|15\d|166|17\d|18\d)\d{8}$')
+#             res = re.search(mobile_pat, mobile)
+#             if res:
+#                 # 生成手机验证码
+#                 code = VerifyCode()
+#                 code.mobile = mobile
+#                 c = random.randint(1000, 9999)
+#                 code.code = str(c)
+#                 code.save()
+#                 code = VerifyCode.objects.filter(mobile=mobile).first().code
+#                 yunpian = YunPian(APIKEY)
+#                 sms_status = yunpian.send_sms(code=code, mobile=mobile)
+#                 msg = sms_status.msg
+#                 return HttpResponse(msg)
+#             else:
+#                 msg = '请输入有效手机号码!'
+#                 return HttpResponse(msg)
+#         else:
+#             msg = '手机号不能为空！'
+#             return HttpResponse(msg)

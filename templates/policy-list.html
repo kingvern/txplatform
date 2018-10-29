@@ -2,87 +2,100 @@
 {% load staticfiles %}
 
 {% block title %}政策展示{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/policy.css' %}">
+{% endblock %}
 {% block custom_bread %}
 {% endblock %}
 {% block content %}
+
+
+    {#筛选#}
     <section class="container">
+        <div class="filter">
+            {#筛选上级#}
+            <div class="filter-box">
 
-
-        {#筛选#}
-        <div class=" col-md-12">
-            <div class="">
-
-                {#筛选上级#}
-                <div class="">
-                    <span class="">上级</span>
-                    <ul class="nav nav-tabs">
-                        <li class="mainTab {% ifequal main '0' %}active{% endifequal %}" id="mainTab0">
-                            <a role="menuitem" tabindex="-1"><span>
+                <div class="filter-title"><span>上级</span></div>
+                <ul class="filter-list">
+                    <li class="filter-item mainTab {% ifequal main '0' %}filter-active{% endifequal %}" id="mainTab0">
+                        <a role="menuitem" tabindex="-1"><span>
                                    {{ mains.0 }}</span></a>
-                        </li>
-                        <li class="mainTab {% ifequal main '1' %}active{% endifequal %}" id="mainTab1">
-                            <a role="menuitem" tabindex="-1"><span>
+                    </li>
+                    <li class="filter-item mainTab {% ifequal main '1' %}filter-active{% endifequal %}" id="mainTab1">
+                        <a role="menuitem" tabindex="-1"><span>
                                     {{ mains.1 }}</span></a>
-                        </li>
-                        <li class="mainTab {% ifequal main '2' %}active{% endifequal %}" id="mainTab2">
-                            <a role="menuitem" tabindex="-1"><span>
+                    </li>
+                    <li class="filter-item mainTab {% ifequal main '2' %}filter-active{% endifequal %}" id="mainTab2">
+                        <a role="menuitem" tabindex="-1"><span>
                                     {{ mains.2 }}</span></a>
-                        </li>
-                        <li class="mainTab {% ifequal main '3' %}active{% endifequal %}" id="mainTab3">
-                            <a role="menuitem" tabindex="-1"><span>
+                    </li>
+                    <li class="filter-item mainTab {% ifequal main '3' %}filter-active{% endifequal %}" id="mainTab3">
+                        <a role="menuitem" tabindex="-1"><span>
                                     {{ mains.3 }}</span></a>
-                        </li>
-                    </ul>
-                </div>
+                    </li>
+                </ul>
+            </div>
 
-                {#筛选行政#}
-                <div class="">
-                    <span class="">行政</span>
-                    {% for provinces in provincesArray %}
-                        <ul id="province{{ provinces.0.main }}"
-                            class="nav nav-tabs province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">
-                            {% for province in provinces %}
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1"
-                                       href="?province={{ province.id }}"><span
-                                            class="{% ifequal province_id province.id|stringformat:'i' %}active-filter{% endifequal %}">
-                                    {{ province.name }}</span></a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endfor %}
-                </div>
-                {#筛选部门#}
-                <div class="">
-                    <span class="">部门</span>
-                    <ul class="nav nav-tabs">
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="?department=&province={{ province_id }}"><span
-                                    class="{% ifequal department_id '' %}active{% endifequal %}">全部</span></a>
-                        </li>
-                        {% for department in departments %}
-                            <li role="presentation">
+            {#筛选行政#}
+            <div class="filter-box">
+                <div class="filter-title"><span>行政</span></div>
+                {% for provinces in provincesArray %}
+                    <ul id="province{{ provinces.0.main }}"
+                        class="filter-list province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">
+                        {% for province in provinces %}
+                            <li class="filter-item {% ifequal province_id province.id|stringformat:'i' %}filter-active{% endifequal %}"
+                                role="presentation">
                                 <a role="menuitem" tabindex="-1"
-                                   href="?department={{ department.id }}&province={{ province_id }}"><span
-                                        class="{% ifequal department_id department.id|stringformat:'i' %}active{% endifequal %}">
-                                    {{ department.name }}</span></a>
+                                   href="?province={{ province.id }}"><span>
+                                    {{ province.name }}</span></a>
                             </li>
                         {% endfor %}
-
                     </ul>
-                </div>
-            </div>
-
-            {#内容#}
-            <div class="">
-                {% for policy in policy.object_list %}
-                    {#            <p>1</p>#}
-                    <a href="/policy/detail/{{ policy.policy_id }}/">{{ policy.title }}</a>
-                    <p>{{ policy.addr }}{{ policy.source }} {{ policy.pubDate }}</p>
                 {% endfor %}
             </div>
-            {#分页#}
-            <ul class="pagination">
+            {#筛选部门#}
+            <div class="filter-box-bottom">
+                <div class="filter-title"><span class="">部门</span></div>
+                <ul class="filter-list ">
+                    <li class="filter-item {% ifequal department_id '' %}filter-active{% endifequal %}"
+                        role="presentation">
+                        <a role="menuitem" tabindex="-1" href="?department=&province={{ province_id }}"><span
+                                class="">全部</span></a>
+                    </li>
+                    {% for department in departments %}
+                        <li class="filter-item {% ifequal department_id department.id|stringformat:'i' %}filter-active{% endifequal %}"
+                            role="presentation">
+                            <a role="menuitem" tabindex="-1"
+                               href="?department={{ department.id }}&province={{ province_id }}"><span
+                                    class="">
+                                    {{ department.name }}</span></a>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    {#内容#}
+    <section class="container module">
+        {#政策列表#}
+        <div class="filted-content">
+            <div class="policy-list">
+                {% for policy in policy.object_list %}
+                    <div class="policy-item">
+                    <span class="policy-item-title"><a
+                            href="/policy/detail/{{ policy.policy_id }}/">{{ policy.title }}</a></span>
+                        <span class="policy-item-source">{{ policy.addr }}{{ policy.source }} </span><span
+                            class="policy-item-time">{{ policy.pubDate }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <nav class="page-position">
+            <ul class="pagination ">
                 {% if policy.has_previous %}
                     <li>
                         <a href="?department={{ department_id }}&province={{ province_id }}&page={{ policy.previous_page_number }}"
@@ -112,10 +125,10 @@
                     <li><span class="disabled next"> &rsaquo;&rsaquo;</span></li>
                 {% endif %}
             </ul>
-        </div>
-
+        </nav>
 
     </section>
+
 
 {% endblock %}
 {% block custom_js %}
@@ -129,8 +142,8 @@
                 let chartClass = 'province'
                 let id = tabId.slice(7)
                 console.log("#" + chartClass + "-" + id)
-                $(this).parent().children().removeClass('active')
-                $(this).addClass('active')
+                $(this).parent().children().removeClass('filter-active')
+                $(this).addClass('filter-active')
                 $("." + chartClass).addClass('dispear')
                 $("#" + chartClass + id).removeClass('dispear')
             })

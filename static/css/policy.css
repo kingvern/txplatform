@@ -8,6 +8,11 @@
     margin-bottom: 30px;
 }
 
+.toutiao-title:hover {
+    text-decoration: none;
+    color: #237fbf !important;
+}
+
 .toutiao-content {
     font-size: 18px;
     line-height: 34px;
@@ -89,7 +94,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 770px;
+    max-width: 600px;
     margin-bottom: -14px;
 }
 
@@ -100,6 +105,7 @@
 
 .policy-item a:hover {
     text-decoration: none;
+    color: #237fbf !important;
 }
 
 .policy-item .policy-item-source {
@@ -110,40 +116,47 @@
     padding: 1px 8px;
     border-radius: 6px;
     margin: 0 9px;
+    font-size: 14px;
 }
 
 .policy-item .policy-item-time {
 
     display: inline-block;
     margin-left: 5px;
-    color: #8A8A8A
+    color: #8A8A8A;
+    font-size: 14px;
 }
 
 .chart-box {
     padding: 0 !important;
+    float: left;
 }
 
 .chart-box-left {
     border-left: #128bca 1px solid;
     border-top: #128bca 1px solid;
     border-right: #128bca 1px solid;
+    width: 520px;
 }
 
 .chart-box-right {
     border-right: #128bca 1px solid;
     border-top: #128bca 1px solid;
+    width: 520px;
 }
 
 .chart-box-bottom {
     border: #128bca 1px solid;
+    width: 1040px;
 }
 
 .chart-tab {
     width: 100%;
     display: inherit;
-    background: #4cbde2;
+    background: linear-gradient(90deg, #6f85d5 0%, #48c5ee 100%);
     color: #fff;
-    padding: 5px 10px;
+    padding: 0px 10px;
+    line-height: 30px;
 }
 
 .chart-tab-ul {
@@ -151,8 +164,33 @@
     background: #efefef;
 }
 
+.chart-tab-ul a:hover {
+    cursor: pointer;
+}
+
 .chart-tab2 {
     padding: 3px 8px !important;
 
     color: #4d4d4d;
+}
+
+.policy-banner-module {
+    font-size: 18px !important;
+    line-height: 40px !important;
+}
+
+.policy-banner-content {
+    text-indent: 35px;
+}
+
+.module-content {
+    border: #b7b7b7 1px solid;
+    padding: 26px 128px;
+    color: #4d4d4d;
+    margin: 0 0 30px 0;
+}
+
+.policy-content{
+
+    padding: 20px 0;
 }

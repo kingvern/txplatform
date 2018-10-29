@@ -151,13 +151,15 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
 )
 
-
 EMAIL_HOST = 'smtp.sina.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'kingvern@sina.com'
 EMAIL_HOST_PASSWORD = 'kingvern'
 EMAIL_USE_TLS = False
 EMAIL_FROM = 'kingvern@sina.com'
+
+# yunpian apikey
+APIKEY = '460b7e12332b41a211c21ab4dd4b6481'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
