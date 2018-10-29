@@ -79,11 +79,13 @@ class PolicyListViewBak(View):
 
 class PolicyHomeView(View):
     def get(self, request):
-        banners = Banner.objects.filter(if_show=True)
+        banner_main = Banner.objects.filter(if_toutiao=True)[:1][0]
+        banners = Banner.objects.filter(if_show=True)[1:4]
 
         policy = Policy.objects.order_by('-pubDate')[:20]
 
         return render(request, 'policy-home.html', {
+            'banner_main': banner_main,
             'banners': banners,
             'policy_list': policy,
         })

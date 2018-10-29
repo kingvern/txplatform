@@ -1,8 +1,8 @@
 
 .toutiao-title {
     display: inline-block;
-    font-size: 45px;
-    line-height: 60px;
+    font-size: 36px;
+    line-height: 53px;
     color: #333;
     text-decoration: none;
     margin-bottom: 30px;
@@ -10,8 +10,8 @@
 
 .toutiao-content {
     font-size: 18px;
-    line-height: 40px;
-    color: #313330;
+    line-height: 34px;
+    color: #4d4d4d;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -20,26 +20,103 @@
 }
 
 .toutiao-img {
+    height: 260px;
     width: 100%;
 }
 
+.toutiao-module-title {
+    margin: 33px 0 0 -15px;
+    font-size: 1.2em !important;
+}
+
 .toutiao-list {
-    margin: 15px 0;
+    margin: 48px 0 0 0;
+    padding: 8px 0;
+    border-top: #cac9c9 1px dashed;
+    border-bottom: #cac9c9 1px dashed;
 }
 
-.toutiao-list .toutiao-list-title {
-    color: #434343
+.toutiao-list-content {
+    margin-left: -53px;
+    line-height: 35px;
 }
 
-.toutiao-list .toutiao-list-time {
+.toutiao-sym {
+    font-size: 60px;
+    color: #cbcbcb;
+    margin-bottom: -20px;
+}
+
+.toutiao-item .toutiao-item-title {
+    color: #434343;
+    text-decoration: none;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 700px;
+    margin-bottom: -14px;
+}
+
+.toutiao-item a:hover {
+    color: #434343;
+    text-decoration: none;
+}
+
+.toutiao-item .toutiao-item-time {
     display: inline-block;
     margin-left: 5px;
-    color: #868686
+    color: #868686;
+    text-decoration: none;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: -14px;
 }
 
 .policy-list {
+    margin-top: -30px;
+}
+
+.policy-item {
     margin: 10px 0px 10px 0px;
     border-bottom: #cac9c9 1px dashed;
+}
+
+.policy-item .policy-item-title {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 770px;
+    margin-bottom: -14px;
+}
+
+.policy-item a {
+    text-decoration: none;
+    color: #4E4E4E;
+}
+
+.policy-item a:hover {
+    text-decoration: none;
+}
+
+.policy-item .policy-item-source {
+
+    /*display: inline-block;*/
+    color: #E3EEFE;
+    background: #72A5F8;
+    padding: 1px 8px;
+    border-radius: 6px;
+    margin: 0 9px;
+}
+
+.policy-item .policy-item-time {
+
+    display: inline-block;
+    margin-left: 5px;
+    color: #8A8A8A
 }
 
 .chart-box {
@@ -76,4 +153,6 @@
 
 .chart-tab2 {
     padding: 3px 8px !important;
+
+    color: #4d4d4d;
 }

@@ -23,13 +23,14 @@ import xadmin
 
 from platorm.settings import MEDIA_ROOT
 
-from users.views import LoginView, RegisterView, ActiveUserView, ResetPwdView, ResetView, ModifyPwdView
+from users.views import LoginView, RegisterView, ActiveUserView, ResetPwdView, ResetView, ModifyPwdView, LogoutView
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
 
     url('^$', TemplateView.as_view(template_name='index.html'), name='index'),
     url('^login/$', LoginView.as_view(), name='login'),
+    url('logout/', LogoutView.as_view(), name="logout"),
     url('^register/$', RegisterView.as_view(), name='register'),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^active/(?P<active_code>.*)/$', ActiveUserView.as_view(), name='active_code'),
@@ -43,6 +44,7 @@ urlpatterns = [
     url(r'^patent/', include('patent.urls', namespace='patent')),
     url(r'^project/', include('project.urls', namespace='project')),
 
+    url("users/", include('users.urls', namespace="users")),
 
     # 配置上传文件访问处理的函数
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT})

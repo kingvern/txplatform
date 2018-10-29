@@ -15,7 +15,7 @@ from operation.models import UserFavorite, UserMessage
 from project.models import Project
 from patent.models import Patent
 from .models import UserProfile, EmailVerifyRecord
-from .forms import LoginForm, RegisterForm, ResetPwdForm, ModifyPwdForm
+from .forms import LoginForm, RegisterForm, ResetPwdForm, ModifyPwdForm, UploadImageForm, UserInfoForm
 from utils.email_send import send_register_email
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -34,7 +34,10 @@ class CustomBackend(ModelBackend):
 
 class LoginView(View):
     def get(self, request):
-        return render(request, 'login.html', {})
+        redirect_url = request.GET.get('next', '')
+        return render(request, "login.html", {
+            "redirect_url": redirect_url
+        })
 
     def post(self, request):
         login_form = LoginForm(request.POST)
@@ -217,9 +220,9 @@ class UploadImageView(LoginRequiredMixin, View):
             request.POST, request.FILES, instance=request.user)
         if image_form.is_valid():
             image_form.save()
-            # # 取出cleaned data中的值,一个dict
-            # image = image_form.cleaned_data['image']
-            # request.user.image = image
+            # 取出cleaned data中的值,一个dict
+            # avatar = image_form.cleaned_data['avatar']
+            # request.user.avatar = avatar
             # request.user.save()
             return HttpResponse(
                 '{"status":"success"}',

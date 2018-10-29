@@ -17,7 +17,43 @@
     {% block custom_css %}{% endblock %}
 </head>
 <body>
+<div class="user-bar">
+    <section class="container ">
+        {% if request.user.is_authenticated %}
+            <div class="row">
+                <div class="pull-left btn"><span>服务电话：23333333</span></div>
+                <div class="personal pull-right">
+                    <div class="btn">
+
+                        {#                    <a href="{% url 'users:my_message' %}">#}
+                        {#                        <div class="msg-num"><span id="MsgNum">{{ request.user.unread_nums }}</span></div>#}
+                        {#                    </a>#}
+                        <span>{{ user.username }}</span>
+                        <a class="personcenter" href="{% url 'users:user_info' %}">&nbsp进入个人中心</a>
+                        <a class="pull-right" href="{% url 'logout' %}">&nbsp退出</a>
+                    </div>
+                </div>
+
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="pull-left  btn"><span>服务电话：23333333</span></div>
+                <!--登录后跳转-->
+                <div class="personal pull-right">
+                    <div class="btn">
+                        <a style="color:black" class="pull-right registerbtn" href="{% url "register" %}">&nbsp注册</a>
+                        <a style="color:black" class="pull-right loginbtn"
+                           href="{% url 'login' %}?next={{ request.path }}">&nbsp登录</a>
+                    </div>
+                </div>
+
+
+            </div>
+        {% endif %}
+    </section>
+</div>
 <section class="container">
+
     <div class="row">
         {#        <div class="col-md-3">#}
         <img class="col-md-4 logo-img" src="{% static 'img/logo.png' %}"/>
@@ -29,7 +65,7 @@
                     <a href="/">首页</a>
                 </li>
                 <li>
-                    <a href="{% url 'policy:list' %}">资讯平台</a>
+                    <a class="active" href="{% url 'policy:list' %}">资讯平台</a>
                 </li>
                 <li>
                     <a href="{% url 'patent:list' %}">交易平台</a>

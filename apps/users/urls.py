@@ -5,8 +5,7 @@ from .views import UserInfoView, UploadImageView, UpdatePwdView, MyFavView, MyMe
 from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-    # 政策展示
-
+    # 中心展示
     url('info/', UserInfoView.as_view(), name="user_info"),
     # 用户头像上传
     url('image/upload/', UploadImageView.as_view(), name="image_upload"),
