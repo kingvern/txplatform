@@ -62,25 +62,25 @@
         <div class="navbar-header pull-right logo-nav">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="/">首页</a>
+                    <a class="{% ifequal current_page "index" %}active{% endifequal %}" href="/">首页</a>
                 </li>
                 <li>
-                    <a class="active" href="{% url 'policy:list' %}">资讯平台</a>
+                    <a class="{% ifequal current_page "policy" %}active{% endifequal %}" href="{% url 'policy:home' %}">资讯平台</a>
                 </li>
                 <li>
-                    <a href="{% url 'patent:list' %}">交易平台</a>
+                    <a class="{% ifequal current_page "patent" %}active{% endifequal %}" href="{% url 'patent:list' %}">交易平台</a>
                 </li>
                 <li>
-                    <a href="{% url 'project:list' %}">转化平台</a>
+                    <a class="{% ifequal current_page "project" %}active{% endifequal %}" href="{% url 'project:list' %}">转化平台</a>
                 </li>
                 <li>
-                    <a href="{% url 'project:list' %}">孵化平台</a>
+                    <a class="{% ifequal current_page "incubator" %}active{% endifequal %}" href="{% url 'incubator:list' %}">孵化平台</a>
                 </li>
                 <li>
-                    <a href="{% url 'project:list' %}">展会服务</a>
+                    <a class="{% ifequal current_page "gallery" %}active{% endifequal %}" href="{% url 'gallery:list' %}">展会服务</a>
                 </li>
                 <li>
-                    <a href="{% url 'project:list' %}">俱乐部</a>
+                    <a class="{% ifequal current_page "club" %}active{% endifequal %}" href="{% url 'club:home' %}">俱乐部</a>
                 </li>
             </ul>
         </div>
@@ -93,7 +93,14 @@
 <section class="container search-bar">
     <div class="row">
 
-        <span class="search-bar-title">资讯平台</span>
+        <span class="search-bar-title">
+            {% ifequal current_page "policy" %}资讯平台{% endifequal %}
+            {% ifequal current_page "patent" %}交易平台{% endifequal %}
+            {% ifequal current_page "project" %}转化平台{% endifequal %}
+            {% ifequal current_page "incubator" %}孵化平台{% endifequal %}
+            {% ifequal current_page "gallery" %}展会服务{% endifequal %}
+            {% ifequal current_page "club" %}俱乐部{% endifequal %}
+        </span>
         {#        <div class="col-md-5"></div>#}
         <form class="form-search pull-right search-bar-box">
             <input class="input-medium search-query" type="text"/>

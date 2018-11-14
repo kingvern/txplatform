@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}展会详情{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock %}
+{% block custom_bread %}
+    <section class="container">
+        <div>
+            <ul class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li><a href="{% url 'gallery:list' %}">展会列表</a></li>
+                <li><a>展会详情</a></li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+
+    <section class="container gallery-banner-module">
+        <div class="module-content">
+
+            <h1 class="text-center">{{ gallery.name }}</h1>
+            <div class="gallery-content">
+                {% if has_fav %}
+                    <span id="{{ gallery.id }}" class="module-item-btn-faved fav">取消收藏</span>
+                {% else %}
+                    <span id="{{ gallery.id }}" class="module-item-btn fav">收藏</span>
+                {% endif %}
+                {% if has_join %}
+                    <span id="{{ gallery.id }}" class="module-item-btn-faved join">取消报名</span>
+                {% else %}
+                    <span id="{{ gallery.id }}" class="module-item-btn join">报名</span>
+                {% endif %}
+                <img class="center-block" src="{{ MEDIA_URL }}{{ gallery.pic }}"/>
+                <span class="gallery-item-source">活动时间：{{ gallery.time_begin }}-{{ gallery.time_end }} </span>
+                <span
+                        class="gallery-item-time">活动时间：{{ gallery.addr }}</span>
+                {% autoescape off %}
+                    {{ gallery.descs }}
+                {% endautoescape %}
+            </div>
+
+        </div>
+    </section>
+    <div>
+        {% for relate_gallery in relate_gallerys %}
+            <a href="/gallery/detail/{{ relate_gallery.id }}/">{{ relate_gallery.name }}</a>
+            <p>{{ relate_gallery.detail }}</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+{% block custom_js %}
+    <script type="text/javascript">
+        //收藏分享
+        function add_fav(current_elem, fav_id, fav_type) {
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:add_fav" %}",
+                data: {'fav_id': fav_id, 'fav_type': fav_type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '收藏') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
+        function add_join(current_elem, join_id, join_type) {
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:add_join" %}",
+                data: {'join_id': join_id, 'join_type': join_type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '收藏') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
+        $('.join').on('click', function () {
+            add_join($(this), $(this).attr('id'), 3);
+        });
+        $('.fav').on('click', function () {
+            add_fav($(this), $(this).attr('id'), 3);
+        });
+
+
+    </script>
+{% endblock %}

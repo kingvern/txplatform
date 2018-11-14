@@ -49,10 +49,16 @@ INSTALLED_APPS = [
     'policy',
     'project',
 
+    'gallery',
+    'club',
+
     'xadmin',
     'crispy_forms',
     'captcha',
-    'pure_pagination'
+    'pure_pagination',
+    'django_crontab',
+
+    'DjangoUeditor',
 
 ]
 
@@ -163,3 +169,8 @@ APIKEY = '460b7e12332b41a211c21ab4dd4b6481'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CRONJOBS = [
+    # ('00 0 * * *', 'scrap.scrap_policy.scrap_policy'),
+    # ('00 0 * * *', 'scrap.scrap_chart.scrap_chart'),
+]

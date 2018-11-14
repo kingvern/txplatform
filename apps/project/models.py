@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from datetime import datetime
 
 from django.db import models
+from DjangoUeditor.models import UEditorField
 
 from users.models import UserProfile
 
@@ -47,7 +48,9 @@ class Project(models.Model):
     status = models.CharField(max_length=20, null=True, blank=True,
                               choices=(('sqwjf', u'授权未结费'), ('yxzs', u'已下证书')),
                               verbose_name=u'项目状态')
-    detail = models.TextField(null=True, blank=True, verbose_name=u'项目详情')
+    detail = UEditorField(verbose_name=u"课程详情", width=600, height=300, imagePath="project/ueditor/",
+                          filePath="project/ueditor/", default='')
+    # detail = models.TextField(null=True, blank=True, verbose_name=u'项目详情')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加日期')

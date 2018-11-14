@@ -3,14 +3,12 @@
 {% block title %} 个人信息 {% endblock %}
 
 {% block custom_bread %}
-        <section>
-        <div class="wp">
-            <ul  class="crumbs">
-                <li><a href="{% url 'index' %}">首页</a>></li>
-                <li><a href="{% url 'users:user_info' %}">个人中心</a>></li>
-                <li>个人信息</li>
-            </ul>
-        </div>
+   <section class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">个人中心</a></li>
+            <li class="active">个人信息</li>
+        </ul>
     </section>
 {% endblock %}
 
@@ -42,7 +40,7 @@
 				<form class="perinform" id="jsEditUserForm" autocomplete="off">
 					<ul class="right">
 						<li>昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：
-                           <input type="text" name="nick_name" id="nick_name" value="{{ request.user.nick_name|default_if_none:'' }}" maxlength="10">
+                           <input type="text" name="nick_name" id="nick_name" value="{{ request.user.nick_name|default_if_none:'' }}" maxlength="20">
                             <i class="error-tips"></i>
                         </li>
 						<li>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：
@@ -54,7 +52,7 @@
 							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="female" {% ifequal request.user.gender "female" %}checked="checked"{% endifequal %}>女</label>
 						</li>
 						<li class="p_infor_city">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：
-                            <input type="text" name="address" id="address" placeholder="请输入你的地址" value="{{ request.user.address|default_if_none:'' }}" maxlength="10">
+                            <input type="text" name="address" id="address" placeholder="请输入你的地址" value="{{ request.user.address|default_if_none:'' }}" maxlength="20">
 						    <i class="error-tips"></i>
                         </li>
 						<li>手&nbsp;&nbsp;机&nbsp;&nbsp;号：

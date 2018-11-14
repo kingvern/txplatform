@@ -1,7 +1,7 @@
 # _*_ coding: utf-8 _*_
 
 from django.conf.urls import url, include
-from .views import PolicyListView, PolicyDetailView, AddChartView, AddUserAskView, \
+from .views import PolicyListView, PolicyDetailView, AddChartView, \
     AddPolicyView, chartDataView, PolicyBannerView, PolicyHomeView
 from django.views.decorators.csrf import csrf_exempt
 
@@ -17,5 +17,4 @@ urlpatterns = [
     url(r'^addChart/$', csrf_exempt(AddChartView.as_view()), name='addChart'),
     url(r'^detail/(?P<policy_id>\d+)/', PolicyDetailView.as_view(), name='detail'),
     url(r'^banner/(?P<banner_id>\d+)/', PolicyBannerView.as_view(), name='banner'),
-    url(r'^add_ask/$', AddUserAskView.as_view(), name='add_ask')
 ]

@@ -6,12 +6,6 @@ from operation.models import UserAsk
 from .models import Policy, Chart
 
 
-class UserAskForm(forms.ModelForm):
-    class Meta:
-        model = UserAsk
-        fields = ['name', 'mobile', 'policy_name']
-
-
 class AddPolicyForm(forms.ModelForm):
     class Meta:
         model = Policy

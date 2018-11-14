@@ -1,34 +1,38 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}项目展示{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/project.css' %}">
+{% endblock %}
 {% block custom_bread %}
-    <section>
-        <section>
-            <ul class="breadcrumb">
-                <li><a href="#">首页</a></li>
-                <li class="active">技术项目</li>
-            </ul>
-        </section>
+    <section class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li class="active">技术项目列表</li>
+        </ul>
     </section>
 {% endblock %}
 {% block content %}
     {#筛选#}
-    <div class=" col-md-12">
-        <div class="">
+    <section class="container">
+        <div class="filter">
             {#筛选行业分类#}
-            <div class="">
-                <span class="">行业分类</span>
-                <ul class="nav nav-tabs">
-                    <li role="presentation">
+            <div class="filter-box">
+                <div class="filter-title"><span>行业分类</span></div>
+
+                <ul class="filter-list">
+                    <li class="filter-item {% ifequal field_category_id '' %}filter-active{% endifequal %}"
+                        role="presentation">
                         <a role="menuitem" tabindex="-1"
-                           href="?field_category=&project_category={{ project_category_id }}"><span
-                                class="{% ifequal field_category_id '' %}active{% endifequal %}">全部</span></a>
+                           href="?field_category=&project_step={{ project_step_id }}&cooperation={{ cooperation_id }}">
+                            <span>全部</span></a>
                     </li>
                     {% for field_category_ in field_categorys %}
-                        <li role="presentation">
+                        <li class="filter-item {% ifequal field_category_id field_category_.0 %}filter-active{% endifequal %}"
+                            role="presentation">
                             <a role="menuitem" tabindex="-1"
-                               href="?field_category={{ field_category_.0 }}&project_category={{ project_category_id }}"><span
-                                    class="{% ifequal field_category_.0 field_category_id %}active{% endifequal %}">
+                               href="?field_category={{ field_category_.0 }}&project_step={{ project_step_id }}&cooperation={{ cooperation_id }}">
+                                <span>
                                     {{ field_category_.1 }}</span></a>
                         </li>
                     {% endfor %}
@@ -36,19 +40,22 @@
                 </ul>
             </div>
             {#筛选技术阶段#}
-            <div class="">
-                <span class="">技术阶段</span>
-                <ul class="nav nav-tabs">
-                    <li role="presentation">
+            <div class="filter-box">
+                <div class="filter-title"><span>技术阶段</span></div>
+
+                <ul class="filter-list">
+                    <li class="filter-item {% ifequal project_step_id '' %}filter-active{% endifequal %}"
+                        role="presentation">
                         <a role="menuitem" tabindex="-1"
-                           href="?project_category=&field_categorys={{ field_categorys_id }}"><span
-                                class="{% ifequal project_category_id '' %}active{% endifequal %}">全部</span></a>
+                           href="?field_category={{ field_category_id }}&project_step=&cooperation={{ cooperation_id }}">
+                            <span>全部</span></a>
                     </li>
                     {% for project_step_ in project_steps %}
-                        <li role="presentation">
+                        <li class="filter-item {% ifequal project_step_id project_step_.0 %}filter-active{% endifequal %}"
+                            role="presentation">
                             <a role="menuitem" tabindex="-1"
-                               href="?project_step_={{ project_step_.0 }}&field_categorys={{ field_categorys_id }}"><span
-                                    class="{% ifequal project_step_.0 project_step_id %}active{% endifequal %}">
+                               href="?field_category={{ field_category_id }}&project_step={{ project_step_.0 }}&cooperation={{ cooperation_id }}">
+                                <span>
                                     {{ project_step_.1 }}</span></a>
                         </li>
                     {% endfor %}
@@ -56,19 +63,22 @@
                 </ul>
             </div>
             {#筛选合作形式#}
-            <div class="">
-                <span class="">合作形式</span>
-                <ul class="nav nav-tabs">
-                    <li role="presentation">
+            <div class="filter-box-bottom">
+                <div class="filter-title"><span>合作形式</span></div>
+
+                <ul class="filter-list">
+                    <li class="filter-item {% ifequal cooperation_id '' %}filter-active{% endifequal %}"
+                        role="presentation">
                         <a role="menuitem" tabindex="-1"
-                           href="?project_category=&field_categorys={{ field_categorys_id }}"><span
+                           href="?field_category={{ field_category_id }}&project_step={{ project_step_id }}&cooperation="><span
                                 class="{% ifequal project_category_id '' %}active{% endifequal %}">全部</span></a>
                     </li>
                     {% for cooperation_ in cooperations %}
-                        <li role="presentation">
+                        <li class="filter-item {% ifequal cooperation_id cooperation_.0 %}filter-active{% endifequal %}"
+                            role="presentation">
                             <a role="menuitem" tabindex="-1"
-                               href="?cooperation_={{ cooperation_.0 }}&field_categorys={{ field_categorys_id }}"><span
-                                    class="{% ifequal cooperation_.0 cooperation_id %}active{% endifequal %}">
+                               href="?field_category={{ field_category_id }}&project_step={{ project_step_id }}&cooperation={{ cooperation_.0 }}">
+                                <span>
                                     {{ cooperation_.1 }}</span></a>
                         </li>
                     {% endfor %}
@@ -76,59 +86,140 @@
                 </ul>
             </div>
         </div>
-        <div>
-            <p>共{{ project_nums }}个专利</p>
+    </section>
+    {#        <div>#}
+    {#            <p>共{{ project_nums }}个专利</p>#}
+    {#        </div>#}
+
+    {#内容#}
+    <section class="container">
+        <div class="row">
+            <div class="module col-md-9">
+                <div class="module-list">
+                    {% for project in all_project.object_list %}
+                        <div class="module-item-box ">
+                            <div class="module-item-img-box">
+                                <img class="module-item-img" src="{{ MEDIA_URL }}{{ project.main_pic }}"/>
+                            </div>
+                            <div class="module-item-text">
+                                <p class="title"><a href="/patent/detail/{{ project.id }}/">{{ project.name }}</a></p>
+                                <p class="content">
+                                    技术成熟度:{{ project.get_project_step_display }}</p>
+                                <p class="content">行业:{{ project.get_field_category_display }}</p>
+                                <p class="content">合作方式:<span class="price">{{ project.get_cooperation_display }}</span>
+                                </p>
+                            </div>
+                            <div class="module-item-btn-box">
+                                {% if project.has_fav %}
+                                    <span id="{{ project.id }}" class="module-item-btn-faved fav">取消收藏</span>
+                                {% else %}
+                                    <span id="{{ project.id }}" class="module-item-btn fav">收藏</span>
+                                {% endif %}
+                                <span class="module-item-btn">咨询</span>
+                            </div>
+
+
+                        </div>
+                    {% endfor %}
+                </div>
+                {#分页#}
+                <nav class="page-position">
+                    <ul class="pagination">
+                        {% if all_project.has_previous %}
+                            <li>
+                                <a href="?field_category={{ field_category_id }}&project_category={{ project_category_id }}&page={{ all_project.previous_page_number }}"
+                                   class="prev">&lsaquo;&lsaquo; </a></li>
+                        {% else %}
+                            <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>
+                        {% endif %}
+                        {% for page in all_project.pages %}
+                            {% if page %}
+                                {% ifequal page all_project.number %}
+                                    <li><span class="current page">{{ page }}</span></li>
+                                {% else %}
+                                    <li>
+                                        <a href="?field_category={{ field_category_id }}&project_category={{ project_category_id }}&page={{ page }}"
+                                           class="page">{{ page }}</a>
+                                    </li>
+                                {% endifequal %}
+                            {% else %}
+                                <li class="disabled"><span>...</span></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if all_project.has_next %}
+                            <li>
+                                <a href="?field_category={{ field_category_id }}&project_category={{ project_category_id }}&page={{ all_project.next_page_number }}"
+                                   class="next">
+                                    &rsaquo;&rsaquo;</a></li>
+                        {% else %}
+                            <li><span class="disabled next"> &rsaquo;&rsaquo;</span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="rank-box">
+                    <div class="rank-title"></div>
+
+                    <div class="rank-list">
+
+                        {% for project in newest_project %}
+                            <div class="rank-item">
+                                <a href="/patent/detail/{{ project.id }}/">{{ project.name }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="publish-patent"></div>
+
+                <div class="publish-project"></div>
+            </div>
         </div>
+    </section>
 
-        {#内容#}
-        <div>
-            {% for project in all_project.object_list %}
-                <a href="/project/detail/{{ project.id }}/">{{ project.name }}</a>
-                <p>{{ project.detail }}</p>
-                <span>收藏</span>
-                <span>咨询</span>
-            {% endfor %}
-        </div>
-        {#分页#}
-        <ul class="pagination">
-            {% if all_project.has_previous %}
-                <li>
-                    <a href="?field_category={{ field_category_id }}&project_category={{ project_category_id }}&page={{ all_project.previous_page_number }}"
-                       class="prev">&lsaquo;&lsaquo; </a></li>
-            {% else %}
-                <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>
-            {% endif %}
-            {% for page in all_project.pages %}
-                {% if page %}
-                    {% ifequal page all_project.number %}
-                        <li><span class="current page">{{ page }}</span></li>
-                    {% else %}
-                        <li>
-                            <a href="?field_category={{ field_category_id }}&project_category={{ project_category_id }}&page={{ page }}"
-                               class="page">{{ page }}</a>
-                        </li>
-                    {% endifequal %}
-                {% else %}
-                    <li class="disabled"><span>...</span></li>
-                {% endif %}
-            {% endfor %}
-            {% if all_project.has_next %}
-                <li>
-                    <a href="?field_category={{ field_category_id }}&project_category={{ project_category_id }}&page={{ all_project.next_page_number }}"
-                       class="next">
-                        &rsaquo;&rsaquo;</a></li>
-            {% else %}
-                <li><span class="disabled next"> &rsaquo;&rsaquo;</span></li>
-            {% endif %}
-        </ul>
-    </div>
+{% endblock %}
+{% block custom_js %}
+    <script type="text/javascript">
+        //收藏分享
+        function add_fav(current_elem, fav_id, fav_type) {
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:add_fav" %}",
+                data: {'fav_id': fav_id, 'fav_type': fav_type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '收藏') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
+        $('.fav').on('click', function () {
+            add_fav($(this), $(this).attr('id'), 2);
+        });
 
 
-    <div>
-        {% for project in newest_project %}
-            <a href="/">{{ project.name }}</a>
-            <p>{{ project.detail }}</p>
-        {% endfor %}
-    </div>
-
+    </script>
 {% endblock %}

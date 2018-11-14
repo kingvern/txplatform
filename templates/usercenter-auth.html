@@ -1,0 +1,45 @@
+{% extends 'usercenter-base.html' %}
+{% load staticfiles %}
+{% block title %} 个人信息 {% endblock %}
+
+{% block custom_bread %}
+    <section class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">个人中心</a></li>
+            <li class="active">个人信息</li>
+        </ul>
+    </section>
+{% endblock %}
+
+{% block right_content %}
+    <div class="right">
+        <div class="personal_des ">
+            <div class="head" style="border:1px solid #eaeaea;">
+                <h1>个人认证</h1>
+            </div>
+            <div class="inforcon">
+
+                <form class="perinform" action="{% url 'users:user_auth' %}" method="POST" id="jsEditUserForm" autocomplete="off">
+                    <ul class="right">
+                        <li>真实姓名：
+                            <input type="text" name="full_name" id="full_name"
+                                   value="{{ request.user.full_name|default_if_none:'' }}" maxlength="20">
+                            <i class="error-tips"></i>
+                        </li>
+                        <li>身份证号：
+                            <input type="text" id="id_card" name="id_card"
+                                   value="{{ request.user.id_card|default_if_none:'' }}" />
+                            <i class="error-tips"></i>
+                        </li>
+
+                        <li class="button heibtn">
+                            <input type="submit" id="jsEditUserBtn" value="保存">
+                        </li>
+                    </ul>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

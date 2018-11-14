@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}政策展示{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock %}
+{% block custom_bread %}
+
+    <section class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li class="active">展会列表</li>
+        </ul>
+    </section>
+{% endblock %}
+{% block content %}
+
+
+    {#筛选#}
+    <section class="container">
+        <div class="filter">
+            {#筛选活动类型#}
+            <div class="filter-box">
+
+                <div class="filter-title"><span>活动类型</span></div>
+                <ul class="filter-list">
+                    <li class="filter-item mainTab {% ifequal type '0' %}filter-active{% endifequal %}" id="mainTab0">
+                        <a role="menuitem" tabindex="-1"><span>
+                                   线上活动</span></a>
+                    </li>
+                    <li class="filter-item mainTab {% ifequal type '1' %}filter-active{% endifequal %}" id="mainTab1">
+                        <a role="menuitem" tabindex="-1"><span>
+                                    线下活动</span></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    {#内容#}
+    <section class="container module">
+        {#展会列表#}
+        <div class="filted-content">
+            <div class="gallery-list">
+                {% for gallery in gallery.object_list %}
+                    <div class="gallery-item">
+                        <img class="center-block" src="{{ MEDIA_URL }}{{ gallery.pic }}"/>
+                        <span class="gallery-item-title"><a
+                                href="/gallery/detail/{{ gallery.id }}/">{{ gallery.name }}</a></span>
+                        <span class="gallery-item-source">活动时间：{{ gallery.time_begin }}-{{ gallery.time_end }} </span>
+                        <span
+                                class="gallery-item-time">活动时间：{{ gallery.addr }}</span>
+                        <span
+                                class="gallery-item-time">简介：{{ gallery.descs }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <nav class="page-position">
+            <ul class="pagination ">
+                {% if gallery.has_previous %}
+                    <li>
+                        <a href="?department={{ department_id }}&province={{ province_id }}&page={{ gallery.previous_page_number }}"
+                           class="prev">&lsaquo;&lsaquo; </a></li>
+                {% else %}
+                    <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>
+                {% endif %}
+                {% for page in gallery.pages %}
+                    {% if page %}
+                        {% ifequal page gallery.number %}
+                            <li><span class="current page">{{ page }}</span></li>
+                        {% else %}
+                            <li><a href="?department={{ department_id }}&province={{ province_id }}&page={{ page }}"
+                                   class="page">{{ page }}</a>
+                            </li>
+                        {% endifequal %}
+                    {% else %}
+                        <li class="disabled"><span>...</span></li>
+                    {% endif %}
+                {% endfor %}
+                {% if gallery.has_next %}
+                    <li>
+                        <a href="?department={{ department_id }}&province={{ province_id }}&page={{ gallery.next_page_number }}"
+                           class="next">
+                            &rsaquo;&rsaquo;</a></li>
+                {% else %}
+                    <li><span class="disabled next"> &rsaquo;&rsaquo;</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <div class="filted-content">
+            <div class="gallery-list">
+                {% for gallery in latest_gallery %}
+                    <div class="gallery-item">
+                        <img class="center-block" src="{{ MEDIA_URL }}{{ gallery.pic }}"/>
+                        <span class="gallery-item-title"><a
+                                href="/gallery/detail/{{ gallery.id }}/">{{ gallery.name }}</a></span>
+                        <span class="gallery-item-source">活动时间：{{ gallery.time_begin }}-{{ gallery.time_end }} </span>
+                        <span
+                                class="gallery-item-time">活动时间：{{ gallery.addr }}</span>
+                        <span
+                                class="gallery-item-time">简介：{{ gallery.descs }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </section>
+
+
+{% endblock %}
+{% block custom_js %}
+    <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
+
+    <script type="text/javascript">
+        $(() => {
+            $(".mainTab").click(function () {
+                let tabId = $(this).attr("id");
+                console.log('tabId', tabId)
+                let chartClass = 'province'
+                let id = tabId.slice(7)
+                console.log("#" + chartClass + "-" + id)
+                $(this).parent().children().removeClass('filter-active')
+                $(this).addClass('filter-active')
+                $("." + chartClass).addClass('dispear')
+                $("#" + chartClass + id).removeClass('dispear')
+            })
+
+        });
+
+    </script>
+{% endblock %}

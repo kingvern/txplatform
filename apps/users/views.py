@@ -11,11 +11,12 @@ from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
-from operation.models import UserFavorite, UserMessage
+from operation.models import UserFavorite, UserMessage, BuyerPatent, BuyerProject
 from project.models import Project
 from patent.models import Patent
-from .models import UserProfile, EmailVerifyRecord
-from .forms import LoginForm, RegisterForm, ResetPwdForm, ModifyPwdForm, UploadImageForm, UserInfoForm
+from .models import UserProfile, EmailVerifyRecord, VerifyCode, UpdateMobileRecord
+from .forms import LoginForm, RegisterForm, ResetPwdForm, UpdateMobileForm, ModifyPwdForm, UploadImageForm, \
+    UserInfoForm, UserAuthForm
 from utils.email_send import send_register_email
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -23,7 +24,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import re
 import random
 from platorm.settings import APIKEY
-# from .models import VerifyCode
 
 from utils.yunpian import YunPian
 
@@ -31,7 +31,7 @@ from utils.yunpian import YunPian
 class CustomBackend(ModelBackend):
     def authenticate(self, username=None, password=None, **kwargs):
         try:
-            user = UserProfile.objects.get(Q(username=username) | Q(email=username))
+            user = UserProfile.objects.get(Q(username=username) | Q(mobile=username))
             # user = UserProfile.objects.get(username=username)
             if user.check_password(password):
                 return user
@@ -40,6 +40,8 @@ class CustomBackend(ModelBackend):
 
 
 class LoginView(View):
+    """登录"""
+
     def get(self, request):
         redirect_url = request.GET.get('next', '')
         return render(request, "login.html", {
@@ -64,7 +66,40 @@ class LoginView(View):
             return render(request, 'login.html', {'login_form': login_form})
 
 
+class ForCodeView(View):
+    """获取手机验证码"""
+
+    def post(self, request):
+        mobile = request.POST.get('mobile', '')
+        send_type = request.POST.get('send_type', 'register')
+        if mobile:
+            # 验证是否为有效手机号
+            mobile_pat = re.compile('^(13\d|14[5|7]|15\d|166|17\d|18\d)\d{8}$')
+            res = re.search(mobile_pat, mobile)
+            if res:
+                # 生成手机验证码
+                code = VerifyCode()
+                code.mobile = mobile
+                code.send_type = send_type
+                c = random.randint(1000, 9999)
+                code.code = str(c)
+                code.save()
+                code = VerifyCode.objects.filter(mobile=mobile).last().code
+                yunpian = YunPian(APIKEY)
+                sms_status = yunpian.send_sms(code=code, mobile=mobile)
+                msg = sms_status.msg
+                return HttpResponse(msg)
+            else:
+                msg = '请输入有效手机号码!'
+                return HttpResponse(msg)
+        else:
+            msg = '手机号不能为空！'
+            return HttpResponse(msg)
+
+
 class RegisterView(View):
+    """注册"""
+
     def get(self, request):
         register_form = RegisterForm()
         return render(request, 'register.html', {'register_form': register_form})
@@ -72,70 +107,37 @@ class RegisterView(View):
     def post(self, request):
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
-            user_name = request.POST.get('email', '')
-            if UserProfile.objects.filter(email=user_name):
+            mobile = request.POST.get('mobile', '')
+            if UserProfile.objects.filter(mobile=mobile):
                 return render(request, 'register.html', {'msg': '该用户已经注册，请登录'})
-            pass_word = request.POST.get('password', '')
-            user_profile = UserProfile()
-            user_profile.username = user_name
-            user_profile.email = user_name
-            user_profile.is_active = False
-            user_profile.password = make_password(pass_word)
-            user_profile.save()
-
-            send_register_email(user_name, 'register')
-            return render(request, 'login.html')
+            record = VerifyCode.objects.filter(
+                Q(mobile=request.POST.get('mobile', '')) & Q(send_type='register')).last()
+            if record:
+                if record.code == request.POST.get('code', ''):
+                    pass_word = request.POST.get('password', '')
+                    user_profile = UserProfile()
+                    user_profile.username = mobile
+                    user_profile.mobile = mobile
+                    user_profile.is_active = True
+                    user_profile.password = make_password(pass_word)
+                    user_profile.save()
+                    return render(request, 'login.html')
+                else:
+                    return HttpResponse(
+                        '{"status":"fail", "msg":"验证码不一致"}',
+                        content_type='application/json')
+            return HttpResponse(
+                '{"status":"fail", "msg":"请先获取验证码"}',
+                content_type='application/json')
         else:
             return render(request, 'register.html', {'register_form': register_form})
 
 
-class ActiveUserView(View):
-    def get(self, request, active_code):
-        all_records = EmailVerifyRecord.objects.filter(code=active_code)
-        if all_records:
-            for record in all_records:
-                email = record.email
-                user = UserProfile.objects.get(email=email)
-                user.is_active = True
-                user.save()
-        else:
-            return render(request, 'active_fail.html')
-        return render(request, 'login.html')
-
-
-class ResetView(View):
-    def get(self, request, active_code):
-        all_records = EmailVerifyRecord.objects.filter(code=active_code)
-        if all_records:
-            for record in all_records:
-                email = record.email
-                return render(request, 'pwd_reset.html', {'email': email})
-        else:
-            return render(request, 'active_fail.html')
-        return render(request, 'login.html')
-
-
-# 以后做 链接失效设置： 是否用过， 过期时间
-class ModifyPwdView(View):
-    def post(self, request):
-        modify_pwd_form = ModifyPwdForm(request.POST)
-        if modify_pwd_form.is_valid():
-            pwd1 = request.POST.get('password1', '')
-            pwd2 = request.POST.get('password2', '')
-            email = request.POST.get('email', '')
-            if pwd1 != pwd2:
-                return render(request, 'pwd_reset.html', {'email': email, 'msg': '密码不一致'})
-            user = UserProfile.objects.get(email=email)
-            user.password = make_password(pwd2)
-            user.save()
-
-            return render(request, 'login.html')
-        else:
-            email = request.POST.get('email', '')
-            return render(request, 'pwd_reset.html', {'email': email, 'modify_pwd_form': modify_pwd_form})
-
-
 class ResetPwdView(View):
+    """重置密码"""
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     def get(self, request):
         reset_pwd_form = ResetPwdForm()
         return render(request, 'reset_pwd.html', {'reset_pwd_form': reset_pwd_form})
@@ -143,14 +145,89 @@ class ResetPwdView(View):
     def post(self, request):
         reset_pwd_form = ResetPwdForm(request.POST)
         if reset_pwd_form.is_valid():
-            email = request.POST.get('email', '')
-            send_register_email(email, 'reset_pwd')
-            return render(request, 'send_success.html')
+            mobile = request.POST.get('mobile', '')
+            if not UserProfile.objects.filter(mobile=mobile):
+                return render(request, 'register.html', {'msg': '该用户未注册，请注册'})
+            record = VerifyCode.objects.filter(
+                Q(mobile=request.POST.get('mobile', '')) & Q(send_type='reset_pwd')).last()
+            if record:
+                if record.code == request.POST.get('code', ''):
+                    pwd1 = request.POST.get('password1', '')
+                    pwd2 = request.POST.get('password2', '')
+                    if pwd1 != pwd2:
+                        return render(request, 'pwd_reset.html', {'mobile': mobile, 'msg': '密码不一致'})
+                    else:
+                        user = UserProfile.objects.get(mobile=mobile)
+                        user.password = make_password(pwd2)
+                        user.save()
+                        return render(request, 'login.html')
+                else:
+                    return HttpResponse(
+                        '{"status":"fail", "msg":"验证码不一致"}',
+                        content_type='application/json')
+            else:
+                return HttpResponse(
+                    '{"status":"fail", "msg":"请先获取验证码"}',
+                    content_type='application/json')
         else:
             return render(request, 'reset_pwd.html', {'reset_pwd_form': reset_pwd_form})
 
 
+class UpdateMobileView(LoginRequiredMixin, View):
+    """更新手机号"""
+
+    def get(self, request):
+        modify_form = UpdateMobileForm()
+        return render(request, 'update_mobile.html', {'update_mobile_form': modify_form})
+
+    def post(self, request):
+        modify_form = UpdateMobileForm(request.POST)
+        if modify_form.is_valid():
+            old_mobile = request.POST.get("old_mobile", "")
+            new_mobile = request.POST.get("new_mobile", "")
+            code = request.POST.get("code", "")
+
+            user = request.user
+            if old_mobile != user.mobile:
+                return HttpResponse(
+                    '{"status":"fail", "msg":"旧手机号不一致"}',
+                    content_type='application/json')
+            # 旧手机号一致
+            record = VerifyCode.objects.filter(
+                Q(mobile=request.POST.get('new_mobile', '')) & Q(send_type='update_mobile')).last()
+            if record:
+                if record.code == request.POST.get('code', ''):
+                    user.mobile = new_mobile
+                    user.username = new_mobile
+                    # save保存到数据库
+                    user.save()
+
+                    record = UpdateMobileRecord()
+                    record.old_mobile = old_mobile
+                    record.new_mobile = new_mobile
+                    record.code = code
+                    record.save()
+                    return HttpResponse(
+                        '{"status":"success"}',
+                        content_type='application/json')
+                else:
+                    return HttpResponse(
+                        '{"status":"fail", "msg":"验证码不一致"}',
+                        content_type='application/json')
+            else:
+                return HttpResponse(
+                    '{"status":"fail", "msg":"请先获取验证码"}',
+                    content_type='application/json')
+        else:
+            # 通过json的dumps方法把字典转换为json字符串
+            return HttpResponse(
+                json.dumps(
+                    modify_form.errors),
+                content_type='application/json')
+
+
 class UpdatePwdView(LoginRequiredMixin, View):
+    """更新密码"""
     login_url = '/login/'
     redirect_field_name = 'next'
 
@@ -183,6 +260,8 @@ class UpdatePwdView(LoginRequiredMixin, View):
 
 
 class LogoutView(View):
+    """登出"""
+
     def get(self, request):
         # django自带的logout
         logout(request)
@@ -191,12 +270,10 @@ class LogoutView(View):
 
 
 class UserInfoView(LoginRequiredMixin, View):
-    login_url = '/login/'
-    redirect_field_name = 'next'
+    """用户中心"""
 
     def get(self, request):
         return render(request, "usercenter-info.html", {
-
         })
 
     def post(self, request):
@@ -215,9 +292,39 @@ class UserInfoView(LoginRequiredMixin, View):
                 content_type='application/json')
 
 
+class UserAuthView(LoginRequiredMixin, View):
+    """用户认证"""
+
+    def get(self, request):
+        return render(request, "usercenter-auth.html", {
+        })
+
+    def post(self, request):
+        # 不像用户咨询是一个新的。需要指明instance。不然无法修改，而是新增用户
+        user_info_form = UserAuthForm(request.POST, instance=request.user)
+        if user_info_form.is_valid():
+            user_info_form.save()
+            return HttpResponse(
+                '{"status":"success"}',
+                content_type='application/json')
+        else:
+            # 通过json的dumps方法把字典转换为json字符串
+            return HttpResponse(
+                json.dumps(
+                    user_info_form.errors),
+                content_type='application/json')
+
+
+class UserPublishView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, "usercenter-publish.html", {
+        })
+
+
 # 用户上传图片的view:用于修改头像
 
 class UploadImageView(LoginRequiredMixin, View):
+    """更新图片"""
     login_url = '/login/'
     redirect_field_name = 'next'
 
@@ -243,19 +350,23 @@ class UploadImageView(LoginRequiredMixin, View):
 # 个人中心页我的订单
 
 class MyOrderView(LoginRequiredMixin, View):
+    """我的订单"""
     login_url = '/login/'
     redirect_field_name = 'next'
 
     def get(self, request):
-        user_courses = UserCourse.objects.filter(user=request.user)
-        return render(request, "usercenter-mycourse.html", {
-            "user_courses": user_courses,
+        user_patent = BuyerPatent.objects.filter(buyer=request.user)
+        user_project = BuyerProject.objects.filter(buyer=request.user)
+        return render(request, "usercenter-myorder.html", {
+            "user_patent": user_patent,
+            "user_project": user_project,
         })
 
 
 # 我收藏的
 
 class MyFavView(LoginRequiredMixin, View):
+    """我的收藏"""
     login_url = '/login/'
     redirect_field_name = 'next'
 
@@ -278,8 +389,21 @@ class MyFavView(LoginRequiredMixin, View):
         })
 
 
-# 我的消息
+class MyPublishView(LoginRequiredMixin, View):
+    """我的发布管理"""
+
+    def get(self, request):
+        patent_list = Patent.objects.filter(seller=request.user)
+        project_list = Project.objects.filter(seller=request.user)
+
+        return render(request, "usercenter-myPublish.html", {
+            "patent_list": patent_list,
+            "project_list": project_list
+        })
+
+
 class MyMessageView(LoginRequiredMixin, View):
+    """我的信息"""
     login_url = '/login/'
     redirect_field_name = 'next'
 
@@ -306,8 +430,9 @@ class MyMessageView(LoginRequiredMixin, View):
         })
 
 
-## 首页view
 class IndexView(View):
+    """首页view"""
+
     def get(self, request):
         project = Project.objects.all().order_by('index')[:5]
         # 正常位课程
@@ -316,32 +441,3 @@ class IndexView(View):
             "project": project,
             "patent": patent,
         })
-
-
-# class ForCodeView(View):
-#     """获取手机验证码"""
-#
-#     def post(self, request):
-#         mobile = request.POST.get('mobile', '')
-#         if mobile:
-#             # 验证是否为有效手机号
-#             mobile_pat = re.compile('^(13\d|14[5|7]|15\d|166|17\d|18\d)\d{8}$')
-#             res = re.search(mobile_pat, mobile)
-#             if res:
-#                 # 生成手机验证码
-#                 code = VerifyCode()
-#                 code.mobile = mobile
-#                 c = random.randint(1000, 9999)
-#                 code.code = str(c)
-#                 code.save()
-#                 code = VerifyCode.objects.filter(mobile=mobile).first().code
-#                 yunpian = YunPian(APIKEY)
-#                 sms_status = yunpian.send_sms(code=code, mobile=mobile)
-#                 msg = sms_status.msg
-#                 return HttpResponse(msg)
-#             else:
-#                 msg = '请输入有效手机号码!'
-#                 return HttpResponse(msg)
-#         else:
-#             msg = '手机号不能为空！'
-#             return HttpResponse(msg)

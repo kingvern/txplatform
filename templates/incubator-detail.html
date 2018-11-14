@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}专利展示{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/patent.css' %}">
+{% endblock %}
+{% block custom_bread %}
+    <section class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">专利商品列表</a></li>
+            <li class="active">{{ patent.name }}</li>
+        </ul>
+    </section>
+{% endblock %}
+{% block content %}
+
+    <section class="container">
+        <p>{{ incubator.name }}</p>
+
+        <p class="content">{{ incubator.contact }}</p>
+
+        <p class="content">{{ incubator.contact_email }}</p>
+
+        <p class="content">{{ incubator.contact_mobile }}</p>
+
+        <p class="content">{{ incubator.contact_post }}</p>
+        {% autoescape off %}
+            {{ incubator.descs }}
+        {% endautoescape %}
+        {% autoescape off %}
+            {{ incubator.companys }}
+        {% endautoescape %}
+        {% autoescape off %}
+            {{ incubator.services }}
+        {% endautoescape %}
+        {% autoescape off %}
+            {{ incubator.techservice }}
+        {% endautoescape %}
+
+    </section>
+
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript">
+
+    </script>
+{% endblock %}

@@ -6,6 +6,8 @@ from django.db import models
 
 from users.models import UserProfile
 
+from DjangoUeditor.models import UEditorField
+
 
 # Create your models here.
 
@@ -50,7 +52,14 @@ class Patent(models.Model):
     applicant = models.CharField(max_length=20, null=True, blank=True, verbose_name=u'申请人')
     contact = models.CharField(max_length=20, null=True, blank=True, verbose_name=u'联系人')
     contact_mobile = models.CharField(max_length=20, null=True, blank=True, verbose_name=u'联系电话')
-    detail = models.TextField(null=True, blank=True, verbose_name=u'专利详情')
+    # 修改imagepath,不能传y m 进来，不能加斜杠是一个相对路径，相对于setting中配置的mediaroot
+    detail = UEditorField(verbose_name=u"详情", width=600, height=300, imagePath="patent/ueditor/",
+                          filePath="patent/ueditor/", default='')
+    shop_status = models.CharField(max_length=20, default='1',
+                                   choices=(('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'已交易')),
+                                   verbose_name=u'上架状态')
+    if_show = models.BooleanField(default=True, verbose_name='是否显示')
+    note = models.CharField(max_length=20, default='1', null=True, blank=True, verbose_name=u'审核意见')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加日期')

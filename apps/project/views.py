@@ -1,9 +1,12 @@
 # _*_ coding: utf-8 _*_
+import json
+
 from django.shortcuts import render
 from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 
+from project.forms import AddProjectForm
 from .models import Project
 from operation.models import UserFavorite
 
@@ -18,6 +21,8 @@ class ProjectListView(View):
         cooperation = request.GET.get('cooperation', '')
         price_down = request.GET.get('price_down', '')
         price_up = request.GET.get('price_up', '')
+
+        newest_project = all_project.order_by('-add_time')[:10]
 
         FIELD = (
             ('0', u'食品饮料'), ('1', u'建筑建材'), ('2', u'家居用品'), ('3', u'轻工纺织'), ('4', u'化学化工'), ('5', u'新能源'),
@@ -51,11 +56,19 @@ class ProjectListView(View):
         except PageNotAnInteger:
             page = 1
 
-        p = Paginator(all_project, 1, request=request)
+        p = Paginator(all_project, 10, request=request)
 
         project = p.page(page)
 
+        for project_ in project.object_list:
+            project_.has_fav = False
+            if request.user.is_authenticated:
+                if UserFavorite.objects.filter(user=request.user, fav_id=project_.id, fav_type=2):
+                    project_.has_fav = True
+
         return render(request, 'project-list.html', {
+            'current_page': 'project',
+            'newest_project': newest_project,
             'all_project': project,
             'project_nums': project_nums,
             'field_category_id': field_category,
@@ -75,7 +88,7 @@ class ProjectDetailView(View):
         # 此处的id为表默认为我们添加的值。
         project = Project.objects.get(id=int(project_id))
         # 增加专利点击数
-        # project.click_nums += 1
+        project.click_num += 1
         project.save()
 
         # 是否收藏
@@ -93,7 +106,26 @@ class ProjectDetailView(View):
         else:
             relate_projects = []
         return render(request, "project-detail.html", {
+            'current_page': 'project',
             "project": project,
             "relate_projects": relate_projects,
             "has_fav_project": has_fav_project,
         })
+
+
+class AddProjectView(View):
+    def post(self, request):
+        add_project_form = AddProjectForm(request.POST)
+        if add_project_form.is_valid():
+            project = add_project_form.save(commit=False)
+            project.seller = request.user
+            project.save()
+            return HttpResponse(
+                '{"status":"success"}',
+                content_type='application/json')
+        else:
+            # 通过json的dumps方法把字典转换为json字符串
+            return HttpResponse(
+                json.dumps(
+                    add_project_form.errors),
+                content_type='application/json')

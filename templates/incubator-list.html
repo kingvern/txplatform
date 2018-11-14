@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}政策展示{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/incubator.css' %}">
+{% endblock %}
+{% block custom_bread %}
+
+    <section class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li class="active">政策信息列表</li>
+        </ul>
+    </section>
+{% endblock %}
+{% block content %}
+
+
+    {#筛选#}
+    <section class="container">
+        <div class="filter">
+
+            {#筛选行政#}
+            <div class="filter-box">
+                <div class="filter-title"><span>上级</span></div>
+                <ul class="filter-list">
+                    <li class="filter-item mainTab {% ifequal type_id '0' %}filter-active{% endifequal %}" id="mainTab0">
+                        <a role="menuitem" tabindex="-1" href="?type_id=0"><span>
+                                   Couveuse</span></a>
+                    </li>
+                    <li class="filter-item mainTab {% ifequal type_id '1' %}filter-active{% endifequal %}" id="mainTab1">
+                        <a role="menuitem" tabindex="-1" href="?type_id=1"><span>
+                                    Park</span></a>
+                    </li>
+                    <li class="filter-item mainTab {% ifequal type_id '2' %}filter-active{% endifequal %}" id="mainTab2">
+                        <a role="menuitem" tabindex="-1" href="?type_id=2"><span>
+                                    Finance</span></a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="filter-box">
+                <div class="filter-title"><span>行政</span></div>
+                <ul id=""
+                    class="filter-list province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">
+                    <li class="filter-item {% ifequal area0 '' %}filter-active{% endifequal %}"
+                        role="presentation">
+                        <a role="menuitem" tabindex="-1" href="?type_id={{ type_id }}&area0="><span
+                                class="">全部</span></a>
+                    </li>
+                    {% for area0_ in area0s %}
+                        <li class="filter-item {% ifequal area0 area0_.area0 %}filter-active{% endifequal %}"
+                            role="presentation">
+                            <a role="menuitem" tabindex="-1"
+                               href="?type_id={{ type_id }}&area0={{ area0_.area0 }}"><span>
+                                    {{ area0_.area0 }}</span></a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% ifnotequal area0 '' %}
+                <div class="filter-box">
+                    <div class="filter-title"><span>行政</span></div>
+                    <ul id=""
+                        class="filter-list province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">
+                        <li class="filter-item {% ifequal area1 '' %}filter-active{% endifequal %}"
+                            role="presentation">
+                            <a role="menuitem" tabindex="-1" href="?type_id={{ type_id }}&area0={{ area0 }}"><span
+                                    class="">全部</span></a>
+                        </li>
+                        {% for area1_ in area1s %}
+                            <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
+                                role="presentation">
+                                <a role="menuitem" tabindex="-1"
+                                   href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
+                                    {% ifequal area0 '河北' %}{{ area1_.area1|slice:'4:' }}{% else %}
+                                        {{ area1_.area1|slice:'8:' }}{% endifequal %}
+                                </span></a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endifnotequal %}
+        </div>
+    </section>
+
+    {#内容#}
+    <section class="container module">
+        {#列表#}
+        <div class="filted-content">
+            <div class="incubator-list">
+                {% for incubator in incubator.object_list %}
+                    <div class="incubator-item">
+                    <span class="incubator-item-title"><a
+                            href="/incubator/detail/{{ incubator.id }}/?type_id={{ type_id }}">{{ incubator.name }}</a></span>
+                        <span class="incubator-item-source">{{ incubator.addr }}{{ incubator.source }} </span><span
+                            class="incubator-item-time">{{ incubator.pubDate }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <nav class="page-position">
+            <ul class="pagination ">
+                {% if incubator.has_previous %}
+                    <li>
+                        <a href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ incubator.previous_page_number }}"
+                           class="prev">&lsaquo;&lsaquo; </a></li>
+                {% else %}
+                    <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>
+                {% endif %}
+                {% for page in incubator.pages %}
+                    {% if page %}
+                        {% ifequal page incubator.number %}
+                            <li><span class="current page">{{ page }}</span></li>
+                        {% else %}
+                            <li><a href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ page }}"
+                                   class="page">{{ page }}</a>
+                            </li>
+                        {% endifequal %}
+                    {% else %}
+                        <li class="disabled"><span>...</span></li>
+                    {% endif %}
+                {% endfor %}
+                {% if incubator.has_next %}
+                    <li>
+                        <a href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ incubator.next_page_number }}"
+                           class="next">
+                            &rsaquo;&rsaquo;</a></li>
+                {% else %}
+                    <li><span class="disabled next"> &rsaquo;&rsaquo;</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    </section>
+
+
+{% endblock %}
+{% block custom_js %}
+    <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
+
+    <script type="text/javascript">
+        $(() => {
+            $(".mainTab").click(function () {
+                let tabId = $(this).attr("id");
+                console.log('tabId', tabId)
+                let chartClass = 'province'
+                let id = tabId.slice(7)
+                console.log("#" + chartClass + "-" + id)
+                $(this).parent().children().removeClass('filter-active')
+                $(this).addClass('filter-active')
+                $("." + chartClass).addClass('dispear')
+                $("#" + chartClass + id).removeClass('dispear')
+            })
+
+        });
+
+    </script>
+{% endblock %}

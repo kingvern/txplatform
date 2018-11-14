@@ -1,12 +1,17 @@
 # _*_ coding: utf-8 _*_
 
 from django.conf.urls import url, include
-from .views import UserInfoView, UploadImageView, UpdatePwdView, MyFavView, MyMessageView, MyOrderView
-from django.views.decorators.csrf import csrf_exempt
+from .views import UserInfoView, UserPublishView, UploadImageView, UpdatePwdView, MyFavView, MyMessageView, MyOrderView, \
+    ForCodeView, MyPublishView, UserAuthView
 
 urlpatterns = [
     # 中心展示
     url('info/', UserInfoView.as_view(), name="user_info"),
+
+    url('auth/', UserAuthView.as_view(), name="user_auth"),
+
+    url('publish/', UserPublishView.as_view(), name="user_publish"),
+
     # 用户头像上传
     url('image/upload/', UploadImageView.as_view(), name="image_upload"),
     # 用户个人中心修改密码
@@ -17,5 +22,9 @@ urlpatterns = [
     # 我收藏的课程机构
     url('myfav/', MyFavView.as_view(), name="myfav"),
 
+    url('myPublish/', MyPublishView.as_view(), name="mypublish"),
+
     url('my_message/', MyMessageView.as_view(), name="my_message"),
+
+    url('forcode/', ForCodeView.as_view(), name='forcode'),
 ]

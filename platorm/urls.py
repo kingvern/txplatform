@@ -23,21 +23,18 @@ import xadmin
 
 from platorm.settings import MEDIA_ROOT
 
-from users.views import LoginView, RegisterView, ActiveUserView, ResetPwdView, ResetView, ModifyPwdView, LogoutView
+from users.views import LoginView, RegisterView, ResetPwdView, UpdateMobileView, LogoutView
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
-    # url('forcode/', ForCodeView.as_view(), name='forcode'),
 
     url('^$', TemplateView.as_view(template_name='index.html'), name='index'),
     url('^login/$', LoginView.as_view(), name='login'),
     url('logout/', LogoutView.as_view(), name="logout"),
     url('^register/$', RegisterView.as_view(), name='register'),
     url(r'^captcha/', include('captcha.urls')),
-    url(r'^active/(?P<active_code>.*)/$', ActiveUserView.as_view(), name='active_code'),
-    url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name='reset'),
-    url(r'^modify_pwd/$', ModifyPwdView.as_view(), name='modify_pwd'),
     url(r'^reset_pwd/$', ResetPwdView.as_view(), name='reset_pwd'),
+    url(r'^update_mobile/$', UpdateMobileView.as_view(), name='update_mobile'),
 
     url(r'^users/', include('users.urls', namespace='users')),
 
@@ -45,7 +42,13 @@ urlpatterns = [
     url(r'^patent/', include('patent.urls', namespace='patent')),
     url(r'^project/', include('project.urls', namespace='project')),
 
-    url("users/", include('users.urls', namespace="users")),
+    url(r'^incubator/', include('incubator.urls', namespace='incubator')),
+    url(r'^gallery/', include('gallery.urls', namespace='gallery')),
+    url(r'^club/', include('club.urls', namespace='club')),
+
+    url("operation/", include('operation.urls', namespace="operation")),
+
+    url(r'^ueditor/', include('DjangoUeditor.urls')),
 
     # 配置上传文件访问处理的函数
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT})

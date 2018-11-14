@@ -6,7 +6,7 @@ from django.http import HttpResponse, JsonResponse
 
 from .models import Policy, Department, Province, Banner, Chart
 
-from .forms import UserAskForm, AddPolicyForm, AddChartForm
+from .forms import AddPolicyForm, AddChartForm
 from operation.models import UserFavorite
 import json
 
@@ -61,6 +61,7 @@ class PolicyListViewBak(View):
         # all_chart = json.dumps(all_chart)
 
         return render(request, 'policy-list.html', {
+            'current_page': 'policy',
             'banners': banners,
 
             'a_policy': a_policy_data,
@@ -85,6 +86,7 @@ class PolicyHomeView(View):
         policy = Policy.objects.order_by('-pubDate')[:20]
 
         return render(request, 'policy-home.html', {
+            'current_page': 'policy',
             'banner_main': banner_main,
             'banners': banners,
             'policy_list': policy,
@@ -132,6 +134,7 @@ class PolicyListView(View):
         policy_data = p.page(page)
 
         return render(request, 'policy-list.html', {
+            'current_page': 'policy',
             'main': main,
             'mains': mains,
             'policy_nums': policy_nums,
@@ -159,6 +162,7 @@ class PolicyDetailView(View):
         #     if UserFavorite.objects.filter(user=request.user, fav_id=policy.policy_id, fav_type=1):
         #         has_fav_policy = True
         return render(request, "policy-detail.html", {
+            'current_page': 'policy',
             "policy": policy,
             "has_fav_policy": has_fav_policy,
         })
@@ -180,6 +184,7 @@ class PolicyBannerView(View):
         #     if UserFavorite.objects.filter(user=request.user, fav_id=banner.id, fav_type=1):
         #         has_fav_banner = True
         return render(request, "policy-banner.html", {
+            'current_page': 'policy',
             "banner": banner,
             "has_fav_banner": has_fav_banner,
         })
@@ -228,18 +233,6 @@ class AddChartView(View):
             else:
                 return HttpResponse('{"status":"invalid"}', content_type='application/json')
         return HttpResponse('{"status":"has exited"}', content_type='application/json')
-
-
-class AddUserAskView(View):
-    def post(self, request):
-        userask_form = UserAskForm(request.POST)
-        if userask_form.is_valid():
-            user_ask = userask_form.save(commit=True)
-            return HttpResponse("{'status':'success'}", content_type='application/json')
-        else:
-            return HttpResponse("{'status':'fail','msg':{0}}".format(userask_form.errors),
-                                content_type='application/json')
-
 
 # class APolicyDataView(View):
 #     def get(self, request):

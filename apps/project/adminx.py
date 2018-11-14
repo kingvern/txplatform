@@ -18,6 +18,7 @@ class ProjectAdmin(object):
                      'keyword', 'status', 'detail', 'click_num', 'fav_num']
     list_filter = ['name', 'field_category', 'project_step', 'cooperation', 'province', 'price', 'bargain', 'hire',
                    'keyword', 'status', 'detail', 'click_num', 'fav_num', 'add_time']
+    style_fields = {"detail": "ueditor"}
 
 
 xadmin.site.register(Category, CategoryAdmin)

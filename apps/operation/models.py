@@ -12,9 +12,10 @@ from project.models import Project
 # Create your models here.
 
 class UserAsk(models.Model):
-    name = models.CharField(max_length=20, verbose_name=u'姓名')
-    mobile = models.CharField(max_length=11, verbose_name=u'手机')
-    policy_name = models.CharField(max_length=50, verbose_name=u'专利名')
+    user = models.ForeignKey(UserProfile, verbose_name=u'用户', null=True)
+    fav_id = models.IntegerField(default=0, verbose_name=u'数据ID')
+    fav_type = models.IntegerField(choices=((0, u'政策'), (1, u'专利'), (2, u'项目'), (3, u'其他慢慢加')), default=1,
+                                   verbose_name=u'数据类别')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
     class Meta:
@@ -25,12 +26,24 @@ class UserAsk(models.Model):
 class UserFavorite(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name=u'用户')
     fav_id = models.IntegerField(default=0, verbose_name=u'数据ID')
-    fav_type = models.IntegerField(choices=((0, u'政策'), (1, u'专利'), (2, u'项目'), (3, u'其他慢慢加')), default=1,
+    fav_type = models.IntegerField(choices=((0, u'政策'), (1, u'专利'), (2, u'项目'), (3, u'展会')), default=1,
                                    verbose_name=u'数据类别')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
     class Meta:
         verbose_name = u'用户收藏'
+        verbose_name_plural = verbose_name
+
+
+class UserJoin(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name=u'用户')
+    join_id = models.IntegerField(default=0, verbose_name=u'数据ID')
+    join_type = models.IntegerField(choices=((0, u'政策'), (1, u'专利'), (2, u'项目'), (3, u'展会')), default=1,
+                                    verbose_name=u'数据类别')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
+
+    class Meta:
+        verbose_name = u'用户报名'
         verbose_name_plural = verbose_name
 
 
@@ -55,8 +68,10 @@ class BuyerPatent(models.Model):
     base_price = models.IntegerField(default=0, verbose_name=u'基础费')
     serve_fee = models.IntegerField(default=0, verbose_name=u'服务费')
     total_price = models.IntegerField(default=0, verbose_name=u'总费')
-    step = models.CharField(max_length=10, default='0', choices=(('0', u'未付款'), ('1', u'已付款'), ('2', u'已提交专利局')),
+    step = models.CharField(max_length=10, default='0',
+                            choices=(('-1', u'已取消'), ('0', u'下单未付款'), ('1', u'已付款'), ('2', u'已提交专利局'), ('2', u'交易完成')),
                             verbose_name=u'订单阶段')
+    step_time = models.DateTimeField(default=datetime.now, verbose_name=u'阶段时间')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
     class Meta:

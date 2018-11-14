@@ -1,10 +1,13 @@
 # _*_ coding: utf-8 _*_
+import json
+
 from django.shortcuts import render
 from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 
 from .models import Patent
+from .forms import AddPatentForm
 from operation.models import UserFavorite
 
 
@@ -17,6 +20,8 @@ class PatentListView(View):
         patent_category = request.GET.get('patent_category', '')
         price_down = request.GET.get('price_down', '')
         price_up = request.GET.get('price_up', '')
+
+        newest_patent = all_patent.order_by('-add_time')[:10]
 
         # field_categorys = all_patent.values_list('field_category').distinct()
         # FIELD = {
@@ -61,11 +66,25 @@ class PatentListView(View):
         except PageNotAnInteger:
             page = 1
 
-        p = Paginator(all_patent, 1, request=request)
+        p = Paginator(all_patent, 10, request=request)
 
         patent = p.page(page)
 
+        # patents = patent.object_list
+        # patents_=[]
+
+        for patent_ in patent.object_list:
+            patent_.has_fav = False
+            if request.user.is_authenticated:
+                if UserFavorite.objects.filter(user=request.user, fav_id=patent_.id, fav_type=1):
+                    patent_.has_fav = True
+        #     patents_.append(patent_)
+        #
+        # patent.object_list = patents_
+
         return render(request, 'patent-list.html', {
+            'current_page': 'patent',
+            'newest_patent': newest_patent,
             'all_patent': patent,
             'patent_nums': patent_nums,
             'field_category_id': field_category,
@@ -82,7 +101,7 @@ class PatentDetailView(View):
         # 此处的id为表默认为我们添加的值。
         patent = Patent.objects.get(id=int(patent_id))
         # 增加专利点击数
-        # patent.click_nums += 1
+        patent.click_num += 1
         patent.save()
 
         # 是否收藏
@@ -100,7 +119,48 @@ class PatentDetailView(View):
         else:
             relate_patents = []
         return render(request, "patent-detail.html", {
+            'current_page': 'patent',
             "patent": patent,
             "relate_patents": relate_patents,
             "has_fav_patent": has_fav_patent,
         })
+
+
+class AddPatentView(View):
+    def post(self, request):
+        add_patent_form = AddPatentForm(request.POST)
+        if add_patent_form.is_valid():
+            patent = add_patent_form.save(commit=False)
+            patent.seller = request.user
+            patent.save()
+            return HttpResponse(
+                '{"status":"success"}',
+                content_type='application/json')
+        else:
+            # 通过json的dumps方法把字典转换为json字符串
+            return HttpResponse(
+                json.dumps(
+                    add_patent_form.errors),
+                content_type='application/json')
+            # patent = Patent()
+            # patent.name = request.POST.get('name', '')
+            # patent.seller = request.user
+            # patent.patent_id = request.POST.get('patent_id', '')
+            # patent.field_category = request.POST.get('field_category', '')
+            # patent.patent_category = request.POST.get('patent_category', '')
+            # patent.province = request.POST.get('province', '')
+            # patent.patent_expired = request.POST.get('patent_expired', '')
+            # patent.price = request.POST.get('price', '')
+            # patent.bargain = request.POST.get('bargain', '')
+            # patent.hire = request.POST.get('hire', '')
+            # patent.status = request.POST.get('status', '')
+            # patent.IPC_num = request.POST.get('IPC_num', '')
+            # patent.application_date = request.POST.get('application_date', '')
+            # patent.agent = request.POST.get('agent', '')
+            # patent.agency = request.POST.get('agency', '')
+            # patent.inventor = request.POST.get('inventor', '')
+            # patent.applicant = request.POST.get('applicant', '')
+            # patent.contact = request.POST.get('contact', '')
+            # patent.contact_mobile = request.POST.get('contact_mobile', '')
+            # patent.detail = request.POST.get('detail', '')
+            # patent.save()

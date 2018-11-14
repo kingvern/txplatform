@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100, verbose_name='\u4e13\u5bb6\u540d\u79f0')),
-                ('desc', models.TextField(verbose_name='\u4e13\u5bb6\u63cf\u8ff0')),
+                ('descs', models.TextField(verbose_name='\u4e13\u5bb6\u63cf\u8ff0')),
                 ('click_num', models.IntegerField(default=0, verbose_name='\u70b9\u51fb\u6b21\u6570')),
                 ('fav_num', models.IntegerField(default=0, verbose_name='\u6536\u85cf\u6b21\u6570')),
                 ('filed', models.CharField(max_length=30, verbose_name='\u4e13\u4e1a\u9886\u57df')),
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100, verbose_name='\u673a\u6784\u540d\u79f0')),
-                ('desc', models.TextField(verbose_name='\u673a\u6784\u63cf\u8ff0')),
+                ('descs', models.TextField(verbose_name='\u673a\u6784\u63cf\u8ff0')),
                 ('click_num', models.IntegerField(default=0, verbose_name='\u70b9\u51fb\u6b21\u6570')),
                 ('fav_num', models.IntegerField(default=0, verbose_name='\u6536\u85cf\u6b21\u6570')),
                 ('address', models.CharField(max_length=150, verbose_name='\u673a\u6784\u5730\u5740')),

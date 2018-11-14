@@ -3,7 +3,7 @@ from django import forms
 
 from captcha.fields import CaptchaField
 
-from users.models import UserProfile
+from users.models import UserProfile, UpdateMobileRecord
 
 
 class LoginForm(forms.Form):
@@ -12,14 +12,22 @@ class LoginForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
-    email = forms.EmailField(required=True)
+    mobile = forms.CharField(required=True)
     password = forms.CharField(required=True, min_length=6)
-    captcha = CaptchaField(error_messages={'invalid': '验证码出错'})
+    code = forms.CharField(required=True)
 
 
 class ResetPwdForm(forms.Form):
-    email = forms.EmailField(required=True)
-    captcha = CaptchaField(error_messages={'invalid': '验证码出错'})
+    mobile = forms.CharField(required=True)
+    code = forms.CharField(required=True)
+    password1 = forms.CharField(required=True, min_length=6)
+    password2 = forms.CharField(required=True, min_length=6)
+
+
+class UpdateMobileForm(forms.Form):
+    old_mobile = forms.CharField(required=True)
+    code = forms.CharField(required=True)
+    new_mobile = forms.CharField(required=True)
 
 
 class ModifyPwdForm(forms.Form):
@@ -39,3 +47,9 @@ class UserInfoForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['nick_name', 'gender', 'birthday', 'address', 'mobile']
+
+
+class UserAuthForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['full_name', 'id_card']

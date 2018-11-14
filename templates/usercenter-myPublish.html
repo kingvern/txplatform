@@ -1,0 +1,27 @@
+{% extends 'usercenter-base.html' %}
+{% block title %} 我的收藏{% endblock %}
+{% load staticfiles %}
+{% block custom_bread %}
+    <section class="container">
+        <ul class="breadcrumb">
+            <li><a href="{% url 'index' %}">首页</a>></li>
+            <li><a href="{% url 'users:user_info' %}">个人中心</a></li>
+            <li>发布管理</li>
+        </ul>
+    </section>
+{% endblock %}
+
+{% block right_content %}
+    <div class="right">
+        <p></p>
+        {% for patent in patent_list %}
+
+                <img class="center-block" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/>
+            <p>{{ patent.id }}|{{ patent.name }}|patent|{{ patent.status }}</p>
+        {% endfor %}
+        {% for project in project_list %}
+            <p>{{ project.id }}|{{ project.name }}|project|{{ project.status }}</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
