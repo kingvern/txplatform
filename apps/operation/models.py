@@ -6,7 +6,7 @@ from django.db import models
 
 from users.models import UserProfile
 from patent.models import Patent
-from project.models import Project
+from project.models import Project, Projectt
 
 
 # Create your models here.
