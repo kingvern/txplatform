@@ -13,11 +13,11 @@
 
 {% block right_content %}
     <div class="right">
-        <table class="table">
+        <table>
             <caption>专利</caption>
             <thead>
             <tr>
-                <th>图片</th>
+                <th>编号</th>
                 <th>名字</th>
                 <th>类别</th>
                 <th>阶段</th>
@@ -26,47 +26,63 @@
             </thead>
             <tbody>
             {% for patent in patent_list %}
-                <tr key="{{ patent.id }}">
-                    <td><img class="center-block" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/></td>
-                    <td>{{ patent.name }}</td>
-                    <td>专利</td>
+                <tr key="{{ patent.id }}" type="1">
+                    <td>{{ patent.id }}</td>
+                    <td><a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a></td>
+                    <td>{{ patent.get_patent_category_display }}</td>
                     <td>{{ patent.get_shop_status_display }}</td>
                     <td>
-                        <a href="/patent/modify/{{ patent.id }}/">修改</a>
-                        <span class="cancel_publish">{% ifequal patent.shop_status '1' %}下架{% else %}
-                            上架{% endifequal %}</span><span
-                            class="delete_publish">删除</span></td>
-                    <td>{{ patent.name }}</td>
+                        {% ifequal patent.shop_status '0' %}
+                            <span class="cancel_publish">下架</span>
+                            <span class="delete_publish">删除</span>
+                        {% endifequal %}
+                        {% ifequal patent.shop_status '1' %}
+                            <span class="cancel_publish">下架</span>
+                            <span class="delete_publish">删除</span>
+                        {% endifequal %}
+                        {% ifequal patent.shop_status '-1' %}<a href="/patent/modify/{{ patent.id }}/">修改</a>
+                            <span class="cancel_publish">上架</span>
+                            <span class="delete_publish">删除</span>
+                        {% endifequal %}
+                    </td>
 
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <table class="table">
+        <table>
             <caption>项目</caption>
             <thead>
             <tr>
-                <th>图片</th>
+                <th>编号</th>
                 <th>名字</th>
-                <th>类别</th>
+                <th>交易方式</th>
                 <th>阶段</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
             {% for project in project_list %}
-                <tr key="{{ gallery.id }}" type="6">
-                    <td><img class="center-block" src="{{ MEDIA_URL }}{{ project.main_pic }}"/></td>
-                    <td>{{ project.name }}</td>
-                    <td>项目</td>
+                <tr key="{{ project.id }}" type="2">
+                    <td>{{ project.id }}</td>
+                    <td><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></td>
+                    <td>{{ project.get_cooperation_display }}</td>
                     <td>{{ project.get_shop_status_display }}</td>
                     <td>
-                        <a href="/project/modify/{{ project.id }}/">修改</a>
-                        <span class="cancel_publish">{% ifequal project.shop_status '1' %}下架{% else %}
-                            上架{% endifequal %}</span><span
-                            class="delete_publish">删除</span></td>
-                    <td>{{ patent.name }}</td>
+                        {% ifequal project.shop_status '0' %}
+                            <span class="cancel_publish">下架</span>
+                            <span class="delete_publish">删除</span>
+                        {% endifequal %}
+                        {% ifequal project.shop_status '1' %}
+                            <span class="cancel_publish">下架</span>
+                            <span class="delete_publish">删除</span>
+                        {% endifequal %}
+                        {% ifequal project.shop_status '-1' %}<a href="/patent/modify/{{ patent.id }}/">修改</a>
+                            <span class="cancel_publish">上架</span>
+                            <span class="delete_publish">删除</span>
+                        {% endifequal %}
+                    </td>
 
                 </tr>
             {% endfor %}
@@ -149,12 +165,12 @@
         }
 
         $('.cancel_publish').on('click', function () {
-            cancel_publish($(this), $(this).parent().attr('key'), 1);
-            setTimeout(window.location.reload(), 3000);
+            cancel_publish($(this), $(this).parent().parent().attr('key'), $(this).parent().parent().attr('type'));
+            {#setTimeout(window.location.reload(), 3000);#}
         });
         $('.delete_publish').on('click', function () {
-            delete_publish($(this), $(this).parent().attr('key'), 1);
-            setTimeout(window.location.reload(), 3000);
+            delete_publish($(this), $(this).parent().parent().attr('key'), $(this).parent().parent().attr('type'));
+            {#setTimeout(window.location.reload(), 3000);#}
         });
 
 

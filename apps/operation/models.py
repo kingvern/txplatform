@@ -6,7 +6,7 @@ from django.db import models
 
 from users.models import UserProfile
 from patent.models import Patent
-from project.models import Project, Projectt
+from project.models import Project
 
 
 # Create your models here.
@@ -142,8 +142,9 @@ class BuyerPatent(models.Model):
 class BuyerProject(models.Model):
     buyer = models.ForeignKey(UserProfile, verbose_name=u'买家', related_name='project_buyer_set')
     project = models.ForeignKey(Project, verbose_name=u'项目')
-    step = models.CharField(max_length=10, default='0', choices=(('0', u'未付款'), ('1', u'已付款'), ('2', u'已提交专利局')),
-                            verbose_name=u'合作阶段')
+    step = models.CharField(max_length=10, default='0', choices=(
+    ('0', u'等待支付定金'), ('1', u'平台合同签订'), ('2', u'三方协议签订'), ('3', u'履约完成'), ('-1', u'取消或终止')),
+                            verbose_name=u'订单阶段')
     step_time = models.DateTimeField(default=datetime.now, verbose_name=u'阶段时间')
     contract = models.FileField(
         upload_to="contract/resource/%Y/%m",
@@ -165,7 +166,7 @@ class BuyerProject(models.Model):
         max_length=100)
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
-    staff = models.ForeignKey(UserProfile, blank=True, null=True, verbose_name=u'业务员', related_name='project_staff_set')
+    staff = models.ForeignKey(UserProfile, null=True, verbose_name=u'业务员', related_name='project_staff_set')
 
     def get_seller_username(self):
         return self.project.seller.username
@@ -177,9 +178,10 @@ class BuyerProject(models.Model):
 
     get_seller_mobile.short_description = "卖家手机号"
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        self.step_time = datetime.now()
+    # def save(self, force_insert=False, force_update=False, using=None,
+    #          update_fields=None):
+    #     self.step_time = datetime.now()
+    # 有毒
 
     class Meta:
         verbose_name = '技术项目订单管理'

@@ -23,17 +23,17 @@
                 <form class="perinform" action="{% url 'users:user_auth' %}" method="POST" id="jsEditUserForm" autocomplete="off">
                     <ul class="right">
                         <li>真实姓名：
-                            <input type="text" name="full_name" id="full_name"
+                            <input type="text" name="full_name" id="full_name" {% if auth %}readonly="readonly"{% endif %}
                                    value="{{ request.user.full_name|default_if_none:'' }}" maxlength="20">
                             <i class="error-tips"></i>
                         </li>
                         <li>身份证号：
-                            <input type="text" id="id_card" name="id_card"
+                            <input type="text" id="id_card" name="id_card" {% if auth %}readonly="readonly"{% endif %}
                                    value="{{ request.user.id_card|default_if_none:'' }}" />
                             <i class="error-tips"></i>
                         </li>
 
-                        <li class="button heibtn">
+                        <li class="button heibtn" {% if auth %}style="display: none" {% endif %}>
                             <input type="submit" id="jsEditUserBtn" value="保存">
                         </li>
                     </ul>

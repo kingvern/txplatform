@@ -1,6 +1,7 @@
 # _*_ coding: utf-8 _*_
 import json
 
+from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
@@ -82,6 +83,7 @@ class PatentListView(View):
         #
         # patent.object_list = patents_
 
+
         return render(request, 'patent-list.html', {
             'current_page': 'patent',
             'newest_patent': newest_patent,
@@ -113,11 +115,13 @@ class PatentDetailView(View):
                 has_fav_patent = True
         # 取出标签找到标签相同的patent
         keyword = patent.keyword
+        # relate_patents = Patent.objects.filter(field_category=patent.field_category)
+        relate_patents = Patent.objects.all()
         if keyword:
             # 从1开始否则会推荐自己
-            relate_patents = Patent.objects.filter(keyword=keyword)[1:2]
+            relate_patents = relate_patents.filter(Q(keyword=keyword) & ~Q(id=patent.id))[0:3]
         else:
-            relate_patents = []
+            relate_patents = relate_patents.filter(~Q(id=patent.id))[0:3]
         return render(request, "patent-detail.html", {
             'current_page': 'patent',
             "patent": patent,
@@ -132,6 +136,8 @@ class AddPatentView(View):
         if add_patent_form.is_valid():
             patent = add_patent_form.save(commit=False)
             patent.seller = request.user
+            patent.hire = patent.price * 0.1
+            patent.shop_status = 0
             patent.save()
             return HttpResponse(
                 '{"status":"success"}',
@@ -146,7 +152,7 @@ class AddPatentView(View):
 
 class ModifyView(View):
     def post(self, request):
-        patent_id = request.POST.get('patent_id', 0)
+        patent_id = request.POST.get('id', 0)
         patent = Patent.objects.get(id=int(patent_id))
         modify_patent_form = ModifyPatentForm(request.POST, instance=patent)
         if modify_patent_form.is_valid():
@@ -164,6 +170,7 @@ class ModifyView(View):
     def get(self, request, patent_id):
         # 此处的id为表默认为我们添加的值。
         patent = Patent.objects.get(id=int(patent_id))
-        return render(request, "usercenter-publish-modify.html", {
+        return render(request, "usercenter-publish-patent.html", {
+            "type": "patent:modify",
             "patent": patent
         })

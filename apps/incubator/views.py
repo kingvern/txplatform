@@ -41,6 +41,10 @@ class ListView(View):
 
         incubator = p.page(page)
 
+        recommend_couveuse = Couveuse.objects.filter(if_recommend=True)[:3]
+        recommend_park = Park.objects.filter(if_recommend=True)[:3]
+        recommend_financial = Financial.objects.filter(if_recommend=True)[:3]
+
         for policy_ in incubator.object_list:
             policy_.has_fav = False
             if request.user.is_authenticated:
@@ -59,7 +63,11 @@ class ListView(View):
             'area0': area0,
             'area1': area1,
             'area0s': area0s,
-            'area1s': area1s
+            'area1s': area1s,
+            "recommend_couveuse": recommend_couveuse,
+            "recommend_park": recommend_park,
+            "recommend_financial": recommend_financial,
+
             # 'levels': levels,
             # 'types': types,
         })

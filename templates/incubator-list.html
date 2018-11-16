@@ -23,22 +23,22 @@
 
             {#筛选行政#}
             <div class="filter-box">
-                <div class="filter-title"><span>上级</span></div>
+
                 <ul class="filter-list">
                     <li class="filter-item mainTab {% ifequal type_id '0' %}filter-active{% endifequal %}"
                         id="mainTab0">
                         <a role="menuitem" tabindex="-1" href="?type_id=0"><span>
-                                   Couveuse</span></a>
+                                   孵化器</span></a>
                     </li>
                     <li class="filter-item mainTab {% ifequal type_id '1' %}filter-active{% endifequal %}"
                         id="mainTab1">
                         <a role="menuitem" tabindex="-1" href="?type_id=1"><span>
-                                    Park</span></a>
+                                    高新园区</span></a>
                     </li>
                     <li class="filter-item mainTab {% ifequal type_id '2' %}filter-active{% endifequal %}"
                         id="mainTab2">
                         <a role="menuitem" tabindex="-1" href="?type_id=2"><span>
-                                    Finance</span></a>
+                                    金融服务</span></a>
                     </li>
 
                 </ul>
@@ -105,7 +105,8 @@
                             <span id="{{ incubator.id }}" type_id="{{ type_id|add:3 }}"
                                   class="module-item-btn-faved fav">取消收藏</span>
                         {% else %}
-                            <span id="{{ incubator.id }}" type_id="{{ type_id|add:3 }}" class="module-item-btn fav">收藏</span>
+                            <span id="{{ incubator.id }}" type_id="{{ type_id|add:3 }}"
+                                  class="module-item-btn fav">收藏</span>
                         {% endif %}
                     </div>
                 {% endfor %}
@@ -146,6 +147,26 @@
             </ul>
         </nav>
 
+    </section>
+    <section>
+        {% for c in recommend_couveuse %}
+            <img src="{{ MEDIA_URL }}/default.png">{{ c.name }}{{ c.area1 }}
+            {% autoescape off %}
+                {{ c.descs }}
+            {% endautoescape %}
+        {% endfor %}
+        {% for c in recommend_park %}
+            <img src="{{ MEDIA_URL }}/default.png">{{ c.name }}{{ c.area1 }}
+            {% autoescape off %}
+                {{ c.descs }}
+            {% endautoescape %}
+        {% endfor %}
+        {% for c in recommend_financial %}
+            <img src="{{ MEDIA_URL }}/default.png">{{ c.name }}{{ c.area1 }}
+            {% autoescape off %}
+                {{ c.descs }}
+            {% endautoescape %}
+        {% endfor %}
     </section>
 
 

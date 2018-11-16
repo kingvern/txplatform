@@ -12,8 +12,8 @@ class BaseSetting(object):
 
 
 class GlobalSetting(object):
-    site_title = '平台名称'
-    site_footer = '平台公司'
+    site_title = '技术交易平台管理系统'
+    site_footer = ''
     menu_style = 'accordion'
 
 

@@ -32,7 +32,6 @@ class BuyerPatentAdmin(object):
     search_fields = ['id', 'patent', 'buyer', 'total_price', 'step']
     list_filter = ['id', 'patent', 'buyer', 'total_price', 'step']
     refresh_times = [3, 5]
-    relfield_style = 'fk-ajax'
     list_editable = ['step', 'staff']
 
     # def save_models(self):
@@ -64,7 +63,7 @@ class BuyerProjectAdmin(object):
                    'protocol']
     refresh_times = [3, 5]
     relfield_style = 'fk-ajax'
-    list_editable = ['step', 'contract', 'prof', 'protocol','staff']
+    list_editable = ['step', 'contract', 'prof', 'protocol', 'staff']
 
 
 xadmin.site.register(UserAsk, UserAskAdmin)
