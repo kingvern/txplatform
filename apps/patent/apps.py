@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 class PatentConfig(AppConfig):
     name = 'patent'
-    verbose_name = u'专利商品'
+    verbose_name = u'2. 专利发布管理'

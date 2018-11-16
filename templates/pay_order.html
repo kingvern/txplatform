@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}政策详情{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/policy.css' %}">
+{% endblock %}
+{% block custom_bread %}
+    <section class="container">
+        <div>
+            <ul class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li><a href="{% url 'policy:home' %}">政策展示</a></li>
+                <li><a>政策详情</a></li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="container policy-banner-module">
+        <p>订单ID：{{ order.id }}|订单佣金：{{ order.serve_fee }}|订单基价：{{ order.base_price }}|订单总价：{{ order.total_price }}</p>
+    </section>
+
+    <section class="container policy-banner-module">
+        <img class="module-item-img" src="{% static 'img/qr.jpg' %}"/>
+    </section>
+
+{% endblock %}

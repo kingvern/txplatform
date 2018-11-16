@@ -16,7 +16,7 @@
 {% block right_content %}
     <div class="right">
         <table class="table">
-            <caption>专利</caption>
+            <caption>孵化器库</caption>
             <thead>
             <tr>
                 <th>名称</th>
@@ -24,16 +24,16 @@
             </tr>
             </thead>
             <tbody>
-            {% for patent in patent_list %}
-                <tr key="{{ patent.id }}" type="1">
-                    <td><a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a></td>
+            {% for couveuse in couveuse_list %}
+                <tr key="{{ couveuse.id }}" type="3">
+                    <td><a href="/incubator/detail/{{ couveuse.id }}/">{{ couveuse.name }}</a></td>
                     <td><span class="fav">取消收藏</span></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
         <table class="table">
-            <caption>项目</caption>
+            <caption>高新园区</caption>
             <thead>
             <tr>
                 <th>名称</th>
@@ -41,9 +41,26 @@
             </tr>
             </thead>
             <tbody>
-            {% for project in project_list %}
-                <tr key="{{ project.id }}" type="2">
-                    <td><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></td>
+            {% for park in park_list %}
+                <tr key="{{ park.id }}" type="4">
+                    <td><a href="/incubator/detail/{{ park.id }}/">{{ park.name }}</a></td>
+                    <td><span class="fav">取消收藏</span></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <table class="table">
+            <caption>金融服务</caption>
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for financial in financial_list %}
+                <tr key="{{ financial.id }}" type="5">
+                    <td><a href="/incubator/detail/{{ financial.id }}/">{{ financial.name }}</a></td>
                     <td><span class="fav">取消收藏</span></td>
                 </tr>
             {% endfor %}

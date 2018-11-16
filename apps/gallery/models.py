@@ -15,7 +15,6 @@ class Gallery(models.Model):
     status = models.CharField(max_length=50, verbose_name=u'活动状态')
     type = models.CharField(max_length=10, default='0',
                             choices=(('0', u'线上活动'), ('1', u'线下活动')), verbose_name=u'活动类型')
-
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
     join_num = models.IntegerField(default=0, verbose_name=u'报名人数')

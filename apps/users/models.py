@@ -32,17 +32,6 @@ class UserProfile(AbstractUser):
         return self.username
 
 
-class EmailVerifyRecord(models.Model):
-    code = models.CharField(max_length=20, verbose_name=u'验证码')
-    email = models.EmailField(max_length=50, verbose_name=u'邮箱')
-    send_type = models.CharField(choices=(('register', u'注册'), ('reset_pwd', u'忘记密码')), max_length=10)
-    send_time = models.DateTimeField(default=datetime.now)
-
-    class Meta:
-        verbose_name = u'邮箱验证码'
-        verbose_name_plural = verbose_name
-
-
 class VerifyCode(models.Model):
     code = models.CharField(max_length=20, verbose_name=u'验证码')
     mobile = models.CharField(max_length=50, verbose_name=u'手机号')
@@ -62,5 +51,5 @@ class UpdateMobileRecord(models.Model):
     send_time = models.DateTimeField(default=datetime.now)
 
     class Meta:
-        verbose_name = u'手机验证码'
+        verbose_name = u'手机更新记录'
         verbose_name_plural = verbose_name

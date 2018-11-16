@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}政策详情{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/policy.css' %}">
+{% endblock %}
+{% block custom_bread %}
+    <section class="container">
+        <div>
+            <ul class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li><a href="{% url 'policy:home' %}">政策展示</a></li>
+                <li><a>政策详情</a></li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+    <section class="container policy-banner-module">
+
+        <img class="module-item-img" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/>
+        <p>
+            {{ patent.id }}|{{ patent.name }}|{{ patent.IPC_num }}|{{ patent.price }}|{{ patent.hire }}|{{ patent.price|add:patent.hire }}
+        </p>
+    </section>
+    <section class="container policy-banner-module">
+        <div>
+            <label>乙方</label><span>{{ NAME }}</span>
+
+        </div>
+        <div>
+            <label>通讯地址</label><span>{{ ADDRESS }}</span>
+        </div>
+        <div>
+            <label>联系人</label><span>{{ CONTACT }}</span>
+        </div>
+        <div>
+            <label>联系电话</label><span>{{ MOBILE }}</span>
+        </div>
+    </section>
+    <section class="container policy-banner-module">
+        <form action="{% url 'operation:order' %}" method="POST" autocomplete="off">
+            <div>
+                <label>单位名称</label>
+                <input type="text" name="id" id="id" value="{{ patent.id }}"/>
+            </div>
+            <div>
+                <label>单位名称</label>
+                <input type="text" name="order_name" id="order_name"/>
+            </div>
+            <div>
+                <label>地址</label>
+                <input type="text" name="order_address" id="order_address"/>
+            </div>
+            <div>
+                <label>联系人</label>
+                <input type="text" name="order_contact" id="order_contact"/>
+            </div>
+            <div>
+                <label>手机</label>
+                <input type="text" name="order_mobile" id="order_mobile"/>
+            </div>
+            {% csrf_token %}
+            <button type="submit">提交</button>
+        </form>
+    </section>
+
+{% endblock %}

@@ -11,13 +11,6 @@ from DjangoUeditor.models import UEditorField
 
 # Create your models here.
 
-class Category(models.Model):
-    name = models.CharField(max_length=100, verbose_name=u'专利类别')
-
-    class Meta:
-        verbose_name = u'专利类别'
-        verbose_name_plural = verbose_name
-
 
 class Patent(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'专利名', default='')
@@ -56,7 +49,7 @@ class Patent(models.Model):
     detail = UEditorField(verbose_name=u"详情", width=600, height=300, imagePath="patent/ueditor/",
                           filePath="patent/ueditor/", default='')
     shop_status = models.CharField(max_length=20, default='1',
-                                   choices=(('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'已交易')),
+                                   choices=(('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'交易中'), ('3', u'已交易')),
                                    verbose_name=u'上架状态')
     if_show = models.BooleanField(default=True, verbose_name='是否显示')
     note = models.CharField(max_length=20, default='1', null=True, blank=True, verbose_name=u'审核意见')
@@ -64,6 +57,14 @@ class Patent(models.Model):
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加日期')
 
+    def get_seller_mobile(self):
+        return self.seller.mobile
+
+    get_seller_mobile.short_description = "卖家手机号"
+
     class Meta:
         verbose_name = '专利商品信息'
         verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return self.name

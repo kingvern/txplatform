@@ -4,7 +4,7 @@ import xadmin
 
 from .models import Province, Department, Policy, Banner, Chart
 
-
+# 显示更新时间
 class ProvinceAdmin(object):
     list_display = ['name', 'if_show']
     search_fields = ['name', 'if_show']

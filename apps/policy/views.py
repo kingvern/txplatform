@@ -133,6 +133,12 @@ class PolicyListView(View):
         p = Paginator(policy, 15, request=request)
         policy_data = p.page(page)
 
+        for policy_ in policy_data.object_list:
+            policy_.has_fav = False
+            if request.user.is_authenticated:
+                if UserFavorite.objects.filter(user=request.user, fav_id=policy_.id, fav_type=0):
+                    policy_.has_fav = True
+
         return render(request, 'policy-list.html', {
             'current_page': 'policy',
             'main': main,
@@ -233,64 +239,3 @@ class AddChartView(View):
             else:
                 return HttpResponse('{"status":"invalid"}', content_type='application/json')
         return HttpResponse('{"status":"has exited"}', content_type='application/json')
-
-# class APolicyDataView(View):
-#     def get(self, request):
-#         all_policy = Policy.objects.all()
-#         departments = Department.objects.all()
-#
-#         a_policy = all_policy.filter(addr_id__in=[3, 4])
-#         a_departments_id = a_policy.values('source').distinct()
-#         a_department = []
-#         for a_department_ in a_departments_id:
-#             a_department.append(departments.get(id=a_department_['source']))
-#         a_department_id = request.GET.get('a_department', '')
-#         if a_department_id:
-#             a_policy = a_policy.filter(source=a_department_id)
-#         a_policy = a_policy.order_by('-pubDate')
-#         a_policy_nums = a_policy.count()
-#         try:
-#             a_page = request.GET.get('a_page', 1)
-#         except PageNotAnInteger:
-#             a_page = 1
-#         a_p = Paginator(a_policy, 5, request=request)
-#         a_policy_data = a_p.page(a_page)
-#
-#         res = {
-#             'a_policy': a_policy_data,
-#             'a_department': a_department,
-#             'a_policy_nums': a_policy_nums,
-#             'a_department_id': a_department_id,
-#         }
-#         return HttpResponse('{"status":"success", "data":"{0}"}'.format(res), content_type='application/json')
-#
-#
-# class BPolicyDataView(View):
-#     def get(self, request):
-#         all_policy = Policy.objects.all()
-#         departments = Department.objects.all()
-#
-#         b_policy = all_policy.exclude(addr_id__in=[3, 4])
-#         b_departments_id = b_policy.values('source').distinct()
-#         b_department = []
-#         for b_department_ in b_departments_id:
-#             b_department.append(departments.get(id=b_department_['source']))
-#         b_department_id = request.GET.get('b_department', '')
-#         if b_department_id:
-#             b_policy = b_policy.filter(source=b_department_id)
-#         b_policy = b_policy.order_by('-pubDate')
-#         b_policy_nums = b_policy.count()
-#         try:
-#             b_page = request.GET.get('b_page', 1)
-#         except PageNotAnInteger:
-#             b_page = 1
-#         b_p = Paginator(b_policy, 5, request=request)
-#         b_policy_data = b_p.page(b_page)
-#
-#         res = {
-#             'b_policy': b_policy_data,
-#             'b_department': b_department,
-#             'b_policy_nums': b_policy_nums,
-#             'b_department_id': b_department_id,
-#         }
-#         return HttpResponse('{"status":"success", "data":"{0}"}'.format(res), content_type='application/json')

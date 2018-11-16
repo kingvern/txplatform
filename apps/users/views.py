@@ -12,12 +12,14 @@ from django.contrib.auth.hashers import make_password
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from operation.models import UserFavorite, UserMessage, BuyerPatent, BuyerProject
+from policy.models import Policy
 from project.models import Project
 from patent.models import Patent
-from .models import UserProfile, EmailVerifyRecord, VerifyCode, UpdateMobileRecord
+from incubator.models import Couveuse, Park, Financial
+from gallery.models import Gallery
+from .models import UserProfile, VerifyCode, UpdateMobileRecord
 from .forms import LoginForm, RegisterForm, ResetPwdForm, UpdateMobileForm, ModifyPwdForm, UploadImageForm, \
     UserInfoForm, UserAuthForm
-from utils.email_send import send_register_email
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -321,6 +323,18 @@ class UserPublishView(LoginRequiredMixin, View):
         })
 
 
+class UserPublishPatentView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, "usercenter-publish-patent.html", {
+        })
+
+
+class UserPublishProjectView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, "usercenter-publish-project.html", {
+        })
+
+
 # 用户上传图片的view:用于修改头像
 
 class UploadImageView(LoginRequiredMixin, View):
@@ -357,7 +371,7 @@ class MyOrderView(LoginRequiredMixin, View):
     def get(self, request):
         user_patent = BuyerPatent.objects.filter(buyer=request.user)
         user_project = BuyerProject.objects.filter(buyer=request.user)
-        return render(request, "usercenter-myorder.html", {
+        return render(request, "usercenter-myOrder.html", {
             "user_patent": user_patent,
             "user_project": user_project,
         })
@@ -372,15 +386,15 @@ class MyFavView(LoginRequiredMixin, View):
 
     def get(self, request):
         patent_list = []
-        patent_ids = UserFavorite.objects.filter(user=request.user, fav_type=0)
+        patent_ids = UserFavorite.objects.filter(user=request.user, fav_type=1)
         for patent_id in patent_ids:
-            patent = Patent.objects.get(id=patent_id)
+            patent = Patent.objects.get(id=int(patent_id.fav_id))
             patent_list.append(patent)
 
         project_list = []
-        project_ids = UserFavorite.objects.filter(user=request.user, fav_type=1)
+        project_ids = UserFavorite.objects.filter(user=request.user, fav_type=2)
         for project_id in project_ids:
-            project = Project.objects.get(id=project_id)
+            project = Project.objects.get(id=project_id.fav_id)
             project_list.append(project)
 
         return render(request, "usercenter-fav.html", {
@@ -440,4 +454,52 @@ class IndexView(View):
         return render(request, 'index.html', {
             "project": project,
             "patent": patent,
+        })
+
+
+class MyFavPolicyView(View):
+    def get(self, request):
+        policy_list = []
+        ids = UserFavorite.objects.filter(user=request.user, fav_type=0)
+        for id in ids:
+            policy = Policy.objects.get(id=id.fav_id)
+            policy_list.append(policy)
+        return render(request, "usercenter-fav-policy.html", {
+            "policy_list": policy_list
+        })
+
+
+class MyFavIncubatorView(View):
+    def get(self, request):
+        couveuse_list = []
+        couveuse_ids = UserFavorite.objects.filter(user=request.user, fav_type=3)
+        for couveuse_id in couveuse_ids:
+            couveuse = Couveuse.objects.get(id=int(couveuse_id.fav_id))
+            couveuse_list.append(couveuse)
+        park_list = []
+        park_ids = UserFavorite.objects.filter(user=request.user, fav_type=4)
+        for park_id in park_ids:
+            park = Park.objects.get(id=int(park_id.fav_id))
+            park_list.append(park)
+        financial_list = []
+        financial_ids = UserFavorite.objects.filter(user=request.user, fav_type=5)
+        for financial_id in financial_ids:
+            financial = Financial.objects.get(id=int(financial_id.fav_id))
+            financial_list.append(financial)
+        return render(request, "usercenter-fav-incubator.html", {
+            "couveuse_list": couveuse_list,
+            "park_list": park_list,
+            "financial_list": financial_list
+        })
+
+
+class MyFavGalleryView(View):
+    def get(self, request):
+        gallery_list = []
+        gallery_ids = UserFavorite.objects.filter(user=request.user, fav_type=6)
+        for gallery_id in gallery_ids:
+            gallery = Gallery.objects.get(id=gallery_id.fav_id)
+            gallery_list.append(gallery)
+        return render(request, "usercenter-fav-gallery.html", {
+            "gallery_list": gallery_list
         })

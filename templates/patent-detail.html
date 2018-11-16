@@ -27,7 +27,43 @@
             <p class="content">价格:<span class="price">{{ patent.price }}</span>元 </p>
 
         </div>
+        <div class="module-item-btn-box">
+            {% if patent.has_fav %}
+                <span id="{{ patent.id }}" class="module-item-btn-faved fav">取消收藏</span>
+            {% else %}
+                <span id="{{ patent.id }}" class="module-item-btn fav">收藏</span>
+            {% endif %}
+            <span class="module-item-btn" data-toggle="modal" data-target="#myModal">咨询</span>
+        <span class="module-item-btn buy"><a href="{% url 'operation:order' %} }}?id={{ patent.id }}">购买</a></span>
+        </div>
     </section>
+
+
+
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    请扫描二维码
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <img src="{% static 'img/qr.jpg' %}"/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                </button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+
 
 {% endblock %}
 
@@ -67,8 +103,41 @@
             });
         }
 
+        function buy(current_elem, fav_id, fav_type) {
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:order" %}",
+                data: {'id': id, 'fav_type': type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '收藏') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
         $('.fav').on('click', function () {
-            add_fav($(this), $(this).attr('id'), 1);
+            add_fav($(this), {{ patent.id }}, 1);
         });
 
 

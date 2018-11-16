@@ -1,5 +1,5 @@
 {% extends 'usercenter-base.html' %}
-{% block title %} 我的课程 | mtianyan慕课小站{% endblock %}
+{% block title %}{% endblock %}
 
 {% block custom_bread %}
     <section>
@@ -7,7 +7,7 @@
             <ul class="crumbs">
                 <li><a href="{% url 'index' %}">首页</a>></li>
                 <li><a href="{% url 'users:user_info' %}">个人中心</a>></li>
-                <li>我的课程</li>
+                <li></li>
             </ul>
         </div>
     </section>
@@ -15,28 +15,113 @@
 
 {% block right_content %}
     <div class="right">
-        <div class="personal_des Releasecont">
-            <div class="head">
-                <h1>我的课程</h1>
-            </div>
-        </div>
         <div class="personal_des permessage">
             <div class="companycenter">
                 <div class="group_list brief">
 
                     {% for patent_order in user_patent %}
-                        <p>商品编号：{{ patent_order.id }}</p>
-                        <p>商品名称：{{ patent_order.patent.name }}</p>
+                        <div key="{{ patent_order.id }}">
+                            <p>订单编号：{{ patent_order.id }}</p>
+                            <p>商品名称：{{ patent_order.patent.name }}</p>
 
-                        <p>商品类型：技术项目</p>
+                            <p>商品类型：技术项目</p>
 
-                        <p>商品状态：{{ patent_order.patent.shop_status }}</p>
-                        <p>订单状态：{{ patent_order.step }}</p>
-                        <a></a>
+                            <p>商品状态：{{ patent_order.patent.get_shop_status_display }}</p>
+                            <p>订单状态：{{ patent_order.get_step_display }}</p>
+                            <a>合同下载</a>
+                            <span class="cancel_order">取消</span>
+                            <span class="delete_order">删除</span>
+                            <a href="/operation/add_order/?id={{ patent_order.patent.id }}">付款</a>
+                        </div>
                     {% endfor %}
 
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript">
+        //收藏分享
+        function cancel_order(current_elem, id, type) {
+            console.log('cancel_order',current_elem, id, type)
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:cancel_order" %}",
+                data: {'id': id, 'type': type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '收藏') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
+        function delete_order(current_elem, id, type) {
+
+            console.log(current_elem, id, type)
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:delete_order" %}",
+                data: {'id': id, 'type': type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '收藏') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
+        $('.cancel_order').on('click', function () {
+            cancel_order($(this), $(this).parent().attr('key'), 1);
+            setTimeout(window.location.reload(), 3000);
+        });
+        $('.delete_order').on('click', function () {
+            delete_order($(this), $(this).parent().attr('key'), 1);
+            setTimeout(window.location.reload(), 3000);
+        });
+
+
+    </script>
 {% endblock %}

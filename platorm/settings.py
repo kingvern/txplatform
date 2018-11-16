@@ -1,3 +1,4 @@
+# _*_ coding: utf-8 _*_
 """
 Django settings for platorm project.
 
@@ -42,15 +43,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'users',
-    'incubator',
     'operation',
     'patent',
-    'policy',
     'project',
+    'incubator',
+    'policy',
 
     'gallery',
     'club',
+    'users',
+
 
     'xadmin',
     'crispy_forms',
@@ -169,6 +171,11 @@ APIKEY = '460b7e12332b41a211c21ab4dd4b6481'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+NAME = 'NAME'
+ADDRESS = 'ADDRESS'
+CONTACT = 'CONTACT'
+MOBILE = 'MOBILE'
 
 CRONJOBS = [
     # ('00 0 * * *', 'scrap.scrap_policy.scrap_policy'),

@@ -2,8 +2,7 @@
 
 import xadmin
 from xadmin import views
-
-from .models import EmailVerifyRecord
+from .models import UserProfile
 
 
 class BaseSetting(object):
@@ -18,12 +17,13 @@ class GlobalSetting(object):
     menu_style = 'accordion'
 
 
-class EmailVerifyRecordAdmin(object):
-    list_display = ['code', 'email', 'send_type', 'send_time']
-    search_fields = ['code', 'email', 'send_type']
-    list_filter = ['code', 'email', 'send_type', 'send_time']
+class UserProfileAdmin(object):
+    list_display = ['id', 'username', 'full_name', 'mobile', 'is_staff', 'last_login']
+    search_fields = ['id', 'username', 'is_staff', 'full_name', 'last_login', 'mobile']
+    list_filter = ['id', 'username', 'is_staff', 'full_name', 'last_login', 'mobile']
 
 
-xadmin.site.register(EmailVerifyRecord, EmailVerifyRecordAdmin)
+xadmin.site.unregister(UserProfile)
+xadmin.site.register(UserProfile, UserProfileAdmin)
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSetting)

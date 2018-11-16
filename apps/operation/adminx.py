@@ -7,9 +7,9 @@ from .models import UserAsk, UserFavorite, UserMessage, BuyerPatent, BuyerProjec
 
 
 class UserAskAdmin(object):
-    list_display = ['name', 'policy_name', 'add_time']
-    search_fields = ['name', 'policy_name']
-    list_filter = ['name', 'policy_name', 'add_time']
+    list_display = ['user', 'add_time']
+    search_fields = ['user', ]
+    list_filter = ['user', 'add_time']
 
 
 class UserFavoriteAdmin(object):
@@ -24,19 +24,23 @@ class UserMessageAdmin(object):
     list_filter = ['user', 'message', 'has_read', 'add_time']
 
 
+# 卖家 业务员 合同 资料(业务员上传) 业务员接收
 class BuyerPatentAdmin(object):
-    list_display = ['buyer', 'patent', 'order_name', 'order_address', 'order_contact', 'order_mobile', 'base_price',
-                    'serve_fee', 'total_price', 'step', 'add_time']
-    search_fields = ['buyer', 'patent', 'order_name', 'order_address', 'order_contact', 'order_mobile', 'base_price',
-                     'serve_fee', 'total_price', 'step', ]
-    list_filter = ['buyer', 'patent', 'order_name', 'order_address', 'order_contact', 'order_mobile', 'base_price',
-                   'serve_fee', 'total_price', 'step', 'add_time']
+    list_display = ['id', 'patent', 'get_seller_username', 'get_seller_mobile', 'buyer', 'total_price', 'step',
+                    'step_time']
+    search_fields = ['id', 'patent', 'total_price', 'step', 'step_time', 'buyer', ]
+    list_filter = ['id', 'patent', 'total_price', 'step', 'step_time', 'buyer', ]
+    refresh_times = [3, 5]
+    list_editable = ['step', ]
 
 
+# 卖家 业务员 合同 资料(业务员上传) 业务员接收
 class BuyerProjectAdmin(object):
-    list_display = ['buyer', 'project', 'step', 'contract', 'protocol', 'add_time']
-    search_fields = ['buyer', 'project', 'step', 'contract', 'protocol']
-    list_filter = ['buyer', 'project', 'step', 'contract', 'protocol', 'add_time']
+    list_display = ['id', 'project', 'step', 'step_time', 'contract', 'prof', 'protocol']
+    search_fields = ['id', 'project', 'step', 'contract', 'prof', 'protocol']
+    list_filter = ['id', 'project', 'step', 'step_time', 'contract', 'prof', 'protocol']
+    refresh_times = [3, 5]
+    list_editable = ['step', 'contract', 'prof', 'protocol']
 
 
 xadmin.site.register(UserAsk, UserAskAdmin)

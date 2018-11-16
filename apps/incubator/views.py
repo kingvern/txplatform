@@ -5,6 +5,7 @@ from django.http import HttpResponse
 
 from django.views.generic import View
 from .models import Couveuse, Park, Financial
+from operation.models import UserFavorite
 
 
 class ListView(View):
@@ -40,6 +41,18 @@ class ListView(View):
 
         incubator = p.page(page)
 
+        for policy_ in incubator.object_list:
+            policy_.has_fav = False
+            if request.user.is_authenticated:
+                if type_id == '0':
+                    if UserFavorite.objects.filter(user=request.user, fav_id=policy_.id, fav_type=3):
+                        policy_.has_fav = True
+                if type_id == '1':
+                    if UserFavorite.objects.filter(user=request.user, fav_id=policy_.id, fav_type=4):
+                        policy_.has_fav = True
+                if type_id == '2':
+                    if UserFavorite.objects.filter(user=request.user, fav_id=policy_.id, fav_type=5):
+                        policy_.has_fav = True
         return render(request, 'incubator-list.html', {
             'type_id': type_id,
             'incubator': incubator,

@@ -10,13 +10,6 @@ from users.models import UserProfile
 
 # Create your models here.
 
-class Category(models.Model):
-    name = models.CharField(max_length=100, verbose_name=u'项目类别')
-
-    class Meta:
-        verbose_name = u'项目类别'
-        verbose_name_plural = verbose_name
-
 
 class Project(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'项目名', default='')
@@ -31,12 +24,12 @@ class Project(models.Model):
                                         ('0', u'未知'), ('1', u'实验室阶段'), ('2', u'样品阶段'), ('3', u'小试阶段'),
                                         ('4', u'中试阶段'),
                                         ('5', u'量产阶段')),
-                                    verbose_name=u'项目类别')
+                                    verbose_name=u'成熟度')
     cooperation = models.CharField(max_length=100, default='0',
                                    choices=(
                                        ('0', u'股权投资'), ('1', u'技术转让'), ('2', u'许可使用'), ('3', '合作开发'), ('4', u'合作兴办新企业'),
                                        ('5', u'其他')),
-                                   verbose_name=u'项目类别')
+                                   verbose_name=u'合作方式')
     province = models.CharField(max_length=20, choices=(('bj', u'北京'), ('tj', u'天津')), default='bj',
                                 verbose_name=u'项目所在地区')
     main_pic = models.ImageField(upload_to='image/%Y/%m', default='image/default.png', max_length=100,
@@ -48,13 +41,25 @@ class Project(models.Model):
     status = models.CharField(max_length=20, null=True, blank=True,
                               choices=(('sqwjf', u'授权未结费'), ('yxzs', u'已下证书')),
                               verbose_name=u'项目状态')
-    detail = UEditorField(verbose_name=u"课程详情", width=600, height=300, imagePath="project/ueditor/",
+    detail = UEditorField(verbose_name=u"详情", width=600, height=300, imagePath="project/ueditor/",
                           filePath="project/ueditor/", default='')
-    # detail = models.TextField(null=True, blank=True, verbose_name=u'项目详情')
+    shop_status = models.CharField(max_length=20, default='1',
+                                   choices=(('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'已交易')),
+                                   verbose_name=u'上架状态')
+    if_show = models.BooleanField(default=True, verbose_name='是否显示')
+    note = models.CharField(max_length=20, default='1', null=True, blank=True, verbose_name=u'审核意见')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加日期')
 
+    def get_seller_mobile(self):
+        return self.seller.mobile
+
+    get_seller_mobile.short_description = "卖家手机号"
+
     class Meta:
         verbose_name = '技术项目信息'
         verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return self.name

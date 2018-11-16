@@ -2,24 +2,24 @@
 
 import xadmin
 
-from .models import Project, Category
-
-
-class CategoryAdmin(object):
-    list_display = ['name']
-    search_fields = ['name']
-    list_filter = ['name']
+from .models import Project
 
 
 class ProjectAdmin(object):
-    list_display = ['name', 'field_category', 'project_step', 'cooperation', 'province', 'price', 'bargain', 'hire',
-                    'keyword', 'status', 'detail', 'click_num', 'fav_num', 'add_time']
-    search_fields = ['name', 'field_category', 'project_step', 'cooperation', 'province', 'price', 'bargain', 'hire',
-                     'keyword', 'status', 'detail', 'click_num', 'fav_num']
-    list_filter = ['name', 'field_category', 'project_step', 'cooperation', 'province', 'price', 'bargain', 'hire',
-                   'keyword', 'status', 'detail', 'click_num', 'fav_num', 'add_time']
+    list_display = ['id', 'name', 'get_seller_mobile', 'project_step', 'cooperation', 'province', 'price', 'click_num',
+                    'fav_num', 'shop_status', 'note']
+    search_fields = ['id', 'name', 'seller', 'project_step', 'cooperation', 'province', 'price', 'click_num', 'fav_num',
+                     'shop_status', 'note']
+    list_filter = ['id', 'name', 'seller', 'project_step', 'cooperation', 'province', 'price', 'click_num', 'fav_num',
+                   'shop_status', 'note']
+    list_editable = ['note', 'shop_status']
+    # 下拉框搜索，当有外键指向他时会以ajax方式加载，数据量过大时很有用
+    relfield_style = 'fk-ajax'
+    # 后台默认排序
+    ordering = ['shop_status']
+    # 后台可选刷新频率
+    refresh_times = [3, 5]
     style_fields = {"detail": "ueditor"}
 
 
-xadmin.site.register(Category, CategoryAdmin)
 xadmin.site.register(Project, ProjectAdmin)

@@ -13,4 +13,5 @@ class AddPatentForm(forms.ModelForm):
 class ModifyPatentForm(forms.ModelForm):
     class Meta:
         model = Patent
-        exclude = ['seller', 'click_num', 'fav_num', 'add_time']
+        exclude = ['seller', 'more_pic', 'click_num', 'fav_num','shop_status', 'add_time']
+

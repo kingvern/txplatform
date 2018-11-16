@@ -16,7 +16,7 @@
 {% block right_content %}
     <div class="right">
         <table class="table">
-            <caption>专利</caption>
+            <caption>政策</caption>
             <thead>
             <tr>
                 <th>名称</th>
@@ -24,33 +24,15 @@
             </tr>
             </thead>
             <tbody>
-            {% for patent in patent_list %}
-                <tr key="{{ patent.id }}" type="1">
-                    <td><a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a></td>
-                    <td><span class="fav">取消收藏</span></td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <table class="table">
-            <caption>项目</caption>
-            <thead>
-            <tr>
-                <th>名称</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for project in project_list %}
-                <tr key="{{ project.id }}" type="2">
-                    <td><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></td>
+            {% for policy in policy_list %}
+                <tr key="{{ policy.id }}" type="0">
+                    <td><a href="/policy/detail/{{ policy.policy_id }}/">{{ policy.title }}</a></td>
                     <td><span class="fav">取消收藏</span></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-
 {% endblock %}
 {% block custom_js %}
     <script type="text/javascript">

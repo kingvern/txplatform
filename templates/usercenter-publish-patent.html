@@ -1,0 +1,248 @@
+{% extends 'usercenter-base.html' %}
+{% block title %} 我的发布{% endblock %}
+{% load staticfiles %}
+{% block custom_bread %}
+    <section class="container">
+        <ul class="breadcrumb">
+            <li><a href="{% url 'index' %}">首页</a>></li>
+            <li><a href="{% url 'users:user_info' %}">个人中心</a></li>
+            <li>发布</li>
+        </ul>
+    </section>
+{% endblock %}
+{% block custom_css %}
+
+{% endblock %}
+
+{% block right_content %}
+
+    <form class="exform" enctype="multipart/form-data" action="{% url 'patent:add_patent' %}" method="POST"
+          id="patent_form">
+
+
+        {% csrf_token %}
+
+
+        <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+
+
+            <div
+                    class="form-container row clearfix">
+                <div id="column-0"
+                     class="formColumn column form-column full col col-sm-12 form-horizontal" span="12" horizontal>
+                    <div class="panel panel-default fieldset unsort no_title" id="box-0">
+                        <div class="panel-heading"><i class='icon fa fa-chevron-up chevron'></i>
+                            <h3 class="panel-title"></h3></div>
+                        <div class="panel-body ">
+                            <div id="div_id_name" class="form-group"><label for="id_name"
+                                                                            class="control-label  requiredField">
+                                专利名<span class="asteriskField">*</span> </label>
+                                <div class="controls "><input class="text-field admintextinputwidget form-control"
+                                                              id="id_name" maxlength="100" name="name" type="text"/>
+                                </div>
+                            </div>
+                            <div id="div_id_patent_id" class="form-group"><label for="id_patent_id"
+                                                                                 class="control-label  requiredField">
+                                专利申请号<span class="asteriskField">*</span> </label>
+                                <div class="controls "><input class="text-field admintextinputwidget form-control"
+                                                              id="id_patent_id" maxlength="100" name="patent_id"
+                                                              type="text"/></div>
+                            </div>
+                            <div id="div_id_field_category" class="form-group"><label for="id_field_category"
+                                                                                      class="control-label  requiredField">
+                                所属行业<span class="asteriskField">*</span> </label>
+                                <div class="controls "><select class="adminselectwidget form-control"
+                                                               id="id_field_category" name="field_category">
+                                    <option value="0" selected="selected">食品饮料</option>
+                                    <option value="1">建筑建材</option>
+                                    <option value="2">家居用品</option>
+                                    <option value="3">轻工纺织</option>
+                                    <option value="4">化学化工</option>
+                                    <option value="5">新能源</option>
+                                    <option value="6">机械</option>
+                                    <option value="7">环保和资源</option>
+                                    <option value="8">橡胶塑料</option>
+                                    <option value="9">仪器仪表</option>
+                                    <option value="10">新型材料</option>
+                                    <option value="11">电子信息</option>
+                                    <option value="12">医药与医疗</option>
+                                    <option value="13">农林牧业</option>
+                                    <option value="14">海洋开发</option>
+                                    <option value="15">航空航天</option>
+                                    <option value="16">采矿冶金</option>
+                                    <option value="17">电气自动化</option>
+                                    <option value="18">包装印刷</option>
+                                    <option value="19">教育休闲</option>
+                                    <option value="20">钒钛产业</option>
+                                    <option value="21">安全防护</option>
+                                    <option value="22">交通运输</option>
+                                </select></div>
+                            </div>
+                            <div id="div_id_patent_category" class="form-group"><label for="id_patent_category"
+                                                                                       class="control-label  requiredField">
+                                专利类别<span class="asteriskField">*</span> </label>
+                                <div class="controls "><select class="adminselectwidget form-control"
+                                                               id="id_patent_category" name="patent_category">
+                                    <option value="fmzl" selected="selected">发明专利</option>
+                                    <option value="syxxzl">实用新型专利</option>
+                                    <option value="wgzl">外观专利</option>
+                                </select></div>
+                            </div>
+                            <div id="div_id_province" class="form-group"><label for="id_province"
+                                                                                class="control-label  requiredField">
+                                专利所在地区<span class="asteriskField">*</span> </label>
+                                <div class="controls "><select class="adminselectwidget form-control" id="id_province"
+                                                               name="province">
+                                    <option value="bj" selected="selected">北京</option>
+                                    <option value="tj">天津</option>
+                                </select></div>
+                            </div>
+                            <div id="div_id_patent_expired" class="form-group"><label for="id_patent_expired"
+                                                                                      class="control-label  requiredField">
+                                有效日期<span class="asteriskField">*</span> </label>
+                                <div class="controls ">
+                                    <div class="input-group date bootstrap-datepicker"><span
+                                            class="input-group-addon"><i class="fa fa-calendar"></i></span><input
+                                            class="date-field form-control admindatewidget form-control"
+                                            id="id_patent_expired" name="patent_expired" size="10" type="text"
+                                            value="2018/11/05"/> <span class="input-group-btn"><button
+                                            class="btn btn-default" type="button">今天</button></span></div>
+                                    <input id="initial-id_patent_expired" name="initial-patent_expired" type="hidden"
+                                           value="2018-11-05 18:37:31"/></div>
+                            </div>
+                            <div id="div_id_main_pic" class="form-group"><label for="id_main_pic"
+                                                                                class="control-label  requiredField">
+                                专利主图<span class="asteriskField">*</span> </label>
+                                <div class="controls "><input class="adminimagewidget" id="id_main_pic" label="专利主图"
+                                                              name="main_pic" type="file"/></div>
+                            </div>
+
+                            <div id="div_id_price" class="form-group"><label for="id_price"
+                                                                             class="control-label  requiredField">
+                                价格<span class="asteriskField">*</span> </label>
+                                <div class="controls "><input class="int-field adminintegerfieldwidget form-control"
+                                                              id="id_price" name="price" type="text" value="0"/></div>
+                            </div>
+                            <div class="form-group">
+                                <div id="div_id_bargain" class="checkbox"><label for="id_bargain" class=""> <input
+                                        class="checkboxinput" id="id_bargain" name="bargain" type="checkbox"/>
+                                    议价
+                                </label></div>
+                            </div>
+                            <div id="div_id_hire" class="form-group"><label for="id_hire"
+                                                                            class="control-label  requiredField">
+                                佣金<span class="asteriskField">*</span> </label>
+                                <div class="controls "><input class="int-field adminintegerfieldwidget form-control"
+                                                              id="id_hire" name="hire" type="text" value="0"/></div>
+                            </div>
+
+                            <div id="div_id_status" class="form-group"><label for="id_status" class="control-label ">
+                                专利状态
+                            </label>
+                                <div class="controls "><select class="adminselectwidget form-control" id="id_status"
+                                                               name="status">
+                                    <option value="" selected="selected">---------</option>
+                                    <option value="sqwjf">授权未结费</option>
+                                    <option value="yxzs">已下证书</option>
+                                </select></div>
+                            </div>
+                            <div id="div_id_IPC_num" class="form-group"><label for="id_IPC_num" class="control-label ">
+                                分类号
+                            </label>
+                                <div class="controls "><input class="text-field admintextinputwidget form-control"
+                                                              id="id_IPC_num" maxlength="100" name="IPC_num"
+                                                              type="text"/></div>
+                            </div>
+                            <div id="div_id_application_date" class="form-group"><label for="id_application_date"
+                                                                                        class="control-label ">
+                                申请日期
+                            </label>
+                                <div class="controls ">
+                                    <div class="input-group date bootstrap-datepicker"><span
+                                            class="input-group-addon"><i class="fa fa-calendar"></i></span><input
+                                            class="date-field form-control admindatewidget form-control"
+                                            id="id_application_date" name="application_date" size="10" type="text"/>
+                                        <span class="input-group-btn"><button class="btn btn-default"
+                                                                              type="button">今天</button></span></div>
+                                </div>
+                            </div>
+                            <div id="div_id_agent" class="form-group"><label for="id_agent" class="control-label ">
+                                代理人
+                            </label>
+                                <div class="controls "><input class="text-field admintextinputwidget form-control"
+                                                              id="id_agent" maxlength="20" name="agent" type="text"/>
+                                </div>
+                            </div>
+                            <div id="div_id_agency" class="form-group"><label for="id_agency" class="control-label ">
+                                代理机构
+                            </label>
+                                <div class="controls "><input class="text-field admintextinputwidget form-control"
+                                                              id="id_agency" maxlength="20" name="agency" type="text"/>
+                                </div>
+                            </div>
+                            <div id="div_id_inventor" class="form-group"><label for="id_inventor"
+                                                                                class="control-label ">
+                                发明人
+                            </label>
+                                <div class="controls "><input class="text-field admintextinputwidget form-control"
+                                                              id="id_inventor" maxlength="20" name="inventor"
+                                                              type="text"/></div>
+                            </div>
+                            <div id="div_id_applicant" class="form-group"><label for="id_applicant"
+                                                                                 class="control-label ">
+                                申请人
+                            </label>
+                                <div class="controls "><input class="text-field admintextinputwidget form-control"
+                                                              id="id_applicant" maxlength="20" name="applicant"
+                                                              type="text"/></div>
+                            </div>
+                            <div id="div_id_contact" class="form-group"><label for="id_contact" class="control-label ">
+                                联系人
+                            </label>
+                                <div class="controls "><input class="text-field admintextinputwidget form-control"
+                                                              id="id_contact" maxlength="20" name="contact"
+                                                              type="text"/></div>
+                            </div>
+                            <div id="div_id_contact_mobile" class="form-group"><label for="id_contact_mobile"
+                                                                                      class="control-label ">
+                                联系电话
+                            </label>
+                                <div class="controls "><input class="text-field admintextinputwidget form-control"
+                                                              id="id_contact_mobile" maxlength="20"
+                                                              name="contact_mobile" type="text"/></div>
+                            </div>
+                            <div id="div_id_detail" class="form-group"><label for="id_detail"
+                                                                              class="control-label  requiredField">
+                                详情<span class="asteriskField">*</span> </label>
+                                <div class="controls "> <textarea
+                                        class="textarea-field admintextareawidget form-control" cols="40" id="id_detail"
+                                        name="detail" rows="10">
+</textarea></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="form-actions well well-sm clearfix">
+
+
+            <div class="btn-group clearfix show-xs save-group col-xs-12">
+                <button type="submit" class="default btn btn-primary col-xs-10" name="_save" data-loading-text="保存中.."/>
+                <i class="fa fa-save"></i> 保存</button>
+                <button type="button" class="more btn btn-primary col-xs-2" data-toggle="collapse"
+                        data-target=".nav-collapse.more-btns"><i class="fa fa-ellipsis-vertical"></i></button>
+            </div>
+            <button type="submit" class="default btn btn-primary hide-xs" name="_save" data-loading-text="保存中.."/>
+            <i class="fa fa-save"></i> 保存</button>
+
+
+        </div>
+    </form>
+{% endblock %}

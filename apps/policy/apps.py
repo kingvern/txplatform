@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 class PolicyConfig(AppConfig):
     name = 'policy'
-    verbose_name = u'政策'
+    verbose_name = u'5. 资讯平台管理'

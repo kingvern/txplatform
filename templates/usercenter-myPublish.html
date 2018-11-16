@@ -13,15 +13,150 @@
 
 {% block right_content %}
     <div class="right">
-        <p></p>
-        {% for patent in patent_list %}
+        <table class="table">
+            <caption>专利</caption>
+            <thead>
+            <tr>
+                <th>图片</th>
+                <th>名字</th>
+                <th>类别</th>
+                <th>阶段</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for patent in patent_list %}
+                <tr key="{{ patent.id }}">
+                    <td><img class="center-block" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/></td>
+                    <td>{{ patent.name }}</td>
+                    <td>专利</td>
+                    <td>{{ patent.get_shop_status_display }}</td>
+                    <td>
+                        <a href="/patent/modify/{{ patent.id }}/">修改</a>
+                        <span class="cancel_publish">{% ifequal patent.shop_status '1' %}下架{% else %}
+                            上架{% endifequal %}</span><span
+                            class="delete_publish">删除</span></td>
+                    <td>{{ patent.name }}</td>
 
-                <img class="center-block" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/>
-            <p>{{ patent.id }}|{{ patent.name }}|patent|{{ patent.status }}</p>
-        {% endfor %}
-        {% for project in project_list %}
-            <p>{{ project.id }}|{{ project.name }}|project|{{ project.status }}</p>
-        {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="table">
+            <caption>项目</caption>
+            <thead>
+            <tr>
+                <th>图片</th>
+                <th>名字</th>
+                <th>类别</th>
+                <th>阶段</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for project in project_list %}
+                <tr key="{{ gallery.id }}" type="6">
+                    <td><img class="center-block" src="{{ MEDIA_URL }}{{ project.main_pic }}"/></td>
+                    <td>{{ project.name }}</td>
+                    <td>项目</td>
+                    <td>{{ project.get_shop_status_display }}</td>
+                    <td>
+                        <a href="/project/modify/{{ project.id }}/">修改</a>
+                        <span class="cancel_publish">{% ifequal project.shop_status '1' %}下架{% else %}
+                            上架{% endifequal %}</span><span
+                            class="delete_publish">删除</span></td>
+                    <td>{{ patent.name }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript">
+        //收藏分享
+        function cancel_publish(current_elem, id, type) {
+            console.log(current_elem, id, type)
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:cancel_publish" %}",
+                data: {'id': id, 'type': type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '收藏') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
+        function delete_publish(current_elem, id, type) {
+
+            console.log(current_elem, id, type)
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:delete_publish" %}",
+                data: {'id': id, 'type': type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '收藏') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
+        $('.cancel_publish').on('click', function () {
+            cancel_publish($(this), $(this).parent().attr('key'), 1);
+            setTimeout(window.location.reload(), 3000);
+        });
+        $('.delete_publish').on('click', function () {
+            delete_publish($(this), $(this).parent().attr('key'), 1);
+            setTimeout(window.location.reload(), 3000);
+        });
+
+
+    </script>
 {% endblock %}
