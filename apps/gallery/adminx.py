@@ -9,6 +9,8 @@ class GalleryAdmin(object):
     list_display = ['name', 'pic', 'descs', 'addr', 'time_begin', 'time_end', 'status', 'if_recommend']
     search_fields = ['name', 'pic', 'descs', 'addr', 'status', 'if_recommend']
     list_filter = ['name', 'pic', 'descs', 'addr', 'time_begin', 'time_end', 'status', 'if_recommend']
+    # 富文本
+    style_fields = {"descs": "ueditor"}
 
 
 xadmin.site.register(Gallery, GalleryAdmin)

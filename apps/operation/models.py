@@ -61,7 +61,7 @@ class UserMessage(models.Model):
 
 
 class BuyerPatent(models.Model):
-    buyer = models.ForeignKey(UserProfile, verbose_name=u'买家')
+    buyer = models.ForeignKey(UserProfile, verbose_name=u'买家', related_name='patent_buyer_set')
     order_name = models.CharField(max_length=100, default='', verbose_name=u'单位名称')
     order_address = models.CharField(max_length=100, default='', verbose_name=u'地址')
     order_contact = models.CharField(max_length=100, default='', verbose_name=u'联系人')
@@ -77,16 +77,19 @@ class BuyerPatent(models.Model):
         upload_to="contract/resource/%Y/%m",
         verbose_name=u"合同",
         default='',
+        null=True,
+        blank=True,
         max_length=100)
     prof = models.FileField(
         upload_to="contract/resource/%Y/%m",
         verbose_name=u"付款凭证",
-        default='',
+        default='', null=True,
+        blank=True,
         max_length=100)
     step_time = models.DateTimeField(default=datetime.now, verbose_name=u'阶段时间')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
-    # staff = models.ForeignKey(UserProfile, default=None, null=True, verbose_name=u'业务员')
+    staff = models.ForeignKey(UserProfile, blank=True, null=True, verbose_name=u'业务员', related_name='patent_staff_set')
 
     def get_seller_username(self):
         return self.patent.seller.username
@@ -98,32 +101,46 @@ class BuyerPatent(models.Model):
 
     get_seller_mobile.short_description = "卖家手机号"
 
-    # def go_to(self):
+    # def recieve_order(self):
     #     from django.utils.safestring import mark_safe
     #     # mark_safe禁止转义
-    #     return mark_safe("<a href='http://www.baidu.com'>跳转</>")
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        if self.step == '-1':
-            self.patent.shop_status = 1
-            self.patent.save()
-        if self.step in ['0', '1', '2']:
-            self.patent.shop_status = 2
-            self.patent.save()
-        if self.step == '3':
-            self.patent.shop_status = 3
-            self.patent.save()
+    #     return mark_safe('<a  href="javascript:void(0);" onclick="a=$(this).parent().parent();alert(\'你真TM吵\'+a)">接单</a>')
+    #
+    # recieve_order.short_description = "操作"
+
+    # def save(self, force_insert=False, force_update=False, using=None,
+    #          update_fields=None):
+    #     self.step_time = datetime.now()
+    #     self.order_address = '23123113232231'
+    #     self.order_contact = '23123113232231'
+    #     if self.step == '-1':
+    #         self.patent.shop_status = 1
+    #         self.patent.save()
+    #     if self.step in ['0', '1', '2']:
+    #         self.patent.shop_status = 2
+    #         self.patent.save()
+    #     if self.step == '3':
+    #         self.patent.shop_status = 3
+    #         self.patent.save()
+    # def save_models(self):
+    #     self.step_time = datetime.now()
+    #     if self.step == '-1':
+    #         self.patent.shop_status = 1
+    #         self.patent.save()
+    #     if self.step in ['0', '1', '2']:
+    #         self.patent.shop_status = 2
+    #         self.patent.save()
+    #     if self.step == '3':
+    #         self.patent.shop_status = 3
+    #         self.patent.save()
 
     class Meta:
         verbose_name = '专利交易管理'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
-        return self.id
-
 
 class BuyerProject(models.Model):
-    buyer = models.ForeignKey(UserProfile, verbose_name=u'买家')
+    buyer = models.ForeignKey(UserProfile, verbose_name=u'买家', related_name='project_buyer_set')
     project = models.ForeignKey(Project, verbose_name=u'项目')
     step = models.CharField(max_length=10, default='0', choices=(('0', u'未付款'), ('1', u'已付款'), ('2', u'已提交专利局')),
                             verbose_name=u'合作阶段')
@@ -131,21 +148,25 @@ class BuyerProject(models.Model):
     contract = models.FileField(
         upload_to="contract/resource/%Y/%m",
         verbose_name=u"合同",
-        default='',
+        default='', null=True,
+        blank=True,
         max_length=100)
     prof = models.FileField(
         upload_to="contract/resource/%Y/%m",
         verbose_name=u"定金凭证",
-        default='',
+        default='', null=True,
+        blank=True,
         max_length=100)
     protocol = models.FileField(
         upload_to="protocol/resource/%Y/%m",
         verbose_name=u"协议",
-        default='',
+        default='', null=True,
+        blank=True,
         max_length=100)
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
-    # staff = models.ForeignKey(UserProfile, default='', null=True, verbose_name=u'业务员')
+    staff = models.ForeignKey(UserProfile, blank=True, null=True, verbose_name=u'业务员', related_name='project_staff_set')
+
     def get_seller_username(self):
         return self.project.seller.username
 
@@ -156,9 +177,10 @@ class BuyerProject(models.Model):
 
     get_seller_mobile.short_description = "卖家手机号"
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.step_time = datetime.now()
+
     class Meta:
         verbose_name = '技术项目订单管理'
         verbose_name_plural = verbose_name
-
-    def __unicode__(self):
-        return self.id
