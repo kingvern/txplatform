@@ -18,22 +18,120 @@
         <div class="personal_des permessage">
             <div class="companycenter">
                 <div class="group_list brief">
+                    <table class="">
+                        <caption>专利</caption>
+                        <thead>
+                        <tr>
+                            <th>订单编号</th>
+                            <th>商品名称</th>
+                            <th>商品类型</th>
+                            <th>订单金额</th>
+                            <th>订单状态</th>
+                            <th>资料</th>
+                            <th>操作</th>
+                            <th>业务员</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for patent_order in user_patent %}
+                            <tr key="{{ patent_order.id }}">
+                                <td>{{ patent_order.id }}</td>
+                                <td>{{ patent_order.patent.name }}</td>
+                                <td>专利</td>
+                                <td>{{ patent_order.total_price }}</td>
+                                <td>{{ patent_order.get_step_display }}</td>
+                                <td>
+                                    <a>合同下载</a></td>
+                                <td>
+                                    {% ifequal patent_order.step '0' %}
+                                        <span class="cancel_order">取消</span>
+                                        <a href="/operation/add_order/?id={{ patent_order.patent.id }}">付款</a>
+                                    {% endifequal %}
+                                    {% ifequal patent_order.step '-1' %}
+                                        <span class="delete_order">删除</span>
+                                    {% endifequal %}
+                                </td>
+                            <td><span data-toggle="modal" data-target="#myModal1{{ patent_order.id }}">{{ patent_order.staff.username }}</span></td>
+                            </tr>
 
-                    {% for patent_order in user_patent %}
-                        <div key="{{ patent_order.id }}">
-                            <p>订单编号：{{ patent_order.id }}</p>
-                            <p>商品名称：{{ patent_order.patent.name }}</p>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal1{{ patent_order.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        请扫描二维码
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ MEDIA_URL }}{{ patent_order.staff.avatar }}"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <table class="">
+                        <caption>技术</caption>
+                        <thead>
+                        <tr>
+                            <th>订单编号</th>
+                            <th>商品名称</th>
+                            <th>商品类型</th>
+                            <th>订单状态</th>
+                            <th>资料</th>
+                            <th>业务员</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for patent_order in user_project %}
+                            <tr key="{{ patent_order.id }}">
+                                <td>{{ patent_order.id }}</td>
+                                <td>{{ patent_order.project.name }}</td>
+                                <td>技术项目</td>
+                                <td>{{ patent_order.get_step_display }}</td>
+                                <td>
+                                    <a>合同下载</a></td>
+                                <td><span data-toggle="modal" data-target="#myModal2{{ patent_order.id }}">{{ patent_order.staff.username }}</span></td>
+                            </tr>
 
-                            <p>商品类型：技术项目</p>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal2{{ patent_order.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        请扫描二维码
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ MEDIA_URL }}{{ patent_order.staff.avatar }}"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 
-                            <p>商品状态：{{ patent_order.patent.get_shop_status_display }}</p>
-                            <p>订单状态：{{ patent_order.get_step_display }}</p>
-                            <a>合同下载</a>
-                            <span class="cancel_order">取消</span>
-                            <span class="delete_order">删除</span>
-                            <a href="/operation/add_order/?id={{ patent_order.patent.id }}">付款</a>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
 
                 </div>
             </div>
@@ -45,7 +143,7 @@
     <script type="text/javascript">
         //收藏分享
         function cancel_order(current_elem, id, type) {
-            console.log('cancel_order',current_elem, id, type)
+            console.log('cancel_order', current_elem, id, type)
             $.ajax({
                 cache: false,
                 type: "POST",
@@ -114,12 +212,12 @@
         }
 
         $('.cancel_order').on('click', function () {
-            cancel_order($(this), $(this).parent().attr('key'), 1);
-            setTimeout(window.location.reload(), 3000);
+            cancel_order($(this), $(this).parent().parent().attr('key'), 1);
+            {#setTimeout(window.location.reload(), 3000);#}
         });
         $('.delete_order').on('click', function () {
-            delete_order($(this), $(this).parent().attr('key'), 1);
-            setTimeout(window.location.reload(), 3000);
+            delete_order($(this), $(this).parent().parent().attr('key'), 1);
+            {#setTimeout(window.location.reload(), 3000);#}
         });
 
 

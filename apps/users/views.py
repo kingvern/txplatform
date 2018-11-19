@@ -17,6 +17,7 @@ from project.models import Project
 from patent.models import Patent
 from incubator.models import Couveuse, Park, Financial
 from gallery.models import Gallery
+from utils.id_card import checkIDNumber
 from .models import UserProfile, VerifyCode, UpdateMobileRecord
 from .forms import LoginForm, RegisterForm, ResetPwdForm, UpdateMobileForm, ModifyPwdForm, UploadImageForm, \
     UserInfoForm, UserAuthForm
@@ -118,7 +119,7 @@ class RegisterView(View):
                 if record.code == request.POST.get('code', ''):
                     pass_word = request.POST.get('password', '')
                     user_profile = UserProfile()
-                    user_profile.username = mobile
+                    # user_profile.username = mobile
                     user_profile.mobile = mobile
                     user_profile.is_active = True
                     user_profile.password = make_password(pass_word)
@@ -149,7 +150,7 @@ class ResetPwdView(View):
         if reset_pwd_form.is_valid():
             mobile = request.POST.get('mobile', '')
             if not UserProfile.objects.filter(mobile=mobile):
-                return render(request, 'register.html', {'msg': '该用户未注册，请注册'})
+                return render(request, 'register.html', {'msg': 'not registered'})
             record = VerifyCode.objects.filter(
                 Q(mobile=request.POST.get('mobile', '')) & Q(send_type='reset_pwd')).last()
             if record:
@@ -157,7 +158,7 @@ class ResetPwdView(View):
                     pwd1 = request.POST.get('password1', '')
                     pwd2 = request.POST.get('password2', '')
                     if pwd1 != pwd2:
-                        return render(request, 'pwd_reset.html', {'mobile': mobile, 'msg': '密码不一致'})
+                        return render(request, 'pwd_reset.html', {'mobile': mobile, 'msg': 'password not same'})
                     else:
                         user = UserProfile.objects.get(mobile=mobile)
                         user.password = make_password(pwd2)
@@ -165,11 +166,11 @@ class ResetPwdView(View):
                         return render(request, 'login.html')
                 else:
                     return HttpResponse(
-                        '{"status":"fail", "msg":"验证码不一致"}',
+                        '{"status":"fail", "msg":"cer code not same"}',
                         content_type='application/json')
             else:
                 return HttpResponse(
-                    '{"status":"fail", "msg":"请先获取验证码"}',
+                    '{"status":"fail", "msg":"get code first"}',
                     content_type='application/json')
         else:
             return render(request, 'reset_pwd.html', {'reset_pwd_form': reset_pwd_form})
@@ -298,12 +299,22 @@ class UserAuthView(LoginRequiredMixin, View):
     """用户认证"""
 
     def get(self, request):
+        auth = False
+        if request.user.id_card:
+            auth = True
         return render(request, "usercenter-auth.html", {
+            'auth':auth
         })
 
     def post(self, request):
         # 不像用户咨询是一个新的。需要指明instance。不然无法修改，而是新增用户
         user_info_form = UserAuthForm(request.POST, instance=request.user)
+        id_card = request.POST.get('id_card', '')
+        res = checkIDNumber(id_card)
+        if not res:
+            return HttpResponse(
+                '{"status":"fail","msg":"id_card error"}',
+                content_type='application/json')
         if user_info_form.is_valid():
             user_info_form.save()
             return HttpResponse(
@@ -320,12 +331,14 @@ class UserAuthView(LoginRequiredMixin, View):
 class UserPublishView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, "usercenter-publish.html", {
+
         })
 
 
 class UserPublishPatentView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, "usercenter-publish-patent.html", {
+            'type': ''
         })
 
 

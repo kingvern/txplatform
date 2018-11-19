@@ -171,8 +171,6 @@
                            href="{% url 'users:user_info' %}">基本信息</a>
                         <a class="sidebar-panel-item {% ifequal  '/users/auth/' request.path %} sidebar-active{% endifequal %}"
                            href="{% url 'users:user_auth' %}">认证信息</a>
-                        <a class="sidebar-panel-item {% ifequal  '/users/safe/' request.path %} sidebar-active{% endifequal %}"
-                           href="{% url 'users:user_safe' %}">认证信息</a>
                     </div>
                     <div class="sidebar-panel">
                         <div class="sidebar-panel-title">

@@ -34,35 +34,43 @@
                 <span id="{{ patent.id }}" class="module-item-btn fav">收藏</span>
             {% endif %}
             <span class="module-item-btn" data-toggle="modal" data-target="#myModal">咨询</span>
-        <span class="module-item-btn buy"><a href="{% url 'operation:order' %} }}?id={{ patent.id }}">购买</a></span>
+            <span class="module-item-btn buy"><a href="{% url 'operation:order' %} }}?id={{ patent.id }}">购买</a></span>
         </div>
     </section>
+    {% for p in relate_patents %}
+        {{ p.name }}<img src="{{ MEDIA_URL }}{{ p.main_pic }}"/>{{ p.get_patent_category_display }}
+        {{ p.get_field_category_display }}{{ p.price }}
+        {% autoescape off %}
+            {{ p.detail }}
+        {% endautoescape %}
+    {% endfor %}
 
 
 
-                <!-- 模态框（Modal） -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                    &times;
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">
-                                    请扫描二维码
-                                </h4>
-                            </div>
-                            <div class="modal-body">
-                                <img src="{% static 'img/qr.jpg' %}"/>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                </button>
-                            </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal -->
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        请扫描二维码
+                    </h4>
                 </div>
+                <div class="modal-body">
+                    <img src="{% static 'img/qr.jpg' %}"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 
 
 {% endblock %}

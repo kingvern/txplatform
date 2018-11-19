@@ -187,25 +187,25 @@ class CancelPublishView(View):
 
         if int(type) == 1:
             patent = Patent.objects.get(id=int(id))
-            if patent.shop_status == '1':
+            if patent.shop_status != '-1':
                 patent.shop_status = '-1'
                 patent.if_show = False
                 patent.save()
                 return HttpResponse('{"status":"success", "msg":"上架"}', content_type='application/json')
             elif patent.shop_status == '-1':
-                patent.shop_status = '1'
+                patent.shop_status = '0'
                 patent.if_show = True
                 patent.save()
                 return HttpResponse('{"status":"success", "msg":"下架"}', content_type='application/json')
         elif int(type) == 2:
             patent = Project.objects.get(id=int(id))
-            if patent.shop_status == '1':
+            if patent.shop_status != '-1':
                 patent.shop_status = '-1'
                 patent.if_show = False
                 patent.save()
                 return HttpResponse('{"status":"success", "msg":"上架"}', content_type='application/json')
             elif patent.shop_status == '-1':
-                patent.shop_status = '1'
+                patent.shop_status = '0'
                 patent.if_show = True
                 patent.save()
                 return HttpResponse('{"status":"success", "msg":"下架"}', content_type='application/json')
@@ -280,6 +280,7 @@ class OrderView(View):
             order = BuyerPatent()
             if int(type) == 1 and int(id) > 0:
                 patent = Patent.objects.get(id=int(id))
+
                 order.buyer = request.user
                 order.patent = patent
                 patent.if_show = False
@@ -296,7 +297,7 @@ class OrderView(View):
                 order.save()
             # return HttpResponse('{"status":"success", "msg":"已经下单"}', content_type='application/json')
             # staff = UserProfile.objects.filter(is_staff=True).order_by()
-            return render(request, 'pay_order.html', {})
+            return render(request, 'pay_order.html', {'order': order})
 
         elif int(type) == 2:
             project = BuyerProject.objects.get(id=int(id))

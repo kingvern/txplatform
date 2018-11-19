@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}展会详情{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock %}
+{% block custom_bread %}
+    <section class="container">
+        <div>
+            <ul class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li><a href="{% url 'gallery:list' %}">展会列表</a></li>
+                <li><a>展会详情</a></li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+
+    <section class="container">
+        <h3>{{ section.title }}</h3>
+
+        {% autoescape off %}
+            {{ section.detail }}
+        {% endautoescape %}
+
+    </section>
+
+{% endblock %}
+{% block custom_js %}
+
+{% endblock %}

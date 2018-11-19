@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}政策展示{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock %}
+{% block custom_bread %}
+
+    <section class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li class="active">展会列表</li>
+        </ul>
+    </section>
+{% endblock %}
+{% block content %}
+
+    <section class="container">
+        <div class="pic">
+            {% for banner in  all_banner %}
+                <img src="{{ MEDIA_URL }}{{ banner.pic }}"/>
+            {% endfor %}
+        </div>
+        <div class="section">
+            {% for section in  all_section %}
+                <a href="/club/section/{{ section.id }}/">{{ section.title }}</a>
+            {% endfor %}
+        </div>
+        <a href="{% url 'club:add_member' %}">加入</a>
+
+    </section>
+
+    <section class="container">
+        <div class="pic">
+            {% for member in  all_member %}
+                <img src="{{ MEDIA_URL }}{{ member.logo }}"/>
+            {% endfor %}
+        </div>
+
+    </section>
+
+    {#内容#}
+    <section class="container module">
+        {#展会列表#}
+        <div class="filted-content">
+
+            {% for resource in  all_resource %}
+                <span>{{ resource.name }}</span>
+                <a href="{{ MEDIA_URL }}{{ resource.download }}">下载</a>
+            {% endfor %}
+        </div>
+
+
+    </section>
+
+
+{% endblock %}
+{% block custom_js %}
+    <script type="text/javascript">
+        $(() => {
+            $(".mainTab").click(function () {
+                let tabId = $(this).attr("id");
+                console.log('tabId', tabId)
+                let chartClass = 'province'
+                let id = tabId.slice(7)
+                console.log("#" + chartClass + "-" + id)
+                $(this).parent().children().removeClass('filter-active')
+                $(this).addClass('filter-active')
+                $("." + chartClass).addClass('dispear')
+                $("#" + chartClass + id).removeClass('dispear')
+            })
+
+        });
+
+    </script>
+    <script type="text/javascript">
+        //收藏分享
+        function add_fav(current_elem, fav_id, fav_type) {
+            console.log(current_elem, fav_id, fav_type)
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:add_fav" %}",
+                data: {'fav_id': fav_id, 'fav_type': fav_type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '收藏') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
+        $('.fav').on('click', function () {
+            add_fav($(this), $(this).attr('id'), $(this).attr('type_id'));
+        });
+
+
+    </script>
+{% endblock %}

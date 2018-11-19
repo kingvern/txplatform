@@ -13,9 +13,8 @@ class UserProfile(AbstractUser):
         ("male", u"男"),
         ("female", u"女")
     )
-    nick_name = models.CharField(max_length=50, verbose_name=u'昵称', default='')
-    full_name = models.CharField(max_length=50, verbose_name=u'姓名（实名）', default='')
-    id_card = models.CharField(max_length=50, verbose_name=u'身份证号（实名）', default='')
+    full_name = models.CharField(max_length=50, verbose_name=u'姓名（实名）', default='',blank='')
+    id_card = models.CharField(max_length=50, verbose_name=u'身份证号（实名）', default='',blank='')
     birthday = models.DateField(verbose_name=u'生日', null=True, blank=True)
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default='male', verbose_name=u'性别')
     address = models.CharField(max_length=100, default='', verbose_name=u'地址')

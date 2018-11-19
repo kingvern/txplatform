@@ -6,7 +6,7 @@ from .models import Patent
 
 
 class PatentAdmin(object):
-    list_display = ['id','name', 'seller', 'patent_id', 'patent_category',  'price',  'click_num', 'fav_num', 'shop_status', 'note']
+    list_display = ['id','name', 'seller', 'patent_id', 'patent_category',  'price', 'keyword', 'click_num', 'fav_num', 'shop_status', 'note']
     search_fields = ['id','name', 'seller', 'patent_id', 'patent_category',  'price',  'click_num', 'fav_num', 'shop_status', 'note']
     list_filter = ['id','name', 'seller', 'patent_id', 'patent_category',  'price',  'click_num', 'fav_num', 'shop_status', 'note']
     list_editable = ['note', 'shop_status']

@@ -1,6 +1,7 @@
 # _*_ coding: utf-8 _*_
 import json
 
+from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
@@ -100,11 +101,13 @@ class ProjectDetailView(View):
                 has_fav_project = True
         # 取出标签找到标签相同的project
         keyword = project.keyword
+        # relate_patents = Patent.objects.filter(field_category=patent.field_category)
+        relate_projects = Project.objects.all()
         if keyword:
             # 从1开始否则会推荐自己
-            relate_projects = Project.objects.filter(keyword=keyword)[1:2]
+            relate_projects = relate_projects.filter(Q(keyword=keyword) & ~Q(id=patent.id))[0:3]
         else:
-            relate_projects = []
+            relate_projects = relate_projects.filter(~Q(id=project.id))[0:3]
         return render(request, "project-detail.html", {
             'current_page': 'project',
             "project": project,
@@ -119,6 +122,7 @@ class AddProjectView(View):
         if add_project_form.is_valid():
             project = add_project_form.save(commit=False)
             project.seller = request.user
+            project.shop_status = 0
             project.save()
             return HttpResponse(
                 '{"status":"success"}',
