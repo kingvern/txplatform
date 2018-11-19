@@ -54,8 +54,8 @@ class Policy(models.Model):
 
 
 class Banner(models.Model):
-    title = models.CharField(max_length=100, verbose_name=u'咨讯名')
-    detail = models.TextField(verbose_name=u'咨讯详情')
+    title = models.CharField(max_length=100, verbose_name=u'资讯名')
+    detail = models.TextField(verbose_name=u'资讯详情')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
     if_toutiao = models.BooleanField(default=False, verbose_name=u'是否是头条')
@@ -66,7 +66,7 @@ class Banner(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加日期')
 
     class Meta:
-        verbose_name = '头条信息'
+        verbose_name = '平台新闻'
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
