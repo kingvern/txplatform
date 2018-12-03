@@ -1,76 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="91c2da21-d35c-41e8-84f0-6005e63dedf5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/club/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/club/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/club/migrations/0002_auto_20181116_1957.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/club/migrations/0003_member_field.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/club/migrations/0004_auto_20181117_0014.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/club/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/operation/migrations/0002_auto_20181116_2255.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/project/migrations/0011_auto_20181116_1927.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/project/migrations/0012_projectt.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/project/migrations/0013_auto_20181116_1931.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/project/migrations/0014_auto_20181116_2255.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/project/migrations/0015_project_org.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/users/migrations/0012_auto_20181116_2028.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/users/migrations/0013_remove_userprofile_nick_name.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/utils/id_card.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/club-detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/club-home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/club-join.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/club/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/club/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/club/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/club/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/club/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/club/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/club/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/club/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/incubator/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/incubator/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0002_userask_mobile.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0003_auto_20181019_1400.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0004_auto_20181019_1523.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0005_auto_20181019_1536.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0006_auto_20181031_1944.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0007_auto_20181114_1633.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0008_auto_20181114_1640.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0009_auto_20181114_1655.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0010_buyerpatent_step_time.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0011_auto_20181115_1759.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0012_auto_20181116_1130.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0013_auto_20181116_1511.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0014_auto_20181116_1547.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0015_auto_20181116_1552.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0016_auto_20181116_1807.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0017_auto_20181116_1817.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/patent/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/patent/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/patent/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/patent/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/patent/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/patent/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/patent/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/patent/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/project/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/project/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/project/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/project/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/add_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/add_order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/incubator-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/incubator-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/patent-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/patent-detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/project-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project-detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/project-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/usercenter-auth.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-auth.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/usercenter-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/usercenter-info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/usercenter-myOrder.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-myOrder.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/usercenter-myPublish.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-myPublish.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/usercenter-publish-patent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-publish-patent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/usercenter-publish-project.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-publish-project.html" afterDir="false" />
-    </list>
+    <list default="true" id="91c2da21-d35c-41e8-84f0-6005e63dedf5" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +109,7 @@
     <session id="-1250011042">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="16" />
+          <entry key="project.closed" value="17" />
           <entry key="project.open.time.1" value="4" />
           <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.13" value="2" />
@@ -618,9 +549,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="114" />
+    <option name="x" value="54" />
     <option name="y" value="23" />
-    <option name="width" value="1484" />
+    <option name="width" value="1401" />
     <option name="height" value="824" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -899,24 +830,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="114" y="23" width="1484" height="824" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49899396" visible="true" weight="0.14008322" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49899396" visible="true" weight="0.14008322" />
       <window_info id="Structure" order="1" sideWeight="0.501006" side_tool="true" weight="0.15665236" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.48660392" weight="0.38343948" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.58945906" visible="true" weight="0.34016395" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.58945906" weight="0.34016395" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49703702" weight="0.32738853" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.49225092" weight="0.32738853" />
-      <window_info anchor="bottom" id="manage.py@platorm" order="10" sideWeight="0.6914008" weight="0.34016395" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.4105409" side_tool="true" visible="true" weight="0.34016395" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.6422882" weight="0.20636943" />
+      <window_info anchor="bottom" id="manage.py@platorm" order="10" sideWeight="0.6907073" weight="0.34016395" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.3585298" side_tool="true" visible="true" weight="0.20628415" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.6414702" visible="true" weight="0.20628415" />
       <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.49539986" weight="0.32611465" />
       <window_info anchor="bottom" id="File Transfer" order="14" sideWeight="0.4885609" weight="0.29044586" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
