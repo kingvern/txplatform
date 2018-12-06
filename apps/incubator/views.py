@@ -47,7 +47,7 @@ class ListView(View):
 
         for policy_ in incubator.object_list:
             policy_.has_fav = False
-            if request.user.is_authenticated:
+            if request.user.is_authenticated():
                 if type_id == '0':
                     if UserFavorite.objects.filter(user=request.user, fav_id=policy_.id, fav_type=3):
                         policy_.has_fav = True

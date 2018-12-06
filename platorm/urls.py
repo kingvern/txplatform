@@ -23,12 +23,12 @@ import xadmin
 
 from platorm.settings import MEDIA_ROOT
 
-from users.views import LoginView, RegisterView, ResetPwdView, UpdateMobileView, LogoutView
+from users.views import LoginView, RegisterView, ResetPwdView, UpdateMobileView, LogoutView, IndexView
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
 
-    url('^$', TemplateView.as_view(template_name='index.html'), name='index'),
+    url('^$', IndexView.as_view(), name='index'),
     url('^login/$', LoginView.as_view(), name='login'),
     url('logout/', LogoutView.as_view(), name="logout"),
     url('^register/$', RegisterView.as_view(), name='register'),

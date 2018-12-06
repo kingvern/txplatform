@@ -21,9 +21,9 @@
     <section class="container ">
         {% if request.user.is_authenticated %}
             <div class="row">
-                <div class="pull-left btn"><span>服务电话：23333333</span></div>
+                <div class="pull-left center-span"><span>服务电话：23333333</span></div>
                 <div class="personal pull-right">
-                    <div class="btn">
+                    <div class="center-span">
 
                         {#                    <a href="{% url 'users:my_message' %}">#}
                         {#                        <div class="msg-num"><span id="MsgNum">{{ request.user.unread_nums }}</span></div>#}
@@ -37,10 +37,10 @@
             </div>
         {% else %}
             <div class="row">
-                <div class="pull-left  btn"><span>服务电话：23333333</span></div>
+                <div class="pull-left  center-span"><span>服务电话：23333333</span></div>
                 <!--登录后跳转-->
                 <div class="personal pull-right">
-                    <div class="btn">
+                    <div class="center-span">
                         <a style="color:black" class="pull-right registerbtn" href="{% url "register" %}">&nbsp注册</a>
                         <a style="color:black" class="pull-right loginbtn"
                            href="{% url 'login' %}?next={{ request.path }}">&nbsp登录</a>
@@ -62,25 +62,25 @@
         <div class="navbar-header pull-right logo-nav">
             <ul class="nav navbar-nav">
                 <li>
-                    <a class="{% ifequal current_page "index" %}active{% endifequal %}" href="/">首页</a>
+                    <a class="{% ifequal '/' request.path %}active{% endifequal %}" href="/">首页</a>
                 </li>
                 <li>
-                    <a class="{% ifequal current_page "policy" %}active{% endifequal %}" href="{% url 'policy:home' %}">资讯平台</a>
+                    <a class="{% ifequal '/policy' request.path|slice:":7" %}active{% endifequal %}" href="{% url 'policy:home' %}">资讯平台</a>
                 </li>
                 <li>
-                    <a class="{% ifequal current_page "patent" %}active{% endifequal %}" href="{% url 'patent:list' %}">交易平台</a>
+                    <a class="{% ifequal '/patent' request.path|slice:":7"  %}active{% endifequal %}" href="{% url 'patent:list' %}">交易平台</a>
                 </li>
                 <li>
-                    <a class="{% ifequal current_page "project" %}active{% endifequal %}" href="{% url 'project:list' %}">转化平台</a>
+                    <a class="{% ifequal '/project' request.path|slice:":8" %}active{% endifequal %}" href="{% url 'project:list' %}">转化平台</a>
                 </li>
                 <li>
-                    <a class="{% ifequal current_page "incubator" %}active{% endifequal %}" href="{% url 'incubator:list' %}">孵化平台</a>
+                    <a class="{% ifequal '/incubator' request.path|slice:":10" %}active{% endifequal %}" href="{% url 'incubator:list' %}">孵化平台</a>
                 </li>
                 <li>
-                    <a class="{% ifequal current_page "gallery" %}active{% endifequal %}" href="{% url 'gallery:list' %}">展会服务</a>
+                    <a class="{% ifequal '/gallery' request.path|slice:":8" %}active{% endifequal %}" href="{% url 'gallery:list' %}">展会服务</a>
                 </li>
                 <li>
-                    <a class="{% ifequal current_page "club" %}active{% endifequal %}" href="{% url 'club:home' %}">俱乐部</a>
+                    <a class="{% ifequal '/club' request.path|slice:":5" %}active{% endifequal %}" href="{% url 'club:home' %}">俱乐部</a>
                 </li>
             </ul>
         </div>

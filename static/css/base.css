@@ -14,6 +14,10 @@
     color: #000 !important;
 }
 
+.center-span{
+    padding: 10px;
+}
+
 /*.active {*/
 /*color: #a10000 !important;*/
 /*}*/
@@ -50,6 +54,7 @@
     background: none;
     text-decoration: none;
     border-bottom: #66A5FF 2px solid;
+    color: #66A5FF !important;
 }
 
 .logo-nav .active {

@@ -7,7 +7,7 @@
 {% block custom_bread %}
     <section class="container">
         <ul class="breadcrumb">
-            <li><a href="#">首页</a></li>
+            <li><a href="/">首页</a></li>
             <li><a href="#">专利商品列表</a></li>
             <li class="active">{{ patent.name }}</li>
         </ul>
@@ -34,7 +34,7 @@
                 <span id="{{ patent.id }}" class="module-item-btn fav">收藏</span>
             {% endif %}
             <span class="module-item-btn" data-toggle="modal" data-target="#myModal">咨询</span>
-            <span class="module-item-btn buy"><a href="{% url 'operation:order' %} }}?id={{ patent.id }}">购买</a></span>
+            <span class="module-item-btn buy"><a href="{% url 'operation:order' %}?id={{ patent.id }}">购买</a></span>
         </div>
     </section>
     {% for p in relate_patents %}

@@ -61,7 +61,6 @@ class PolicyListViewBak(View):
         # all_chart = json.dumps(all_chart)
 
         return render(request, 'policy-list.html', {
-            'current_page': 'policy',
             'banners': banners,
 
             'a_policy': a_policy_data,
@@ -86,7 +85,6 @@ class PolicyHomeView(View):
         policy = Policy.objects.order_by('-pubDate')[:20]
 
         return render(request, 'policy-home.html', {
-            'current_page': 'policy',
             'banner_main': banner_main,
             'banners': banners,
             'policy_list': policy,
@@ -135,12 +133,11 @@ class PolicyListView(View):
 
         for policy_ in policy_data.object_list:
             policy_.has_fav = False
-            if request.user.is_authenticated:
+            if request.user.is_authenticated():
                 if UserFavorite.objects.filter(user=request.user, fav_id=policy_.id, fav_type=0):
                     policy_.has_fav = True
 
         return render(request, 'policy-list.html', {
-            'current_page': 'policy',
             'main': main,
             'mains': mains,
             'policy_nums': policy_nums,
@@ -164,11 +161,10 @@ class PolicyDetailView(View):
         has_fav_policy = False
 
         # 必须是用户已登录我们才需要判断。
-        # if request.user.is_authenticated:
+        # if request.user.is_authenticated():
         #     if UserFavorite.objects.filter(user=request.user, fav_id=policy.policy_id, fav_type=1):
         #         has_fav_policy = True
         return render(request, "policy-detail.html", {
-            'current_page': 'policy',
             "policy": policy,
             "has_fav_policy": has_fav_policy,
         })
@@ -186,11 +182,10 @@ class PolicyBannerView(View):
         has_fav_banner = False
 
         # 必须是用户已登录我们才需要判断。
-        # if request.user.is_authenticated:
+        # if request.user.is_authenticated():
         #     if UserFavorite.objects.filter(user=request.user, fav_id=banner.id, fav_type=1):
         #         has_fav_banner = True
         return render(request, "policy-banner.html", {
-            'current_page': 'policy',
             "banner": banner,
             "has_fav_banner": has_fav_banner,
         })

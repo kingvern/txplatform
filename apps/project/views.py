@@ -63,12 +63,11 @@ class ProjectListView(View):
 
         for project_ in project.object_list:
             project_.has_fav = False
-            if request.user.is_authenticated:
+            if request.user.is_authenticated():
                 if UserFavorite.objects.filter(user=request.user, fav_id=project_.id, fav_type=2):
                     project_.has_fav = True
 
         return render(request, 'project-list.html', {
-            'current_page': 'project',
             'newest_project': newest_project,
             'all_project': project,
             'project_nums': project_nums,
@@ -96,7 +95,7 @@ class ProjectDetailView(View):
         has_fav_project = False
 
         # 必须是用户已登录我们才需要判断。
-        if request.user.is_authenticated:
+        if request.user.is_authenticated():
             if UserFavorite.objects.filter(user=request.user, fav_id=project.id, fav_type=1):
                 has_fav_project = True
         # 取出标签找到标签相同的project
@@ -109,7 +108,6 @@ class ProjectDetailView(View):
         else:
             relate_projects = relate_projects.filter(~Q(id=project.id))[0:3]
         return render(request, "project-detail.html", {
-            'current_page': 'project',
             "project": project,
             "relate_projects": relate_projects,
             "has_fav_project": has_fav_project,

@@ -75,8 +75,9 @@ class PatentListView(View):
         # patents_=[]
 
         for patent_ in patent.object_list:
+            # if not request.user.is_authenticated():
             patent_.has_fav = False
-            if request.user.is_authenticated:
+            if request.user.is_authenticated():
                 if UserFavorite.objects.filter(user=request.user, fav_id=patent_.id, fav_type=1):
                     patent_.has_fav = True
         #     patents_.append(patent_)
@@ -85,7 +86,6 @@ class PatentListView(View):
 
 
         return render(request, 'patent-list.html', {
-            'current_page': 'patent',
             'newest_patent': newest_patent,
             'all_patent': patent,
             'patent_nums': patent_nums,
@@ -110,7 +110,7 @@ class PatentDetailView(View):
         has_fav_patent = False
 
         # 必须是用户已登录我们才需要判断。
-        if request.user.is_authenticated:
+        if request.user.is_authenticated():
             if UserFavorite.objects.filter(user=request.user, fav_id=patent.id, fav_type=1):
                 has_fav_patent = True
         # 取出标签找到标签相同的patent
@@ -123,7 +123,6 @@ class PatentDetailView(View):
         else:
             relate_patents = relate_patents.filter(~Q(id=patent.id))[0:3]
         return render(request, "patent-detail.html", {
-            'current_page': 'patent',
             "patent": patent,
             "relate_patents": relate_patents,
             "has_fav_patent": has_fav_patent,

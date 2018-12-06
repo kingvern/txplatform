@@ -15,6 +15,7 @@
         {{ key }}:{{ error }}
     {% endfor %}
     {{ msg }}
+    <input type="hidden" name="next" value="{{ redirect_url }}"/>
     {% csrf_token %}
 </form>
 

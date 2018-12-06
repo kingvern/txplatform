@@ -60,7 +60,10 @@ class LoginView(View):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return render(request, 'index.html')
+                    redirect_url = request.POST.get('next', '')
+                    if redirect_url:
+                        return HttpResponseRedirect(redirect_url)
+                    return HttpResponseRedirect(reverse("index"))
                 else:
                     return render(request, 'login.html', {'msg': '邮箱未激活！'})
             else:
@@ -461,9 +464,9 @@ class IndexView(View):
     """首页view"""
 
     def get(self, request):
-        project = Project.objects.all().order_by('index')[:5]
+        project = Project.objects.all().order_by('-click_num')[:5]
         # 正常位课程
-        patent = Patent.objects.filter(is_banner=False)[:6]
+        patent = Patent.objects.all().order_by('-click_num')[:6]
         return render(request, 'index.html', {
             "project": project,
             "patent": patent,
