@@ -17,14 +17,15 @@
 {% block right_content %}
 
     <form class="exform" enctype="multipart/form-data" action="
-            {% ifequal type 'patent:modify' %}{% url 'patent:modify_patent' %}{% else %}{% url 'patent:add_patent' %}{% endifequal %}"
+
+            {% ifequal type 'patent:modify' %}{% url 'patent:modify' patent.id %}{% else %}{% url 'patent:add_patent' %}{% endifequal %}"
           method="POST"
           id="patent_form">
 
 
         {% csrf_token %}
 
-<input style="display: none" name="id" value="{{ patent.id }}"/>
+        <input style="display: none" name="id" value="{{ patent.id }}"/>
         <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
 
 
@@ -40,7 +41,8 @@
                                                                             class="control-label  requiredField">
                                 专利名<span class="asteriskField">*</span> </label>
                                 <div class="controls "><input class="text-field admintextinputwidget form-control"
-                                                              id="id_name" maxlength="100" name="name" type="text" value="{{ patent.name }}"/>
+                                                              id="id_name" maxlength="100" name="name" type="text"
+                                                              value="{{ patent.name }}"/>
                                 </div>
                             </div>
                             <div id="div_id_patent_id" class="form-group"><label for="id_patent_id"
@@ -54,7 +56,8 @@
                                                                                       class="control-label  requiredField">
                                 所属行业<span class="asteriskField">*</span> </label>
                                 <div class="controls "><select class="adminselectwidget form-control"
-                                                               id="id_field_category" name="field_category" data-value="{{ patent.field_category }}">
+                                                               id="id_field_category" name="field_category"
+                                                               data-value="{{ patent.field_category }}">
                                     <option value="0" selected="selected">食品饮料</option>
                                     <option value="1">建筑建材</option>
                                     <option value="2">家居用品</option>
@@ -84,7 +87,8 @@
                                                                                        class="control-label  requiredField">
                                 专利类别<span class="asteriskField">*</span> </label>
                                 <div class="controls "><select class="adminselectwidget form-control"
-                                                               id="id_patent_category" name="patent_category" data-value="{{ patent.patent_category }}">
+                                                               id="id_patent_category" name="patent_category"
+                                                               data-value="{{ patent.patent_category }}">
                                     <option value="fmzl" selected="selected">发明专利</option>
                                     <option value="syxxzl">实用新型专利</option>
                                     <option value="wgzl">外观专利</option>
@@ -110,24 +114,27 @@
                                             value="2018/11/05"/> <span class="input-group-btn"><button
                                             class="btn btn-default" type="button">今天</button></span></div>
                                     <input id="initial-id_patent_expired" name="initial-patent_expired" type="hidden"
-                                           value="{{ patent.patent_expired }}" /></div>
+                                           value="{{ patent.patent_expired }}"/></div>
                             </div>
                             <div id="div_id_main_pic" class="form-group"><label for="id_main_pic"
                                                                                 class="control-label  requiredField">
                                 专利主图<span class="asteriskField">*</span> </label>
                                 <div class="controls "><input class="adminimagewidget" id="id_main_pic" label="专利主图"
-                                                              name="main_pic" type="file" value="{{ patent.main_pic }}"/></div>
+                                                              name="main_pic" type="file"
+                                                              value="{{ patent.main_pic }}"/></div>
                             </div>
 
                             <div id="div_id_price" class="form-group"><label for="id_price"
                                                                              class="control-label  requiredField">
                                 价格<span class="asteriskField">*</span> </label>
                                 <div class="controls "><input class="int-field adminintegerfieldwidget form-control"
-                                                              id="id_price" name="price" type="text" value="{{ patent.price }}"/></div>
+                                                              id="id_price" name="price" type="text"
+                                                              value="{{ patent.price }}"/></div>
                             </div>
                             <div class="form-group">
                                 <div id="div_id_bargain" class="checkbox"><label for="id_bargain" class=""> <input
-                                        class="checkboxinput" id="id_bargain" name="bargain" type="checkbox" value="{{ patent.bargain }}"/>
+                                        class="checkboxinput" id="id_bargain" name="bargain" type="checkbox"
+                                        value="{{ patent.bargain }}"/>
                                     议价
                                 </label></div>
                             </div>
@@ -166,14 +173,16 @@
                                 代理人
                             </label>
                                 <div class="controls "><input class="text-field admintextinputwidget form-control"
-                                                              id="id_agent" maxlength="20" name="agent" type="text" value="{{ patent.agent }}"/>
+                                                              id="id_agent" maxlength="20" name="agent" type="text"
+                                                              value="{{ patent.agent }}"/>
                                 </div>
                             </div>
                             <div id="div_id_agency" class="form-group"><label for="id_agency" class="control-label ">
                                 代理机构
                             </label>
                                 <div class="controls "><input class="text-field admintextinputwidget form-control"
-                                                              id="id_agency" maxlength="20" name="agency" type="text" value="{{ patent.agency }}"/>
+                                                              id="id_agency" maxlength="20" name="agency" type="text"
+                                                              value="{{ patent.agency }}"/>
                                 </div>
                             </div>
                             <div id="div_id_inventor" class="form-group"><label for="id_inventor"
@@ -205,7 +214,8 @@
                             </label>
                                 <div class="controls "><input class="text-field admintextinputwidget form-control"
                                                               id="id_contact_mobile" maxlength="20"
-                                                              name="contact_mobile" type="text" value="{{ patent.contact_mobile }}"/></div>
+                                                              name="contact_mobile" type="text"
+                                                              value="{{ patent.contact_mobile }}"/></div>
                             </div>
                             <div id="div_id_detail" class="form-group"><label for="id_detail"
                                                                               class="control-label  requiredField">
@@ -224,6 +234,12 @@
 
 
         </div>
+
+
+        {% for key,error in patent_form.errors.items %}
+            {{ key }}:{{ error }}
+        {% endfor %}
+        {{ msg }}
 
 
         <div class="form-actions well well-sm clearfix">

@@ -1,11 +1,12 @@
 # _*_ coding: utf-8 _*_
 import json
 
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Patent
 from .forms import AddPatentForm, ModifyPatentForm
@@ -84,7 +85,6 @@ class PatentListView(View):
         #
         # patent.object_list = patents_
 
-
         return render(request, 'patent-list.html', {
             'newest_patent': newest_patent,
             'all_patent': patent,
@@ -138,33 +138,23 @@ class AddPatentView(View):
             patent.hire = patent.price * 0.1
             patent.shop_status = 0
             patent.save()
-            return HttpResponse(
-                '{"status":"success"}',
-                content_type='application/json')
+            return HttpResponseRedirect(reverse('users:mypublish'))
         else:
             # 通过json的dumps方法把字典转换为json字符串
-            return HttpResponse(
-                json.dumps(
-                    add_patent_form.errors),
-                content_type='application/json')
+            return render(request, 'usercenter-publish-patent.html', {'patent_form': add_patent_form})
 
 
 class ModifyView(View):
-    def post(self, request):
-        patent_id = request.POST.get('id', 0)
+    def post(self, request, patent_id):
+        # patent_id = request.POST.get('id', 0)
         patent = Patent.objects.get(id=int(patent_id))
         modify_patent_form = ModifyPatentForm(request.POST, instance=patent)
         if modify_patent_form.is_valid():
             modify_patent_form.save()
-            return HttpResponse(
-                '{"status":"success"}',
-                content_type='application/json')
+            return HttpResponseRedirect(reverse('users:mypublish'))
         else:
             # 通过json的dumps方法把字典转换为json字符串
-            return HttpResponse(
-                json.dumps(
-                    modify_patent_form.errors),
-                content_type='application/json')
+            return render(request, 'usercenter-publish-patent.html', {'patent_form': modify_patent_form})
 
     def get(self, request, patent_id):
         # 此处的id为表默认为我们添加的值。

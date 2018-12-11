@@ -248,11 +248,7 @@ class DeletePublishView(View):
 class OrderView(View):
     """
     下单功能
-    type 1:下单
-    type 2:删除订单
-    type 3:无意义
     """
-
     def get(self, request):
         id = request.GET.get('id', 0)
         if int(id) > 0:
@@ -278,6 +274,12 @@ class OrderView(View):
             return HttpResponseRedirect(reverse('patent:list'))
 
     def post(self, request):
+        """
+            下单功能
+            type 1:下单
+            type 2:删除订单
+            type 3:无意义
+        """
         id = request.POST.get('id', 0)
         type = request.POST.get('type', 1)
         if not request.user.is_authenticated():
@@ -305,10 +307,21 @@ class OrderView(View):
                     order.total_price = patent.hire + patent.price
                     order.step = '0'
                     order.save()
-                # return HttpResponse('{"status":"success", "msg":"已经下单"}', content_type='application/json')
-                # staff = UserProfile.objects.filter(is_staff=True).order_by()
-                # return render(request, 'pay_order.html', {'order': order})
-                return HttpResponseRedirect("/operation/add_order/?id=" + id)
+                    # return HttpResponse('{"status":"success", "msg":"已经下单"}', content_type='application/json')
+                    # staff = UserProfile.objects.filter(is_staff=True).order_by()
+                    # return render(request, 'pay_order.html', {'order': order})
+                    return HttpResponseRedirect("/operation/add_order/?id=" + id)
+                else:
+                    from platorm.settings import NAME, ADDRESS, CONTACT, MOBILE
+                    patent = Patent.objects.get(id=int(id))
+                    return render(request, 'add_order.html', {
+                        'patent': patent,
+                        'NAME': NAME,
+                        'ADDRESS': ADDRESS,
+                        'CONTACT': CONTACT,
+                        'MOBILE': MOBILE,
+                        'add_order_form': add_order_form
+                    })
             else:
                 return HttpResponseRedirect(reverse('patent:list'))
             # else:

@@ -15,3 +15,4 @@ class AddOrderForm(forms.Form):
     order_address = forms.CharField(required=True)
     order_contact = forms.CharField(required=True)
     order_mobile = forms.CharField(required=True, min_length=7, max_length=11)
+    agree = forms.BooleanField(required=True)

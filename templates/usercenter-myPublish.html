@@ -78,7 +78,8 @@
                             <span class="cancel_publish">下架</span>
                             <span class="delete_publish">删除</span>
                         {% endifequal %}
-                        {% ifequal project.shop_status '-1' %}<a href="/patent/modify/{{ patent.id }}/">修改</a>
+                        {% ifequal project.shop_status '-1' %}
+                            <a href="/patent/modify/{{ patent.id }}/">修改</a>
                             <span class="cancel_publish">上架</span>
                             <span class="delete_publish">删除</span>
                         {% endifequal %}

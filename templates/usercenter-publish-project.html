@@ -160,6 +160,11 @@
 
         </div>
 
+        {% for key,error in add_project_form.errors.items %}
+            {{ key }}:{{ error }}
+        {% endfor %}
+        {{ msg }}
+
 
         <div class="form-actions well well-sm clearfix">
 

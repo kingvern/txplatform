@@ -1,11 +1,12 @@
 # _*_ coding: utf-8 _*_
 import json
 
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from project.forms import AddProjectForm
 from .models import Project
@@ -122,12 +123,7 @@ class AddProjectView(View):
             project.seller = request.user
             project.shop_status = 0
             project.save()
-            return HttpResponse(
-                '{"status":"success"}',
-                content_type='application/json')
+            return HttpResponseRedirect(reverse('users:mypublish'))
         else:
             # 通过json的dumps方法把字典转换为json字符串
-            return HttpResponse(
-                json.dumps(
-                    add_project_form.errors),
-                content_type='application/json')
+            return render(request, 'usercenter-publish-project.html', {'add_project_form': add_project_form})
