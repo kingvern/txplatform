@@ -44,13 +44,18 @@ class DetailView(View):
         gallery = Gallery.objects.get(id=int(gallery_id))
         has_join = False
         has_fav = False
+        has_zan = False
         if UserJoin.objects.filter(user=request.user, join_id=gallery.id, join_type=3):
             has_join = True
-        if UserFavorite.objects.filter(user=request.user, fav_id=gallery.id, fav_type=3):
+
+        if UserFavorite.objects.filter(user=request.user, fav_id=gallery.id, fav_type=7):
+            has_zan = True
+        if UserFavorite.objects.filter(user=request.user, fav_id=gallery.id, fav_type=6):
             has_fav = True
 
         return render(request, "gallery-detail.html", {
             "gallery": gallery,
             "has_fav": has_fav,
+            "has_zan": has_zan,
             "has_join": has_join
         })

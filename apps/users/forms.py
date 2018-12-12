@@ -13,7 +13,9 @@ class LoginForm(forms.Form):
 
 class RegisterForm(forms.Form):
     mobile = forms.CharField(required=True)
-    password = forms.CharField(required=True, min_length=6)
+    password1 = forms.CharField(required=True, min_length=6)
+
+    password2 = forms.CharField(required=True, min_length=6)
     code = forms.CharField(required=True)
 
 

@@ -15,11 +15,15 @@ Including another URLconf
     2. Import the include() function: from django.conf.urls import url, include
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+import os
+
 from django.conf.urls import url, include
+from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.views.static import serve
 
 import xadmin
+from platorm import settings
 
 from platorm.settings import MEDIA_ROOT
 
@@ -53,3 +57,7 @@ urlpatterns = [
     # 配置上传文件访问处理的函数
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT})
 ]
+
+if settings.DEBUG:
+    media_root = os.path.join(settings.BASE_DIR, settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=media_root)

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}政策展示{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/policy.css' %}">
+{% endblock %}
+{% block custom_bread %}
+
+    <section class="container">
+        <ul class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            <li class="active">政策信息列表</li>
+        </ul>
+    </section>
+{% endblock %}
+{% block content %}
+
+
+    {#筛选#}
+    <section class="container">
+        <div class="filter">
+            {#筛选上级#}
+            <div class="filter-box">
+
+                <div class="filter-title"><span>排序</span></div>
+                <ul class="filter-list">
+                    <li class="filter-item mainTab {% if pubDate  %}filter-active{% endif %}" id="mainTab0">
+                        <a role="menuitem" tabindex="-1" href="{% url 'policy:search' %}?keywords={{ keywords }}&pubDate=1&click_num={{ click_num }}"><span>
+                                   日期</span></a>
+                    </li>
+                    <li class="filter-item mainTab {% if click_num %}filter-active{% endif %}" id="mainTab1">
+                        <a role="menuitem" tabindex="-1" href="{% url 'policy:search' %}?keywords={{ keywords }}&pubDate={{ pubDate }}&click_num=1"><span>
+                                    点击数</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    {#内容#}
+    <section class="container module">
+        {#政策列表#}
+        <div class="filted-content">
+            <div class="policy-list">
+                {% for policy in policy.object_list %}
+                    <div class="policy-item">
+                    <span class="policy-item-title"><a
+                            href="/policy/detail/{{ policy.policy_id }}/">{{ policy.title }}</a></span>
+                        <span class="policy-item-source">{{ policy.addr }}{{ policy.source }} </span><span
+                            class="policy-item-time">{{ policy.pubDate }}</span>
+
+                        {% if policy.has_fav %}
+                            <span id="{{ policy.id }}" class="module-item-btn-faved fav">取消收藏</span>
+                        {% else %}
+                            <span id="{{ policy.id }}" class="module-item-btn fav">收藏</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <nav class="page-position">
+            <ul class="pagination ">
+                {% if policy.has_previous %}
+                    <li>
+                        <a href="?department={{ department_id }}&province={{ province_id }}&page={{ policy.previous_page_number }}"
+                           class="prev">&lsaquo;&lsaquo; </a></li>
+                {% else %}
+                    <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>
+                {% endif %}
+                {% for page in policy.pages %}
+                    {% if page %}
+                        {% ifequal page policy.number %}
+                            <li><span class="current page">{{ page }}</span></li>
+                        {% else %}
+                            <li><a href="?department={{ department_id }}&province={{ province_id }}&page={{ page }}"
+                                   class="page">{{ page }}</a>
+                            </li>
+                        {% endifequal %}
+                    {% else %}
+                        <li class="disabled"><span>...</span></li>
+                    {% endif %}
+                {% endfor %}
+                {% if policy.has_next %}
+                    <li>
+                        <a href="?department={{ department_id }}&province={{ province_id }}&page={{ policy.next_page_number }}"
+                           class="next">
+                            &rsaquo;&rsaquo;</a></li>
+                {% else %}
+                    <li><span class="disabled next"> &rsaquo;&rsaquo;</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    </section>
+
+
+{% endblock %}
+{% block custom_js %}
+
+{% endblock %}

@@ -79,7 +79,7 @@
                             <span class="delete_publish">删除</span>
                         {% endifequal %}
                         {% ifequal project.shop_status '-1' %}
-                            <a href="/patent/modify/{{ patent.id }}/">修改</a>
+                            <a href="/project/modify/{{ project.id }}/">修改</a>
                             <span class="cancel_publish">上架</span>
                             <span class="delete_publish">删除</span>
                         {% endifequal %}
@@ -116,15 +116,9 @@
                         }
 
                     } else if (data.status == 'success') {
-                        if (data.msg === '收藏') {
-                            current_elem.addClass('module-item-btn')
-                            current_elem.removeClass('module-item-btn-faved')
-                            current_elem.text(data.msg)
-                        } else {
-                            current_elem.addClass('module-item-btn-faved')
-                            current_elem.removeClass('module-item-btn')
-                            current_elem.text(data.msg)
-                        }
+
+                            window.location.href = "{% url 'users:mypublish' %}";
+
                     }
                 },
             });
@@ -151,15 +145,7 @@
                         }
 
                     } else if (data.status == 'success') {
-                        if (data.msg === '收藏') {
-                            current_elem.addClass('module-item-btn')
-                            current_elem.removeClass('module-item-btn-faved')
-                            current_elem.text(data.msg)
-                        } else {
-                            current_elem.addClass('module-item-btn-faved')
-                            current_elem.removeClass('module-item-btn')
-                            current_elem.text(data.msg)
-                        }
+                            window.location.href = "{% url 'users:mypublish' %}";
                     }
                 },
             });

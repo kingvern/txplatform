@@ -120,13 +120,17 @@ class RegisterView(View):
                 Q(mobile=request.POST.get('mobile', '')) & Q(send_type='register')).last()
             if record:
                 if record.code == request.POST.get('code', ''):
-                    pass_word = request.POST.get('password', '')
-                    user_profile = UserProfile()
-                    # user_profile.username = mobile
-                    user_profile.mobile = mobile
-                    user_profile.is_active = True
-                    user_profile.password = make_password(pass_word)
-                    user_profile.save()
+                    pwd1 = request.POST.get('password1', '')
+                    pwd2 = request.POST.get('password2', '')
+                    if pwd1 != pwd2:
+                        return render(request, 'pwd_reset.html', {'mobile': mobile, 'msg': 'password not same'})
+                    else:
+                        pass_word = request.POST.get('password2', '')
+                        user_profile = UserProfile()
+                        user_profile.mobile = mobile
+                        user_profile.is_active = True
+                        user_profile.password = make_password(pass_word)
+                        user_profile.save()
                     return render(request, 'login.html')
                 else:
                     return HttpResponse(
@@ -146,7 +150,8 @@ class ResetPwdView(View):
 
     def get(self, request):
         reset_pwd_form = ResetPwdForm()
-        return render(request, 'reset_pwd.html', {'reset_pwd_form': reset_pwd_form})
+        mobile = request.user.mobile
+        return render(request, 'reset_pwd.html', {'reset_pwd_form': reset_pwd_form, 'mobile': mobile})
 
     def post(self, request):
         reset_pwd_form = ResetPwdForm(request.POST)
@@ -286,6 +291,11 @@ class UserInfoView(LoginRequiredMixin, View):
         # 不像用户咨询是一个新的。需要指明instance。不然无法修改，而是新增用户
         user_info_form = UserInfoForm(request.POST, instance=request.user)
         if user_info_form.is_valid():
+
+            if user_info_form.username in list(UserProfile.objects.all().values_list('user_name')):
+                return HttpResponse(
+                    '{"status":"fail","msg":"用户名重复，请更改"}',
+                    content_type='application/json')
             user_info_form.save()
             return HttpResponse(
                 '{"status":"success"}',
@@ -306,7 +316,7 @@ class UserAuthView(LoginRequiredMixin, View):
         if request.user.id_card:
             auth = True
         return render(request, "usercenter-auth.html", {
-            'auth':auth
+            'auth': auth
         })
 
     def post(self, request):
@@ -329,26 +339,6 @@ class UserAuthView(LoginRequiredMixin, View):
                 json.dumps(
                     user_info_form.errors),
                 content_type='application/json')
-
-
-class UserPublishView(LoginRequiredMixin, View):
-    def get(self, request):
-        return render(request, "usercenter-publish.html", {
-
-        })
-
-
-class UserPublishPatentView(LoginRequiredMixin, View):
-    def get(self, request):
-        return render(request, "usercenter-publish-patent.html", {
-            'type': ''
-        })
-
-
-class UserPublishProjectView(LoginRequiredMixin, View):
-    def get(self, request):
-        return render(request, "usercenter-publish-project.html", {
-        })
 
 
 # 用户上传图片的view:用于修改头像
@@ -385,11 +375,23 @@ class MyOrderView(LoginRequiredMixin, View):
     redirect_field_name = 'next'
 
     def get(self, request):
-        user_patent = BuyerPatent.objects.filter(buyer=request.user)
-        user_project = BuyerProject.objects.filter(buyer=request.user)
+        patent_order = BuyerPatent.objects.filter(buyer=request.user)
+        project_order = BuyerProject.objects.filter(buyer=request.user)
         return render(request, "usercenter-myOrder.html", {
-            "user_patent": user_patent,
-            "user_project": user_project,
+            "user_patent": patent_order,
+            "user_project": project_order,
+        })
+
+
+class MyPublishView(LoginRequiredMixin, View):
+    """我的发布管理"""
+
+    def get(self, request):
+        patent_list = Patent.objects.filter(seller=request.user)
+        project_list = Project.objects.filter(seller=request.user)
+        return render(request, "usercenter-myPublish.html", {
+            "patent_list": patent_list,
+            "project_list": project_list
         })
 
 
@@ -414,19 +416,6 @@ class MyFavView(LoginRequiredMixin, View):
             project_list.append(project)
 
         return render(request, "usercenter-fav.html", {
-            "patent_list": patent_list,
-            "project_list": project_list
-        })
-
-
-class MyPublishView(LoginRequiredMixin, View):
-    """我的发布管理"""
-
-    def get(self, request):
-        patent_list = Patent.objects.filter(seller=request.user)
-        project_list = Project.objects.filter(seller=request.user)
-
-        return render(request, "usercenter-myPublish.html", {
             "patent_list": patent_list,
             "project_list": project_list
         })

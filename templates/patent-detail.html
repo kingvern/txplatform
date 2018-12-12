@@ -34,7 +34,10 @@
                 <span id="{{ patent.id }}" class="module-item-btn fav">收藏</span>
             {% endif %}
             <span class="module-item-btn" data-toggle="modal" data-target="#myModal">咨询</span>
-            <span class="module-item-btn buy"><a href="{% url 'operation:order' %}?id={{ patent.id }}">购买</a></span>
+            {% if patent.is_owner %}
+            {% else %}
+                <span class="module-item-btn buy"><a href="{% url 'operation:order' %}?id={{ patent.id }}">购买</a></span>
+            {% endif %}
         </div>
     </section>
     {% for p in relate_patents %}

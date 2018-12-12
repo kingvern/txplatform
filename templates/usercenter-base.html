@@ -188,9 +188,9 @@
                             <div class="sidebar-panel-node"></div>
                         </div>
                         <a class="sidebar-panel-item {% ifequal  '/users/user_publish_patent/' request.path %} sidebar-active{% endifequal %}"
-                           href="{% url 'users:user_publish_patent' %}">发布专利</a>
+                           href="{% url 'patent:add_patent' %}">发布专利</a>
                         <a class="sidebar-panel-item {% ifequal  '/users/user_publish_project/' request.path %} sidebar-active{% endifequal %}"
-                           href="{% url 'users:user_publish_project' %}">发布项目</a>
+                           href="{% url 'project:add_project' %}">发布项目</a>
                         <a class="sidebar-panel-item {% ifequal  '/users/myorder/' request.path %} sidebar-active{% endifequal %}"
                            href="{% url 'users:myorder' %}">订单管理</a>
                         <a class="sidebar-panel-item {% ifequal  '/users/mypublish/' request.path %} sidebar-active{% endifequal %}"

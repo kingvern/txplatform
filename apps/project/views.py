@@ -8,7 +8,7 @@ from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 
-from project.forms import AddProjectForm
+from project.forms import AddProjectForm, ModifyProjectForm
 from .models import Project
 from operation.models import UserFavorite
 
@@ -84,6 +84,38 @@ class ProjectListView(View):
         })
 
 
+class SearchView(View):
+    def get(self, request):
+        project = Project.objects.all()
+        search_keywords = request.GET.get('keywords', '')
+        if search_keywords:
+            project = project.filter(Q(name__icontains=search_keywords) | Q(detail__icontains=search_keywords))
+        pubDate = request.GET.get('pubDate', "")
+        click_num = request.GET.get('click_num', "")
+        if pubDate:
+            project = project.order_by("-pubDate")
+        if click_num:
+            project = project.order_by("-click_num")
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+        p = Paginator(project, 15, request=request)
+        project_data = p.page(page)
+
+        for project_ in project_data.object_list:
+            project_.has_fav = False
+            if request.user.is_authenticated():
+                if UserFavorite.objects.filter(user=request.user, fav_id=project_.id, fav_type=0):
+                    project_.has_fav = True
+        return render(request, 'project-search.html', {
+            'keywords': search_keywords,
+            'pubDate': pubDate,
+            'click_num': click_num,
+            'all_project': project_data,
+        })
+
+
 class ProjectDetailView(View):
     def get(self, request, project_id):
         # 此处的id为表默认为我们添加的值。
@@ -93,31 +125,30 @@ class ProjectDetailView(View):
         project.save()
 
         # 是否收藏
-        has_fav_project = False
+        project.has_fav = False
 
         # 必须是用户已登录我们才需要判断。
         if request.user.is_authenticated():
-            if UserFavorite.objects.filter(user=request.user, fav_id=project.id, fav_type=1):
-                has_fav_project = True
+            if UserFavorite.objects.filter(user=request.user, fav_id=project.id, fav_type=2):
+                project.has_fav = True
         # 取出标签找到标签相同的project
         keyword = project.keyword
-        # relate_patents = Patent.objects.filter(field_category=patent.field_category)
+        # relate_projects = Project.objects.filter(field_category=project.field_category)
         relate_projects = Project.objects.all()
         if keyword:
             # 从1开始否则会推荐自己
-            relate_projects = relate_projects.filter(Q(keyword=keyword) & ~Q(id=patent.id))[0:3]
+            relate_projects = relate_projects.filter(Q(keyword=keyword) & ~Q(id=project.id))[0:3]
         else:
             relate_projects = relate_projects.filter(~Q(id=project.id))[0:3]
         return render(request, "project-detail.html", {
             "project": project,
             "relate_projects": relate_projects,
-            "has_fav_project": has_fav_project,
         })
 
 
 class AddProjectView(View):
     def post(self, request):
-        add_project_form = AddProjectForm(request.POST)
+        add_project_form = AddProjectForm(request.POST, request.FILES, )
         if add_project_form.is_valid():
             project = add_project_form.save(commit=False)
             project.seller = request.user
@@ -126,4 +157,31 @@ class AddProjectView(View):
             return HttpResponseRedirect(reverse('users:mypublish'))
         else:
             # 通过json的dumps方法把字典转换为json字符串
-            return render(request, 'usercenter-publish-project.html', {'add_project_form': add_project_form})
+            return render(request, 'usercenter-publish-project.html', {'project_form': add_project_form})
+
+    def get(self, request):
+        add_project_form = AddProjectForm()
+        return render(request, 'usercenter-publish-project.html', {'project_form': add_project_form})
+
+
+class ModifyView(View):
+    def post(self, request, project_id):
+        # project_id = request.POST.get('id', 0)
+        project = Project.objects.get(id=int(project_id))
+        modify_project_form = ModifyProjectForm(request.POST, request.FILES, instance=project)
+        if modify_project_form.is_valid():
+            modify_project_form.save()
+            return HttpResponseRedirect(reverse('users:mypublish'))
+        else:
+            # 通过json的dumps方法把字典转换为json字符串
+            return render(request, 'usercenter-publish-project.html', {'project_form': modify_project_form})
+
+    def get(self, request, project_id):
+        # 此处的id为表默认为我们添加的值。
+        project = Project.objects.get(id=int(project_id))
+        modify_project_form = ModifyProjectForm(instance=project)
+        return render(request, "usercenter-publish-project.html", {
+            "type": "project:modify",
+            "project": project,
+            'project_form': modify_project_form
+        })

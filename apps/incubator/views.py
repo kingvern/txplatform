@@ -4,7 +4,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 from django.views.generic import View
-from .models import Couveuse, Park, Financial
+from .models import Couveuse, Park, Financial, YellowPage
 from operation.models import UserFavorite
 
 
@@ -17,6 +17,8 @@ class ListView(View):
             all_incubator = Park.objects.all()
         if type_id == '2':
             all_incubator = Financial.objects.all()
+        if type_id == '3':
+            all_incubator = YellowPage.objects.all()
 
         area0 = request.GET.get('area0', '')
         area1 = request.GET.get('area1', '')
@@ -73,6 +75,38 @@ class ListView(View):
         })
 
 
+class SearchView(View):
+    def get(self, request):
+        project = Couveuse.objects.all()
+        search_keywords = request.GET.get('keywords', '')
+        if search_keywords:
+            project = project.filter(Q(name__icontains=search_keywords) | Q(detail__icontains=search_keywords))
+        pubDate = request.GET.get('pubDate', "")
+        click_num = request.GET.get('click_num', "")
+        if pubDate:
+            project = project.order_by("-pubDate")
+        if click_num:
+            project = project.order_by("-click_num")
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+        p = Paginator(project, 15, request=request)
+        project_data = p.page(page)
+
+        for project_ in project_data.object_list:
+            project_.has_fav = False
+            if request.user.is_authenticated():
+                if UserFavorite.objects.filter(user=request.user, fav_id=project_.id, fav_type=0):
+                    project_.has_fav = True
+        return render(request, 'project-search.html', {
+            'keywords': search_keywords,
+            'pubDate': pubDate,
+            'click_num': click_num,
+            'all_project': project_data,
+        })
+
+
 class DetailView(View):
     def get(self, request, incubator_id):
         type_id = request.GET.get('type_id', '0')
@@ -82,6 +116,8 @@ class DetailView(View):
             incubator = Park.objects.get(id=int(incubator_id))
         if type_id == '2':
             incubator = Financial.objects.get(id=int(incubator_id))
+        if type_id == '3':
+            incubator = YellowPage.objects.get(id= int(incubator_id))
         return render(request, "incubator-detail.html", {
             "incubator": incubator,
         })

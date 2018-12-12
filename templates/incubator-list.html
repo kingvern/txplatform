@@ -40,6 +40,11 @@
                         <a role="menuitem" tabindex="-1" href="?type_id=2"><span>
                                     金融服务</span></a>
                     </li>
+                    <li class="filter-item mainTab {% ifequal type_id '3' %}filter-active{% endifequal %}"
+                        id="mainTab2">
+                        <a role="menuitem" tabindex="-1" href="?type_id=3"><span>
+                                    黄页</span></a>
+                    </li>
 
                 </ul>
             </div>
@@ -78,8 +83,14 @@
                                 role="presentation">
                                 <a role="menuitem" tabindex="-1"
                                    href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
-                                    {% ifequal area0 '河北' %}{{ area1_.area1|slice:'4:' }}{% else %}
-                                        {{ area1_.area1|slice:'8:' }}{% endifequal %}
+                                {% ifnotequal type_id '3' %}
+                                    {% ifequal area0 '河北' %}{{ area1_.area1|slice:'4:' }}{% endifequal %}
+                                    {% ifequal area0 '北京' %}{{ area1_.area1|slice:'8:' }}{% endifequal %}
+                                    {% ifequal area0 '天津' %}{{ area1_.area1|slice:'8:' }}{% endifequal %}
+                                {% else %}
+                                    {{ area1_.area1 }}
+                                {% endifnotequal %}
+
                                 </span></a>
                             </li>
                         {% endfor %}
@@ -100,7 +111,7 @@
                             href="/incubator/detail/{{ incubator.id }}/?type_id={{ type_id }}">{{ incubator.name }}</a></span>
                         <span class="incubator-item-source">{{ incubator.addr }}{{ incubator.source }} </span><span
                             class="incubator-item-time">{{ incubator.pubDate }}</span>
-
+                    {% ifnotequal type_id '3' %}
                         {% if incubator.has_fav %}
                             <span id="{{ incubator.id }}" type_id="{{ type_id|add:3 }}"
                                   class="module-item-btn-faved fav">取消收藏</span>
@@ -108,6 +119,7 @@
                             <span id="{{ incubator.id }}" type_id="{{ type_id|add:3 }}"
                                   class="module-item-btn fav">收藏</span>
                         {% endif %}
+                    {% endifnotequal %}
                     </div>
                 {% endfor %}
             </div>

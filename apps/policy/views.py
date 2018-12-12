@@ -1,4 +1,5 @@
 # _*_ coding: utf-8 _*_
+from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
@@ -12,70 +13,6 @@ import json
 
 
 # Create your views here.
-
-class PolicyListViewBak(View):
-    def get(self, request):
-
-        all_banner = Banner.objects.all()
-        banners = all_banner.filter(if_show=True)
-
-        all_policy = Policy.objects.all()
-
-        departments = Department.objects.all()
-
-        a_policy = all_policy.filter(addr_id__in=[3, 4])
-        a_departments_id = a_policy.values('source').distinct()
-        a_department = []
-        for a_department_ in a_departments_id:
-            a_department.append(departments.get(id=a_department_['source']))
-        a_department_id = request.GET.get('a_department', '')
-        if a_department_id:
-            a_policy = a_policy.filter(source=a_department_id)
-        a_policy = a_policy.order_by('-pubDate')
-        a_policy_nums = a_policy.count()
-        try:
-            a_page = request.GET.get('a_page', 1)
-        except PageNotAnInteger:
-            a_page = 1
-        a_p = Paginator(a_policy, 5, request=request)
-        a_policy_data = a_p.page(a_page)
-
-        b_policy = all_policy.exclude(addr_id__in=[3, 4])
-        b_departments_id = b_policy.values('source').distinct()
-        b_department = []
-        for b_department_ in b_departments_id:
-            b_department.append(departments.get(id=b_department_['source']))
-        b_department_id = request.GET.get('b_department', '')
-        if b_department_id:
-            b_policy = b_policy.filter(source=b_department_id)
-        b_policy = b_policy.order_by('-pubDate')
-        b_policy_nums = b_policy.count()
-        try:
-            b_page = request.GET.get('b_page', 1)
-        except PageNotAnInteger:
-            b_page = 1
-        b_p = Paginator(b_policy, 5, request=request)
-        b_policy_data = b_p.page(b_page)
-
-        all_chart = Chart.objects.all()
-        # all_chart = json.dumps(all_chart)
-
-        return render(request, 'policy-list.html', {
-            'banners': banners,
-
-            'a_policy': a_policy_data,
-            'a_department': a_department,
-            'a_policy_nums': a_policy_nums,
-            'a_department_id': a_department_id,
-
-            'b_policy': b_policy_data,
-            'b_department': b_department,
-            'b_policy_nums': b_policy_nums,
-            'b_department_id': b_department_id,
-
-            'all_chart': all_chart
-        })
-
 
 class PolicyHomeView(View):
     def get(self, request):
@@ -101,7 +38,6 @@ class PolicyListView(View):
 
         main = '0'
         mains = [u'中央', u'北京', u'天津', u'河北']
-
         province_id = request.GET.get('province', '3')
         if province_id:
             policy = policy.filter(addr=province_id)
@@ -145,6 +81,38 @@ class PolicyListView(View):
             'provincesArray': provinceArray,
             'department_id': department_id,
             'departments': departments,
+            'policy': policy_data,
+        })
+
+
+class SearchView(View):
+    def get(self, request):
+        policy = Policy.objects.all()
+        search_keywords = request.GET.get('keywords', '')
+        if search_keywords:
+            policy = policy.filter(Q(title__icontains=search_keywords) | Q(info__icontains=search_keywords))
+        pubDate = request.GET.get('pubDate', "")
+        click_num = request.GET.get('click_num', "")
+        if pubDate:
+            policy = policy.order_by("-pubDate")
+        if click_num:
+            policy = policy.order_by("-click_num")
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+        p = Paginator(policy, 15, request=request)
+        policy_data = p.page(page)
+
+        for policy_ in policy_data.object_list:
+            policy_.has_fav = False
+            if request.user.is_authenticated():
+                if UserFavorite.objects.filter(user=request.user, fav_id=policy_.id, fav_type=0):
+                    policy_.has_fav = True
+        return render(request, 'policy-search.html', {
+            'keywords': search_keywords,
+            'pubDate': pubDate,
+            'click_num': click_num,
             'policy': policy_data,
         })
 

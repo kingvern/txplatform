@@ -37,7 +37,7 @@
 
 <form action="{% url 'reset_pwd' %}" method="post">
 
-    <input name="mobile" type="text" placeholder="phone" id="mobile"
+    <input name="mobile" type="hidden" placeholder="phone" id="mobile" value="{{ mobile }}"
     /><span class="input-group-btn">
                          <input type="button" id="forgetCode" onclick="settime(this)" value="免费获取验证码"
                                 class="btn btn-success">

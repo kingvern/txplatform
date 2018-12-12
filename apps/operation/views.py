@@ -19,6 +19,7 @@ from users.models import UserProfile
 from platorm.settings import APIKEY
 
 
+
 # Create your views here.
 
 class AddFavView(View):
@@ -60,32 +61,32 @@ class AddFavView(View):
                 if project.fav_num < 0:
                     project.fav_num = 0
                 project.save()
-
             elif int(type) == 3:
-                project = Couveuse.objects.get(id=int(id))
-                project.fav_num -= 1
-                if project.fav_num < 0:
-                    project.fav_num = 0
-                project.save()
+                couveuse = Couveuse.objects.get(id=int(id))
+                couveuse.fav_num -= 1
+                if couveuse.fav_num < 0:
+                    couveuse.fav_num = 0
+                couveuse.save()
             elif int(type) == 4:
-                project = Park.objects.get(id=int(id))
-                project.fav_num -= 1
-                if project.fav_num < 0:
-                    project.fav_num = 0
-                project.save()
+                park = Park.objects.get(id=int(id))
+                park.fav_num -= 1
+                if park.fav_num < 0:
+                    park.fav_num = 0
+                park.save()
             elif int(type) == 5:
-                project = Financial.objects.get(id=int(id))
-                project.fav_num -= 1
-                if project.fav_num < 0:
-                    project.fav_num = 0
-                project.save()
+                financial = Financial.objects.get(id=int(id))
+                financial.fav_num -= 1
+                if financial.fav_num < 0:
+                    financial.fav_num = 0
+                financial.save()
             elif int(type) == 6:
-                project = Gallery.objects.get(id=int(id))
-                project.fav_num -= 1
-                if project.fav_num < 0:
-                    project.fav_num = 0
-                project.save()
-
+                gallery = Gallery.objects.get(id=int(id))
+                gallery.fav_num -= 1
+                if gallery.fav_num < 0:
+                    gallery.fav_num = 0
+                gallery.save()
+            else:
+                return HttpResponse('{"status":"success", "msg":"点赞"}', content_type='application/json')
             return HttpResponse('{"status":"success", "msg":"收藏"}', content_type='application/json')
         else:
             user_fav = UserFavorite()
@@ -97,34 +98,35 @@ class AddFavView(View):
                 user_fav.save()
 
                 if int(type) == 0:
-                    policy = Policy.objects.get(id=int(id))
-                    policy.fav_num += 1
-                    policy.save()
-                if int(type) == 1:
-                    patent = Patent.objects.get(id=int(id))
-                    patent.fav_num += 1
-                    patent.save()
-                if int(type) == 2:
-                    project = Project.objects.get(id=int(id))
-                    project.fav_num += 1
-                    project.save()
-
-                if int(type) == 3:
-                    policy = Couveuse.objects.get(id=int(id))
-                    policy.fav_num += 1
-                    policy.save()
-                if int(type) == 4:
-                    patent = Park.objects.get(id=int(id))
-                    patent.fav_num += 1
-                    patent.save()
-                if int(type) == 5:
-                    project = Financial.objects.get(id=int(id))
-                    project.fav_num += 1
-                    project.save()
-                if int(type) == 6:
-                    project = Gallery.objects.get(id=int(id))
-                    project.fav_num += 1
-                    project.save()
+                    item = Policy.objects.get(id=int(id))
+                    item.fav_num += 1
+                    item.save()
+                elif int(type) == 1:
+                    item = Patent.objects.get(id=int(id))
+                    item.fav_num += 1
+                    item.save()
+                elif int(type) == 2:
+                    item = Project.objects.get(id=int(id))
+                    item.fav_num += 1
+                    item.save()
+                elif int(type) == 3:
+                    item = Couveuse.objects.get(id=int(id))
+                    item.fav_num += 1
+                    item.save()
+                elif int(type) == 4:
+                    item = Park.objects.get(id=int(id))
+                    item.fav_num += 1
+                    item.save()
+                elif int(type) == 5:
+                    item = Financial.objects.get(id=int(id))
+                    item.fav_num += 1
+                    item.save()
+                elif int(type) == 6:
+                    item = Gallery.objects.get(id=int(id))
+                    item.fav_num += 1
+                    item.save()
+                else:
+                    return HttpResponse('{"status":"success", "msg":"取消点赞"}', content_type='application/json')
                 return HttpResponse('{"status":"success", "msg":"取消收藏"}', content_type='application/json')
             else:
                 return HttpResponse('{"status":"fail", "msg":"收藏出错"}', content_type='application/json')
@@ -148,6 +150,7 @@ class AddJoinView(View):
         exist_records = UserJoin.objects.filter(user=request.user, join_id=int(id), join_type=int(type))
         if exist_records:
             # 如果记录已经存在， 则表示用户取消收藏
+            exist_records.delete()
             gallery = Gallery.objects.get(id=int(id))
             gallery.join_num -= 1
             if gallery.join_num < 0:
@@ -213,6 +216,12 @@ class CancelPublishView(View):
                 return HttpResponse('{"status":"success", "msg":"下架"}', content_type='application/json')
         else:
             return HttpResponse('{"status":"fail", "msg":"下架出错"}', content_type='application/json')
+        # patent_list = Patent.objects.filter(seller=request.user)
+        # project_list = Project.objects.filter(seller=request.user)
+        # return render(request, "usercenter-myPublish.html", {
+        #     "patent_list": patent_list,
+        #     "project_list": project_list
+        # })
 
 
 class DeletePublishView(View):
@@ -249,6 +258,7 @@ class OrderView(View):
     """
     下单功能
     """
+
     def get(self, request):
         id = request.GET.get('id', 0)
         if int(id) > 0:
@@ -288,9 +298,21 @@ class OrderView(View):
         if int(type) == 1:
             if int(type) == 1 and int(id) > 0:
                 add_order_form = AddOrderForm(request.POST)
+                patent = Patent.objects.get(id=int(id))
+
+                if request.user == patent.seller:
+                    from platorm.settings import NAME, ADDRESS, CONTACT, MOBILE
+                    return render(request, 'add_order.html', {
+                        'patent': patent,
+                        'NAME': NAME,
+                        'ADDRESS': ADDRESS,
+                        'CONTACT': CONTACT,
+                        'MOBILE': MOBILE,
+                        'add_order_form': add_order_form,
+                        'msg': '不能购买自己发布的专利哦'
+                    })
                 if add_order_form.is_valid():
                     order = BuyerPatent()
-                    patent = Patent.objects.get(id=int(id))
 
                     order.buyer = request.user
                     order.patent = patent
@@ -306,6 +328,7 @@ class OrderView(View):
                     order.serve_fee = patent.hire
                     order.total_price = patent.hire + patent.price
                     order.step = '0'
+
                     order.save()
                     # return HttpResponse('{"status":"success", "msg":"已经下单"}', content_type='application/json')
                     # staff = UserProfile.objects.filter(is_staff=True).order_by()
@@ -436,3 +459,21 @@ class AskView(View):
                 return HttpResponse('{"status":"success", "msg":"取消报名"}', content_type='application/json')
             else:
                 return HttpResponse('{"status":"fail", "msg":"报名出错"}', content_type='application/json')
+
+
+class GetOrderPDF(View):
+    def get(self, order_id):
+        pass
+#         order = BuyerPatent.objects.get(id=order_id)
+#         # 渲染
+#         html = render_to_string('pdf.html',
+#                                 {'order': order})
+#         # 构造response
+#         response = HttpResponse(content_type='application/pdf')
+#         response['Content-Disposition'] = 'filename=\
+#               "order_{}.pdf"'.format(order.id)
+#         # 写入
+#         weasyprint.HTML(string=html).write_pdf(response,
+#                                                stylesheets=[weasyprint.CSS(
+#                                                    settings.STATIC_ROOT + 'css/pdf.css')])
+#         return response

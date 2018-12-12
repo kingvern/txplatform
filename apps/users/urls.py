@@ -1,8 +1,8 @@
 # _*_ coding: utf-8 _*_
 
 from django.conf.urls import url, include
-from .views import UserInfoView, UserPublishView, UploadImageView, UpdatePwdView, MyFavView, MyMessageView, MyOrderView, \
-    ForCodeView, MyPublishView, UserAuthView, UserPublishPatentView, UserPublishProjectView, MyFavPolicyView, \
+from .views import UserInfoView, UploadImageView, UpdatePwdView, MyFavView, MyMessageView, MyOrderView, \
+    ForCodeView, MyPublishView, UserAuthView, MyFavPolicyView, \
     MyFavIncubatorView, MyFavGalleryView
 
 urlpatterns = [
@@ -10,8 +10,6 @@ urlpatterns = [
     url('info/', UserInfoView.as_view(), name="user_info"),
     url('auth/', UserAuthView.as_view(), name="user_auth"),
     url('safe/', UserAuthView.as_view(), name="user_safe"),
-
-    url('publish/', UserPublishView.as_view(), name="user_publish"),
 
     # 用户头像上传
     url('image/upload/', UploadImageView.as_view(), name="image_upload"),
@@ -21,9 +19,6 @@ urlpatterns = [
     url('myorder/', MyOrderView.as_view(), name="myorder"),
 
     url('myfav/', MyFavView.as_view(), name="myfav"),
-
-    url('user_publish_patent/', UserPublishPatentView.as_view(), name="user_publish_patent"),
-    url('user_publish_project/', UserPublishProjectView.as_view(), name="user_publish_project"),
 
     url('myPublish/', MyPublishView.as_view(), name="mypublish"),
 

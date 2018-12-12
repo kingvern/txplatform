@@ -32,6 +32,21 @@
                 {% else %}
                     <span id="{{ gallery.id }}" class="module-item-btn join">报名</span>
                 {% endif %}
+                {% if has_zan %}
+                    <span id="{{ gallery.id }}" class="module-item-btn-faved zan">取消点赞</span>
+                {% else %}
+                    <span id="{{ gallery.id }}" class="module-item-btn zan">点赞</span>
+                {% endif %}
+
+
+                <div style="color: #000;font-size: 0.2rem;text-align: center;" onclick="share()">
+                    分享
+                </div>
+                <div class="social-share1" style="text-align:center; display:none;" id="shareDiv">
+                    <img id="testimg" style="float:right;cursor:pointer" alt="" width="300" height="300"/>
+                </div>
+
+
                 <img class="center-block" src="{{ MEDIA_URL }}{{ gallery.pic }}"/>
                 <span class="gallery-item-source">活动时间：{{ gallery.time_begin }}-{{ gallery.time_end }} </span>
                 <span
@@ -53,6 +68,22 @@
 {% endblock %}
 {% block custom_js %}
     <script type="text/javascript">
+
+        function share() {
+            $("#testimg").attr("src", "http://qr.liantu.com/api.php?text=" + window.location.href);
+            layer.open({
+                type: 1,
+                title: '分享到微信',
+                offset: 'auto',
+                area: ['300px', '342px'], //宽高
+                closeBtn: 1, //不显示关闭按钮
+                shadeClose: true, //点击遮罩关闭
+                anim: 2,
+                content: $("#shareDiv")
+            });
+
+        }
+
         //收藏分享
         function add_fav(current_elem, fav_id, fav_type) {
             $.ajax({
@@ -74,6 +105,39 @@
 
                     } else if (data.status == 'success') {
                         if (data.msg === '收藏') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
+        function add_zan(current_elem, fav_id, fav_type) {
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:add_fav" %}",
+                data: {'fav_id': fav_id, 'fav_type': fav_type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '点赞') {
                             current_elem.addClass('module-item-btn')
                             current_elem.removeClass('module-item-btn-faved')
                             current_elem.text(data.msg)
@@ -124,7 +188,10 @@
             add_join($(this), $(this).attr('id'), 3);
         });
         $('.fav').on('click', function () {
-            add_fav($(this), $(this).attr('id'), 3);
+            add_fav($(this), $(this).attr('id'), 6);
+        });
+        $('.zan').on('click', function () {
+            add_zan($(this), $(this).attr('id'), 7);
         });
 
 

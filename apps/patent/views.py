@@ -96,6 +96,38 @@ class PatentListView(View):
             'field_categorys': FIELD,
             'patent_categorys': PATENT
         })
+    
+
+class SearchView(View):
+    def get(self, request):
+        patent = Patent.objects.all()
+        search_keywords = request.GET.get('keywords', '')
+        if search_keywords:
+            patent = patent.filter(Q(name__icontains=search_keywords) | Q(detail__icontains=search_keywords))
+        pubDate = request.GET.get('pubDate', "")
+        click_num = request.GET.get('click_num', "")
+        if pubDate:
+            patent = patent.order_by("-pubDate")
+        if click_num:
+            patent = patent.order_by("-click_num")
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+        p = Paginator(patent, 15, request=request)
+        patent_data = p.page(page)
+
+        for patent_ in patent_data.object_list:
+            patent_.has_fav = False
+            if request.user.is_authenticated():
+                if UserFavorite.objects.filter(user=request.user, fav_id=patent_.id, fav_type=0):
+                    patent_.has_fav = True
+        return render(request, 'patent-search.html', {
+            'keywords': search_keywords,
+            'pubDate': pubDate,
+            'click_num': click_num,
+            'all_patent': patent_data,
+        })
 
 
 class PatentDetailView(View):
@@ -107,12 +139,16 @@ class PatentDetailView(View):
         patent.save()
 
         # 是否收藏
-        has_fav_patent = False
+        patent.has_fav = False
+        patent.is_owner = False
 
         # 必须是用户已登录我们才需要判断。
         if request.user.is_authenticated():
             if UserFavorite.objects.filter(user=request.user, fav_id=patent.id, fav_type=1):
-                has_fav_patent = True
+                patent.has_fav = True
+            if request.user == patent.seller:
+                patent.is_owner = True
+
         # 取出标签找到标签相同的patent
         keyword = patent.keyword
         # relate_patents = Patent.objects.filter(field_category=patent.field_category)
@@ -125,13 +161,12 @@ class PatentDetailView(View):
         return render(request, "patent-detail.html", {
             "patent": patent,
             "relate_patents": relate_patents,
-            "has_fav_patent": has_fav_patent,
         })
 
 
 class AddPatentView(View):
     def post(self, request):
-        add_patent_form = AddPatentForm(request.POST)
+        add_patent_form = AddPatentForm(request.POST, request.FILES)
         if add_patent_form.is_valid():
             patent = add_patent_form.save(commit=False)
             patent.seller = request.user
@@ -143,12 +178,16 @@ class AddPatentView(View):
             # 通过json的dumps方法把字典转换为json字符串
             return render(request, 'usercenter-publish-patent.html', {'patent_form': add_patent_form})
 
+    def get(self, request):
+        add_patent_form = AddPatentForm()
+        return render(request, 'usercenter-publish-patent.html', {'patent_form': add_patent_form})
+
 
 class ModifyView(View):
     def post(self, request, patent_id):
         # patent_id = request.POST.get('id', 0)
         patent = Patent.objects.get(id=int(patent_id))
-        modify_patent_form = ModifyPatentForm(request.POST, instance=patent)
+        modify_patent_form = ModifyPatentForm(request.POST, request.FILES, instance=patent)
         if modify_patent_form.is_valid():
             modify_patent_form.save()
             return HttpResponseRedirect(reverse('users:mypublish'))
@@ -159,7 +198,9 @@ class ModifyView(View):
     def get(self, request, patent_id):
         # 此处的id为表默认为我们添加的值。
         patent = Patent.objects.get(id=int(patent_id))
+        modify_patent_form = ModifyPatentForm(instance=patent)
         return render(request, "usercenter-publish-patent.html", {
             "type": "patent:modify",
-            "patent": patent
+            "patent": patent,
+            'patent_form': modify_patent_form
         })

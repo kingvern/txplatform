@@ -27,7 +27,7 @@ class UserFavorite(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name=u'用户')
     fav_id = models.IntegerField(default=0, verbose_name=u'数据ID')
     fav_type = models.IntegerField(
-        choices=((0, u'政策'), (1, u'专利'), (2, u'项目'), (3, u'孵化器'), (4, u'科技园区'), (5, u'金融机构'), (6, u'展会'), (7, u'其他')),
+        choices=((0, u'政策'), (1, u'专利'), (2, u'项目'), (3, u'孵化器'), (4, u'科技园区'), (5, u'金融机构'), (6, u'展会'), (7, u'展会点赞')),
         default=1,
         verbose_name=u'数据类别')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')

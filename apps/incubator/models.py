@@ -72,3 +72,20 @@ class Financial(models.Model):
     class Meta:
         verbose_name = '金融服务'
         verbose_name_plural = verbose_name
+
+
+class YellowPage(models.Model):
+    name = models.CharField(max_length=50, blank=True, null=True, verbose_name=u'机构名称')
+    area0 = models.CharField(max_length=10, blank=True, null=True, verbose_name=u'所在地0')
+    area1 = models.CharField(max_length=30, blank=True, null=True, verbose_name=u'所在地1')
+    org = models.CharField(max_length=30, blank=True, null=True, verbose_name=u'部门')
+    addr = models.CharField(max_length=50, blank=True, null=True, verbose_name=u'地址')
+    website = models.CharField(max_length=300, blank=True, null=True, verbose_name=u'网址')
+    contact = models.CharField(max_length=100, blank=True, null=True, verbose_name=u'联系人')
+    contact_mobile = models.CharField(max_length=100, blank=True, null=True, verbose_name=u'联系电话')
+    contact_email = models.CharField(max_length=100, blank=True, null=True, verbose_name=u'联系邮箱')
+    url = models.CharField(max_length=100, blank=True, null=True, verbose_name=u'链接')
+
+    class Meta:
+        verbose_name = '黄页'
+        verbose_name_plural = verbose_name
