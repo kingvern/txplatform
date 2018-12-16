@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block title %}政策详情{% endblock %}
 {% block custom_css %}
-    <link rel="stylesheet" href="{% static 'css/policy.css' %}">
+    <link rel="stylesheet" href="{% static 'css/patent.css' %}">
 {% endblock %}
 {% block custom_bread %}
     <section class="container">
@@ -11,67 +11,110 @@
                 <li><a href="/">首页</a></li>
                 <li><a href="{% url 'patent:list' %}">专利列表</a></li>
                 <li><a href="{% url 'patent:detail' patent.id %}">{{ patent.name }}</a></li>
-                <li><a>下单</a></li>
+                <li class="active"><a>下单</a></li>
             </ul>
         </div>
     </section>
 {% endblock %}
 {% block content %}
-    <section class="container policy-banner-module">
+    <section class="container detail-module">
+        <img style="width: 100%" src="{% static 'img/order-step-1.png' %}"/>
+        <span class="detail-title">
+            核对商品信息
+        </span>
+        <div class="detail-content">
 
-        <img class="module-item-img" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/>
-        <p>
-            {{ patent.id }}|{{ patent.name }}|{{ patent.IPC_num }}|{{ patent.price }}|{{ patent.hire }}|{{ patent.price|add:patent.hire }}
-        </p>
-    </section>
-    <section class="container policy-banner-module">
-        <div>
-            <label>乙方</label><span>{{ NAME }}</span>
+            <table class="table table-bordered order-table">
+                <tbody>
+                <tr>
+                    <th style="width: 50%">专利信息</th>
+                    <th style="width: 25%">金额计算</th>
+                    <th style="width: 25%">应付金额</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="order-item">
+                            {#                            <img src="{{ MEDIA_URL }}{{ p.main_pic }}"/>#}
+                            <img src="/media/image/2018/12/WX20181031-0929032x.png"/>
 
-        </div>
-        <div>
-            <label>通讯地址</label><span>{{ ADDRESS }}</span>
-        </div>
-        <div>
-            <label>联系人</label><span>{{ CONTACT }}</span>
-        </div>
-        <div>
-            <label>联系电话</label><span>{{ MOBILE }}</span>
-        </div>
-    </section>
-    <section class="container policy-banner-module">
-        <form action="{% url 'operation:order' %}" method="POST" autocomplete="off">
 
-            <input type="hidden" name="id" id="id" value="{{ patent.id }}"/>
+                            <div class="table">
+                                <span class="title">
+                                    {{ patent.name }}
+                                </span>
+                                <span class="content">
+                                    专利(申请号):{{ patent.patent_id }}
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p>单&nbsp;&nbsp;&nbsp;价：{{ patent.price | floatformat:2 }}</p>
+                        <p>服务费：{{ patent.hire | floatformat:2 }}</p>
+                    </td>
 
-            <div>
-                <label>单位名称</label>
-                <input type="text" name="order_name" id="order_name"/>
-            </div>
-            <div>
-                <label>地址</label>
-                <input type="text" name="order_address" id="order_address"/>
-            </div>
-            <div>
-                <label>联系人</label>
-                <input type="text" name="order_contact" id="order_contact"/>
-            </div>
-            <div>
-                <label>手机</label>
-                <input type="text" name="order_mobile" id="order_mobile"/>
-            </div>
-            {% csrf_token %}
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="agree">同意协议
-                </label>
-            </div>
-            {% for key,error in add_order_form.errors.items %}
-                {{ key }}:{{ error }}
-            {% endfor %}
-            {{ msg }}
-            <button type="submit">提交</button>
-        </form>
+                    <td>
+                        <p class="price">￥{{ patent.price|add:patent.hire | floatformat:2 }}</p>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 
+    <form action="{% url 'operation:order' %}" method="POST" autocomplete="off">
+
+        <section class="container detail-module">
+        <span class="detail-title">
+            填写合同主体
+        </span>
+
+            <div class="detail-content order-form row">
+
+                <div class="col-md-6">
+                    <span><b>卖方（乙方）</b></span>
+                    <p>乙&nbsp;&nbsp;方：&nbsp;{{ NAME }}</p>
+                    <p>通讯地址：&nbsp;{{ ADDRESS }}</p>
+                    <p>联&nbsp;系&nbsp;人：&nbsp;{{ CONTACT }}</p>
+                    <p>联系电话：&nbsp;{{ MOBILE }}</p>
+                </div>
+
+                <input type="hidden" name="id" id="id" value="{{ patent.id }}"/>
+
+                <div class="col-md-6">
+                    <span><b>买方（甲方）</b></span>
+                    <p>甲方名称：&nbsp;
+                        {{ add_order_form.order_name }}{{ add_order_form.errors.order_name.0 }}</p>
+                    <p>通讯地址：&nbsp;
+                        {{ add_order_form.order_address }}{{ add_order_form.errors.order_address.0 }}</p>
+                    <p>联&nbsp;系&nbsp;人：&nbsp;
+                        {{ add_order_form.order_contact }}{{ add_order_form.errors.order_contact.0 }}</p>
+                    <p>联系电话：&nbsp;
+                        {{ add_order_form.order_mobile }}{{ add_order_form.errors.order_mobile.0 }}</p>
+                </div>
+                {% csrf_token %}
+
+            </div>
+        </section>
+
+        <section class="container detail-module">
+            <span class="detail-title">
+            </span>
+
+            <div class="detail-content order-submit-box">
+
+                <p>单&nbsp;&nbsp;&nbsp;价：<span class="price">￥{{ patent.price | floatformat:2 }}</span></p>
+                <p>服务费：<span class="price">￥{{ patent.hire | floatformat:2 }}</span></p>
+                <p>应付金额：<span class="price">￥{{ patent.price|add:patent.hire | floatformat:2 }}</span></p>
+                <div class="checkbox">
+                    {{ add_order_form.agree }}<span>《平台交易服务协议》</span>
+                </div>
+                {{ add_order_form.errors.agree.0 }}
+                {{ msg }}
+                <button type="submit" class="btn default-btn order-submit">提交订单</button>
+
+            </div>
+        </section>
+    </form>
 {% endblock %}

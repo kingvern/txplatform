@@ -117,7 +117,9 @@ class DetailView(View):
         if type_id == '2':
             incubator = Financial.objects.get(id=int(incubator_id))
         if type_id == '3':
-            incubator = YellowPage.objects.get(id= int(incubator_id))
+            incubator = YellowPage.objects.get(id=int(incubator_id))
+
         return render(request, "incubator-detail.html", {
             "incubator": incubator,
+            "type_id": type_id
         })

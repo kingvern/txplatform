@@ -155,9 +155,9 @@ class PatentDetailView(View):
         relate_patents = Patent.objects.all()
         if keyword:
             # 从1开始否则会推荐自己
-            relate_patents = relate_patents.filter(Q(keyword=keyword) & ~Q(id=patent.id))[0:3]
+            relate_patents = relate_patents.filter(Q(keyword=keyword) & ~Q(id=patent.id))[0:2]
         else:
-            relate_patents = relate_patents.filter(~Q(id=patent.id))[0:3]
+            relate_patents = relate_patents.filter(~Q(id=patent.id))[0:2]
         return render(request, "patent-detail.html", {
             "patent": patent,
             "relate_patents": relate_patents,

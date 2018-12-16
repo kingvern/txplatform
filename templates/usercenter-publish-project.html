@@ -1,63 +1,138 @@
 {% extends 'usercenter-base.html' %}
 {% block title %} 我的发布{% endblock %}
 {% load staticfiles %}
-{% block custom_bread %}
-    <section class="container">
-        <ul class="breadcrumb">
-            <li><a href="{% url 'index' %}">首页</a>></li>
-            <li><a href="{% url 'users:user_info' %}">个人中心</a></li>
-            <li>发布</li>
-        </ul>
-    </section>
-{% endblock %}
-{% block custom_css %}
-    <style>
-    </style>
-{% endblock %}
-{% block custom_js %}
-    <script>
-        $('#project_form_show').on('click', function () {
-            $('#project_form').show()
-            $('#project_form').hide()
-        });
-        $('#project_form_show').on('click', function () {
-            $('#project_form').hide()
-            $('#project_form').show()
-        });
-    </script>
-{% endblock %}
 
 {% block right_content %}
 
+    <div class="head">
+        <span>发布项目</span>
+    </div>
+    <div class="content">
+        <form action="
+                
+                {% ifequal type 'project:modify' %}{% url 'project:modify' project.id %}{% else %}{% url 'project:add_project' %}{% endifequal %}"
+              method="POST" id="project_form">
+            {% csrf_token %}
+
+            <input type="hidden" name="id" value="{{ project.id }}"/>
 
 
-    <form class="exform" enctype="multipart/form-data" action="{% ifequal type 'project:modify' %}{% url 'project:modify' project.id %}{% else %}{% url 'project:add_project' %}{% endifequal %}" method="POST"
-          id="project_form">
+            <table class="table table-nobordered usercenter-table">
+                <tbody>
+                <tr>
+                    <td class="th">项目名：</td>
+                    <td>
+                        <div class="input">
+                            {{ project_form.name }}
+                            <span>{{ project_form.errors.name.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">所属行业：</td>
+                    <td>
+                        <div class="input">
+                            {{ project_form.field_category }}
+                            <span>{{ project_form.errors.field_category.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">成熟度：</td>
+                    <td>
+                        <div class="input">
+                            {{ project_form.project_step }}
+                            <span>{{ project_form.errors.project_step.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">专利所在地区：</td>
+                    <td>
+                        <div class="input">
+                            {{ project_form.province }}
+                            <span>{{ project_form.errors.province.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">合作方式：</td>
+                    <td>
+                        <div class="input">
+                            {{ project_form.cooperation }}
+                            <span>{{ project_form.errors.cooperation.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">专利主图：</td>
+                    <td>
+                        <div class="input">
+                            {{ project_form.main_pic }}
+                            <span>{{ project_form.errors.main_pic.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">所属机构：</td>
+                    <td>
+                        <div class="input">
+                            {{ project_form.org }}
+                            <span>{{ project_form.errors.org.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
 
-        {% csrf_token %}
-
-
-        <input type="hidden" name="id" value="{{ project.id }}"/>
-        <p>项目名:{{ project_form.name }}{{ project_form.errors.name.0 }}</p>
-        <p>所属行业:{{ project_form.field_category }}{{ project_form.errors.field_category.0 }}</p>
-        <p>成熟度:{{ project_form.project_step }}{{ project_form.errors.project_step.0 }}</p>
-        <p>专利所在地区:{{ project_form.province }}{{ project_form.errors.province.0 }}</p>
-        <p>合作方式:{{ project_form.cooperation }}{{ project_form.errors.cooperation.0 }}</p>
-        <p>项目主图:{{ project_form.main_pic }}{{ project_form.errors.main_pic.0 }}</p>
-        <p>所属机构:{{ project_form.org }}{{ project_form.errors.org.0 }}</p>
-
-         {{ project_form.media }}
-        <p>详情:{{ project_form.detail }}{{ project_form.errors.detail.0 }}</p>
-        <button type="submit" class="default btn btn-primary hide-xs" name="_save" data-loading-text="保存中.."/>
-        <i class="fa fa-save"></i> 保存</button>
-
-
-        {% for key,error in project_form.errors.items %}
-            {{ key }}:{{ error }}
-        {% endfor %}
-        {{ msg }}
-
-
-        </div>
-    </form>
+                {{ project_form.media }}
+                <tr>
+                    <td class="th">详情：</td>
+                    <td>
+                        <div class="input">
+                            {{ project_form.detail }}
+                            <span>{{ project_form.errors.detail.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="submit-btn">保存</button>
+                    </td>
+                    <td class="th"></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+{#    <form class="exform" enctype="multipart/form-data" action="#}
+{#            {% ifequal type 'project:modify' %}{% url 'project:modify' project.id %}{% else %}{% url 'project:add_project' %}{% endifequal %}"#}
+{#          method="POST"#}
+{#          id="project_form">#}
+{##}
+{#        {% csrf_token %}#}
+{##}
+{##}
+{#        <input type="hidden" name="id" value="{{ project.id }}"/>#}
+{#        <p>项目名:{{ project_form.name }}{{ project_form.errors.name.0 }}</p>#}
+{#        <p>所属行业:{{ project_form.field_category }}{{ project_form.errors.field_category.0 }}</p>#}
+{#        <p>成熟度:{{ project_form.project_step }}{{ project_form.errors.project_step.0 }}</p>#}
+{#        <p>专利所在地区:{{ project_form.province }}{{ project_form.errors.province.0 }}</p>#}
+{#        <p>合作方式:{{ project_form.cooperation }}{{ project_form.errors.cooperation.0 }}</p>#}
+{#        <p>项目主图:{{ project_form.main_pic }}{{ project_form.errors.main_pic.0 }}</p>#}
+{#        <p>所属机构:{{ project_form.org }}{{ project_form.errors.org.0 }}</p>#}
+{##}
+{#        {{ project_form.media }}#}
+{#        <p>详情:{{ project_form.detail }}{{ project_form.errors.detail.0 }}</p>#}
+{#        <button type="submit" class="default btn btn-primary hide-xs" name="_save" data-loading-text="保存中.."/>#}
+{#        <i class="fa fa-save"></i> 保存</button>#}
+{##}
+{##}
+{#        {% for key,error in project_form.errors.items %}#}
+{#            {{ key }}:{{ error }}#}
+{#        {% endfor %}#}
+{#        {{ msg }}#}
+{##}
+{##}
+{#        </div>#}
+{#    </form>#}
 {% endblock %}

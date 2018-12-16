@@ -137,9 +137,9 @@ class ProjectDetailView(View):
         relate_projects = Project.objects.all()
         if keyword:
             # 从1开始否则会推荐自己
-            relate_projects = relate_projects.filter(Q(keyword=keyword) & ~Q(id=project.id))[0:3]
+            relate_projects = relate_projects.filter(Q(keyword=keyword) & ~Q(id=project.id))[0:2]
         else:
-            relate_projects = relate_projects.filter(~Q(id=project.id))[0:3]
+            relate_projects = relate_projects.filter(~Q(id=project.id))[0:2]
         return render(request, "project-detail.html", {
             "project": project,
             "relate_projects": relate_projects,

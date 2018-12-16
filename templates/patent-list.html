@@ -8,7 +8,7 @@
     <section class="container">
         <ul class="breadcrumb">
             <li><a href="/">首页</a></li>
-            <li class="active">专利商品列表</li>
+            <li class="active"><a href="{% url 'patent:list' %}">专利商品列表</a></li>
         </ul>
     </section>
 {% endblock %}
@@ -91,7 +91,7 @@
                                 {% else %}
                                     <span id="{{ patent.id }}" class="module-item-btn fav">收藏</span>
                                 {% endif %}
-                                <span class="module-item-btn" data-toggle="modal" data-target="#myModal">咨询</span>
+                                <span class="module-item-btn ask">咨询</span>
                             </div>
 
 
@@ -99,31 +99,6 @@
                     {% endfor %}
                 </div>
 
-
-
-                <!-- 模态框（Modal） -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                    &times;
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">
-                                    请扫描二维码
-                                </h4>
-                            </div>
-                            <div class="modal-body">
-                                <img src="{% static 'img/qr.jpg' %}"/>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                </button>
-                            </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal -->
-                </div>
 
                 {#分页#}
                 <nav class="page-position">
@@ -163,10 +138,11 @@
 
             <div class="col-md-3">
                 <div class="rank-box">
-                    <div class="rank-title"></div>
-
+                    <div class="rank-title">
+                        <span>本站十佳</span>
+                        <span>最具价值成果</span>
+                    </div>
                     <div class="rank-list">
-
                         {% for patent in newest_patent %}
                             <div class="rank-item">
                                 <a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a>
@@ -174,9 +150,13 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="publish-patent"></div>
+                <a href="{% url 'patent:add_patent' %}">
+                    <div class="publish-patent"></div>
+                </a>
 
-                <div class="publish-project"></div>
+                <a href="{% url 'project:add_project' %}">
+                    <div class="publish-project"></div>
+                </a>
             </div>
         </div>
     </section>

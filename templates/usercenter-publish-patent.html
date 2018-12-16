@@ -1,54 +1,223 @@
 {% extends 'usercenter-base.html' %}
 {% block title %} 我的发布{% endblock %}
 {% load staticfiles %}
-{% block custom_bread %}
-    <section class="container">
-        <ul class="breadcrumb">
-            <li><a href="{% url 'index' %}">首页</a>></li>
-            <li><a href="{% url 'users:user_info' %}">个人中心</a></li>
-            <li>发布</li>
-        </ul>
-    </section>
-{% endblock %}
+
 {% block custom_css %}
 
 {% endblock %}
 
 {% block right_content %}
+    <div class="head">
+        <span>发布专利</span>
+    </div>
+    <div class="content">
+        <form action="
+                {% ifequal type 'patent:modify' %}{% url 'patent:modify' patent.id %}{% else %}{% url 'patent:add_patent' %}{% endifequal %}"
+              method="POST" id="patent_form">
+            {% csrf_token %}
 
-    <form class="exform" enctype="multipart/form-data" action="
-            {% ifequal type 'patent:modify' %}{% url 'patent:modify' patent.id %}{% else %}{% url 'patent:add_patent' %}{% endifequal %}"
-          method="POST"
-          id="patent_form">
+            <input type="hidden" name="id" value="{{ patent.id }}"/>
 
 
-        {% csrf_token %}
+            <table class="table table-nobordered usercenter-table">
+                <tbody>
+                <tr>
+                    <td class="th">专利名：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.name }}
+                            <span>{{ patent_form.errors.name.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">专利申请号：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.patent_id }}
+                            <span>{{ patent_form.errors.patent_id.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">所属行业：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.field_category }}
+                            <span>{{ patent_form.errors.field_category.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">专利类别：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.patent_category }}
+                            <span>{{ patent_form.errors.patent_category.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">专利所在地区：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.province }}
+                            <span>{{ patent_form.errors.province.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">有效日期：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.patent_expired }}
+                            <span>{{ patent_form.errors.patent_expired.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">专利主图：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.main_pic }}
+                            <span>{{ patent_form.errors.main_pic.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">价格：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.price }}
+                            <span>{{ patent_form.errors.price.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">议价：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.bargain }}
+                            <span>{{ patent_form.errors.bargain.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">专利状态：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.status }}
+                            <span>{{ patent_form.errors.status.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">分类号：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.IPC_num }}
+                            <span>{{ patent_form.errors.IPC_num.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">代理人：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.agent }}
+                            <span>{{ patent_form.errors.agent.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">代理机构：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.agency }}
+                            <span>{{ patent_form.errors.agency.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">发明人：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.inventor }}
+                            <span>{{ patent_form.errors.inventor.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">申请人：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.applicant }}
+                            <span>{{ patent_form.errors.applicant.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">联系人：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.contact }}
+                            <span>{{ patent_form.errors.contact.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">联系电话：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.contact_mobile }}
+                            <span>{{ patent_form.errors.contact_mobile.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
 
-        <input type="hidden" name="id" value="{{ patent.id }}"/>
+            {{ patent_form.media }}
+                <tr>
+                    <td class="th">详情：</td>
+                    <td>
+                        <div class="input">
+                            {{ patent_form.detail }}
+                            <span>{{ patent_form.errors.detail.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="submit-btn">保存</button>
+                    </td>
+                    <td class="th"></td>
+                </tr>
+                </tbody>
+            </table>
+{##}
+{#            <p>专利名:{{ patent_form.name }}{{ patent_form.errors.name.0 }}</p>#}
+{#            <p>专利申请号:{{ patent_form.patent_id }}{{ patent_form.errors.patent_id.0 }}</p>#}
+{#            <p>所属行业:{{ patent_form.field_category }}{{ patent_form.errors.field_category.0 }}</p>#}
+{#            <p>专利类别:{{ patent_form.patent_category }}{{ patent_form.errors.patent_category.0 }}</p>#}
+{#            <p>专利所在地区:{{ patent_form.province }}{{ patent_form.errors.province.0 }}</p>#}
+{#            <p>有效日期:{{ patent_form.patent_expired }}{{ patent_form.errors.patent_expired.0 }}</p>#}
+{#            <p>专利主图:{{ patent_form.main_pic }}{{ patent_form.errors.main_pic.0 }}</p>#}
+{#            <p>价格:{{ patent_form.price }}{{ patent_form.errors.price.0 }}</p>#}
+{#            <p>议价:{{ patent_form.bargain }}{{ patent_form.errors.bargain.0 }}</p>#}
+{#            <p>专利状态:{{ patent_form.status }}{{ patent_form.errors.status.0 }}</p>#}
+{#            <p>分类号:{{ patent_form.IPC_num }}{{ patent_form.errors.IPC_num.0 }}</p>#}
+{#            <p>代理人:{{ patent_form.agent }}{{ patent_form.errors.agent.0 }}</p>#}
+{#            <p>代理机构:{{ patent_form.agency }}{{ patent_form.errors.agency.0 }}</p>#}
+{#            <p>发明人:{{ patent_form.inventor }}{{ patent_form.errors.inventor.0 }}</p>#}
+{#            <p>申请人:{{ patent_form.applicant }}{{ patent_form.errors.applicant.0 }}</p>#}
+{#            <p>联系人:{{ patent_form.contact }}{{ patent_form.errors.contact.0 }}</p>#}
+{#            <p>联系电话:{{ patent_form.contact_mobile }}{{ patent_form.errors.contact_mobile.0 }}</p>#}
+{##}
+{#            {{ patent_form.media }}#}
+{#            <p>详情:{{ patent_form.detail }}{{ patent_form.errors.detail.0 }}</p>#}
+{#            <button type="submit" class="default btn btn-primary hide-xs" name="_save" data-loading-text="保存中.."/>#}
+{#            <i class="fa fa-save"></i> 保存</button>#}
 
-        <p>专利名:{{ patent_form.name }}{{ patent_form.errors.form.0 }}</p>
-        <p>专利申请号:{{ patent_form.patent_id }}{{ patent_form.errors.patent_id.0 }}</p>
-        <p>所属行业:{{ patent_form.field_category }}{{ patent_form.errors.field_category.0 }}</p>
-        <p>专利类别:{{ patent_form.patent_category }}{{ patent_form.errors.patent_category.0 }}</p>
-        <p>专利所在地区:{{ patent_form.province }}{{ patent_form.errors.province.0 }}</p>
-        <p>有效日期:{{ patent_form.patent_expired }}{{ patent_form.errors.patent_expired.0 }}</p>
-        <p>专利主图:{{ patent_form.main_pic }}{{ patent_form.errors.main_pic.0 }}</p>
-        <p>价格:{{ patent_form.price }}{{ patent_form.errors.price.0 }}</p>
-        <p>议价:{{ patent_form.bargain }}{{ patent_form.errors.bargain.0 }}</p>
-        <p>专利状态:{{ patent_form.status }}{{ patent_form.errors.status.0 }}</p>
-        <p>分类号:{{ patent_form.IPC_num }}{{ patent_form.errors.IPC_num.0 }}</p>
-        <p>代理人:{{ patent_form.agent }}{{ patent_form.errors.agent.0 }}</p>
-        <p>代理机构:{{ patent_form.agency }}{{ patent_form.errors.agency.0 }}</p>
-        <p>发明人:{{ patent_form.inventor }}{{ patent_form.errors.inventor.0 }}</p>
-        <p>申请人:{{ patent_form.applicant }}{{ patent_form.errors.applicant.0 }}</p>
-        <p>联系人:{{ patent_form.contact }}{{ patent_form.errors.contact.0 }}</p>
-        <p>联系电话:{{ patent_form.contact_mobile }}{{ patent_form.errors.contact_mobile.0 }}</p>
-
-         {{ patent_form.media }}
-        <p>详情:{{ patent_form.detail }}{{ patent_form.errors.detail.0 }}</p>
-        <button type="submit" class="default btn btn-primary hide-xs" name="_save" data-loading-text="保存中.."/>
-        <i class="fa fa-save"></i> 保存</button>
-
-        </div>
-    </form>
+        </form>
+    </div>
 {% endblock %}

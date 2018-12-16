@@ -8,7 +8,7 @@
     <section class="container">
         <ul class="breadcrumb">
             <li><a href="/">首页</a></li>
-            <li><a href="#">专利商品列表</a></li>
+            <li><a href="{% url 'patent:list' %}">专利商品列表</a></li>
             <li class="active">{{ patent.name }}</li>
         </ul>
     </section>
@@ -16,64 +16,153 @@
 {% block content %}
 
     <section class="container">
-        <div class="col-md-6">
-            <img class="main-pic" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/>
-        </div>
-        <div class="col-md-6">
-            <p>{{ patent.name }}</p>
-            <p class="content">
-                专利(申请号):{{ patent.patent_id }}/{{ patent.get_patent_category_display }}</p>
-            <p class="content">行业:{{ patent.get_field_category_display }}</p>
-            <p class="content">价格:<span class="price">{{ patent.price }}</span>元 </p>
+        <div class="row">
+            <div class="col-md-5">
+                <img class="main-pic" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/>
+            </div>
+            <div class="col-md-7 panel-module">
+                <span class="title">{{ patent.name }}</span>
+                <div class="table">
+                    <span class="content">类别：{{ patent.get_patent_category_display }}</span>
+                    <span class="content">专利(申请号)：{{ patent.patent_id }}</span>
+                    <span class="content">行业：{{ patent.get_field_category_display }}</span>
+                    <span class="content">价格：<span class="price">{{ patent.price }}</span>元 </span>
 
-        </div>
-        <div class="module-item-btn-box">
-            {% if patent.has_fav %}
-                <span id="{{ patent.id }}" class="module-item-btn-faved fav">取消收藏</span>
-            {% else %}
-                <span id="{{ patent.id }}" class="module-item-btn fav">收藏</span>
-            {% endif %}
-            <span class="module-item-btn" data-toggle="modal" data-target="#myModal">咨询</span>
-            {% if patent.is_owner %}
-            {% else %}
-                <span class="module-item-btn buy"><a href="{% url 'operation:order' %}?id={{ patent.id }}">购买</a></span>
-            {% endif %}
+                </div>
+                <div class="module-item-btn-box">
+                    {% if patent.has_fav %}
+                        <span id="{{ patent.id }}" class="module-item-btn-faved fav">取消收藏</span>
+                    {% else %}
+                        <span id="{{ patent.id }}" class="module-item-btn fav">收藏</span>
+                    {% endif %}
+                    <span class="module-item-btn ask">咨询</span>
+                    {% if patent.is_owner %}
+                    {% else %}
+                        <span class="module-item-btn">
+                            <a href="{% url 'operation:order' %}?id={{ patent.id }}">购买</a>
+                        </span>
+                    {% endif %}
+                </div>
+
+            </div>
         </div>
     </section>
-    {% for p in relate_patents %}
-        {{ p.name }}<img src="{{ MEDIA_URL }}{{ p.main_pic }}"/>{{ p.get_patent_category_display }}
-        {{ p.get_field_category_display }}{{ p.price }}
-        {% autoescape off %}
-            {{ p.detail }}
-        {% endautoescape %}
-    {% endfor %}
+
+    <section class="container detail-module">
+        <span class="detail-title">
+            商品详情
+        </span>
+        <div class="detail-content">
+
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th scope="row" class="thead">专利名称：</th>
+                    <td>{{ patent.name }}</td>
+                    <th scope="row" class="thead">专利类别：</th>
+                    <td>{{ patent.get_patent_category_display }}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="thead">专利号：</th>
+                    <td>{{ patent.IPC_num }}</td>
+                    <th scope="row" class="thead">专利行业：</th>
+                    <td>{{ patent.get_field_category_display }}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="thead">所在地区：</th>
+                    <td>{{ patent.get_province_display }}</td>
+                    <th scope="row" class="thead">专利有效期：</th>
+                    <td>{{ patent.patent_expired }}</td>
+                </tr>
+                </tbody>
+            </table>
+            {% autoescape off %}
+                {{ patent.detail }}
+            {% endautoescape %}
+        </div>
+
+    </section>
+
+    <section class="container detail-module">
+        <span class="detail-title">
+            购买流程
+        </span>
+        <div class="detail-content">
+            <img style="width: 100%" src="{% static 'img/order-step-model.png' %}"/>
+        </div>
+    </section>
 
 
+    <section class="container detail-module">
+        <span class="detail-title">
+            过户资料
+        </span>
+        <div class="detail-content">
+            <table class="table table-bordered guohu-table">
+                <tbody>
+                <tr>
+                    <th colspan="3">买卖双方需提供材料</th>
+                    <th>平台提供</th>
+                    <th>过户后您将会获得</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>公司</td>
+
+                    <td>个人</td>
+
+                    <td rowspan="3">
+                        专利代理委托书<br/>专利权转让协议<br/>办理文件副本请求书<br/>发明人变更声明
+                    </td>
+                    <td rowspan="3">专利证书<br/>手续合格通知书<br/>专利登记簿副本</td>
 
 
-    <!-- 模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        请扫描二维码
-                    </h4>
+                </tr>
+                <tr>
+                    <td>买家</td>
+
+                    <td>企业营业执照<br/>企业组织机构代码证</td>
+
+                    <td>身份证
+                    </td>
+                </tr>
+                <tr>
+                    <td>买家</td>
+
+                    <td>企业营业支招<br/>专利证书原件
+                    </td>
+
+                    <td>身份证<br/>专利证书原件</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="recommend-module">
+    <span class="recommend-title">
+            相关专利商品
+        </span>
+        <div class="recommend-content container">
+            {% for p in relate_patents %}
+                <div class="recommend-item">
+                    <img src="{{ MEDIA_URL }}{{ p.main_pic }}"/>
+                    {#                    <img src="/media/image/2018/12/WX20181031-0929032x.png"/>#}
+                    <div class="box">
+                        <span class="title">
+                            {{ p.name }}
+                        </span>
+                        <div class="table">
+                            <p class="content">
+                                专利(申请号):{{ patent.patent_id }}/{{ patent.get_patent_category_display }}</p>
+                            <p class="content">行业:{{ patent.get_field_category_display }}</p>
+                            <p class="content">价格:<span class="price">{{ patent.price }}</span>元 </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <img src="{% static 'img/qr.jpg' %}"/>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                    </button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
+            {% endfor %}
+        </div>
+    </section>
 
 
 {% endblock %}
@@ -87,39 +176,6 @@
                 type: "POST",
                 url: "{% url "operation:add_fav" %}",
                 data: {'fav_id': fav_id, 'fav_type': fav_type},
-                async: true,
-                beforeSend: function (xhr, settings) {
-                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-                },
-                success: function (data) {
-                    if (data.status == 'fail') {
-                        if (data.msg == '用户未登录') {
-                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
-                        } else {
-                            alert(data.msg)
-                        }
-
-                    } else if (data.status == 'success') {
-                        if (data.msg === '收藏') {
-                            current_elem.addClass('module-item-btn')
-                            current_elem.removeClass('module-item-btn-faved')
-                            current_elem.text(data.msg)
-                        } else {
-                            current_elem.addClass('module-item-btn-faved')
-                            current_elem.removeClass('module-item-btn')
-                            current_elem.text(data.msg)
-                        }
-                    }
-                },
-            });
-        }
-
-        function buy(current_elem, fav_id, fav_type) {
-            $.ajax({
-                cache: false,
-                type: "POST",
-                url: "{% url "operation:order" %}",
-                data: {'id': id, 'fav_type': type},
                 async: true,
                 beforeSend: function (xhr, settings) {
                     xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");

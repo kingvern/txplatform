@@ -10,152 +10,103 @@
 
     {% endblock %}
 
-
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/usercenter.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/queryCity/css/cityLayout.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/lq.datetimepick.css' %}"/>
+    <script src="{% static 'js/jQuery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
 
-    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
-    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/layer/layer.js' %}"></script>
 
-    <link href="/static/xadmin/vendor/bootstrap/css/bootstrap.css" type="text/css" media="screen" rel="stylesheet"/>
-
-    <link rel="stylesheet" type="text/css" id="site-theme" href="/static/xadmin/css/themes/bootstrap-xadmin.css"/>
-
-    <link href="/static/xadmin/vendor/font-awesome/css/font-awesome.css" type="text/css" media="screen"
-          rel="stylesheet"/>
-    <link href="/static/xadmin/css/xadmin.main.css" type="text/css" media="screen" rel="stylesheet"/>
-    <link href="/static/xadmin/css/xadmin.plugins.css" type="text/css" media="screen" rel="stylesheet"/>
-    <link href="/static/xadmin/css/xadmin.responsive.css" type="text/css" media="screen" rel="stylesheet"/>
-    <link href="/static/xadmin/vendor/bootstrap-image-gallery/css/bootstrap-image-gallery.css" type="text/css"
-          media="screen" rel="stylesheet"/>
-    <link href="/static/xadmin/vendor/select2/select2.css" type="text/css" media="screen" rel="stylesheet"/>
-    <link href="/static/xadmin/vendor/selectize/selectize.css" type="text/css" media="screen" rel="stylesheet"/>
-    <link href="/static/xadmin/vendor/selectize/selectize.bootstrap3.css" type="text/css" media="screen"
-          rel="stylesheet"/>
-    <link href="/static/xadmin/vendor/bootstrap-datepicker/css/datepicker.css" type="text/css" media="screen"
-          rel="stylesheet"/>
-    <link href="/static/xadmin/vendor/bootstrap-clockpicker/bootstrap-clockpicker.css" type="text/css" media="screen"
-          rel="stylesheet"/>
-    <link href="/static/xadmin/css/xadmin.form.css" type="text/css" media="screen" rel="stylesheet"/>
 </head>
 <body>
+<div class="white-bg">
+    <div class="user-bar">
+        <section class="container ">
+            {% if request.user.is_authenticated %}
+                <div class="row">
+                    <div class="pull-left btn"><span>服务电话：23333333</span></div>
+                    <div class="personal pull-right">
+                        <div class="btn">
 
-<div class="user-bar">
-    <section class="container ">
-        {% if request.user.is_authenticated %}
-            <div class="row">
-                <div class="pull-left btn"><span>服务电话：23333333</span></div>
-                <div class="personal pull-right">
-                    <div class="btn">
-
-                        {#                    <a href="{% url 'users:my_message' %}">#}
-                        {#                        <div class="msg-num"><span id="MsgNum">{{ request.user.unread_nums }}</span></div>#}
-                        {#                    </a>#}
-                        <span>{{ user.username }}</span>
-                        <a class="personcenter" href="{% url 'users:user_info' %}">&nbsp进入个人中心</a>
-                        <a class="pull-right" href="{% url 'logout' %}">&nbsp退出</a>
+                            {#                    <a href="{% url 'users:my_message' %}">#}
+                            {#                        <div class="msg-num"><span id="MsgNum">{{ request.user.unread_nums }}</span></div>#}
+                            {#                    </a>#}
+                            <span>{{ user.username }}</span>
+                            <a class="personcenter" href="{% url 'users:user_info' %}">&nbsp进入个人中心</a>
+                            <a class="pull-right" href="{% url 'logout' %}">&nbsp退出</a>
+                        </div>
                     </div>
+
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="pull-left  btn"><span>服务电话：23333333</span></div>
+                    <!--登录后跳转-->
+                    <div class="personal pull-right">
+                        <div class="btn">
+                            <a style="color:black" class="pull-right registerbtn"
+                               href="{% url "register" %}">&nbsp注册</a>
+                            <a style="color:black" class="pull-right loginbtn"
+                               href="{% url 'login' %}?next={{ request.path }}">&nbsp登录</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            {% endif %}
+        </section>
+    </div>
+    <div>
+        <section class="container">
+
+            <div class="row">
+                {#        <div class="col-md-3">#}
+                <img class="col-md-4 logo-img" src="{% static 'img/logo.png' %}"/>
+                {#        </div>#}
+                {#        <div class="col-md-1"></div>#}
+                <div class="navbar-header pull-right logo-nav">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a class="{% ifequal current_page "index" %}active{% endifequal %}" href="/">首页</a>
+                        </li>
+                        <li>
+                            <a class="{% ifequal current_page "policy" %}active{% endifequal %}"
+                               href="{% url 'policy:home' %}">资讯平台</a>
+                        </li>
+                        <li>
+                            <a class="{% ifequal current_page "patent" %}active{% endifequal %}"
+                               href="{% url 'patent:list' %}">交易平台</a>
+                        </li>
+                        <li>
+                            <a class="{% ifequal current_page "project" %}active{% endifequal %}"
+                               href="{% url 'project:list' %}">转化平台</a>
+                        </li>
+                        <li>
+                            <a class="{% ifequal current_page "incubator" %}active{% endifequal %}"
+                               href="{% url 'incubator:list' %}">孵化平台</a>
+                        </li>
+                        <li>
+                            <a class="{% ifequal current_page "gallery" %}active{% endifequal %}"
+                               href="{% url 'gallery:list' %}">展会服务</a>
+                        </li>
+                        <li>
+                            <a class="{% ifequal current_page "club" %}active{% endifequal %}"
+                               href="{% url 'club:home' %}">俱乐部</a>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
-        {% else %}
-            <div class="row">
-                <div class="pull-left  btn"><span>服务电话：23333333</span></div>
-                <!--登录后跳转-->
-                <div class="personal pull-right">
-                    <div class="btn">
-                        <a style="color:black" class="pull-right registerbtn" href="{% url "register" %}">&nbsp注册</a>
-                        <a style="color:black" class="pull-right loginbtn"
-                           href="{% url 'login' %}?next={{ request.path }}">&nbsp登录</a>
-                    </div>
-                </div>
 
-
-            </div>
-        {% endif %}
-    </section>
+        </section>
+    </div>
 </div>
+
 <section class="container">
-
-    <div class="row">
-        {#        <div class="col-md-3">#}
-        <img class="col-md-4 logo-img" src="{% static 'img/logo.png' %}"/>
-        {#        </div>#}
-        {#        <div class="col-md-1"></div>#}
-        <div class="navbar-header pull-right logo-nav">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a class="{% ifequal current_page "index" %}active{% endifequal %}" href="/">首页</a>
-                </li>
-                <li>
-                    <a class="{% ifequal current_page "policy" %}active{% endifequal %}" href="{% url 'policy:home' %}">资讯平台</a>
-                </li>
-                <li>
-                    <a class="{% ifequal current_page "patent" %}active{% endifequal %}" href="{% url 'patent:list' %}">交易平台</a>
-                </li>
-                <li>
-                    <a class="{% ifequal current_page "project" %}active{% endifequal %}"
-                       href="{% url 'project:list' %}">转化平台</a>
-                </li>
-                <li>
-                    <a class="{% ifequal current_page "incubator" %}active{% endifequal %}"
-                       href="{% url 'incubator:list' %}">孵化平台</a>
-                </li>
-                <li>
-                    <a class="{% ifequal current_page "gallery" %}active{% endifequal %}"
-                       href="{% url 'gallery:list' %}">展会服务</a>
-                </li>
-                <li>
-                    <a class="{% ifequal current_page "club" %}active{% endifequal %}"
-                       href="{% url 'club:home' %}">俱乐部</a>
-                </li>
-            </ul>
-        </div>
-
-    </div>
-
-</section>
-
-<img class="search-bar-bg" src="{% static 'img/bar.jpg' %}"/>
-<section class="container search-bar">
-    <div class="row">
-
-        <span class="search-bar-title">
-            {% ifequal current_page "policy" %}资讯平台{% endifequal %}
-            {% ifequal current_page "patent" %}交易平台{% endifequal %}
-            {% ifequal current_page "project" %}转化平台{% endifequal %}
-            {% ifequal current_page "incubator" %}孵化平台{% endifequal %}
-            {% ifequal current_page "gallery" %}展会服务{% endifequal %}
-            {% ifequal current_page "club" %}俱乐部{% endifequal %}
-        </span>
-        {#        <div class="col-md-5"></div>#}
-        <form class="form-search pull-right search-bar-box">
-            <input class="input-medium search-query" type="text"/>
-            <button type="submit" class="btn search-bar-btn">查找</button>
-        </form>
-    </div>
-</section>
-
-<!--crumbs start-->
-{% block custom_bread %}
-    <section class="container">
-        <ul class="breadcrumb">
-            <li><a href="/">首页</a></li>
-            <li class="active">个人中心</li>
-        </ul>
-    </section>
-{% endblock %}
-<section class="container">
-    <div class="wp list personal_list">
-        <div class="col-md-3">
+    <div class='the-panel'>
+        <div class="sidebar white-panel">
             <div class="sidebar-title">
 
             </div>
@@ -214,51 +165,39 @@
 
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="right-content white-panel">
             {% block  right_content %}
             {% endblock %}
         </div>
 
-
     </div>
 </section>
 
+<img style="display: none" id="qr" src="{% static 'img/qr.png' %}"/>
 
-<script src="{% static 'js/selectUi.js' %}" type='text/javascript'></script>
-<script type="text/javascript" src="{% static 'js/plugins/laydate/laydate.js' %}"></script>
-<script src="{% static 'js/plugins/layer/layer.js' %}"></script>
-<script src="{% static 'js/plugins/queryCity/js/public.js' %}" type="text/javascript"></script>
-<script src="{% static 'js/unslider.js' %}" type="text/javascript"></script>
-<script src="{% static 'js/plugins/jquery.scrollLoading.js' %}" type="text/javascript"></script>
-<script src="{% static 'js/validateDialog.js' %}" type="text/javascript"></script>
-<script src="{% static 'js/deco-common.js' %}" type="text/javascript"></script>
+<footer class="footer">
+    <div class="container">
+        <div class="col-md-12 row">
+            <div class="footer-nav pull-left">
+                关于本站 | 新闻中心 | 诚聘英才 | 联系我们
+            </div>
+            <div class="footer-contact pull-right">
 
-<script src='{% static 'js/plugins/jquery.upload.js' %}' type='text/javascript'></script>
-<script src="{% static 'js/validate.js' %}" type="text/javascript"></script>
-<script src="{% static 'js/deco-user.js' %}"></script>
+                <img src="{% static 'img/contact.png' %}"/>
+                010 - 12354678
+            </div>
+        </div>
+        <div class="col-md-12 row">
+            <div class="footer-copyright pull-left">
+                Copyright © 2007 - 2018 千松 版权所有 运营商:北京千松科技发展有限公司
+            </div>
+            <div class="footer-worktime pull-right">工作日:8:30-17:30</div>
+        </div>
 
-<script type="text/javascript" src="/static/xadmin/vendor/jquery-ui/jquery.ui.core.js"></script>
-<script type="text/javascript" src="/static/xadmin/vendor/jquery-ui/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="/static/xadmin/vendor/jquery-ui/jquery.ui.mouse.js"></script>
-<script type="text/javascript" src="/static/xadmin/vendor/jquery-ui/jquery.ui.sortable.js"></script>
-<script type="text/javascript" src="/static/xadmin/vendor/bootstrap/js/bootstrap.js"></script>
-<script type="text/javascript" src="/static/xadmin/js/xadmin.main.js"></script>
-<script type="text/javascript" src="/static/xadmin/js/xadmin.responsive.js"></script>
-<script type="text/javascript" src="/static/xadmin/vendor/jquery-ui/jquery.ui.effect.js"></script>
-<script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.themes.js"></script>
-<script type="text/javascript" src="/static/xadmin/vendor/load-image/load-image.js"></script>
-<script type="text/javascript"
-        src="/static/xadmin/vendor/bootstrap-image-gallery/js/bootstrap-image-gallery.js"></script>
-<script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.portal.js"></script>
-<script type="text/javascript" src="/static/xadmin/vendor/selectize/selectize.js"></script>
-<script type="text/javascript" src="/static/xadmin/vendor/select2/select2.js"></script>
-<script type="text/javascript" src="/static/xadmin/vendor/select2/select2_locale_zh-hans.js"></script>
-<script type="text/javascript" src="/static/xadmin/js/xadmin.widget.select.js"></script>
-<script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.quick-form.js"></script>
-<script type="text/javascript" src="/static/xadmin/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="/static/xadmin/js/xadmin.widget.datetime.js"></script>
-<script type="text/javascript" src="/static/xadmin/vendor/bootstrap-clockpicker/bootstrap-clockpicker.js"></script>
-<script type="text/javascript" src="/static/xadmin/js/xadmin.page.form.js"></script>
+    </div>
+
+</footer>
+<script src="{% static 'js/qr.js' %}"></script>
 {% block custom_js %}
 
 {% endblock %}

@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block title %}政策详情{% endblock %}
 {% block custom_css %}
-    <link rel="stylesheet" href="{% static 'css/policy.css' %}">
+    <link rel="stylesheet" href="{% static 'css/patent.css' %}">
 {% endblock %}
 {% block custom_bread %}
     <section class="container">
@@ -11,18 +11,38 @@
                 <li><a href="/">首页</a></li>
                 <li><a href="{% url 'patent:list' %}">专利列表</a></li>
                 <li><a href="{% url 'patent:detail' order.patent.id %}">{{ order.patent.name }}</a></li>
-                <li><a>下单</a></li>
+                <li class="active"><a>下单</a></li>
             </ul>
         </div>
     </section>
 {% endblock %}
 {% block content %}
-    <section class="container policy-banner-module">
-        <p>订单ID：{{ order.id }}|订单佣金：{{ order.serve_fee }}|订单基价：{{ order.base_price }}|订单总价：{{ order.total_price }}</p>
+    <section class="container detail-module">
+        <img style="width: 100%" src="{% static 'img/order-step-2.png' %}"/>
+        <div>
+            <p>您的订单提交成功！</p>
+            <p>订单号：{{ order.id }}</p>
+            <p>金额：￥{{ order.total_price | floatformat:2 }}</p>
+            <p>请您在24小时内完成支付，否则订单会被自动取消</p>
+        </div>
     </section>
 
-    <section class="container policy-banner-module">
-        <img class="module-item-img" src="{% static 'img/qr.jpg' %}"/>
+    <section class="container detail-module">
+
+        <span class="detail-title">
+            付款并对接专属客服
+        </span>
+        <div class="pic-text-box">
+            <div class="img-box">
+                <img style="width: 100%" src="{% static 'img/order-qr.png' %}"/>
+            </div>
+
+            <div class="text-box">
+                <p><—请添加专属客服微信，通过微信、支付宝或银行汇款方式支付订单</p>
+                <p> 客服确认订单支付后，会联系您进行后续的资料提交。</p>
+                <p> 请您在<a href="{% url 'users:myorder' %}">订单列表</a>中查看订单状态信息。</p>
+            </div>
+        </div>
     </section>
 
 {% endblock %}

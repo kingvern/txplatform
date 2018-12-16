@@ -19,7 +19,6 @@ from users.models import UserProfile
 from platorm.settings import APIKEY
 
 
-
 # Create your views here.
 
 class AddFavView(View):
@@ -273,12 +272,14 @@ class OrderView(View):
                         'order': exist_record
                     })
             from platorm.settings import NAME, ADDRESS, CONTACT, MOBILE
+            add_order_form = AddOrderForm()
             return render(request, 'add_order.html', {
                 'patent': patent,
                 'NAME': NAME,
                 'ADDRESS': ADDRESS,
                 'CONTACT': CONTACT,
-                'MOBILE': MOBILE
+                'MOBILE': MOBILE,
+                'add_order_form': add_order_form
             })
         else:
             return HttpResponseRedirect(reverse('patent:list'))

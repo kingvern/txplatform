@@ -16,39 +16,150 @@
 {% block content %}
 
     <section class="container">
-        <p>{{ incubator.name }}</p>
+        <div class="row">
+            <div class="col-md-5">
+                <img class="" src="{{ MEDIA_URL }}{{ incubator.pic }}"/>
+            </div>
+            <div class="col-md-7 panel-module">
+                <span class="title">{{ incubator.name }}</span>
+                <div class="table">
+                    <span class="content">地区：{{ incubator.area1 }}</span>
+                    {% if incubator.level %}<span class="content">级别：{{ incubator.level }}</span>{% endif %}
+                    <span class="content">地址：{{ incubator.addr }}</span>
 
-        <p class="content">{{ incubator.contact }}</p>
+                </div>
+                <div class="module-item-btn-box">
+                    {% if incubator.has_fav %}
+                        <span id="{{ incubator.id }}" type_id="{{ type_id|add:3 }}" class="module-item-btn-faved fav">取消收藏</span>
+                    {% else %}
+                        <span id="{{ incubator.id }}" type_id="{{ type_id|add:3 }}" class="module-item-btn fav">收藏</span>
+                    {% endif %}
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="container detail-module">
+            <span class="detail-title">
+            联系方式
+            </span>
+        <div class="detail-content">
+            {% if incubator.contact %}<p class="content">联系人：{{ incubator.contact }}</p>{% endif %}
 
 
-        <p class="content">{{ incubator.addr }}</p>
+            {% if incubator.addr %}<p class="content">地址：{{ incubator.addr }}</p>{% endif %}
 
-        <p class="content"><a href="{{ incubator.website }}">{{ incubator.website }}</a></p>
+            {% if incubator.website %}
+                <p class="content">网址：<a href="{{ incubator.website }}">{{ incubator.website }}</a></p>
+            {% endif %}
 
-        <p class="content">{{ incubator.contact_email }}</p>
+            {% if incubator.contact_email %}<p class="content">邮箱：{{ incubator.contact_email }}</p>{% endif %}
 
-        <p class="content">{{ incubator.contact_mobile }}</p>
+            {% if incubator.contact_mobile %}<p class="content">电话：{{ incubator.contact_mobile }}</p>{% endif %}
 
-        <p class="content">{{ incubator.contact_post }}</p>
-        {% autoescape off %}
-            {{ incubator.descs }}
-        {% endautoescape %}
-        {% autoescape off %}
-            {{ incubator.companys }}
-        {% endautoescape %}
-        {% autoescape off %}
-            {{ incubator.services }}
-        {% endautoescape %}
-        {% autoescape off %}
-            {{ incubator.techservice }}
-        {% endautoescape %}
+            {% if incubator.contact_post %}<p class="content">邮编：{{ incubator.contact_post }}</p>{% endif %}
+
+
+        </div>
 
     </section>
+    {% if incubator.descs %}
+        <section class="container detail-module">
+            <span class="detail-title">
+            介绍
+            </span>
+            <div class="detail-content">
+                {% autoescape off %}
+                    {{ incubator.descs }}
+                {% endautoescape %}
+            </div>
+        </section>
+    {% endif %}
+
+
+    {% if incubator.companys %}
+        <section class="container detail-module">
+            <span class="detail-title">
+            孵化企业
+            </span>
+            <div class="detail-content">
+                {% autoescape off %}
+                    {{ incubator.companys }}
+                {% endautoescape %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if incubator.services %}
+        <section class="container detail-module">
+            <span class="detail-title">
+            产品服务
+            </span>
+            <div class="detail-content">
+                {% autoescape off %}
+                    {{ incubator.services }}
+                {% endautoescape %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if incubator.techservice %}
+        <section class="container detail-module">
+            <span class="detail-title">
+            科技服务
+            </span>
+            <div class="detail-content">
+                {% autoescape off %}
+                    {{ incubator.techservice }}
+                {% endautoescape %}
+            </div>
+        </section>
+    {% endif %}
+
 
 {% endblock %}
 
 {% block custom_js %}
     <script type="text/javascript">
+
+        function add_fav(current_elem, fav_id, fav_type) {
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:add_fav" %}",
+                data: {'fav_id': fav_id, 'fav_type': fav_type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '收藏') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
+        $('.fav').on('click', function () {
+            add_fav($(this), $(this).attr('id'), $(this).attr('type_id'));
+        });
+
 
     </script>
 {% endblock %}

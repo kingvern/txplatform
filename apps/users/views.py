@@ -150,8 +150,8 @@ class ResetPwdView(View):
 
     def get(self, request):
         reset_pwd_form = ResetPwdForm()
-        mobile = request.user.mobile
-        return render(request, 'reset_pwd.html', {'reset_pwd_form': reset_pwd_form, 'mobile': mobile})
+        # mobile = request.user.mobile
+        return render(request, 'reset_pwd.html', {'reset_pwd_form': reset_pwd_form})
 
     def post(self, request):
         reset_pwd_form = ResetPwdForm(request.POST)
@@ -284,61 +284,70 @@ class UserInfoView(LoginRequiredMixin, View):
     """用户中心"""
 
     def get(self, request):
+        info_form = UserInfoForm(instance=request.user)
         return render(request, "usercenter-info.html", {
+            'info_form': info_form
         })
 
     def post(self, request):
         # 不像用户咨询是一个新的。需要指明instance。不然无法修改，而是新增用户
-        user_info_form = UserInfoForm(request.POST, instance=request.user)
-        if user_info_form.is_valid():
-
-            if user_info_form.username in list(UserProfile.objects.all().values_list('user_name')):
-                return HttpResponse(
-                    '{"status":"fail","msg":"用户名重复，请更改"}',
-                    content_type='application/json')
-            user_info_form.save()
-            return HttpResponse(
-                '{"status":"success"}',
-                content_type='application/json')
+        info_form = UserInfoForm(request.POST, instance=request.user)
+        if info_form.is_valid():
+            # if user_info_form.username in list(UserProfile.objects.all().values_list('user_name')):
+            #     return HttpResponse(
+            #         '{"status":"fail","msg":"用户名重复，请更改"}',
+            #         content_type='application/json')
+            info_form.save()
+            return HttpResponseRedirect(reverse('users:user_info'))
         else:
             # 通过json的dumps方法把字典转换为json字符串
-            return HttpResponse(
-                json.dumps(
-                    user_info_form.errors),
-                content_type='application/json')
+            return render(request, "usercenter-info.html", {
+                'info_form': info_form
+            })
 
 
 class UserAuthView(LoginRequiredMixin, View):
     """用户认证"""
 
     def get(self, request):
+        info_form = UserAuthForm(instance=request.user)
         auth = False
         if request.user.id_card:
             auth = True
         return render(request, "usercenter-auth.html", {
-            'auth': auth
+            'auth': auth,
+            'info_form': info_form
         })
 
     def post(self, request):
         # 不像用户咨询是一个新的。需要指明instance。不然无法修改，而是新增用户
-        user_info_form = UserAuthForm(request.POST, instance=request.user)
+        info_form = UserAuthForm(request.POST, instance=request.user)
         id_card = request.POST.get('id_card', '')
         res = checkIDNumber(id_card)
         if not res:
-            return HttpResponse(
-                '{"status":"fail","msg":"id_card error"}',
-                content_type='application/json')
-        if user_info_form.is_valid():
-            user_info_form.save()
-            return HttpResponse(
-                '{"status":"success"}',
-                content_type='application/json')
+            auth = False
+            return render(request, "usercenter-auth.html", {
+                'auth': auth,
+                'info_form': info_form,
+                'msg':"id_card error"
+            })
+            # return HttpResponse(
+            #     '{"status":"fail","msg":"id_card error"}',
+            #     content_type='application/json')
+        if info_form.is_valid():
+            info_form.save()
+            return HttpResponseRedirect(reverse('users:user_auth'))
         else:
             # 通过json的dumps方法把字典转换为json字符串
-            return HttpResponse(
-                json.dumps(
-                    user_info_form.errors),
-                content_type='application/json')
+            auth = False
+            return render(request, "usercenter-auth.html", {
+                'auth': auth,
+                'info_form': info_form
+            })
+            # return HttpResponse(
+            #     json.dumps(
+            #         user_info_form.errors),
+            #     content_type='application/json')
 
 
 # 用户上传图片的view:用于修改头像

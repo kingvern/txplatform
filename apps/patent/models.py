@@ -51,7 +51,7 @@ class Patent(models.Model):
     shop_status = models.CharField(max_length=20, default='1',
                                    choices=(('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'交易中'), ('3', u'已交易')),
                                    verbose_name=u'上架状态')
-    if_show = models.BooleanField(default=True, verbose_name='是否显示')
+    if_show = models.BooleanField(default=False, verbose_name='是否显示')
     note = models.CharField(max_length=20, default='1', null=True, blank=True, verbose_name=u'审核意见')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')

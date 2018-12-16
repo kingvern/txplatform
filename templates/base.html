@@ -11,10 +11,6 @@
     <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
 
     <script src="{% static 'js/layer/layer.js' %}"></script>
-    {#    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">#}
-    {#    <link rel="stylesheet" type="text/css" href="{% static 'js/bootstrap/dist/css/bootstrap.css' %}">#}
-    {#    <script type="text/javascript" src="{% static 'js/jQuery/tmp/jquery.js' %}" charset="utf-8"></script>#}
-
     {% block custom_css %}{% endblock %}
 </head>
 <body>
@@ -110,15 +106,20 @@
         </span>
         {#        <div class="col-md-5"></div>#}
         <form class="form-search pull-right search-bar-box"
-              action="
-    {% ifequal '/policy' request.path|slice:":7" %}{% url 'policy:search' %}{% endifequal %}
+              action="{% ifequal '/policy' request.path|slice:":7" %}{% url 'policy:search' %}{% endifequal %}
     {% ifequal '/patent' request.path|slice:":7" %}{% url 'patent:search' %}{% endifequal %}
     {% ifequal '/project' request.path|slice:":8" %}{% url 'project:search' %}{% endifequal %}
     {% ifequal '/incubator' request.path|slice:":10" %}{% url 'incubator:search' %}{% endifequal %}
     {% ifequal '/gallery' request.path|slice:":8" %}{% url 'gallery:list' %}{% endifequal %}
     {% ifequal '/club' request.path|slice:":5" %}{% url 'club:home' %}{% endifequal %}">
-            <input class="input-medium search-query" type="text" name="keywords" value="{{ keywords }}"/>
-            <button type="submit" class="btn search-bar-btn">查找</button>
+
+            <div class="input-group search-bar-box">
+                <input type="text" class="form-control" name="keywords" placeholder="Search for..."
+                       value="{{ keywords }}">
+                <span class="input-group-btn">
+                    <button class="btn search-bar-btn" type="submit">查找</button>
+                </span>
+            </div><!-- /input-group -->
         </form>
     </div>
 </section>
@@ -129,6 +130,10 @@
 {% block content %}
 
 {% endblock %}
+
+
+<img style="display: none" id="qr" src="{% static 'img/qr.png' %}"/>
+
 <footer class="footer">
     <div class="container">
         <div class="col-md-12 row">
@@ -136,6 +141,8 @@
                 关于本站 | 新闻中心 | 诚聘英才 | 联系我们
             </div>
             <div class="footer-contact pull-right">
+
+            <img src="{% static 'img/contact.png' %}"/>
                 010 - 12354678
             </div>
         </div>
@@ -149,6 +156,9 @@
     </div>
 
 </footer>
+
+    <script src="{% static 'js/qr.js' %}"></script>
+
 </body>
 {% block custom_js %}{% endblock %}
 </html>

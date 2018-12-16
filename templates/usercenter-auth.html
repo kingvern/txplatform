@@ -2,44 +2,62 @@
 {% load staticfiles %}
 {% block title %} 个人信息 {% endblock %}
 
-{% block custom_bread %}
-    <section class="container">
-        <ul class="breadcrumb">
-            <li><a href="/">首页</a></li>
-            <li><a href="#">个人中心</a></li>
-            <li class="active">个人信息</li>
-        </ul>
-    </section>
-{% endblock %}
-
 {% block right_content %}
-    <div class="right">
-        <div class="personal_des ">
-            <div class="head" style="border:1px solid #eaeaea;">
-                <h1>个人认证</h1>
-            </div>
-            <div class="inforcon">
 
-                <form class="perinform" action="{% url 'users:user_auth' %}" method="POST" id="jsEditUserForm" autocomplete="off">
-                    <ul class="right">
-                        <li>真实姓名：
-                            <input type="text" name="full_name" id="full_name" {% if auth %}readonly="readonly"{% endif %}
-                                   value="{{ request.user.full_name|default_if_none:'' }}" maxlength="20">
-                            <i class="error-tips"></i>
-                        </li>
-                        <li>身份证号：
+    <div class="head">
+        <span>个人认证</span>
+    </div>
+    <div class="content">
+
+        <form action="{% url 'users:user_auth' %}" method="POST">
+            <table class="table table-nobordered usercenter-table">
+                <tbody>
+                <tr>
+                    <td class="th">认证状态：</td>
+                    <td>
+                        <div class="input">
+                            {% if auth %}
+                                <text class="auth-has-status">
+                                    尊敬的会员，您还没有进行实名认证
+                                </text>
+                            {% else %}
+                                <text class="auth-not-status">
+                                    已实名认证
+                                </text>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">真实姓名：</td>
+                    <td>
+                        <div class="input">
+                            <input type="text" name="full_name" id="full_name"
+                                   {% if auth %}readonly="readonly"{% endif %}
+                                   value="{{ request.user.full_name|default_if_none:'' }}" maxlength="20"/>
+                            <span>{{ info_form.errors.full_name.0 }}{{ msg }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">身份证号：</td>
+                    <td>
+                        <div class="input">
                             <input type="text" id="id_card" name="id_card" {% if auth %}readonly="readonly"{% endif %}
-                                   value="{{ request.user.id_card|default_if_none:'' }}" />
-                            <i class="error-tips"></i>
-                        </li>
-
-                        <li class="button heibtn" {% if auth %}style="display: none" {% endif %}>
-                            <input type="submit" id="jsEditUserBtn" value="保存">
-                        </li>
-                    </ul>
-                    {% csrf_token %}
-                </form>
-            </div>
-        </div>
+                                   value="{{ request.user.id_card|default_if_none:'' }}"/>
+                            <span>{{ info_form.errors.id_card.0 }}{{ msg }}</span>
+                        </div>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" {% if auth %}style="display: none" {% endif %} class="submit-btn">保存
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            {% csrf_token %}
+        </form>
     </div>
 {% endblock %}

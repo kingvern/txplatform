@@ -14,7 +14,7 @@
     color: #000 !important;
 }
 
-.center-span{
+.center-span {
     padding: 10px;
 }
 
@@ -85,14 +85,18 @@
 }
 
 .search-bar .search-bar-box {
-    margin: 24px 15px;
+    margin: 12px 15px;
+    width: 350px;
+}
+
+.search-bar .search-bar-box input{
+    border: none;
 }
 
 .search-bar .search-bar-box .search-bar-btn {
-    /*color: white;*/
-    /*background-image: linear-gradient(60deg, #58c7f8 0%, #4568f6 100%);*/
-    /*!*background-size: 200% 100%;*!*/
-    /*background-repeat: repeat;*/
+    color: white;
+    background: linear-gradient(45deg, #58C8F8 0%, #4763F6 100%);
+    border: none;
 }
 
 /*linear-gradient(30deg, #00ffbd 0%, #4cc6d3 20%, #af7bf0 50%, #4cc6d3 80%, #00ffbd 100%)*/
@@ -149,7 +153,8 @@
 
 .module-list .module-item-box .module-item-img-box {
     width: 26%;
-    padding: 12px;
+    margin: 12px;
+    overflow: hidden;
 }
 
 .module-list .module-item-box .module-item-img-box .module-item-img {
@@ -196,7 +201,7 @@
     margin-top: 114px;
 }
 
-.module-list .module-item-box .module-item-btn-box .module-item-btn {
+.module-item-btn {
     cursor: pointer;
     background: #72a6f8;;
     color: #fff;
@@ -205,10 +210,22 @@
     border: #72a6f8 1px solid;
 }
 
-.module-list .module-item-box .module-item-btn-box .module-item-btn-faved {
+.module-item-btn a {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.module-item-btn a:hover {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.module-item-btn-faved {
     cursor: pointer;
     color: #72a6f8;
-    padding: 6px 25px;
+    padding: 6px 9px;
     margin: 5px;
     border: #72a6f8 1px solid;
 }
@@ -329,8 +346,18 @@
 }
 
 .rank-box .rank-title {
-    background: #72A6F8;
+    background: url("../img/rank-title-bg.png") no-repeat center;
     height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.rank-box .rank-title span {
+    font-size: 1.2em;
+    color: aliceblue;
+    margin-right: 13px;
 }
 
 .rank-box .rank-list .rank-item {
@@ -341,20 +368,23 @@
     border-radius: 4px;
 }
 
-
 .rank-box .rank-list .rank-item a {
     text-decoration: none;
     color: #8F8F8F;
 }
 
 .publish-patent {
-    height: 80px;
+    height: 124px;
     margin: 20px 0 0 -15px;
-    background: #72A6F8;
+    background: url("../img/publish-patent-bg.png") no-repeat center;
 }
 
 .publish-project {
-    height: 80px;
+    height: 119px;
     margin: 20px 0 20px -15px;
-    background: #72A6F8;
+    background: url("../img/publish-project-bg.png") no-repeat center;
+}
+
+#qr {
+    width: 431px;
 }

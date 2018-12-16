@@ -1,20 +1,18 @@
 {% extends 'usercenter-base.html' %}
 {% block title %} 我的收藏{% endblock %}
 {% load staticfiles %}
-{% block custom_bread %}
-    <section class="container">
-        <ul class="breadcrumb">
-            <li><a href="{% url 'index' %}">首页</a>></li>
-            <li><a href="{% url 'users:user_info' %}">个人中心</a></li>
-            <li>发布管理</li>
-        </ul>
-    </section>
-{% endblock %}
 
 {% block right_content %}
-    <div class="right">
-        <table>
-            <caption>专利</caption>
+    <div class="head">
+        <span>我的发布</span>
+    </div>
+    <div class="manage">
+
+        <ul class="nav nav-tabs manage-nav">
+            <li role="presentation" id="patent-li" class="active"><a >专利商品</a></li>
+            <li role="presentation" id="project-li"><a >技术项目</a></li>
+        </ul>
+        <table class="table table-bordered  manage-table" id="patent-table">
             <thead>
             <tr>
                 <th>编号</th>
@@ -51,8 +49,7 @@
             </tbody>
         </table>
 
-        <table>
-            <caption>项目</caption>
+        <table class="table table-bordered  manage-table" id="project-table" style="display: none;">
             <thead>
             <tr>
                 <th>编号</th>
@@ -150,6 +147,20 @@
                 },
             });
         }
+
+
+        $("#patent-li").on('click', function () {
+            $(this).addClass('active');
+            $("#project-li").removeClass('active');
+            $("#patent-table").show();
+            $("#project-table").hide();
+        })
+        $("#project-li").on('click', function () {
+            $(this).addClass('active');
+            $("#patent-li").removeClass('active');
+            $("#patent-table").hide();
+            $("#project-table").show();
+        })
 
         $('.cancel_publish').on('click', function () {
             cancel_publish($(this), $(this).parent().parent().attr('key'), $(this).parent().parent().attr('type'));

@@ -1,54 +1,71 @@
 {% extends 'usercenter-base.html' %}
 {% block title %} 我的收藏{% endblock %}
 {% load staticfiles %}
-{% block custom_bread %}
-    <section>
-        <div class="wp">
-            <ul class="crumbs">
-                <li><a href="{% url 'index' %}">首页</a>></li>
-                <li><a href="{% url 'users:user_info' %}">个人中心</a>></li>
-                <li>我的收藏</li>
-            </ul>
-        </div>
-    </section>
-{% endblock %}
 
 {% block right_content %}
-    <div class="right">
-        <table class="table">
-            <caption>专利</caption>
-            <thead>
-            <tr>
-                <th>名称</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
+    <div class="head">
+        <span>技术关注</span>
+    </div>
+    <div class="manage">
+
+        <ul class="nav nav-tabs manage-nav">
+            <li role="presentation" id="patent-li" class="active"><a>专利商品</a></li>
+            <li role="presentation" id="project-li"><a>技术项目</a></li>
+        </ul>
+
+        <div class="manage-list" id="patent-table">
+
             {% for patent in patent_list %}
-                <tr key="{{ patent.id }}" type="1">
-                    <td><a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a></td>
-                    <td><span class="fav">取消收藏</span></td>
-                </tr>
+                {#                <tr key="{{ patent.id }}" type="1">#}
+                {#                    <td><a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a></td>#}
+                {#                    <td><span class="fav">取消收藏</span></td>#}
+                {#                </tr>#}
+                <div class="module-item-box ">
+                    <div class="module-item-img-box">
+                        <img class="module-item-img" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/>
+                    </div>
+                    <div class="module-item-text">
+                        <p class="title"><a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a></p>
+                        <p>
+                            专利(申请号):{{ patent.patent_id }}/{{ patent.get_patent_category_display }}</p>
+                        <p>行业:{{ patent.get_field_category_display }}</p>
+                        <p>价格:<span class="price">{{ patent.price }}</span>元 </p>
+                    </div>
+                    <div class="module-item-btn-box">
+                        <span id="{{ patent.id }}" class="module-item-btn-faved fav"  key="{{ patent.id }}" type="1">取消收藏</span>
+                        <span class="module-item-btn ask">咨询</span>
+                    </div>
+                </div>
             {% endfor %}
             </tbody>
-        </table>
-        <table class="table">
-            <caption>项目</caption>
-            <thead>
-            <tr>
-                <th>名称</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
+        </div>
+        <div class="manage-list" id="project-table" style="display: none;">
+
             {% for project in project_list %}
-                <tr key="{{ project.id }}" type="2">
-                    <td><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></td>
-                    <td><span class="fav">取消收藏</span></td>
-                </tr>
+                {#                <tr key="{{ project.id }}" type="2">#}
+                {#                    <td><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></td>#}
+                {#                    <td><span class="fav">取消收藏</span></td>#}
+                {#                </tr>#}
+                <div class="module-item-box ">
+                    <div class="module-item-img-box">
+                        <img class="module-item-img" src="{{ MEDIA_URL }}{{ project.main_pic }}"/>
+                    </div>
+                    <div class="module-item-text">
+                        <p class="title"><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></p>
+                        <p>
+                            技术成熟度:{{ project.get_project_step_display }}</p>
+                        <p>行业:{{ project.get_field_category_display }}</p>
+                        <p>合作方式:<span class="price">{{ project.get_cooperation_display }}</span>
+                        </p>
+                    </div>
+                    <div class="module-item-btn-box">
+                        <span id="{{ project.id }}" class="module-item-btn-faved fav"  key="{{ project.id }}" type="2">取消收藏</span>
+                        <span class="module-item-btn ask">咨询</span>
+                    </div>
+                </div>
             {% endfor %}
             </tbody>
-        </table>
+        </div>
     </div>
 
 {% endblock %}
@@ -56,7 +73,7 @@
     <script type="text/javascript">
         //收藏分享
         function add_fav(current_elem, fav_id, fav_type) {
-            console.log('fav_id',fav_id,'fav_type',fav_type)
+            console.log('fav_id', fav_id, 'fav_type', fav_type)
             $.ajax({
                 cache: false,
                 type: "POST",
@@ -90,8 +107,22 @@
         }
 
         $('.fav').on('click', function () {
-            add_fav($(this), $(this).parent().parent().attr('key'), $(this).parent().parent().attr('type'));
+            add_fav($(this), $(this).attr('key'), $(this).attr('type'));
         });
+
+
+        $("#patent-li").on('click', function () {
+            $(this).addClass('active');
+            $("#project-li").removeClass('active');
+            $("#patent-table").show();
+            $("#project-table").hide();
+        })
+        $("#project-li").on('click', function () {
+            $(this).addClass('active');
+            $("#patent-li").removeClass('active');
+            $("#patent-table").hide();
+            $("#project-table").show();
+        })
 
 
     </script>

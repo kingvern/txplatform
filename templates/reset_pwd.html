@@ -1,85 +1,105 @@
-<!DOCTYPE html>
+{% extends 'login-base.html' %}
+
 {% load staticfiles %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
-    <script src="{% static 'js/jQuery/jquery.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
-    <title>注册</title>
-</head>
-<body>
+{% block title %}找回密码{% endblock %}
 
 
 <!--发送按钮倒计时代码-->
-<script type="text/javascript">
-    var countdown = 60;
+{% block custom_js %}
+    <script type="text/javascript">
+        var countdown = 60;
 
-    function settime(obj) {
-        if (countdown == 0) {
-            obj.removeAttribute("disabled");
-            obj.value = "免费获取验证码";
-            countdown = 60;
-            return;
-        } else {
-            obj.setAttribute("disabled", true);
-            obj.value = "重新发送(" + countdown + ")";
-            countdown--;
+        function settime(obj) {
+            if (countdown == 0) {
+                obj.removeAttribute("disabled");
+                obj.value = "免费获取验证码";
+                countdown = 60;
+                return;
+            } else {
+                obj.setAttribute("disabled", true);
+                obj.value = "重新发送(" + countdown + ")";
+                countdown--;
+            }
+            setTimeout(function () {
+                    settime(obj)
+                }
+                , 1000)
         }
-        setTimeout(function () {
-                settime(obj)
-            }
-            , 1000)
-    }
 
-</script>
+    </script>
 
-<form action="{% url 'reset_pwd' %}" method="post">
-
-    <input name="mobile" type="hidden" placeholder="phone" id="mobile" value="{{ mobile }}"
-    /><span class="input-group-btn">
-                         <input type="button" id="forgetCode" onclick="settime(this)" value="免费获取验证码"
-                                class="btn btn-success">
-                    </span>
-    <input name="code" type="text" placeholder="code"
-    />
-    <input name="password1" type="password" placeholder="password"
-    />
-    <input name="password2" type="password" placeholder="password"
-    />
-
-    {#    {{ register_form.captcha }}#}
-    <input type="submit"/>
-    {% for key,error in register_form.errors.items %}
-        {{ key }}:{{ error }}
-    {% endfor %}
-    {{ msg }}
-    {% csrf_token %}
-</form>
-
-
-<!--向后台通过ajax发送手机号码数据-->
-<script>
-    $('#forgetCode').click(function () {
-        $.ajax({
-            cache: false,
-            type: "POST",
-            url: "{% url 'users:forcode' %}",
-            data: {
-                mobile: $("#mobile").val(),
-                send_type: 'reset_pwd'
-            },
-            async: true,
-            beforeSend: function (xhr, settings) {
-                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-            },
-            success: function (data) {
-                console.log(data)
-                alert(data)
-            }
+    <script>
+        $('#forgetCode').click(function () {
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url 'users:forcode' %}",
+                data: {
+                    mobile: $("#mobile").val(),
+                    send_type: 'reset_pwd'
+                },
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    console.log(data)
+                    alert(data)
+                }
+            })
         })
-    })
-</script>
-</body>
-</html>
+    </script>
+
+{% endblock %}
+
+
+
+{% block content %}
+    <form action="{% url 'reset_pwd' %}" method="post">
+        <div class="login-box">
+
+            <div class="login-img-box">
+                <img src="{% static 'img/login-bg.png' %}"/>
+            </div>
+            <div class="login-form-box">
+                <div class="login-form-logo">
+                    <span class="logo-text">找回密码</span>
+                    <img src="{% static 'img/login-logo.png' %}"/>
+                </div>
+                <div class="form">
+                    <div class="input">
+                        <input id="mobile"  name="mobile" type="text" placeholder="手机号："/>
+                        <span>{{ reset_pwd_form.errors.mobile.0 }}</span>
+                    </div>
+                    <div class="input">
+                        <input name="code" type="text" placeholder="验证码："/>
+                        <a class="getcode" id="forgetCode" onclick="settime(this)">免费获取验证码</a>
+                        <span>{{ reset_pwd_form.errors.code.0 }}</span>
+                    </div>
+                    <div class="input">
+                        <input name="password1" type="password" placeholder="设置密码："/>
+                        <span>{{ reset_pwd_form.errors.password1.0 }}</span>
+                    </div>
+                    <div class="input">
+                        <input name="password2" type="password" placeholder="重复密码："/>
+                        <span>{{ reset_pwd_form.errors.password2.0 }}</span>
+                    </div>
+                    {{ msg }}
+                    <input type="hidden" name="next" value="{{ redirect_url }}"/>
+                    {% csrf_token %}
+                </div>
+                <div class="submit">
+                    <button type="submit">完成</button>
+                    <div class="a-box">
+                        <a href="{% url 'login' %}">去登录></a>
+                        <a href="{% url 'register' %}">去注册></a>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

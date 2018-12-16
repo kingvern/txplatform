@@ -2,61 +2,94 @@
 {% load staticfiles %}
 {% block title %} 个人信息 {% endblock %}
 
-{% block custom_bread %}
-   <section class="container">
-        <ul class="breadcrumb">
-            <li><a href="/">首页</a></li>
-            <li><a href="#">个人中心</a></li>
-            <li class="active">个人信息</li>
-        </ul>
-    </section>
-{% endblock %}
-
 {% block right_content %}
-        <div class="right">
-		<div class="personal_des ">
-			<div class="head" style="border:1px solid #eaeaea;">
-				<h1>个人信息</h1>
-			</div>
-			<div class="inforcon">
-				<div class="left" style="width:242px;">
-                    <div style="border-top:1px solid #eaeaea;margin-top:30px;">
-                        <a class="button btn-green btn-w100" id="jsUserResetPwd" style="margin:80px auto;width:100px;" href="{% url 'reset_pwd' %}">修改密码</a>
-                    </div>
-				</div>
-				<form class="perinform" id="jsEditUserForm" autocomplete="off">
-					<ul class="right">
-						<li>用户名：
-                           <input type="text" name="username" id="username" value="{{ request.user.username|default_if_none:'' }}" maxlength="20">
-                            <i class="error-tips"></i>
-                        </li>
-						<li>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：
-                           <input type="text" id="birth_day" name="birthday" value="{{ request.user.birthday|date:'Y-m-d' }}" readonly="readonly"/>
-                            <i class="error-tips"></i>
-						</li>
-						<li>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
-							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  name="gender" value="male" {% ifequal request.user.gender "male" %}checked="checked"{% endifequal %} >男</label>
-							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="female" {% ifequal request.user.gender "female" %}checked="checked"{% endifequal %}>女</label>
-						</li>
-						<li class="p_infor_city">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：
-                            <input type="text" name="address" id="address" placeholder="请输入你的地址" value="{{ request.user.address|default_if_none:'' }}" maxlength="20">
-						    <i class="error-tips"></i>
-                        </li>
-						<li>手&nbsp;&nbsp;机&nbsp;&nbsp;号：
-                            <input type="text" name="mobile" id="mobile" readonly="readonly" value="{{ request.user.mobile|default_if_none:'' }}" maxlength="11">
-                            <span class="green changeemai_btn"><a href="{% url 'update_mobile' %}" >[修改]</a></span>
-                        </li>
-                        <li>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
-                        	<input class="borderno" type="text" name="email" readonly="readonly" value="{{ request.user.email }}"/>
+    <div class="head">
+        <span>基本信息</span>
+    </div>
+    <div class="content">
 
-                    	</li>
-						<li class="button heibtn">
-							<input type="button" id="jsEditUserBtn" value="保存">
-						</li>
-					</ul>
-                                        {% csrf_token %}
-				</form>
-			</div>
-		</div>
-	</div>
+        <form  action="{% url 'users:user_info' %}" method="POST">
+            <table class="table table-nobordered usercenter-table">
+                <tbody>
+                <tr>
+                    <td class="th">姓名：</td>
+                    <td>
+                        <div class="input">
+                            <input name="username" type="text" placeholder="" value="{{ request.user.username }}"/>
+                            <span>{{ info_form.errors.username.0 }}{{ msg }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">手机：</td>
+                    <td>
+                        <div class="input">
+                            <input name="mobile" type="text" placeholder="" readonly value="{{ request.user.mobile }}"/>
+                            {#                            <span>{{ info_form.errors.mobile.0 }}</span>#}
+                        </div>
+                    <td class="th"><a href="{% url 'update_mobile' %}">[修改]</a></td>
+                </tr>
+                <tr>
+                    <td class="th">性别：</td>
+                    <td>
+                        <div class="input">
+                            <label><input type="radio" name="gender" value="male"
+                                          {% ifequal request.user.gender  "male" %}checked="checked"{% endifequal %}>男</label>
+                            <label><input type="radio" name="gender" value="female"
+                                          {% ifequal request.user.gender "female" %}checked="checked"{% endifequal %}>女</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">生日：</td>
+                    <td>
+                        <div class="input">
+                            <input name="birthday" type="text" placeholder=""
+                                   value="{{ request.user.birthday|date:'Y-m-d' }}"/>
+                            <span>{{ info_form.errors.birthday.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="submit-btn">保存</button>
+                    </td>
+                    <td  class="th"><a href="{% url 'reset_pwd' %}">[修改密码]</a></td>
+                </tr>
+                </tbody>
+            </table>
+            {#            <ul class="right">#}
+            {#                    <input type="text" name="username" id="username"#}
+            {#                           value="{{ request.user.username|default_if_none:'' }}" maxlength="20">#}
+            {#                    <i class="error-tips"></i>#}
+            {#                <li>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：#}
+            {#                    <input type="text" id="birth_day" name="birthday" value="{{ request.user.birthday|date:'Y-m-d' }}"#}
+            {#                           readonly="readonly"/>#}
+            {#                    <i class="error-tips"></i>#}
+            {#                </li>#}
+            {#                <li>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：#}
+            {#                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="male"#}
+            {#                                                                {% ifequal request.user.gender "male" %}checked="checked"{% endifequal %}>男</label>#}
+            {#                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="female"#}
+            {#                                                                      {% ifequal request.user.gender "female" %}checked="checked"{% endifequal %}>女</label>#}
+            {#                </li>#}
+            {#                <li class="p_infor_city">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：#}
+            {#                    <input type="text" name="address" id="address" placeholder="请输入你的地址"#}
+            {#                           value="{{ request.user.address|default_if_none:'' }}" maxlength="20">#}
+            {#                    <i class="error-tips"></i>#}
+            {#                </li>#}
+            {#                <li>手&nbsp;&nbsp;机&nbsp;&nbsp;号：#}
+            {#                    <input type="text" name="mobile" id="mobile" readonly="readonly"#}
+            {#                           value="{{ request.user.mobile|default_if_none:'' }}" maxlength="11">#}
+            {#                    <a href="{% url 'update_mobile' %}">[修改]</a>#}
+            {##}
+            {#                    <input class="borderno" type="text" name="email" readonly="readonly"#}
+            {#                           value="{{ request.user.email }}"/>#}
+            {##}
+            {#                    <input type="button" id="jsEditUserBtn" class="submit-btn" value="保存">#}
+            {#            </ul>#}
+            {% csrf_token %}
+        </form>
+    </div>
 {% endblock %}

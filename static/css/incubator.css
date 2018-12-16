@@ -1,0 +1,38 @@
+.incubator-box {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.incubator-box .incubator-item img {
+    width: 100%;
+    height: 100%;
+}
+
+.incubator-active {
+
+    width: 100%;
+    height: 80px;
+}
+
+.incubator-inactive {
+
+    width: 100%;
+    height: 64px;
+}
+
+.incubator-active span {
+    color: white;
+    font-size: 1.7em;
+    position: relative;
+    bottom: 47px;
+    left: 24px;
+}
+
+.incubator-inactive span {
+    color: white;
+    font-size: 1.4em;
+    position: relative;
+    bottom: 42px;
+    left: 24px;
+}

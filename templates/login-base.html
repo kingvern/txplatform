@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}登录{% endblock %}</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+    <script src="{% static 'js/jQuery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+
+    {% block custom_css %}{% endblock %}
+</head>
+<body>
+
+<section class="container">
+    {% block content %}
+
+    {% endblock %}
+</section>
+
+
+</footer>
+</body>
+
+{% block custom_js %}{% endblock %}
+</html>

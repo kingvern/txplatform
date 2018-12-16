@@ -1,23 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>登录</title>
-</head>
-<body>
-<form action="/login/" method="post">
+{% extends 'login-base.html' %}
 
-    <input name="username" type="text" placeholder="username"/>
-    <input name="password" type="password" placeholder="password"/>
-    <input type="submit"/>
-    <a href="{% url 'reset_pwd' %}">忘记密码</a>
-    {% for key,error in login_form.errors.items %}
-        {{ key }}:{{ error }}
-    {% endfor %}
-    {{ msg }}
-    <input type="hidden" name="next" value="{{ redirect_url }}"/>
-    {% csrf_token %}
-</form>
+{% load staticfiles %}
+{% block title %}登录{% endblock %}
+{% block content %}
 
-</body>
-</html>
+    <form action="/login/" method="post">
+        <div class="login-box">
+
+            <div class="login-img-box">
+                <img src="{% static 'img/login-bg.png' %}"/>
+            </div>
+            <div class="login-form-box">
+                <div class="login-form-logo">
+                    <span class="logo-text">会员登录</span>
+                    <img src="{% static 'img/login-logo.png' %}"/>
+                </div>
+                <div class="form">
+                    <div class="input">
+                        <input name="username" type="text" placeholder="手机号："/>
+                        <span>{{ login_form.errors.username.0 }}</span>
+                    </div>
+                    <div class="input">
+                        <input name="password" type="password" placeholder="密码："/>
+                        <span>{{ login_form.errors.password.0 }}</span>
+                    </div>
+                    <a class="forget" href="{% url 'reset_pwd' %}">忘记密码</a>
+                    {{ msg }}
+                    <input type="hidden" name="next" value="{{ redirect_url }}"/>
+                    {% csrf_token %}
+                </div>
+                <div class="submit">
+                    <button type="submit">登录</button>
+                    <a href="{% url 'register' %}">没有账号？去注册</a>
+                </div>
+
+
+            </div>
+        </div>
+
+    </form>
+{% endblock %}
