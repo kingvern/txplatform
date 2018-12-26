@@ -1,29 +1,33 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}展会详情{% endblock %}
+{% block title %}俱乐部详情{% endblock %}
 {% block custom_css %}
-    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+    <link rel="stylesheet" href="{% static 'css/club.css' %}">
 {% endblock %}
 {% block custom_bread %}
     <section class="container">
         <div>
             <ul class="breadcrumb">
                 <li><a href="/">首页</a></li>
-                <li><a href="{% url 'gallery:list' %}">展会列表</a></li>
-                <li><a>展会详情</a></li>
+                <li><a href="{% url 'gallery:list' %}">俱乐部</a></li>
+                <li><a>俱乐部详情</a></li>
             </ul>
         </div>
     </section>
 {% endblock %}
 {% block content %}
 
-    <section class="container">
-        <h3>{{ section.title }}</h3>
+    <section class="container club-banner-module">
+        <div class="module-content">
 
-        {% autoescape off %}
-            {{ section.detail }}
-        {% endautoescape %}
+            <h1 class="text-center">{{ section.title }}</h1>
+            <div class="club-content">
+                {% autoescape off %}
+                    {{ section.detail }}
+                {% endautoescape %}
+            </div>
 
+        </div>
     </section>
 
 {% endblock %}

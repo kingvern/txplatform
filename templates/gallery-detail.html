@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block title %}展会详情{% endblock %}
 {% block custom_css %}
-    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+    <link rel="stylesheet" href="{% static 'css/patent.css' %}">
 {% endblock %}
 {% block custom_bread %}
     <section class="container">
@@ -16,13 +16,22 @@
     </section>
 {% endblock %}
 {% block content %}
+    
+    <section class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <img class="main-pic" src="{{ MEDIA_URL }}{{ gallery.pic }}"/>
+            </div>
+            <div class="col-md-7 panel-module">
+                <span class="title">{{ gallery.name }}</span>
+                <div class="table">
+                    <span class="content">时间：{{ gallery.time_begin }}~{{ gallery.time_end }} </span>
+                    {% if gallery.level %}<span class="content">级别：{{ gallery.level }}</span>{% endif %}
+                    <span class="content">地址：{{ gallery.addr }}</span>
 
-    <section class="container gallery-banner-module">
-        <div class="module-content">
-
-            <h1 class="text-center">{{ gallery.name }}</h1>
-            <div class="gallery-content">
-                {% if has_fav %}
+                </div>
+                <div class="module-item-btn-box">
+                     {% if has_fav %}
                     <span id="{{ gallery.id }}" class="module-item-btn-faved fav">取消收藏</span>
                 {% else %}
                     <span id="{{ gallery.id }}" class="module-item-btn fav">收藏</span>
@@ -39,37 +48,39 @@
                 {% endif %}
 
 
-                <div style="color: #000;font-size: 0.2rem;text-align: center;" onclick="share()">
+                <span class="module-item-btn share" onclick="share()">
                     分享
-                </div>
+                </span>
                 <div class="social-share1" style="text-align:center; display:none;" id="shareDiv">
                     <img id="testimg" style="float:right;cursor:pointer" alt="" width="300" height="300"/>
                 </div>
 
+                </div>
 
-                <img class="center-block" src="{{ MEDIA_URL }}{{ gallery.pic }}"/>
-                <span class="gallery-item-source">活动时间：{{ gallery.time_begin }}-{{ gallery.time_end }} </span>
-                <span
-                        class="gallery-item-time">活动时间：{{ gallery.addr }}</span>
+            </div>
+        </div>
+    </section>
+
+    {% if gallery.descs %}
+        <section class="container detail-module">
+            <span class="detail-title">
+            介绍
+            </span>
+            <div class="detail-content">
                 {% autoescape off %}
                     {{ gallery.descs }}
                 {% endautoescape %}
             </div>
-
-        </div>
-    </section>
-    <div>
-        {% for relate_gallery in relate_gallerys %}
-            <a href="/gallery/detail/{{ relate_gallery.id }}/">{{ relate_gallery.name }}</a>
-            <p>{{ relate_gallery.detail }}</p>
-        {% endfor %}
-    </div>
+        </section>
+    {% endif %}
 
 {% endblock %}
 {% block custom_js %}
     <script type="text/javascript">
 
         function share() {
+            $('.share').removeClass('module-item-btn')
+            $('.share').addClass('module-item-btn-faved')
             $("#testimg").attr("src", "http://qr.liantu.com/api.php?text=" + window.location.href);
             layer.open({
                 type: 1,

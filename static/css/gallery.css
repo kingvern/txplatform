@@ -1,0 +1,29 @@
+
+.section {
+    display: flex;
+    flex-direction: column;
+    background: #FCFCFC;
+    justify-content: flex-start;
+    margin-left: -22px;
+    margin-top: 28px;
+    border: 1px #E5E5E5 solid;
+}
+
+.section .title {
+    font-size: 1.6em;
+    background: #F5F5F5;
+    line-height: 48px;
+}
+
+.section .gallery-item {
+        padding: 8px 10px;
+    font-size: 1.2em;
+    color: #333333;
+}
+
+.section .gallery-item img{
+   width: 100%;
+}
+.section .gallery-item a{
+   color:#333333;
+}

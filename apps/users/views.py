@@ -93,7 +93,7 @@ class ForCodeView(View):
                 code = VerifyCode.objects.filter(mobile=mobile).last().code
                 yunpian = YunPian(APIKEY)
                 sms_status = yunpian.send_sms(code=code, mobile=mobile)
-                msg = sms_status.msg
+                msg = sms_status
                 return HttpResponse(msg)
             else:
                 msg = '请输入有效手机号码!'
@@ -329,7 +329,7 @@ class UserAuthView(LoginRequiredMixin, View):
             return render(request, "usercenter-auth.html", {
                 'auth': auth,
                 'info_form': info_form,
-                'msg':"id_card error"
+                'msg': "id_card error"
             })
             # return HttpResponse(
             #     '{"status":"fail","msg":"id_card error"}',
@@ -462,12 +462,24 @@ class IndexView(View):
     """首页view"""
 
     def get(self, request):
-        project = Project.objects.all().order_by('-click_num')[:5]
-        # 正常位课程
-        patent = Patent.objects.all().order_by('-click_num')[:6]
+        project = Project.objects.all().order_by('-click_num')[:6]
+
+        patent_bar = Patent.objects.all().order_by('-click_num')[:10]
+        patent_0 = Patent.objects.all().filter(patent_category='fmzl')[:12]
+        patent_1 = Patent.objects.all().filter(patent_category='syxxzl')[:12]
+        patent_2 = Patent.objects.all().filter(patent_category='wgzl')[:12]
+
+        policy = Policy.objects.all().filter(source_id='51')[:10]
+
         return render(request, 'index.html', {
+            "patent_bar": patent_bar,
+            "patent_0": patent_0,
+            "patent_1": patent_1,
+            "patent_2": patent_2,
+
             "project": project,
-            "patent": patent,
+
+            "policy": policy
         })
 
 

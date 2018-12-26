@@ -1,0 +1,246 @@
+body {
+    background: #F7F7F7 !important;
+}
+
+.index-bg {
+    width: 100%;
+    position: absolute;
+    height: 621px;
+    background: url("../img/index-bg.png") no-repeat center;
+    z-index: -2;
+}
+
+.index-search {
+    width: 28%;
+}
+
+.index-panel-bg {
+    height: 700px;
+    padding: 22px 12px;
+    background: url("../img/index-panal-bg.png") no-repeat center;
+}
+
+.logo-box {
+    display: flex;
+    margin: 18px 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.index-rank-box {
+    border: none !important;
+    width: 232px;
+    margin: 0px !important;
+    height: 360px !important;
+    min-height: 360px !important;
+}
+
+.rank-box{
+    background: #64ABF6 !important;
+}
+
+.rank-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 280px;
+    padding: 4px 7px;
+}
+
+.rank-item {
+    padding: 1px 20px !important;
+    margin: 0 !important;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.panel-list {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0 30px 0;
+}
+
+.panel-item {
+    margin-top: 100px;
+    width: 24%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.panel-item .title {
+    margin-bottom: 16px;
+    font-size: 1.2em;
+}
+
+.panel-item .content {
+    margin: 13px;
+    width: 166px;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.index-module-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+    margin-bottom: 20px;
+
+    position: relative;
+}
+
+.index-module-title .line {
+    text-align: center;
+    display: inline-block;
+    /* color: #1C81E5; */
+    margin-top: 25px;
+    margin-bottom: 20px;
+    width: 100%;
+    font-size: 1.8em;
+    border-bottom: #a2a2a2 1px solid;
+}
+
+.index-module-title .cn {
+    text-align: center;
+    display: inline-block;
+    color: #1C81E5;
+    /* width: 100%; */
+    background: #F7F7F7;
+    padding: 0 14px;
+    font-size: 1.8em;
+    /* border-bottom: #a2a2a2 1px solid; */
+    position: absolute;
+    top: 2px;
+}
+
+.index-module-title .en {
+    font-size: 1.3em;
+    color: #666666;
+}
+
+.index-patent {
+
+}
+
+.title-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title-box .title {
+    width: 32%;
+    border: 1px #BFBFBF solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 18px;
+    height: 180px;
+}
+
+.title-box .title.active {
+    height: 200px;
+    border-bottom: 1px #F7F7F7 solid;
+}
+
+.title-box .title .text {
+    display: flex;
+    flex-direction: column;
+    padding-top: 37px;
+}
+
+.title-box .title span {
+    font-size: 2em;
+}
+
+.title-box .title img {
+
+}
+
+.title-box .title a {
+    font-size: 1.5em;
+    margin-top: 10px;
+    color: #808080;
+}
+
+.content-box {
+    border: 1px #BFBFBF solid;
+    margin-top: -1px;
+    display: flex;
+    padding: 10px 2px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.content-box .content {
+    width: 16%;
+    margin: 2px;
+    border: 1px #BFBFBF solid;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.content-box .content .tag {
+    position: absolute;
+    top: 7px;
+    padding: 2px 8px;
+    color: #1C81E5;
+    border: 1px #1C81E5 solid;
+    border-radius: 6px;
+}
+
+.content-box .content img {
+    width: 170px;
+    height: 150px;
+}
+
+.content-box .content .name {
+    text-decoration: none;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 180px;
+    /* margin-bottom: -14px; */
+}
+
+.recommend-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.recommend-item {
+    width: 48% !important;
+    padding: 0px !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    margin: 10px 10px 0px 0 !important;
+}
+
+.policy-list {
+    margin-top: 30px !important;
+    font-size: 16px !important;
+    line-height: 40px !important;
+}
+
+.incubator-content{
+    display: flex;
+    justify-content: space-between;
+}
+
+.incubator-content a img{
+    width: 89%;
+    box-shadow: 4px 6px 1px #e0e0e0;
+    /* margin-top: 70px; */
+}

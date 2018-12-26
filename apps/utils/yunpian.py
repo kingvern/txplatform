@@ -17,6 +17,7 @@ class YunPian(object):
         # text必须要跟云片后台的模板内容 保持一致，不然发送不出去！
         r = requests.post(self.single_send_url, data=parmas)
         print(r)
+        return '发送成功！'
 
 
 if __name__ == '__main__':

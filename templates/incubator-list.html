@@ -19,150 +19,155 @@
 
     {#筛选#}
     <section class="container">
-        {#筛选行政#}
-        <div class="incubator-box">
-            <a href="?type_id=0">
-                <div class="incubator-item mainTab {% ifequal type_id '0' %}incubator-active{% else %}incubator-inactive{% endifequal %}"
-                     id="mainTab0">
-                    <img src="{% static 'img/incubator-0.png' %}"/>
-                    <span>
+        <div class="row">
+
+            <div class="col-md-9">
+                {#筛选行政#}
+                <div class="incubator-box">
+                    <a href="?type_id=0">
+                        <div class="incubator-cat mainTab {% ifequal type_id '0' %}incubator-active{% else %}incubator-inactive{% endifequal %}"
+                             id="mainTab0">
+                            <img src="{% static 'img/incubator-0.png' %}"/>
+                            <span>
                                    孵化器</span>
-                </div>
-            </a>
-            <a href="?type_id=1">
-                <div class="incubator-item mainTab {% ifequal type_id '1' %}incubator-active{% else %}incubator-inactive{% endifequal %}"
-                     id="mainTab1">
-                    <img src="{% static 'img/incubator-1.png' %}"/>
-                    <span>
+                        </div>
+                    </a>
+                    <a href="?type_id=1">
+                        <div class="incubator-cat mainTab {% ifequal type_id '1' %}incubator-active{% else %}incubator-inactive{% endifequal %}"
+                             id="mainTab1">
+                            <img src="{% static 'img/incubator-1.png' %}"/>
+                            <span>
                                     高新园区</span>
-                </div>
-            </a>
-            <a href="?type_id=2">
-                <div class="incubator-item mainTab {% ifequal type_id '2' %}incubator-active{% else %}incubator-inactive{% endifequal %}"
-                     id="mainTab2">
-                    <img src="{% static 'img/incubator-2.png' %}"/>
-                    <span>
+                        </div>
+                    </a>
+                    <a href="?type_id=2">
+                        <div class="incubator-cat mainTab {% ifequal type_id '2' %}incubator-active{% else %}incubator-inactive{% endifequal %}"
+                             id="mainTab2">
+                            <img src="{% static 'img/incubator-2.png' %}"/>
+                            <span>
                                     金融服务</span>
-                </div>
-            </a>
-            <a href="?type_id=3">
-                <div class="incubator-item mainTab {% ifequal type_id '3' %}incubator-active{% else %}incubator-inactive{% endifequal %}"
-                     id="mainTab2">
-                    <img src="{% static 'img/incubator-0.png' %}"/>
-                    <span>
+                        </div>
+                    </a>
+                    <a href="?type_id=3">
+                        <div class="incubator-cat mainTab {% ifequal type_id '3' %}incubator-active{% else %}incubator-inactive{% endifequal %}"
+                             id="mainTab2">
+                            <img src="{% static 'img/incubator-0.png' %}"/>
+                            <span>
                                     黄页</span>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
-        <div class="filter">
+                <div class="filter">
 
 
-            <div class="filter-box">
-                <div class="filter-title"><span>行政</span></div>
-                <ul id=""
-                    class="filter-list province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">
-                    <li class="filter-item {% ifequal area0 '' %}filter-active{% endifequal %}"
-                        role="presentation">
-                        <a role="menuitem" tabindex="-1" href="?type_id={{ type_id }}&area0="><span
-                                class="">全部</span></a>
-                    </li>
-                    {% for area0_ in area0s %}
-                        <li class="filter-item {% ifequal area0 area0_.area0 %}filter-active{% endifequal %}"
-                            role="presentation">
-                            <a role="menuitem" tabindex="-1"
-                               href="?type_id={{ type_id }}&area0={{ area0_.area0 }}"><span>
-                                    {{ area0_.area0 }}</span></a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            {#            {% ifnotequal area0 '' %}#}
-            {#                <div class="filter-box-bottom">#}
-            {#                    <div class="filter-title"><span>行政</span></div>#}
-            {#                    <ul id=""#}
-            {#                        class="filter-list province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">#}
-            {#                        <li class="filter-item {% ifequal area1 '' %}filter-active{% endifequal %}"#}
-            {#                            role="presentation">#}
-            {#                            <a role="menuitem" tabindex="-1" href="?type_id={{ type_id }}&area0={{ area0 }}"><span#}
-            {#                                    class="">全部</span></a>#}
-            {#                        </li>#}
-            {#                        {% for area1_ in area1s %}#}
-            {#                            <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"#}
-            {#                                role="presentation">#}
-            {#                                <a role="menuitem" tabindex="-1"#}
-            {#                                   href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>#}
-            {#                                {% ifnotequal type_id '3' %}#}
-            {#                                    {% ifequal area0 '河北' %}{{ area1_.area1|slice:'4:' }}{% endifequal %}#}
-            {#                                    {% ifequal area0 '北京' %}{{ area1_.area1|slice:'8:' }}{% endifequal %}#}
-            {#                                    {% ifequal area0 '天津' %}{{ area1_.area1|slice:'8:' }}{% endifequal %}#}
-            {#                                {% else %}#}
-            {#                                    {{ area1_.area1 }}#}
-            {#                                {% endifnotequal %}#}
-            {##}
-            {#                                </span></a>#}
-            {#                            </li>#}
-            {#                        {% endfor %}#}
-            {#                    </ul>#}
-            {#                </div>#}
-            {#            {% endifnotequal %}#}
-            {% ifequal type_id '0' %}
-                <div class="filter-box-bottom">
-                    <div class="filter-title"><span>级别</span></div>
-                    <ul id=""
-                        class="filter-list province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">
-                        <li class="filter-item {% ifequal area1 '' %}filter-active{% endifequal %}"
-                            role="presentation">
-                            <a role="menuitem" tabindex="-1" href="?type_id={{ type_id }}&area0={{ area0 }}"><span
-                                    class="">全部</span></a>
-                        </li>
-
-                        <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
-                            role="presentation">
-                            <a role="menuitem" tabindex="-1"
-                               href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
-                                    国家级
-                                </span></a>
-                        </li>
-                        <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
-                            role="presentation">
-                            <a role="menuitem" tabindex="-1"
-                               href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
-                                    省级
-                                </span></a>
-                        </li>
-                        <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
-                            role="presentation">
-                            <a role="menuitem" tabindex="-1"
-                               href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
-                                    市级
-                                </span></a>
-                        </li>
-                        <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
-                            role="presentation">
-                            <a role="menuitem" tabindex="-1"
-                               href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
-                                    区级
-                                </span></a>
-                        </li>
-                    </ul>
-                </div>
-            {% else %}
-                {% ifnotequal area0 '' %}
-                    <div class="filter-box-bottom">
+                    <div class="filter-box">
                         <div class="filter-title"><span>行政</span></div>
                         <ul id=""
                             class="filter-list province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">
-                            <li class="filter-item {% ifequal area1 '' %}filter-active{% endifequal %}"
+                            <li class="filter-item {% ifequal area0 '' %}filter-active{% endifequal %}"
                                 role="presentation">
-                                <a role="menuitem" tabindex="-1" href="?type_id={{ type_id }}&area0={{ area0 }}"><span
+                                <a role="menuitem" tabindex="-1" href="?type_id={{ type_id }}&area0="><span
                                         class="">全部</span></a>
                             </li>
-                            {% for area1_ in area1s %}
+                            {% for area0_ in area0s %}
+                                <li class="filter-item {% ifequal area0 area0_.area0 %}filter-active{% endifequal %}"
+                                    role="presentation">
+                                    <a role="menuitem" tabindex="-1"
+                                       href="?type_id={{ type_id }}&area0={{ area0_.area0 }}"><span>
+                                    {{ area0_.area0 }}</span></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    {#            {% ifnotequal area0 '' %}#}
+                    {#                <div class="filter-box-bottom">#}
+                    {#                    <div class="filter-title"><span>行政</span></div>#}
+                    {#                    <ul id=""#}
+                    {#                        class="filter-list province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">#}
+                    {#                        <li class="filter-item {% ifequal area1 '' %}filter-active{% endifequal %}"#}
+                    {#                            role="presentation">#}
+                    {#                            <a role="menuitem" tabindex="-1" href="?type_id={{ type_id }}&area0={{ area0 }}"><span#}
+                    {#                                    class="">全部</span></a>#}
+                    {#                        </li>#}
+                    {#                        {% for area1_ in area1s %}#}
+                    {#                            <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"#}
+                    {#                                role="presentation">#}
+                    {#                                <a role="menuitem" tabindex="-1"#}
+                    {#                                   href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>#}
+                    {#                                {% ifnotequal type_id '3' %}#}
+                    {#                                    {% ifequal area0 '河北' %}{{ area1_.area1|slice:'4:' }}{% endifequal %}#}
+                    {#                                    {% ifequal area0 '北京' %}{{ area1_.area1|slice:'8:' }}{% endifequal %}#}
+                    {#                                    {% ifequal area0 '天津' %}{{ area1_.area1|slice:'8:' }}{% endifequal %}#}
+                    {#                                {% else %}#}
+                    {#                                    {{ area1_.area1 }}#}
+                    {#                                {% endifnotequal %}#}
+                    {##}
+                    {#                                </span></a>#}
+                    {#                            </li>#}
+                    {#                        {% endfor %}#}
+                    {#                    </ul>#}
+                    {#                </div>#}
+                    {#            {% endifnotequal %}#}
+                    {% ifequal type_id '0' %}
+                        <div class="filter-box-bottom">
+                            <div class="filter-title"><span>级别</span></div>
+                            <ul id=""
+                                class="filter-list province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">
+                                <li class="filter-item {% ifequal area1 '' %}filter-active{% endifequal %}"
+                                    role="presentation">
+                                    <a role="menuitem" tabindex="-1"
+                                       href="?type_id={{ type_id }}&area0={{ area0 }}"><span
+                                            class="">全部</span></a>
+                                </li>
+
                                 <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
                                     role="presentation">
                                     <a role="menuitem" tabindex="-1"
                                        href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
+                                    国家级
+                                </span></a>
+                                </li>
+                                <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
+                                    role="presentation">
+                                    <a role="menuitem" tabindex="-1"
+                                       href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
+                                    省级
+                                </span></a>
+                                </li>
+                                <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
+                                    role="presentation">
+                                    <a role="menuitem" tabindex="-1"
+                                       href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
+                                    市级
+                                </span></a>
+                                </li>
+                                <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
+                                    role="presentation">
+                                    <a role="menuitem" tabindex="-1"
+                                       href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
+                                    区级
+                                </span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        {% ifnotequal area0 '' %}
+                            <div class="filter-box-bottom">
+                                <div class="filter-title"><span>行政</span></div>
+                                <ul id=""
+                                    class="filter-list province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">
+                                    <li class="filter-item {% ifequal area1 '' %}filter-active{% endifequal %}"
+                                        role="presentation">
+                                        <a role="menuitem" tabindex="-1"
+                                           href="?type_id={{ type_id }}&area0={{ area0 }}"><span
+                                                class="">全部</span></a>
+                                    </li>
+                                    {% for area1_ in area1s %}
+                                        <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
+                                            role="presentation">
+                                            <a role="menuitem" tabindex="-1"
+                                               href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
                                             {% ifnotequal type_id '3' %}
                                                 {% ifequal area0 '河北' %}{{ area1_.area1|slice:'4:' }}{% endifequal %}
                                                 {% ifequal area0 '北京' %}{{ area1_.area1|slice:'8:' }}{% endifequal %}
@@ -172,112 +177,173 @@
                                             {% endifnotequal %}
 
                                             </span></a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endifnotequal %}
-            {% endifequal %}
-        </div>
-    </section>
-
-    {#内容#}
-    <section class="container module">
-        {#列表#}
-        <div class="filted-content">
-            <div class="incubator-list">
-                {% for incubator in incubator.object_list %}
-                    <div class="incubator-item">
-                    <span class="incubator-item-title"><a
-                            href="/incubator/detail/{{ incubator.id }}/?type_id={{ type_id }}">{{ incubator.name }}</a></span>
-                        <span class="incubator-item-source">{{ incubator.addr }}{{ incubator.source }} </span><span
-                            class="incubator-item-time">{{ incubator.pubDate }}</span>
-                        {% ifnotequal type_id '3' %}
-                            {% if incubator.has_fav %}
-                                <span id="{{ incubator.id }}" type_id="{{ type_id|add:3 }}"
-                                      class="module-item-btn-faved fav">取消收藏</span>
-                            {% else %}
-                                <span id="{{ incubator.id }}" type_id="{{ type_id|add:3 }}"
-                                      class="module-item-btn fav">收藏</span>
-                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         {% endifnotequal %}
-                    </div>
-                {% endfor %}
-            </div>
+                    {% endifequal %}
+                </div>
+                {#列表#}
+                <div class="incubator-content">
+                    <div class="incubator-list">
+                        {% for incubator in incubator.object_list %}
+                            <div class="incubator-item">
+                                <div class="img-box">
+                                    <img src="{{ MEDIA_URL }}{{ incubator.pic }}"/>
+                                </div>
+                                <div class="text-box">
+                                <span class="title">
+                                    <a href="/incubator/detail/{{ incubator.id }}/?type_id={{ type_id }}">{{ incubator.name }}</a> <span
+                                        class="level">{{ incubator.level }}</span>
+                                </span>
+                                    <span class="address">{{ incubator.addr }}{{ incubator.source }} </span>
+                                    <span class="detail">
+                                        {% autoescape off %}
+                                            {{ incubator.descs }}
+                                        {% endautoescape %}
+                                    </span>
+                                </div>
 
-        </div>
-        <nav class="page-position">
-            <ul class="pagination ">
-                {% if incubator.has_previous %}
-                    <li>
-                        <a href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ incubator.previous_page_number }}"
-                           class="prev">&lsaquo;&lsaquo; </a></li>
-                {% else %}
-                    <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>
-                {% endif %}
-                {% for page in incubator.pages %}
-                    {% if page %}
-                        {% ifequal page incubator.number %}
-                            <li><span class="current page">{{ page }}</span></li>
-                        {% else %}
+
+                                {#                                {% ifnotequal type_id '3' %}#}
+                                {#                                    {% if incubator.has_fav %}#}
+                                {#                                        <span id="{{ incubator.id }}" type_id="{{ type_id|add:3 }}"#}
+                                {#                                              class="module-item-btn-faved fav">取消收藏</span>#}
+                                {#                                    {% else %}#}
+                                {#                                        <span id="{{ incubator.id }}" type_id="{{ type_id|add:3 }}"#}
+                                {#                                              class="module-item-btn fav">收藏</span>#}
+                                {#                                    {% endif %}#}
+                                {#                                {% endifnotequal %}#}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+                <nav class="page-position">
+                    <ul class="pagination ">
+                        {% if incubator.has_previous %}
                             <li>
-                                <a href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ page }}"
-                                   class="page">{{ page }}</a>
-                            </li>
-                        {% endifequal %}
-                    {% else %}
-                        <li class="disabled"><span>...</span></li>
-                    {% endif %}
-                {% endfor %}
-                {% if incubator.has_next %}
-                    <li>
-                        <a href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ incubator.next_page_number }}"
-                           class="next">
-                            &rsaquo;&rsaquo;</a></li>
-                {% else %}
-                    <li><span class="disabled next"> &rsaquo;&rsaquo;</span></li>
-                {% endif %}
-            </ul>
-        </nav>
-
-    </section>
-
-    <div class="col-md-3">
-        <div class="rank-box">
-            <div class="rank-title">
-                <span>本站十佳</span>
-                <span>最具价值成果</span>
+                                <a href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ incubator.previous_page_number }}"
+                                   class="prev">&lsaquo;&lsaquo; </a></li>
+                        {% else %}
+                            <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>
+                        {% endif %}
+                        {% for page in incubator.pages %}
+                            {% if page %}
+                                {% ifequal page incubator.number %}
+                                    <li><span class="current page">{{ page }}</span></li>
+                                {% else %}
+                                    <li>
+                                        <a href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ page }}"
+                                           class="page">{{ page }}</a>
+                                    </li>
+                                {% endifequal %}
+                            {% else %}
+                                <li class="disabled"><span>...</span></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if incubator.has_next %}
+                            <li>
+                                <a href="?type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ incubator.next_page_number }}"
+                                   class="next">
+                                    &rsaquo;&rsaquo;</a></li>
+                        {% else %}
+                            <li><span class="disabled next"> &rsaquo;&rsaquo;</span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
-            <div class="rank-list">
-                {% for patent in newest_patent %}
-                    <div class="rank-item">
-                        <a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a>
+
+            <div class="module col-md-3">
+                <div class="rank-box">
+                    <div class="rank-title">
+                        <span>本站十佳</span>
+                        <span>最具价值成果</span>
                     </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    <section>
-        {% for c in recommend_couveuse %}
-            <img src="{{ MEDIA_URL }}/default.png">{{ c.name }}{{ c.area1 }}
-            {% autoescape off %}
-                {{ c.descs }}
-            {% endautoescape %}
-        {% endfor %}
-        {% for c in recommend_park %}
-            <img src="{{ MEDIA_URL }}/default.png">{{ c.name }}{{ c.area1 }}
-            {% autoescape off %}
-                {{ c.descs }}
-            {% endautoescape %}
-        {% endfor %}
-        {% for c in recommend_financial %}
-            <img src="{{ MEDIA_URL }}/default.png">{{ c.name }}{{ c.area1 }}
-            {% autoescape off %}
-                {{ c.descs }}
-            {% endautoescape %}
-        {% endfor %}
-    </section>
+                    <div class="rank-list">
+                        {% for c in recommend_couveuse %}
+                            <div class="rank-item">
+                                <div class="rank-row1">
+                                    <div class="img-box">
+                                        <img src="{{ MEDIA_URL }}{{ c.pic }}"/>
+                                    </div>
+                                    <div class="text-box">
+                                        <a href="/incubator/detail/{{ c.id }}/?type_id=0">{{ c.name }}</a> <span
+                                            class="level">{{ c.level }}</span>
+                                    </div>
+                                </div>
 
+                                <div class="rank-row2">
+                                    {% autoescape off %}
+                                        {{ c.descs }}
+                                    {% endautoescape %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="rank-box">
+                    <div class="rank-title">
+                        <span>本站十佳</span>
+                        <span>最具价值成果</span>
+                    </div>
+                    <div class="rank-list">
+                        {% for c in recommend_park %}
+                            <div class="rank-item">
+                                <div class="rank-row1">
+                                    <div class="img-box">
+                                        <img src="{{ MEDIA_URL }}{{ c.pic }}"/>
+                                    </div>
+                                    <div class="text-box">
+                                        <a href="/incubator/detail/{{ c.id }}/?type_id=1">{{ c.name }}</a> <span
+                                            class="level">{{ c.level }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="rank-row2">
+                                    {% autoescape off %}
+                                        {{ c.descs }}
+                                    {% endautoescape %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="rank-box">
+                    <div class="rank-title">
+                        <span>本站十佳</span>
+                        <span>最具价值成果</span>
+                    </div>
+                    <div class="rank-list">
+                        {% for c in recommend_financial %}
+                            <div class="rank-item">
+                                <div class="rank-row1">
+                                    <div class="img-box">
+                                        <img src="{{ MEDIA_URL }}{{ c.pic }}"/>
+                                    </div>
+                                    <div class="text-box">
+                                        <a href="/incubator/detail/{{ c.id }}/?type_id=2">{{ c.name }}</a> <span
+                                            class="level">{{ c.level }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="rank-row2">
+                                    {% autoescape off %}
+                                        {{ c.descs }}
+                                    {% endautoescape %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
 
 {% endblock %}
 {% block custom_js %}

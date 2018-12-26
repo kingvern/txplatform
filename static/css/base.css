@@ -84,16 +84,16 @@
     padding-left: 10px;
 }
 
-.search-bar .search-bar-box {
+.search-bar-box {
     margin: 12px 15px;
     width: 350px;
 }
 
-.search-bar .search-bar-box input{
+.search-bar-box input{
     border: none;
 }
 
-.search-bar .search-bar-box .search-bar-btn {
+.search-bar-box .search-bar-btn {
     color: white;
     background: linear-gradient(45deg, #58C8F8 0%, #4763F6 100%);
     border: none;

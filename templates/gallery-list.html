@@ -40,81 +40,88 @@
     </section>
 
     {#内容#}
-    <section class="container module">
-        {#展会列表#}
-        <div class="filted-content">
-            <div class="gallery-list">
-                {% for gallery in gallery.object_list %}
-                    <div class="gallery-item">
-                        <img class="center-block" src="{{ MEDIA_URL }}{{ gallery.pic }}"/>
-                        <span class="gallery-item-title"><a
-                                href="/gallery/detail/{{ gallery.id }}/">{{ gallery.name }}</a></span>
-                        <span class="gallery-item-source">活动时间：{{ gallery.time_begin }}-{{ gallery.time_end }} </span>
-                        <span
-                                class="gallery-item-time">活动时间：{{ gallery.addr }}</span>
-                        <span
-                                class="gallery-item-time">简介：{{ gallery.descs }}</span>
-                        {% if gallery.has_fav %}
-                            <span id="{{ gallery.id }}" type_id="6"
-                                  class="module-item-btn-faved fav">取消收藏</span>
+    <section class="container">
+        <div class="row">
+            <div class="module col-md-9">
+                <div class="module-list">
+                    {% for gallery in gallery.object_list %}
+                        <div class="module-item-box">
+
+                            <div class="module-item-img-box">
+                                <img class="center-block" src="{{ MEDIA_URL }}{{ gallery.pic }}"/>
+                            </div>
+                            <div class="module-item-text">
+                                <p class="title"><a
+                                        href="/gallery/detail/{{ gallery.id }}/">{{ gallery.name }}</a></p>
+                                <p class="content">活动时间：{{ gallery.time_begin }}-{{ gallery.time_end }} </p>
+                                <p
+                                        class="content">活动时间：{{ gallery.addr }}</p>
+                                <p
+                                        class="content">简介：{{ gallery.descs }}</p>
+                            </div>
+
+                            <div class="module-item-btn-box">
+                                {% if gallery.has_fav %}
+                                    <span id="{{ gallery.id }}" type_id="6"
+                                          class="module-item-btn-faved fav">取消收藏</span>
+                                {% else %}
+                                    <span id="{{ gallery.id }}" type_id="6" class="module-item-btn fav">收藏</span>
+                                {% endif %}
+
+                                <span class="module-item-btn ask">咨询</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <nav class="page-position">
+                    <ul class="pagination ">
+                        {% if gallery.has_previous %}
+                            <li>
+                                <a href="?department={{ department_id }}&province={{ province_id }}&page={{ gallery.previous_page_number }}"
+                                   class="prev">&lsaquo;&lsaquo; </a></li>
                         {% else %}
-                            <span id="{{ gallery.id }}" type_id="6" class="module-item-btn fav">收藏</span>
+                            <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>
                         {% endif %}
-                    </div>
-                {% endfor %}
-            </div>
-
-        </div>
-        <nav class="page-position">
-            <ul class="pagination ">
-                {% if gallery.has_previous %}
-                    <li>
-                        <a href="?department={{ department_id }}&province={{ province_id }}&page={{ gallery.previous_page_number }}"
-                           class="prev">&lsaquo;&lsaquo; </a></li>
-                {% else %}
-                    <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>
-                {% endif %}
-                {% for page in gallery.pages %}
-                    {% if page %}
-                        {% ifequal page gallery.number %}
-                            <li><span class="current page">{{ page }}</span></li>
+                        {% for page in gallery.pages %}
+                            {% if page %}
+                                {% ifequal page gallery.number %}
+                                    <li><span class="current page">{{ page }}</span></li>
+                                {% else %}
+                                    <li>
+                                        <a href="?department={{ department_id }}&province={{ province_id }}&page={{ page }}"
+                                           class="page">{{ page }}</a>
+                                    </li>
+                                {% endifequal %}
+                            {% else %}
+                                <li class="disabled"><span>...</span></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if gallery.has_next %}
+                            <li>
+                                <a href="?department={{ department_id }}&province={{ province_id }}&page={{ gallery.next_page_number }}"
+                                   class="next">
+                                    &rsaquo;&rsaquo;</a></li>
                         {% else %}
-                            <li><a href="?department={{ department_id }}&province={{ province_id }}&page={{ page }}"
-                                   class="page">{{ page }}</a>
-                            </li>
-                        {% endifequal %}
-                    {% else %}
-                        <li class="disabled"><span>...</span></li>
-                    {% endif %}
-                {% endfor %}
-                {% if gallery.has_next %}
-                    <li>
-                        <a href="?department={{ department_id }}&province={{ province_id }}&page={{ gallery.next_page_number }}"
-                           class="next">
-                            &rsaquo;&rsaquo;</a></li>
-                {% else %}
-                    <li><span class="disabled next"> &rsaquo;&rsaquo;</span></li>
-                {% endif %}
-            </ul>
-        </nav>
-
-        <div class="filted-content">
-            <div class="gallery-list">
-                {% for gallery in latest_gallery %}
-                    <div class="gallery-item">
-                        <img class="center-block" src="{{ MEDIA_URL }}{{ gallery.pic }}"/>
-                        <span class="gallery-item-title"><a
-                                href="/gallery/detail/{{ gallery.id }}/">{{ gallery.name }}</a></span>
-                        <span class="gallery-item-source">活动时间：{{ gallery.time_begin }}-{{ gallery.time_end }} </span>
-                        <span
-                                class="gallery-item-time">活动时间：{{ gallery.addr }}</span>
-                        <span
-                                class="gallery-item-time">简介：{{ gallery.descs }}</span>
-                    </div>
-                {% endfor %}
+                            <li><span class="disabled next"> &rsaquo;&rsaquo;</span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
 
-        </div>
+            <div class="col-md-3">
+                <div class="section">
+                <span class="title">活动回顾</span>
+                    {% for gallery in latest_gallery %}
+                        <div class="gallery-item">
+                            <img class="center-block" src="{{ MEDIA_URL }}{{ gallery.pic }}"/>
+                            <span class="gallery-item-title"><a
+                                    href="/gallery/detail/{{ gallery.id }}/">{{ gallery.name }}</a></span>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
 
     </section>
 

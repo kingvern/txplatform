@@ -4,7 +4,7 @@
     align-items: flex-end;
 }
 
-.incubator-box .incubator-item img {
+.incubator-box .incubator-cat img {
     width: 100%;
     height: 100%;
 }
@@ -36,3 +36,117 @@
     bottom: 42px;
     left: 24px;
 }
+
+.incubator-content {
+    margin: -1px 0 0 0;
+    padding: 0px 16px;
+    border: #d2d2d2 1px solid;
+}
+
+.incubator-item {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px #a5a5a5 dashed;
+}
+
+.incubator-item .img-box {
+    width: 30%;
+}
+
+.incubator-item .img-box img {
+    width: 100%;
+}
+
+.incubator-item .text-box {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    align-items: flex-start;
+}
+
+.incubator-item .text-box .title a {
+    color: black;
+    font-size: 21px;
+    line-height: 45px;
+}
+
+.incubator-item .text-box .level {
+    font-size: 20px;
+    background: #5B97F7;
+    color: white;
+    padding: 0px 0px;
+    display: inline-block;
+    margin-left: 7px;
+    border-radius: 8px;
+}
+
+.incubator-item .text-box .address {
+    font-size: 18px;
+    background: #CBCBCB;
+    color: white;
+    padding: 0px 8px;
+    border-radius: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.incubator-item .text-box .detail {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    width: 100%;
+    font-size: 16px;
+}
+
+.rank-item{
+    padding: 5px 7px !important;
+}
+
+.rank-row1{
+        display: flex;
+    flex-direction: row;
+}
+
+.rank-row1 .img-box{
+    width: 100px;
+}
+
+.rank-row1 .img-box img{
+    width: 100%;
+}
+
+.rank-row1 .text-box{
+    width: 160px;
+        font-size: 16px;
+    line-height: 20px;
+    margin-left: 6px;
+}
+
+.rank-row1 .text-box .level {
+    background: #5B97F7;
+    color: white;
+    padding: 0px 0px;
+    display: inline-block;
+    margin-left: 0px;
+    border-radius: 8px;
+}
+
+.rank-row2 {
+        overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    width: 100%;
+    font-size: 14px;
+    color: #8F8F8F;
+    line-height: 19px;
+    height: 73px;
+    margin-top: 7px;
+}
+

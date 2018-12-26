@@ -1,0 +1,98 @@
+.carousel {
+
+    height: 380px;
+}
+
+.carousel img {
+    width: 100%;
+    height: 380px !important;
+    margin: 0 auto;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    background: #FCFCFC;
+    height: 380px;
+    justify-content: flex-start;
+    margin-left: 37px;
+    border: 1px #E5E5E5 solid;
+}
+
+.section .title {
+    text-align: center;
+    font-size: 1.6em;
+    background: #F5F5F5;
+    line-height: 48px;
+}
+
+.section a {
+    padding: 18px 0 0 31px;
+    font-size: 1.2em;
+    color: #333333;
+}
+
+.club-title {
+    font-size: 1.3em;
+    padding-bottom: 6px;
+    border-bottom: 4px #205CA6 solid;
+}
+
+.club-logo-list {
+display: flex;
+}
+
+.club-logo-list .club-logo-item {
+    width: 180px;
+    height: 90px;
+    margin: 20px 40px 20px 0;
+    border: 1px #b9b9b9 solid;
+}
+
+.club-logo-list .club-logo-item img {
+    width: 100%;
+    height: 100%;
+}
+
+.club-resource-list {
+    background: #F8F8F8;
+    padding: 3px 16px;
+    margin: 20px 0 80px 0;
+}
+
+.club-resource-list .club-resource-item {
+border-bottom: 1px #E3E3E3 dashed;
+    display: flex;
+    justify-content: space-between;
+}
+
+.club-resource-list .club-resource-item span {
+
+}
+
+.club-resource-list .club-resource-item a {
+color: #7D7D7D;
+    text-decoration: underline;
+}
+
+
+.club-banner-module {
+    font-size: 18px !important;
+    line-height: 40px !important;
+}
+
+.club-banner-content {
+    text-indent: 35px;
+}
+
+.module-content {
+    border: #b7b7b7 1px solid;
+    padding: 26px 128px;
+    color: #4d4d4d;
+    margin: 0 0 30px 0;
+}
+
+.club-content{
+
+    padding: 20px 0;
+}

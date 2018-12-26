@@ -114,7 +114,7 @@
     {% ifequal '/club' request.path|slice:":5" %}{% url 'club:home' %}{% endifequal %}">
 
             <div class="input-group search-bar-box">
-                <input type="text" class="form-control" name="keywords" placeholder="Search for..."
+                <input type="text" class="form-control" name="keywords" placeholder="{% ifequal '/policy' request.path|slice:":7" %}搜索政策{% endifequal %}{% ifequal '/patent' request.path|slice:":7" %}搜索专利{% endifequal %}{% ifequal '/project' request.path|slice:":8" %}搜索项目{% endifequal %}{% ifequal '/incubator' request.path|slice:":10" %}搜索孵化器{% endifequal %}{% ifequal '/gallery' request.path|slice:":8" %}搜索展会{% endifequal %}{% ifequal '/club' request.path|slice:":5" %}搜索俱乐部{% endifequal %}"
                        value="{{ keywords }}">
                 <span class="input-group-btn">
                     <button class="btn search-bar-btn" type="submit">查找</button>

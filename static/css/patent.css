@@ -49,6 +49,10 @@
     margin-bottom: 20px;
 }
 
+.detail-module .detail-content{
+    min-height: 500px;
+}
+
 .recommend-module {
     background: #F5F5F5;
 }
