@@ -7,4 +7,4 @@ from .models import Member
 class AddMemberForm(forms.ModelForm):
     class Meta:
         model = Member
-        exclude = ['user','status', 'note', 'add_time']
+        exclude = ['user', 'status', 'note', 'add_time']

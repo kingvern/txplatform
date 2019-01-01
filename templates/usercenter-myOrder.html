@@ -70,7 +70,7 @@
                     <td>技术项目</td>
                     <td>{{ patent_order.get_step_display }}</td>
                     <td>
-                        <a>合同下载</a></td>
+                        <a href="operation/get_order_pdf/?order_id={{ patent_order.id }}">合同下载</a></td>
                     <td><span data-toggle="modal"
                               data-target="#myModal2{{ patent_order.id }}">{{ patent_order.staff.username }}</span>
                     </td>

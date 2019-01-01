@@ -1,10 +1,12 @@
 # _*_ coding: utf-8 _*_
 import json
+from datetime import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import View
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from club.models import Banner, Section, Member, Resource
 from .forms import AddMemberForm
@@ -38,22 +40,20 @@ class DetailView(View):
 
 class AddMemberView(LoginRequiredMixin, View):
     def get(self, request):
+        add_member_form = AddMemberForm(instance=request.user)
         return render(request, "club-join.html", {
-
+            'add_member_form':add_member_form
         })
 
     def post(self, request):
-        add_member_form = AddMemberForm(request.POST, request.FILES, )
+        add_member_form = AddMemberForm(request.POST, request.FILES, instance=request.user)
         if add_member_form.is_valid():
             member = add_member_form.save(commit=False)
             member.user = request.user
             member.save()
-            return HttpResponse(
-                '{"status":"success"}',
-                content_type='application/json')
+            return HttpResponseRedirect(reverse('club:home'))
         else:
             # 通过json的dumps方法把字典转换为json字符串
-            return HttpResponse(
-                json.dumps(
-                    add_member_form.errors),
-                content_type='application/json')
+            return render(request, "club-join.html", {
+                'add_member_form': add_member_form
+            })

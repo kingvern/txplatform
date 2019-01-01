@@ -5,12 +5,14 @@
 {% block content %}
 
     <form action="/login/" method="post">
+
         <div class="login-box">
 
-            <div class="login-img-box">
+            <a href="/" class="login-img-box">
                 <img src="{% static 'img/login-bg.png' %}"/>
-            </div>
+            </a>
             <div class="login-form-box">
+{#                <a class="back-to-index" href="/">回到首页</a>#}
                 <div class="login-form-logo">
                     <span class="logo-text">会员登录</span>
                     <img src="{% static 'img/login-logo.png' %}"/>

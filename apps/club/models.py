@@ -23,8 +23,8 @@ class Banner(models.Model):
         verbose_name = '头条'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
-        return str(self.title)
+    def __str__(self):
+        return self.title
 
 
 class Section(models.Model):
@@ -40,13 +40,13 @@ class Section(models.Model):
         verbose_name = '分节'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
-        return str(self.title)
+    def __str__(self):
+        return self.title
 
 
 class Member(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'成员名', default='')
-    user = models.ForeignKey(UserProfile, default='', verbose_name=u'申请人')
+    user = models.ForeignKey(UserProfile,on_delete=models.CASCADE,  default='', verbose_name=u'申请人')
     field = models.CharField(max_length=100, verbose_name=u'行业领域', default='')
 
     logo = models.ImageField(upload_to='image/%Y/%m', default='image/default.png', max_length=100,blank=True,
@@ -61,8 +61,8 @@ class Member(models.Model):
         verbose_name = '成员管理'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
-        return str(self.name)
+    def __str__(self):
+        return self.name
 
 
 class Resource(models.Model):
@@ -79,5 +79,5 @@ class Resource(models.Model):
         verbose_name = u"资源"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
-        return str(self.name)
+    def __str__(self):
+        return self.name

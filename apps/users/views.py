@@ -1,7 +1,7 @@
 # _*_ encoding:utf-8 _*_
 import json
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
@@ -12,7 +12,7 @@ from django.contrib.auth.hashers import make_password
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from operation.models import UserFavorite, UserMessage, BuyerPatent, BuyerProject
-from policy.models import Policy
+from policy.models import Policy, Banner
 from project.models import Project
 from patent.models import Patent
 from incubator.models import Couveuse, Park, Financial
@@ -463,15 +463,17 @@ class IndexView(View):
 
     def get(self, request):
         project = Project.objects.all().order_by('-click_num')[:6]
+        bar_pic = Banner.objects.filter(if_toutiao=True)[:1][0]
 
         patent_bar = Patent.objects.all().order_by('-click_num')[:10]
         patent_0 = Patent.objects.all().filter(patent_category='fmzl')[:12]
         patent_1 = Patent.objects.all().filter(patent_category='syxxzl')[:12]
         patent_2 = Patent.objects.all().filter(patent_category='wgzl')[:12]
 
-        policy = Policy.objects.all().filter(source_id='51')[:10]
+        policy = Policy.objects.all().filter(Q(source__if_show=True) & Q(addr__if_show=True) & Q(source_id='51'))[:10]
 
         return render(request, 'index.html', {
+            "bar_pic": bar_pic,
             "patent_bar": patent_bar,
             "patent_0": patent_0,
             "patent_1": patent_1,

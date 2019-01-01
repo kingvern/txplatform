@@ -19,7 +19,7 @@ class PolicyHomeView(View):
         banner_main = Banner.objects.filter(if_toutiao=True)[:1][0]
         banners = Banner.objects.filter(if_show=True)[1:4]
 
-        policy = Policy.objects.order_by('-pubDate')[:20]
+        policy = Policy.objects.filter(Q(source__if_show=True) & Q(addr__if_show=True)).order_by('-pubDate')[:20]
 
         return render(request, 'policy-home.html', {
             'banner_main': banner_main,
@@ -34,7 +34,7 @@ class PolicyListView(View):
         provinces = Province.objects.all()
         all_department = Department.objects.all()
 
-        policy = all_policy
+        policy = all_policy.filter(Q(source__if_show=True) & Q(addr__if_show=True))
 
         main = '0'
         mains = [u'中央', u'北京', u'天津', u'河北']
@@ -69,7 +69,7 @@ class PolicyListView(View):
 
         for policy_ in policy_data.object_list:
             policy_.has_fav = False
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 if UserFavorite.objects.filter(user=request.user, fav_id=policy_.id, fav_type=0):
                     policy_.has_fav = True
 
@@ -87,7 +87,7 @@ class PolicyListView(View):
 
 class SearchView(View):
     def get(self, request):
-        policy = Policy.objects.all()
+        policy = Policy.objects.all().filter(Q(source__if_show=True) & Q(addr__if_show=True))
         search_keywords = request.GET.get('keywords', '')
         if search_keywords:
             policy = policy.filter(Q(title__icontains=search_keywords) | Q(info__icontains=search_keywords))
@@ -106,7 +106,7 @@ class SearchView(View):
 
         for policy_ in policy_data.object_list:
             policy_.has_fav = False
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 if UserFavorite.objects.filter(user=request.user, fav_id=policy_.id, fav_type=0):
                     policy_.has_fav = True
         return render(request, 'policy-search.html', {
@@ -115,6 +115,12 @@ class SearchView(View):
             'click_num': click_num,
             'policy': policy_data,
         })
+
+
+class RecordTimeView(View):
+    def get(self, request):
+        policy = Policy.objects.order_by('-pubDate')[0]
+        return HttpResponse(policy.pubDate, content_type='application/json')
 
 
 class PolicyDetailView(View):
@@ -129,7 +135,7 @@ class PolicyDetailView(View):
         has_fav_policy = False
 
         # 必须是用户已登录我们才需要判断。
-        # if request.user.is_authenticated():
+        # if request.user.is_authenticated:
         #     if UserFavorite.objects.filter(user=request.user, fav_id=policy.policy_id, fav_type=1):
         #         has_fav_policy = True
         return render(request, "policy-detail.html", {
@@ -150,7 +156,7 @@ class PolicyBannerView(View):
         has_fav_banner = False
 
         # 必须是用户已登录我们才需要判断。
-        # if request.user.is_authenticated():
+        # if request.user.is_authenticated:
         #     if UserFavorite.objects.filter(user=request.user, fav_id=banner.id, fav_type=1):
         #         has_fav_banner = True
         return render(request, "policy-banner.html", {

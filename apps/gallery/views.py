@@ -1,4 +1,5 @@
 # _*_ coding: utf-8 _*_
+from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
@@ -12,12 +13,15 @@ from operation.models import UserFavorite, UserJoin
 
 class ListView(View):
     def get(self, request):
-        type_id = request.GET.get('type_id', '0')
 
         all_gallery = Gallery.objects.all()
         latest_gallery = Gallery.objects.order_by('-time_end')[:2]
 
         type = request.GET.get('type', '')
+
+        keywords = request.GET.get('keywords', '')
+        if keywords:
+            all_gallery = all_gallery.filter(Q(name__icontains=keywords) | Q(descs__icontains=keywords))
 
         if type:
             all_gallery = all_gallery.filter(type=type)
@@ -32,7 +36,7 @@ class ListView(View):
         gallery = p.page(page)
 
         return render(request, 'gallery-list.html', {
-            'type_id': type_id,
+            'keywords': keywords,
             'gallery': gallery,
             'type': type,
             'latest_gallery': latest_gallery

@@ -156,9 +156,15 @@
     margin: 12px;
     overflow: hidden;
 }
+.module-list .module-item-box .module-item-img-box img{
+    width: 100%;
+    height: 100%;
+}
+
 
 .module-list .module-item-box .module-item-img-box .module-item-img {
     width: 100%;
+    height: 100%;
 }
 
 .module-list .module-item-box .module-item-text {
@@ -387,4 +393,9 @@
 
 #qr {
     width: 431px;
+}
+
+a:hover {
+
+    text-decoration: none !important;
 }

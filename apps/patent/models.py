@@ -14,7 +14,7 @@ from DjangoUeditor.models import UEditorField
 
 class Patent(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'专利名', default='')
-    seller = models.ForeignKey(UserProfile, default='', verbose_name=u'卖家')
+    seller = models.ForeignKey(UserProfile,on_delete=models.CASCADE,  default='', verbose_name=u'卖家')
     patent_id = models.CharField(max_length=100, verbose_name=u'专利申请号', default='')
     field_category = models.CharField(max_length=100, choices=(
         ('0', u'食品饮料'), ('1', u'建筑建材'), ('2', u'家居用品'), ('3', u'轻工纺织'), ('4', u'化学化工'), ('5', u'新能源'), ('6', u'机械'),
@@ -66,5 +66,12 @@ class Patent(models.Model):
         verbose_name = '专利商品信息'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if self.shop_status == '1':
+            self.if_show = True
+        else:
+            self.if_show = False
+        super(self.__class__, self).save(*args, **kwargs)

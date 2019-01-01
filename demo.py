@@ -58,7 +58,7 @@ def searchFunction(browser, url, dirPath):
 
 
 if __name__ == '__main__':
-    print 'START'
+    print('START')
     url = 'http://www.jszyfw.com/grabNoti/'
     dirPath = u"policyData"
 
@@ -70,4 +70,4 @@ if __name__ == '__main__':
     searchFunction(browser, url, dirPath)
 
     browser.close()
-    print 'END'
+    print('END')

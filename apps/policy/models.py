@@ -18,7 +18,7 @@ class Province(models.Model):
         verbose_name = u'行政级别'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -30,15 +30,15 @@ class Department(models.Model):
         verbose_name = u'部门'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
 class Policy(models.Model):
     title = models.CharField(max_length=100, default='', verbose_name=u'政策名')
     policy_id = models.CharField(max_length=20, default='', verbose_name=u'政策ID')
-    addr = models.ForeignKey(Province, verbose_name=u'所属行政')
-    source = models.ForeignKey(Department, verbose_name=u'所属部门')
+    addr = models.ForeignKey(Province,on_delete=models.CASCADE,  verbose_name=u'所属行政')
+    source = models.ForeignKey(Department,on_delete=models.CASCADE,  verbose_name=u'所属部门')
     info = models.TextField(verbose_name=u'政策详情')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
@@ -49,7 +49,7 @@ class Policy(models.Model):
         verbose_name = '政策信息'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -69,7 +69,7 @@ class Banner(models.Model):
         verbose_name = '平台新闻'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -89,5 +89,5 @@ class Chart(models.Model):
         verbose_name = '图表信息'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title

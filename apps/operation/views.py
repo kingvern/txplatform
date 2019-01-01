@@ -1,12 +1,14 @@
 # _*_ coding: utf-8 _*_
-import datetime
-
-from django.core.urlresolvers import reverse
+from datetime import datetime
+import weasyprint
+from django.template.loader import render_to_string
+from django.urls import reverse
 from django.shortcuts import render
 from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 
+from platorm import settings
 from .models import Patent
 from operation.models import UserFavorite, UserJoin, BuyerPatent, BuyerProject
 from policy.models import Policy
@@ -18,7 +20,8 @@ from .forms import AddOrderForm
 from users.models import UserProfile
 from platorm.settings import APIKEY
 
-
+# import locale
+# locale.getdefaultlocale()
 # Create your views here.
 
 class AddFavView(View):
@@ -35,7 +38,7 @@ class AddFavView(View):
 
         # 收藏与已收藏取消收藏
         # 判断用户是否登录:即使没登录会有一个匿名的user
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             # 未登录时返回json提示未登录，跳转到登录页面是在ajax中做的
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
         exist_records = UserFavorite.objects.filter(user=request.user, fav_id=int(id), fav_type=int(type))
@@ -48,7 +51,7 @@ class AddFavView(View):
                 if policy.fav_num < 0:
                     policy.fav_num = 0
                 policy.save()
-            if int(type) == 1:
+            elif int(type) == 1:
                 patent = Patent.objects.get(id=int(id))
                 patent.fav_num -= 1
                 if patent.fav_num < 0:
@@ -143,7 +146,7 @@ class AddJoinView(View):
 
         # 收藏与已收藏取消收藏
         # 判断用户是否登录:即使没登录会有一个匿名的user
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             # 未登录时返回json提示未登录，跳转到登录页面是在ajax中做的
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
         exist_records = UserJoin.objects.filter(user=request.user, join_id=int(id), join_type=int(type))
@@ -185,7 +188,7 @@ class CancelPublishView(View):
         type = request.POST.get('type', 0)
 
         # 判断用户是否登录:即使没登录会有一个匿名的user
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             # 未登录时返回json提示未登录，跳转到登录页面是在ajax中做的
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
 
@@ -236,7 +239,7 @@ class DeletePublishView(View):
         type = request.POST.get('type', 0)
 
         # 判断用户是否登录:即使没登录会有一个匿名的user
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             # 未登录时返回json提示未登录，跳转到登录页面是在ajax中做的
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
 
@@ -293,7 +296,7 @@ class OrderView(View):
         """
         id = request.POST.get('id', 0)
         type = request.POST.get('type', 1)
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             # 未登录时返回json提示未登录，跳转到登录页面是在ajax中做的
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
         if int(type) == 1:
@@ -370,13 +373,13 @@ class CancelOrderView(View):
         type = request.POST.get('type', 0)
 
         # 判断用户是否登录:即使没登录会有一个匿名的user
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             # 未登录时返回json提示未登录，跳转到登录页面是在ajax中做的
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
         if int(type) == 1:
             order = BuyerPatent.objects.get(id=int(id))
             order.step = '-1'
-            order.step_time = datetime.datetime.now()
+            order.step_time = datetime.now()
             order.save()
             return HttpResponse('{"status":"success", "msg":"上架"}', content_type='application/json')
         elif int(type) == 2:
@@ -402,7 +405,7 @@ class DeleteOrderView(View):
         type = request.POST.get('type', 0)
 
         # 判断用户是否登录:即使没登录会有一个匿名的user
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             # 未登录时返回json提示未登录，跳转到登录页面是在ajax中做的
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
 
@@ -432,7 +435,7 @@ class AskView(View):
 
         # 收藏与已收藏取消收藏
         # 判断用户是否登录:即使没登录会有一个匿名的user
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             # 未登录时返回json提示未登录，跳转到登录页面是在ajax中做的
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
         exist_records = UserJoin.objects.filter(user=request.user, id=int(id), type=int(type))
@@ -463,18 +466,17 @@ class AskView(View):
 
 
 class GetOrderPDF(View):
-    def get(self, order_id):
-        pass
-#         order = BuyerPatent.objects.get(id=order_id)
-#         # 渲染
-#         html = render_to_string('pdf.html',
-#                                 {'order': order})
-#         # 构造response
-#         response = HttpResponse(content_type='application/pdf')
-#         response['Content-Disposition'] = 'filename=\
-#               "order_{}.pdf"'.format(order.id)
-#         # 写入
-#         weasyprint.HTML(string=html).write_pdf(response,
-#                                                stylesheets=[weasyprint.CSS(
-#                                                    settings.STATIC_ROOT + 'css/pdf.css')])
-#         return response
+    def get(self, request):
+        # pass
+        order_id = request.GET.get('order_id', 0)
+        order = BuyerPatent.objects.get(id=order_id)
+        # 渲染
+        html = render_to_string('ordercontract.html',
+                                {'order': order})
+        # 构造response
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename=\
+              "order_{}.pdf"'.format(order.id)
+        # 写入
+        weasyprint.HTML(string=html, encoding='utf-8').write_pdf(response)
+        return response

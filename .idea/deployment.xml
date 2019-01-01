@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="root@47.94.160.142:22 (1)" showNewOnTargetInSync="false" showExcludedInSync="true">
+  <component name="PublishConfigData" autoUpload="Always" serverName="root@47.95.10.33:22" showNewOnTargetInSync="false" showExcludedInSync="true">
     <serverData>
       <paths name="root@47.94.160.142:22">
         <serverdata>
@@ -13,6 +13,24 @@
         <serverdata>
           <mappings>
             <mapping deploy="/root" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@47.95.10.33">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/www" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/venv" />
+            <excludedPath local="true" path="$PROJECT_DIR$/requirements.txt" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="root@47.95.10.33:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/www" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

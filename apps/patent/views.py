@@ -1,7 +1,7 @@
 # _*_ coding: utf-8 _*_
 import json
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import View
@@ -17,7 +17,8 @@ from operation.models import UserFavorite
 
 class PatentListView(View):
     def get(self, request):
-        all_patent = Patent.objects.filter(if_show=True)
+        all_patent = Patent.objects.all().filter(if_show=False)
+        # all_patent = Patent.objects.filter(if_show=True)
         field_category = request.GET.get('field_category', '')
         patent_category = request.GET.get('patent_category', '')
         price_down = request.GET.get('price_down', '')
@@ -76,9 +77,9 @@ class PatentListView(View):
         # patents_=[]
 
         for patent_ in patent.object_list:
-            # if not request.user.is_authenticated():
+            # if not request.user.is_authenticated:
             patent_.has_fav = False
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 if UserFavorite.objects.filter(user=request.user, fav_id=patent_.id, fav_type=1):
                     patent_.has_fav = True
         #     patents_.append(patent_)
@@ -101,13 +102,16 @@ class PatentListView(View):
 class SearchView(View):
     def get(self, request):
         patent = Patent.objects.all()
+
+        newest_patent = Patent.objects.order_by('-add_time')[:10]
+
         search_keywords = request.GET.get('keywords', '')
         if search_keywords:
             patent = patent.filter(Q(name__icontains=search_keywords) | Q(detail__icontains=search_keywords))
         pubDate = request.GET.get('pubDate', "")
         click_num = request.GET.get('click_num', "")
         if pubDate:
-            patent = patent.order_by("-pubDate")
+            patent = patent.order_by("-add_time")
         if click_num:
             patent = patent.order_by("-click_num")
         try:
@@ -119,10 +123,11 @@ class SearchView(View):
 
         for patent_ in patent_data.object_list:
             patent_.has_fav = False
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 if UserFavorite.objects.filter(user=request.user, fav_id=patent_.id, fav_type=0):
                     patent_.has_fav = True
         return render(request, 'patent-search.html', {
+            'newest_patent': newest_patent,
             'keywords': search_keywords,
             'pubDate': pubDate,
             'click_num': click_num,
@@ -143,7 +148,7 @@ class PatentDetailView(View):
         patent.is_owner = False
 
         # 必须是用户已登录我们才需要判断。
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user, fav_id=patent.id, fav_type=1):
                 patent.has_fav = True
             if request.user == patent.seller:

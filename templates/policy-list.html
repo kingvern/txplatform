@@ -97,11 +97,11 @@
                         <span class="policy-item-source">{{ policy.addr }}{{ policy.source }} </span><span
                             class="policy-item-time">{{ policy.pubDate }}</span>
 
-                        {% if policy.has_fav %}
-                            <span id="{{ policy.id }}" class="module-item-btn-faved fav">取消收藏</span>
-                        {% else %}
-                            <span id="{{ policy.id }}" class="module-item-btn fav">收藏</span>
-                        {% endif %}
+{#                        {% if policy.has_fav %}#}
+{#                            <span id="{{ policy.id }}" class="module-item-btn-faved fav">取消收藏</span>#}
+{#                        {% else %}#}
+{#                            <span id="{{ policy.id }}" class="module-item-btn fav">收藏</span>#}
+{#                        {% endif %}#}
                     </div>
                 {% endfor %}
             </div>

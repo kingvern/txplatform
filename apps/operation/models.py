@@ -12,7 +12,7 @@ from project.models import Project
 # Create your models here.
 
 class UserAsk(models.Model):
-    user = models.ForeignKey(UserProfile, verbose_name=u'用户', null=True)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name=u'用户', null=True)
     fav_id = models.IntegerField(default=0, verbose_name=u'数据ID')
     fav_type = models.IntegerField(choices=((0, u'政策'), (1, u'专利'), (2, u'项目'), (3, u'其他慢慢加')), default=1,
                                    verbose_name=u'数据类别')
@@ -24,7 +24,7 @@ class UserAsk(models.Model):
 
 
 class UserFavorite(models.Model):
-    user = models.ForeignKey(UserProfile, verbose_name=u'用户')
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name=u'用户')
     fav_id = models.IntegerField(default=0, verbose_name=u'数据ID')
     fav_type = models.IntegerField(
         choices=((0, u'政策'), (1, u'专利'), (2, u'项目'), (3, u'孵化器'), (4, u'科技园区'), (5, u'金融机构'), (6, u'展会'), (7, u'展会点赞')),
@@ -38,7 +38,7 @@ class UserFavorite(models.Model):
 
 
 class UserJoin(models.Model):
-    user = models.ForeignKey(UserProfile, verbose_name=u'用户')
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name=u'用户')
     join_id = models.IntegerField(default=0, verbose_name=u'数据ID')
     join_type = models.IntegerField(choices=((0, u'政策'), (1, u'专利'), (2, u'项目'), (3, u'展会')), default=1,
                                     verbose_name=u'数据类别')
@@ -61,12 +61,13 @@ class UserMessage(models.Model):
 
 
 class BuyerPatent(models.Model):
-    buyer = models.ForeignKey(UserProfile, verbose_name=u'买家', related_name='patent_buyer_set')
+    buyer = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name=u'买家',
+                              related_name='patent_buyer_set')
     order_name = models.CharField(max_length=100, default='', verbose_name=u'单位名称')
     order_address = models.CharField(max_length=100, default='', verbose_name=u'地址')
     order_contact = models.CharField(max_length=100, default='', verbose_name=u'联系人')
     order_mobile = models.CharField(max_length=11, default='', verbose_name=u'手机')
-    patent = models.ForeignKey(Patent, verbose_name=u'专利')
+    patent = models.ForeignKey(Patent, on_delete=models.CASCADE, verbose_name=u'专利')
     base_price = models.IntegerField(default=0, verbose_name=u'基础费')
     serve_fee = models.IntegerField(default=0, verbose_name=u'服务费')
     total_price = models.IntegerField(default=0, verbose_name=u'总费')
@@ -89,7 +90,8 @@ class BuyerPatent(models.Model):
     step_time = models.DateTimeField(default=datetime.now, verbose_name=u'阶段时间')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
-    staff = models.ForeignKey(UserProfile, blank=True, null=True, verbose_name=u'业务员', related_name='patent_staff_set')
+    staff = models.ForeignKey(UserProfile, on_delete=models.CASCADE, blank=True, null=True, verbose_name=u'业务员',
+                              related_name='patent_staff_set')
 
     def get_seller_username(self):
         return self.patent.seller.username
@@ -101,49 +103,21 @@ class BuyerPatent(models.Model):
 
     get_seller_mobile.short_description = "卖家手机号"
 
-    # def recieve_order(self):
-    #     from django.utils.safestring import mark_safe
-    #     # mark_safe禁止转义
-    #     return mark_safe('<a  href="javascript:void(0);" onclick="a=$(this).parent().parent();alert(\'你真TM吵\'+a)">接单</a>')
-    #
-    # recieve_order.short_description = "操作"
-
-    # def save(self, force_insert=False, force_update=False, using=None,
-    #          update_fields=None):
-    #     self.step_time = datetime.now()
-    #     self.order_address = '23123113232231'
-    #     self.order_contact = '23123113232231'
-    #     if self.step == '-1':
-    #         self.patent.shop_status = 1
-    #         self.patent.save()
-    #     if self.step in ['0', '1', '2']:
-    #         self.patent.shop_status = 2
-    #         self.patent.save()
-    #     if self.step == '3':
-    #         self.patent.shop_status = 3
-    #         self.patent.save()
-    # def save_models(self):
-    #     self.step_time = datetime.now()
-    #     if self.step == '-1':
-    #         self.patent.shop_status = 1
-    #         self.patent.save()
-    #     if self.step in ['0', '1', '2']:
-    #         self.patent.shop_status = 2
-    #         self.patent.save()
-    #     if self.step == '3':
-    #         self.patent.shop_status = 3
-    #         self.patent.save()
-
     class Meta:
         verbose_name = '专利交易管理'
         verbose_name_plural = verbose_name
 
+    def save(self, *args, **kwargs):
+        self.step_time = datetime.now()
+        super(self.__class__, self).save(*args, **kwargs)
+
 
 class BuyerProject(models.Model):
-    buyer = models.ForeignKey(UserProfile, verbose_name=u'买家', related_name='project_buyer_set')
-    project = models.ForeignKey(Project, verbose_name=u'项目')
+    buyer = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name=u'买家',
+                              related_name='project_buyer_set')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name=u'项目')
     step = models.CharField(max_length=10, default='0', choices=(
-    ('0', u'等待支付定金'), ('1', u'平台合同签订'), ('2', u'三方协议签订'), ('3', u'履约完成'), ('-1', u'取消或终止')),
+        ('0', u'等待支付定金'), ('1', u'平台合同签订'), ('2', u'三方协议签订'), ('3', u'履约完成'), ('-1', u'取消或终止')),
                             verbose_name=u'订单阶段')
     step_time = models.DateTimeField(default=datetime.now, verbose_name=u'阶段时间')
     contract = models.FileField(
@@ -166,7 +140,8 @@ class BuyerProject(models.Model):
         max_length=100)
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
-    staff = models.ForeignKey(UserProfile, null=True, verbose_name=u'业务员', related_name='project_staff_set')
+    staff = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, verbose_name=u'业务员',
+                              related_name='project_staff_set')
 
     def get_seller_username(self):
         return self.project.seller.username

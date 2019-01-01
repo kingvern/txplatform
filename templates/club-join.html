@@ -3,86 +3,64 @@
 
 {% block title %}政策展示{% endblock %}
 {% block custom_css %}
-    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+    <link rel="stylesheet" href="{% static 'css/club.css' %}">
 {% endblock %}
 {% block custom_bread %}
 
     <section class="container">
         <ul class="breadcrumb">
             <li><a href="/">首页</a></li>
-            <li class="active">展会列表</li>
+            <li class="active">加入俱乐部</li>
         </ul>
     </section>
 {% endblock %}
 {% block content %}
+    <section class="container club-table-module">
+        <form action="{% url 'club:add_member' %}" method="post">
+            <table class="table table-nobordered club-table">
+                <tbody>
+                <tr>
+                    <td class="th">名称：</td>
+                    <td>
+                        <div class="input">
+                            {{ add_member_form.name }}
+                            <span>{{ add_member_form.errors.name.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">行业领域：</td>
+                    <td>
+                        <div class="input">
+                            {{ add_member_form.field }}
+                            <span>{{ add_member_form.errors.field.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">商标：</td>
+                    <td>
+                        <div class="input">
+                            {{ add_member_form.logo }}
+                            <span>{{ add_member_form.errors.logo.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
 
-    <form action="{% url 'club:add_member' %}" method="post">
-        <input name="name" type="text"/>
-        <input name="logo" type="file"/>
-        {% csrf_token %}
-        <button type="submit">提交</button>
-    </form>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="submit-btn">保存</button>
+                    </td>
+                    <td class="th"></td>
+                </tr>
+                </tbody>
+            </table>
+            {% csrf_token %}
+        </form>
 
-
+    </section>
 {% endblock %}
 {% block custom_js %}
-    <script type="text/javascript">
-        $(() => {
-            $(".mainTab").click(function () {
-                let tabId = $(this).attr("id");
-                console.log('tabId', tabId)
-                let chartClass = 'province'
-                let id = tabId.slice(7)
-                console.log("#" + chartClass + "-" + id)
-                $(this).parent().children().removeClass('filter-active')
-                $(this).addClass('filter-active')
-                $("." + chartClass).addClass('dispear')
-                $("#" + chartClass + id).removeClass('dispear')
-            })
 
-        });
-
-    </script>
-    <script type="text/javascript">
-        //收藏分享
-        function add_fav(current_elem, fav_id, fav_type) {
-            console.log(current_elem, fav_id, fav_type)
-            $.ajax({
-                cache: false,
-                type: "POST",
-                url: "{% url "operation:add_fav" %}",
-                data: {'fav_id': fav_id, 'fav_type': fav_type},
-                async: true,
-                beforeSend: function (xhr, settings) {
-                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-                },
-                success: function (data) {
-                    if (data.status == 'fail') {
-                        if (data.msg == '用户未登录') {
-                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
-                        } else {
-                            alert(data.msg)
-                        }
-
-                    } else if (data.status == 'success') {
-                        if (data.msg === '收藏') {
-                            current_elem.addClass('module-item-btn')
-                            current_elem.removeClass('module-item-btn-faved')
-                            current_elem.text(data.msg)
-                        } else {
-                            current_elem.addClass('module-item-btn-faved')
-                            current_elem.removeClass('module-item-btn')
-                            current_elem.text(data.msg)
-                        }
-                    }
-                },
-            });
-        }
-
-        $('.fav').on('click', function () {
-            add_fav($(this), $(this).attr('id'), $(this).attr('type_id'));
-        });
-
-
-    </script>
 {% endblock %}

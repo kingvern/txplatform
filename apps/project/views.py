@@ -1,7 +1,7 @@
 # _*_ coding: utf-8 _*_
 import json
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import View
@@ -64,7 +64,7 @@ class ProjectListView(View):
 
         for project_ in project.object_list:
             project_.has_fav = False
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 if UserFavorite.objects.filter(user=request.user, fav_id=project_.id, fav_type=2):
                     project_.has_fav = True
 
@@ -87,13 +87,16 @@ class ProjectListView(View):
 class SearchView(View):
     def get(self, request):
         project = Project.objects.all()
+
+        newest_project = project.order_by('-add_time')[:10]
+
         search_keywords = request.GET.get('keywords', '')
         if search_keywords:
             project = project.filter(Q(name__icontains=search_keywords) | Q(detail__icontains=search_keywords))
         pubDate = request.GET.get('pubDate', "")
         click_num = request.GET.get('click_num', "")
         if pubDate:
-            project = project.order_by("-pubDate")
+            project = project.order_by("-add_time")
         if click_num:
             project = project.order_by("-click_num")
         try:
@@ -105,10 +108,11 @@ class SearchView(View):
 
         for project_ in project_data.object_list:
             project_.has_fav = False
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 if UserFavorite.objects.filter(user=request.user, fav_id=project_.id, fav_type=0):
                     project_.has_fav = True
         return render(request, 'project-search.html', {
+            'newest_project': newest_project,
             'keywords': search_keywords,
             'pubDate': pubDate,
             'click_num': click_num,
@@ -128,7 +132,7 @@ class ProjectDetailView(View):
         project.has_fav = False
 
         # 必须是用户已登录我们才需要判断。
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user, fav_id=project.id, fav_type=2):
                 project.has_fav = True
         # 取出标签找到标签相同的project

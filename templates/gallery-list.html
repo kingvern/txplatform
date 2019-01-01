@@ -21,16 +21,16 @@
     <section class="container">
         <div class="filter">
             {#筛选活动类型#}
-            <div class="filter-box">
+            <div class="filter-box-bottom">
 
                 <div class="filter-title"><span>活动类型</span></div>
                 <ul class="filter-list">
                     <li class="filter-item mainTab {% ifequal type '0' %}filter-active{% endifequal %}" id="mainTab0">
-                        <a role="menuitem" tabindex="-1"><span>
+                        <a role="menuitem" tabindex="-1" href="?keywords={{ keywords }}&type=0"><span>
                                    线上活动</span></a>
                     </li>
                     <li class="filter-item mainTab {% ifequal type '1' %}filter-active{% endifequal %}" id="mainTab1">
-                        <a role="menuitem" tabindex="-1"><span>
+                        <a role="menuitem" tabindex="-1" href="?keywords={{ keywords }}&type=1"><span>
                                     线下活动</span></a>
                     </li>
 
@@ -54,10 +54,9 @@
                                 <p class="title"><a
                                         href="/gallery/detail/{{ gallery.id }}/">{{ gallery.name }}</a></p>
                                 <p class="content">活动时间：{{ gallery.time_begin }}-{{ gallery.time_end }} </p>
-                                <p
-                                        class="content">活动时间：{{ gallery.addr }}</p>
-                                <p
-                                        class="content">简介：{{ gallery.descs }}</p>
+                                <p class="content">活动地点：{{ gallery.addr }}</p>
+                                <p class="content">简介：{{ gallery.descs }}</p>
+{#                                <p class="content">简介：{% autoescape off %}{{ gallery.descs }}{% endautoescape %}</p>#}
                             </div>
 
                             <div class="module-item-btn-box">

@@ -2,12 +2,13 @@
 
 from django.conf.urls import url, include
 from .views import PolicyListView, PolicyDetailView, AddChartView, \
-    AddPolicyView, chartDataView, PolicyBannerView, PolicyHomeView, SearchView
+    AddPolicyView, chartDataView, PolicyBannerView, PolicyHomeView, SearchView, RecordTimeView
 from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     # 政策展示
 
+    url(r'^recordTime/$', csrf_exempt(RecordTimeView.as_view()), name='recordTime'),
     url(r'^home/$', PolicyHomeView.as_view(), name='home'),
     url(r'^list/$', PolicyListView.as_view(), name='list'),
     url(r'^search/$', SearchView.as_view(), name='search'),

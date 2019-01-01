@@ -13,7 +13,7 @@ from users.models import UserProfile
 
 class Project(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'项目名', default='')
-    seller = models.ForeignKey(UserProfile, default='', verbose_name=u'卖家')
+    seller = models.ForeignKey(UserProfile,on_delete=models.CASCADE,  default='', verbose_name=u'卖家')
     field_category = models.CharField(max_length=100, choices=(
         ('0', u'食品饮料'), ('1', u'建筑建材'), ('2', u'家居用品'), ('3', u'轻工纺织'), ('4', u'化学化工'), ('5', u'新能源'), ('6', u'机械'),
         ('7', u'环保和资源'), ('8', u'橡胶塑料'), ('9', u'仪器仪表'), ('10', u'新型材料'), ('11', u'电子信息'), ('12', u'医药与医疗'),
@@ -64,5 +64,5 @@ class Project(models.Model):
         verbose_name = '技术项目信息'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
-        return str(self.name)
+    def __str__(self):
+        return self.name

@@ -3,7 +3,9 @@
     flex-direction: row;
     align-items: flex-end;
 }
-
+.incubator-box a{
+    width: 25%;
+}
 .incubator-box .incubator-cat img {
     width: 100%;
     height: 100%;
@@ -12,20 +14,20 @@
 .incubator-active {
 
     width: 100%;
-    height: 80px;
+    height: 64px;
 }
 
 .incubator-inactive {
 
     width: 100%;
-    height: 64px;
+    height: 42px;
 }
 
 .incubator-active span {
     color: white;
     font-size: 1.7em;
     position: relative;
-    bottom: 47px;
+        bottom: 46px;
     left: 24px;
 }
 
@@ -33,7 +35,7 @@
     color: white;
     font-size: 1.4em;
     position: relative;
-    bottom: 42px;
+    bottom: 33px;
     left: 24px;
 }
 
@@ -72,7 +74,7 @@
 }
 
 .incubator-item .text-box .level {
-    font-size: 20px;
+    font-size: 16px;
     background: #5B97F7;
     color: white;
     padding: 0px 0px;
@@ -82,7 +84,7 @@
 }
 
 .incubator-item .text-box .address {
-    font-size: 18px;
+    font-size: 16px;
     background: #CBCBCB;
     color: white;
     padding: 0px 8px;
@@ -100,29 +102,32 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     width: 100%;
-    font-size: 16px;
+    max-height: 66px;
+    margin-top: 9px;
+    font-size: 15px;
+    color: #989898;
 }
 
-.rank-item{
+.rank-item {
     padding: 5px 7px !important;
 }
 
-.rank-row1{
-        display: flex;
+.rank-row1 {
+    display: flex;
     flex-direction: row;
 }
 
-.rank-row1 .img-box{
+.rank-row1 .img-box {
     width: 100px;
 }
 
-.rank-row1 .img-box img{
+.rank-row1 .img-box img {
     width: 100%;
 }
 
-.rank-row1 .text-box{
+.rank-row1 .text-box {
     width: 160px;
-        font-size: 16px;
+    font-size: 16px;
     line-height: 20px;
     margin-left: 6px;
 }
@@ -134,10 +139,11 @@
     display: inline-block;
     margin-left: 0px;
     border-radius: 8px;
+    font-size: 12px;
 }
 
 .rank-row2 {
-        overflow: hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 4;
@@ -150,3 +156,14 @@
     margin-top: 7px;
 }
 
+.rank-box {
+    min-height: 380px !important;
+}
+
+.rank-box .rank-list .rank-item a {
+    color: #333 !important;
+}
+
+.rank-box .rank-list .rank-item {
+    margin: 7px !important;
+}

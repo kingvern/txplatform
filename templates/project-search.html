@@ -23,12 +23,12 @@
                 <ul class="filter-list">
                     <li class="filter-item mainTab {% if pubDate %}filter-active{% endif %}" id="mainTab0">
                         <a role="menuitem" tabindex="-1"
-                           href="{% url 'project:search' %}?keywords={{ keywords }}&pubDate=1&click_num={{ click_num }}"><span>
+                           href="{% url 'project:search' %}?keywords={{ keywords }}&pubDate=1"><span>
                                    日期</span></a>
                     </li>
                     <li class="filter-item mainTab {% if click_num %}filter-active{% endif %}" id="mainTab1">
                         <a role="menuitem" tabindex="-1"
-                           href="{% url 'project:search' %}?keywords={{ keywords }}&pubDate={{ pubDate }}&click_num=1"><span>
+                           href="{% url 'project:search' %}?keywords={{ keywords }}&click_num=1"><span>
                                     点击数</span></a>
                     </li>
                 </ul>

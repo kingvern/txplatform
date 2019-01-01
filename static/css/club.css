@@ -96,3 +96,49 @@ color: #7D7D7D;
 
     padding: 20px 0;
 }
+
+.club-table-module{
+    min-height: 600px;
+}
+
+
+.club-table {
+
+}
+
+.club-table .th {
+    vertical-align: middle;
+}
+
+.club-table .input {
+    width: 100%;
+    position: relative;
+}
+
+.club-table .input input {
+    margin: 5px;
+    width: 100%;
+    padding: 5px;
+}
+
+.club-table .input span {
+    color: red;
+    position: absolute;
+    right: 0px;
+    top: 12px;
+}
+
+.table-nobordered > tbody > tr > td {
+    border: white 0px solid !important;
+}
+
+.submit-btn {
+    width: 50%;
+    padding: 6px;
+    color: white;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    border-radius: 3px;
+    background: linear-gradient(45deg, #58C8F8 0%, #4763F6 100%);
+    border: none;
+}

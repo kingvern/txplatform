@@ -1,9 +1,11 @@
 .login-box {
+    width: 70%;
+    margin: 70px auto;
     display: flex;
     flex-direction: row;
     border: 2px #E8E8E8 solid;
     box-shadow: 6px 8px 1px #d4d4f4;
-    margin-top: 70px;
+    /*margin-top: 70px;*/
     border-radius: 8px;
     overflow: hidden;
 }
@@ -34,7 +36,7 @@
 .login-form-logo .logo-text {
 
     font-size: 1.8em;
-    width: 80%;
+        width: 70%;
     color: #606060;
     text-align: center;
     border-bottom: 2px #DDDDDD solid;
@@ -52,7 +54,7 @@
 }
 
 .login-form-box .form .input {
-    width: 80%;
+    width: 70%;
     position: relative;
 }
 
@@ -79,7 +81,7 @@
 .login-form-box .form .forget {
     text-decoration: none;
     position: relative;
-    right: -160px;
+    right: -116px;
 }
 
 .login-form-box .form a:hover {
@@ -115,4 +117,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.back-to-index{
+
 }

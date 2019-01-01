@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'club',
     'users',
 
+    'scrap',
 
     'xadmin',
     'crispy_forms',
@@ -66,13 +67,12 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'users.UserProfile'
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -91,7 +91,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.media'
+                # 'django.core.context_processors.media'
+                'django.template.context_processors.media'
             ],
         },
     },
@@ -107,8 +108,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'txplatform',
         'USER': 'root',
-        'PASSWORD': '123123',
-        'HOST': '47.94.160.142'
+        # 'PASSWORD': '123123',
+        # 'HOST': '47.94.160.142',
+        'PASSWORD': 'Yuanfeng021',
+        'HOST': '47.95.10.33'
         # 'HOST': 'localhost'
     }
 }
@@ -152,6 +155,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+STATIC_ROOTS = os.path.join(BASE_DIR, 'static')
+
 APPEND_SLASH = False
 
 STATICFILES_FINDERS = (
@@ -178,6 +183,7 @@ CONTACT = 'CONTACT'
 MOBILE = 'MOBILE'
 
 CRONJOBS = [
-    # ('00 0 * * *', 'scrap.scrap_policy.scrap_policy'),
+    ('00 0 * * *', 'scrap.scrap_policy.scrap_policy', '>>/tmp/scrap_policy.log'),
+    ('*/1 * * * *', 'scrap.scrap_policy.test', '>>/tmp/test.log'),
     # ('00 0 * * *', 'scrap.scrap_chart.scrap_chart'),
 ]
