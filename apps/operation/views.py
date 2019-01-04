@@ -57,12 +57,14 @@ class AddFavView(View):
                 if patent.fav_num < 0:
                     patent.fav_num = 0
                 patent.save()
+                return HttpResponse('{"status":"success", "msg":"关注"}', content_type='application/json')
             elif int(type) == 2:
                 project = Project.objects.get(id=int(id))
                 project.fav_num -= 1
                 if project.fav_num < 0:
                     project.fav_num = 0
                 project.save()
+                return HttpResponse('{"status":"success", "msg":"关注"}', content_type='application/json')
             elif int(type) == 3:
                 couveuse = Couveuse.objects.get(id=int(id))
                 couveuse.fav_num -= 1
@@ -107,10 +109,12 @@ class AddFavView(View):
                     item = Patent.objects.get(id=int(id))
                     item.fav_num += 1
                     item.save()
+                    return HttpResponse('{"status":"success", "msg":"取消关注"}', content_type='application/json')
                 elif int(type) == 2:
                     item = Project.objects.get(id=int(id))
                     item.fav_num += 1
                     item.save()
+                    return HttpResponse('{"status":"success", "msg":"取消关注"}', content_type='application/json')
                 elif int(type) == 3:
                     item = Couveuse.objects.get(id=int(id))
                     item.fav_num += 1

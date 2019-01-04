@@ -42,13 +42,19 @@ def searchData(addr, recordTimeStr):
             print(addr, ' ', source)
             if not is_valid_date(pubDate[0:10]):
                 continue
-            today = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+            # today = time.strftime('%Y-%m-%d', time.localtime(time.time()))
             if source in [u"科委", u"知识产权局"]:
                 if compare_time(pubDate[0:10], recordTimeStr) <= 0:
                     continue
             else:
                 if compare_time(pubDate[0:10], recordTimeStr) <= 0:
                     continue
+            # if source in [u"科委", u"知识产权局"]:
+            #     if compare_time(pubDate[0:10], '2018-06-01') <= 0:
+            #         continue
+            # else:
+            #     if compare_time(pubDate[0:10], '2018-09-01') <= 0:
+            #         continue
 
             info = ''
             if "info" in j:

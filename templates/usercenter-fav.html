@@ -1,10 +1,10 @@
 {% extends 'usercenter-base.html' %}
-{% block title %} 我的收藏{% endblock %}
+{% block title %} 我的关注{% endblock %}
 {% load staticfiles %}
 
 {% block right_content %}
     <div class="head">
-        <span>技术关注</span>
+        <span>{{ STATIC_URL }}技术关注</span>
     </div>
     <div class="manage">
 
@@ -14,12 +14,7 @@
         </ul>
 
         <div class="manage-list" id="patent-table">
-
             {% for patent in patent_list %}
-                {#                <tr key="{{ patent.id }}" type="1">#}
-                {#                    <td><a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a></td>#}
-                {#                    <td><span class="fav">取消收藏</span></td>#}
-                {#                </tr>#}
                 <div class="module-item-box ">
                     <div class="module-item-img-box">
                         <img class="module-item-img" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/>
@@ -32,20 +27,14 @@
                         <p>价格:<span class="price">{{ patent.price }}</span>元 </p>
                     </div>
                     <div class="module-item-btn-box">
-                        <span id="{{ patent.id }}" class="module-item-btn-faved fav"  key="{{ patent.id }}" type="1">取消收藏</span>
+                        <span id="{{ patent.id }}" class="module-item-btn-faved fav"  key="{{ patent.id }}" type="1">取消关注</span>
                         <span class="module-item-btn ask">咨询</span>
                     </div>
                 </div>
             {% endfor %}
-            </tbody>
         </div>
         <div class="manage-list" id="project-table" style="display: none;">
-
             {% for project in project_list %}
-                {#                <tr key="{{ project.id }}" type="2">#}
-                {#                    <td><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></td>#}
-                {#                    <td><span class="fav">取消收藏</span></td>#}
-                {#                </tr>#}
                 <div class="module-item-box ">
                     <div class="module-item-img-box">
                         <img class="module-item-img" src="{{ MEDIA_URL }}{{ project.main_pic }}"/>
@@ -59,19 +48,18 @@
                         </p>
                     </div>
                     <div class="module-item-btn-box">
-                        <span id="{{ project.id }}" class="module-item-btn-faved fav"  key="{{ project.id }}" type="2">取消收藏</span>
+                        <span id="{{ project.id }}" class="module-item-btn-faved fav"  key="{{ project.id }}" type="2">取消关注</span>
                         <span class="module-item-btn ask">咨询</span>
                     </div>
                 </div>
             {% endfor %}
-            </tbody>
         </div>
     </div>
 
 {% endblock %}
 {% block custom_js %}
     <script type="text/javascript">
-        //收藏分享
+        //关注分享
         function add_fav(current_elem, fav_id, fav_type) {
             console.log('fav_id', fav_id, 'fav_type', fav_type)
             $.ajax({
@@ -92,7 +80,7 @@
                         }
 
                     } else if (data.status == 'success') {
-                        if (data.msg === '收藏') {
+                        if (data.msg === '关注') {
                             current_elem.addClass('module-item-btn')
                             current_elem.removeClass('module-item-btn-faved')
                             current_elem.text(data.msg)

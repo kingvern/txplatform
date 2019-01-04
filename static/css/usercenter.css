@@ -66,7 +66,7 @@ body {
 .sidebar-panel .sidebar-panel-item {
     padding: 0 0 5px 5px;
     display: block;
-    font-size: 21px;
+    font-size: 18px;
     color: #353636;
     text-decoration: none;
 }
@@ -183,6 +183,7 @@ body {
 .manage-list .module-item-box {
     background: #FCFCFC;
     border: #E5E5E5 1px solid;
+    position: relative;
     display: flex;
     flex-direction: row;
     margin-bottom: 8px;
@@ -201,7 +202,6 @@ body {
 
 .manage-list .module-item-box .module-item-text {
 
-    width: 40%;
     padding: 12px;
 }
 
@@ -233,9 +233,9 @@ body {
 }
 
 .manage-list .module-item-box .module-item-btn-box {
-    position: relative;
+    position: absolute;
     right: 34px;
-    /* top: 20px; */
+     top: 20px;
     margin-top: 114px;
 }
 

@@ -72,7 +72,7 @@ class BuyerPatent(models.Model):
     serve_fee = models.IntegerField(default=0, verbose_name=u'服务费')
     total_price = models.IntegerField(default=0, verbose_name=u'总费')
     step = models.CharField(max_length=10, default='0',
-                            choices=(('-1', u'已取消'), ('0', u'下单未付款'), ('1', u'已付款'), ('2', u'已提交专利局'), ('3', u'交易完成')),
+                            choices=(('-1', u'已取消'), ('0', u'下单未付款'), ('1', u'买家已付款'), ('2', u'已提交专利局'), ('3', u'交易完成')),
                             verbose_name=u'订单阶段')
     contract = models.FileField(
         upload_to="contract/resource/%Y/%m",

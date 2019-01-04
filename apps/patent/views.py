@@ -17,7 +17,7 @@ from operation.models import UserFavorite
 
 class PatentListView(View):
     def get(self, request):
-        all_patent = Patent.objects.all().filter(if_show=False)
+        all_patent = Patent.objects.all().filter(if_show=True)
         # all_patent = Patent.objects.filter(if_show=True)
         field_category = request.GET.get('field_category', '')
         patent_category = request.GET.get('patent_category', '')

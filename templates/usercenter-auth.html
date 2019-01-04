@@ -17,13 +17,14 @@
                     <td>
                         <div class="input">
                             {% if auth %}
-                                <text class="auth-has-status">
-                                    尊敬的会员，您还没有进行实名认证
-                                </text>
-                            {% else %}
                                 <text class="auth-not-status">
                                     已实名认证
                                 </text>
+                            {% else %}
+                                <text class="auth-has-status">
+                                    尊敬的会员，您还没有进行实名认证
+                                </text>
+
                             {% endif %}
                         </div>
                     </td>

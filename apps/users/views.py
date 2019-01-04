@@ -391,6 +391,19 @@ class MyOrderView(LoginRequiredMixin, View):
             "user_project": project_order,
         })
 
+class MySellOrderView(LoginRequiredMixin, View):
+    """我卖出的订单"""
+
+    def get(self, request):
+        patent_order = BuyerPatent.objects.filter(patent__seller=request.user)
+        project_order = BuyerProject.objects.filter(project__seller=request.user)
+        return render(request, "usercenter-mySellOrder.html", {
+            "user_patent": patent_order,
+            "user_project": project_order,
+        })
+
+
+
 
 class MyPublishView(LoginRequiredMixin, View):
     """我的发布管理"""
@@ -407,9 +420,7 @@ class MyPublishView(LoginRequiredMixin, View):
 # 我收藏的
 
 class MyFavView(LoginRequiredMixin, View):
-    """我的收藏"""
-    login_url = '/login/'
-    redirect_field_name = 'next'
+    """我的关注"""
 
     def get(self, request):
         patent_list = []

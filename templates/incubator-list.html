@@ -190,7 +190,7 @@
                         {% for incubator in incubator.object_list %}
                             <div class="incubator-item">
                                 <div class="img-box">
-                                    <img src="{{ MEDIA_URL }}{{ incubator.pic }}"/>
+                                    <img src="{{ MEDIA_URL }}{{ incubator.pic | default:'image/incubator.png' }}"/>
                                 </div>
                                 <div class="text-box">
                                 <span class="title">

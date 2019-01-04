@@ -1,0 +1,196 @@
+{% extends 'usercenter-base.html' %}
+{% block title %}订单管理{% endblock %}
+{% load staticfiles %}
+
+{% block right_content %}
+    <div class="head">
+        <span>订单管理</span>
+    </div>
+    <div class="manage">
+
+        <ul class="nav nav-tabs manage-nav">
+            <li role="presentation" id="patent-li" class="active"><a >专利商品</a></li>
+            <li role="presentation" id="project-li"><a >技术项目</a></li>
+        </ul>
+        <table class="table table-bordered  manage-table" id="patent-table">
+            <thead>
+            <tr>
+                <th>订单编号</th>
+                <th>商品名称</th>
+                <th>商品类型</th>
+                <th>订单金额</th>
+                <th>订单状态</th>
+                <th>资料</th>
+                <th>操作</th>
+                <th>业务员</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for patent_order in user_patent %}
+                <tr key="{{ patent_order.id }}">
+                    <td>{{ patent_order.id }}</td>
+                    <td>{{ patent_order.patent.name }}</td>
+                    <td>专利</td>
+                    <td>{{ patent_order.total_price }}</td>
+                    <td>{{ patent_order.get_step_display }}</td>
+                    <td>
+                        <a href="/operation/get_order_pdf/?order_id={{ patent_order.id }}">合同下载</a></td>
+                    <td>
+                        {% ifequal patent_order.step '0' %}
+                            <span class="cancel_order clickable">取消</span>
+                        {% endifequal %}
+                        {% ifequal patent_order.step '-1' %}
+                            <span class="delete_order clickable">删除</span>
+                        {% endifequal %}
+                    </td>
+                    <td><span data-toggle="modal" class="ask"
+                              data-target="#myModal1{{ patent_order.id }}">{{ patent_order.staff.username }}</span>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <table class="table table-bordered  manage-table" id="project-table" style="display: none;">
+            <thead>
+            <tr>
+                <th>订单编号</th>
+                <th>商品名称</th>
+                <th>商品类型</th>
+                <th>订单状态</th>
+                <th>状态时间</th>
+                <th>资料</th>
+                <th>业务员</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for patent_order in user_project %}
+                <tr key="{{ patent_order.id }}">
+                    <td>{{ patent_order.id }}</td>
+                    <td>{{ patent_order.project.name }}</td>
+                    <td>技术项目</td>
+                    <td>{{ patent_order.get_step_display }}</td>
+                    <td>{{ patent_order.step_time }}</td>
+                    <td>
+                        <a href="/media/{{ patent_order.contract }}">合同下载</a></td>
+                    <td><span data-toggle="modal"
+                              data-target="#myModal2{{ patent_order.id }}">{{ patent_order.staff.username }}</span>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript">
+
+        //收藏分享
+        function cancel_order(current_elem, id, type) {
+            console.log('cancel_order', current_elem, id, type)
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:cancel_order" %}",
+                data: {'id': id, 'type': type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+
+                        window.location.href = "{% url 'users:myorder' %}";
+                    }
+                },
+            });
+        }
+
+        function delete_order(current_elem, id, type) {
+
+            console.log(current_elem, id, type)
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:delete_order" %}",
+                data: {'id': id, 'type': type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+
+                        window.location.href = "{% url 'users:myorder' %}";
+                    }
+                },
+            });
+        }
+
+        $("#patent-li").on('click', function () {
+            $(this).addClass('active');
+            $("#project-li").removeClass('active');
+            $("#patent-table").show();
+            $("#project-table").hide();
+        })
+        $("#project-li").on('click', function () {
+            $(this).addClass('active');
+            $("#patent-li").removeClass('active');
+            $("#patent-table").hide();
+            $("#project-table").show();
+        })
+
+
+        $('.cancel_order').on('click', function () {
+            let that = this
+            layer.open({
+                content: '您确定要取消订单吗？'
+                , btn: ['确定', '取消']
+                , yes: function (index, layero) {
+                    cancel_order($(that), $(that).parent().parent().attr('key'), 1);
+                }
+                , btn2: function (index, layero) {
+                }
+                , cancel: function () {
+                }
+            });
+            {#setTimeout(window.location.reload(), 3000);#}
+        });
+        $('.delete_order').on('click', function () {
+            let that = this
+            layer.open({
+                content: '您确定要删除订单吗？'
+                , btn: ['确定', '取消']
+                , yes: function (index, layero) {
+                    delete_order($(that), $(that).parent().parent().attr('key'), 1);
+
+                }
+                , btn2: function (index, layero) {
+                }
+                , cancel: function () {
+                }
+            });
+            {#setTimeout(window.location.reload(), 3000);#}
+        });
+
+
+    </script>
+{% endblock %}

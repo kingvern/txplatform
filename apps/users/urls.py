@@ -2,7 +2,7 @@
 
 from django.conf.urls import url, include
 from .views import UserInfoView, UploadImageView, UpdatePwdView, MyFavView, MyMessageView, MyOrderView, \
-    ForCodeView, MyPublishView, UserAuthView, MyFavPolicyView, \
+    ForCodeView, MyPublishView, UserAuthView, MyFavPolicyView, MySellOrderView, \
     MyFavIncubatorView, MyFavGalleryView
 
 urlpatterns = [
@@ -17,6 +17,8 @@ urlpatterns = [
     url('update/pwd/', UpdatePwdView.as_view(), name="update_pwd"),
     # 用户中心我的课程
     url('myorder/', MyOrderView.as_view(), name="myorder"),
+
+    url('mysellorder/', MySellOrderView.as_view(), name="mysellorder"),
 
     url('myfav/', MyFavView.as_view(), name="myfav"),
 

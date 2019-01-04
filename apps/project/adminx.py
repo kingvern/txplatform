@@ -7,7 +7,7 @@ from .models import Project
 class ProjectAdmin(object):
     list_display = ['id', 'name', 'get_seller_mobile', 'project_step', 'cooperation', 'province', 'price', 'click_num',
                     'fav_num', 'shop_status', 'note']
-    search_fields = ['id', 'name', 'seller', 'project_step', 'cooperation', 'province', 'price', 'click_num', 'fav_num',
+    search_fields = ['id', 'name', 'seller__username', 'seller__mobile', 'detail','project_step', 'cooperation', 'province', 'price',
                      'shop_status', 'note']
     list_filter = ['id', 'name', 'seller', 'project_step', 'cooperation', 'province', 'price', 'click_num', 'fav_num',
                    'shop_status', 'note']

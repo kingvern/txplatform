@@ -1,6 +1,7 @@
 {% extends 'usercenter-base.html' %}
-{% block title %}{% endblock %}
+{% block title %}我的订单{% endblock %}
 
+{% load staticfiles %}
 
 {% block right_content %}
     <div class="head">
@@ -34,7 +35,7 @@
                     <td>{{ patent_order.total_price }}</td>
                     <td>{{ patent_order.get_step_display }}</td>
                     <td>
-                        <a>合同下载</a></td>
+                        <a href="/operation/get_order_pdf/?order_id={{ patent_order.id }}">{{ STATIC_URL }}合同下载</a></td>
                     <td>
                         {% ifequal patent_order.step '0' %}
                             <span class="cancel_order clickable">取消</span>
@@ -70,7 +71,7 @@
                     <td>技术项目</td>
                     <td>{{ patent_order.get_step_display }}</td>
                     <td>
-                        <a href="operation/get_order_pdf/?order_id={{ patent_order.id }}">合同下载</a></td>
+                        <a href="/media/{{ patent_order.contract }}">合同下载</a></td>
                     <td><span data-toggle="modal"
                               data-target="#myModal2{{ patent_order.id }}">{{ patent_order.staff.username }}</span>
                     </td>

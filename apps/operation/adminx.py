@@ -29,7 +29,7 @@ class UserMessageAdmin(object):
 # 卖家 业务员 合同 资料(业务员上传) 业务员接收
 class BuyerPatentAdmin(object):
     list_display = ['id', 'patent', 'get_seller_username', 'get_seller_mobile', 'buyer', 'total_price', 'step', 'staff']
-    search_fields = ['id', 'patent', 'buyer', 'total_price', 'step']
+    search_fields = ['id', 'patent__name', 'buyer__username', 'buyer__mobile', 'total_price', 'step']
     list_filter = ['id', 'patent', 'buyer', 'total_price', 'step']
     refresh_times = [3, 5]
     list_editable = ['step', 'staff']
@@ -57,7 +57,7 @@ class BuyerPatentAdmin(object):
 class BuyerProjectAdmin(object):
     list_display = ['id', 'project', 'get_seller_username', 'get_seller_mobile', 'buyer', 'step', 'contract', 'prof',
                     'protocol', 'staff']
-    search_fields = ['id', 'project', 'buyer', 'step', 'contract', 'prof',
+    search_fields = ['id', 'project__name', 'buyer__username', 'buyer__mobile', 'step', 'contract', 'prof',
                      'protocol']
     list_filter = ['id', 'project', 'buyer', 'step', 'contract', 'prof',
                    'protocol']

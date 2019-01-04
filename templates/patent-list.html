@@ -87,9 +87,9 @@
                             </div>
                             <div class="module-item-btn-box">
                                 {% if patent.has_fav %}
-                                    <span id="{{ patent.id }}" class="module-item-btn-faved fav">取消收藏</span>
+                                    <span id="{{ patent.id }}" class="module-item-btn-faved fav">取消关注</span>
                                 {% else %}
-                                    <span id="{{ patent.id }}" class="module-item-btn fav">收藏</span>
+                                    <span id="{{ patent.id }}" class="module-item-btn fav">关注</span>
                                 {% endif %}
                                 <span class="module-item-btn ask">咨询</span>
                             </div>
@@ -163,7 +163,7 @@
 {% endblock %}
 {% block custom_js %}
     <script type="text/javascript">
-        //收藏分享
+        //关注分享
         function add_fav(current_elem, fav_id, fav_type) {
             $.ajax({
                 cache: false,
@@ -183,7 +183,7 @@
                         }
 
                     } else if (data.status == 'success') {
-                        if (data.msg === '收藏') {
+                        if (data.msg === '关注') {
                             current_elem.addClass('module-item-btn')
                             current_elem.removeClass('module-item-btn-faved')
                             current_elem.text(data.msg)

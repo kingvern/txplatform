@@ -30,7 +30,7 @@ class PolicyHomeView(View):
 
 class PolicyListView(View):
     def get(self, request):
-        all_policy = Policy.objects.all()
+        all_policy = Policy.objects.all().order_by('pubDate')
         provinces = Province.objects.all()
         all_department = Department.objects.all()
 

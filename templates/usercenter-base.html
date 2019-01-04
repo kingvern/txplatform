@@ -138,12 +138,12 @@
                             <span>我是供方</span>
                             <div class="sidebar-panel-node"></div>
                         </div>
-                        <a class="sidebar-panel-item {% ifequal  '/users/user_publish_patent/' request.path %} sidebar-active{% endifequal %}"
+                        <a class="sidebar-panel-item {% ifequal  '/patent/add_patent/' request.path %} sidebar-active{% endifequal %}"
                            href="{% url 'patent:add_patent' %}">发布专利</a>
-                        <a class="sidebar-panel-item {% ifequal  '/users/user_publish_project/' request.path %} sidebar-active{% endifequal %}"
+                        <a class="sidebar-panel-item {% ifequal  '/project/add_project/' request.path %} sidebar-active{% endifequal %}"
                            href="{% url 'project:add_project' %}">发布项目</a>
-                        <a class="sidebar-panel-item {% ifequal  '/users/myorder/' request.path %} sidebar-active{% endifequal %}"
-                           href="{% url 'users:myorder' %}">订单管理</a>
+                        <a class="sidebar-panel-item {% ifequal  '/users/mysellorder/' request.path %} sidebar-active{% endifequal %}"
+                           href="{% url 'users:mysellorder' %}">订单管理</a>
                         <a class="sidebar-panel-item {% ifequal  '/users/mypublish/' request.path %} sidebar-active{% endifequal %}"
                            href="{% url 'users:mypublish' %}">发布管理</a>
                     </div>

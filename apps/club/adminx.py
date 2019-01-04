@@ -7,7 +7,7 @@ from .models import Banner, Section, Member, Resource
 
 class BannerAdmin(object):
     list_display = ['title', 'pic', 'if_show', 'click_num', 'fav_num']
-    search_fields = ['title', 'pic', 'if_show', 'click_num', 'fav_num']
+    search_fields = ['title', 'pic', 'if_show']
     list_filter = ['title', 'pic', 'if_show', 'click_num', 'fav_num']
     # 富文本
     style_fields = {"detail": "ueditor"}
@@ -15,7 +15,7 @@ class BannerAdmin(object):
 
 class SectionAdmin(object):
     list_display = ['title', 'detail', 'if_show', 'click_num', 'fav_num']
-    search_fields = ['title', 'detail', 'if_show', 'click_num', 'fav_num']
+    search_fields = ['title', 'detail', 'if_show']
     list_filter = ['title', 'detail', 'if_show', 'click_num', 'fav_num']
     # 富文本
     style_fields = {"detail": "ueditor"}
@@ -23,7 +23,7 @@ class SectionAdmin(object):
 
 class MemberAdmin(object):
     list_display = ['name', 'user', 'logo', 'status', 'note']
-    search_fields = ['name', 'user', 'logo', 'status', 'note']
+    search_fields = ['name', 'user__username','user__mobile', 'logo', 'status', 'note']
     list_filter = ['name', 'user', 'logo', 'status', 'note']
     list_editable = ['status', 'note']
 
