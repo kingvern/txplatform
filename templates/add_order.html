@@ -108,7 +108,7 @@
                 <p>服务费：<span class="price">￥{{ patent.hire | floatformat:2 }}</span></p>
                 <p>应付金额：<span class="price">￥{{ patent.price|add:patent.hire | floatformat:2 }}</span></p>
                 <div class="checkbox">
-                    {{ add_order_form.agree }}<span>《平台交易服务协议》</span>
+                    {{ add_order_form.agree }}<a class="agreement">《平台交易服务协议》</a>
                 </div>
                 {{ add_order_form.errors.agree.0 }}
                 {{ msg }}
@@ -117,4 +117,26 @@
             </div>
         </section>
     </form>
+{% endblock %}
+
+{% block custom_js %}
+    <script>
+        $('.agreement').on('click', function () {
+            layer.open({
+                {#type: 2,#}
+                {#title: false,#}
+                {#closeBtn: 0,#}
+                {#area: '431px',#}
+                {#skin: 'layui-layer-nobg', //没有背景色#}
+                {#shadeClose: true,#}
+                {#content: '/users/agreement/'#}
+                type: 2,
+                title: '交易服务协议',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['90%', '90%'],
+                content: '/users/agreement/' //iframe的url
+            });
+        });
+    </script>
 {% endblock %}

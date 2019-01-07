@@ -2,7 +2,7 @@
 
 from django.conf.urls import url, include
 from .views import UserInfoView, UploadImageView, UpdatePwdView, MyFavView, MyMessageView, MyOrderView, \
-    ForCodeView, MyPublishView, UserAuthView, MyFavPolicyView, MySellOrderView, \
+    ForCodeView, MyPublishView, UserAuthView, MyFavPolicyView, MySellOrderView, AgreementView, \
     MyFavIncubatorView, MyFavGalleryView
 
 urlpatterns = [
@@ -10,6 +10,8 @@ urlpatterns = [
     url('info/', UserInfoView.as_view(), name="user_info"),
     url('auth/', UserAuthView.as_view(), name="user_auth"),
     url('safe/', UserAuthView.as_view(), name="user_safe"),
+
+    url('agreement/', AgreementView.as_view(), name="agreement"),
 
     # 用户头像上传
     url('image/upload/', UploadImageView.as_view(), name="image_upload"),

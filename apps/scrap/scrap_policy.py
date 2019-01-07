@@ -6,7 +6,15 @@ import json
 import time
 
 
-def searchData(addr, recordTimeStr):
+# from multiprocessing import Pool
+
+
+def searchData(addr):
+    recordTime = requests.get('http://47.95.10.33:8000/policy/recordTime/?addr=' + addr)
+    recordTimeStr = recordTime.text[0:10]
+
+    print(addr + 'recordTime: ' + recordTimeStr)
+
     url = "http://www.bayuegua.com/granoti/listCrossNew"
     pageSize = "100"
     data = {
@@ -15,7 +23,14 @@ def searchData(addr, recordTimeStr):
         "pageNum": "1"
     }
     response = requests.post(url, data=data)
-    jsonData = json.loads(response.text)
+    # print(addr+'response: '+response.text)
+    jsonData = ''
+    try:
+        jsonData = json.loads(response.text)
+    except:
+        print(response.text)
+        print("jsonData error")
+        return
     print(jsonData["pages"])
     pages = jsonData["pages"]
     n = 0
@@ -27,28 +42,35 @@ def searchData(addr, recordTimeStr):
             "pageNum": i + 1
         }
         response = requests.post(url, data=data)
-        jsonData = json.loads(response.text)
+        jsonData = ''
+        try:
+            jsonData = json.loads(response.text)
+        except:
+            print(response.text)
+            print("jsonData error")
+            continue
 
         for j in jsonData["list"]:
             n = n + 1
             # print(j["id"],j["source"],j["title"],j["addr"],j["pubDate"],j["info"])
             print('---------------------------------------------------------------------------')
-            print(n, 'start!')
+            print(n, 'start!', j["id"], j["addr"], ' ', j["source"])
             policy_id = j["id"]
             addr = j["addr"]
             source = j["source"]
             title = j["title"]
             pubDate = j["pubDate"]
-            print(addr, ' ', source)
             if not is_valid_date(pubDate[0:10]):
                 continue
             # today = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-            if source in [u"科委", u"知识产权局"]:
-                if compare_time(pubDate[0:10], recordTimeStr) <= 0:
-                    continue
-            else:
-                if compare_time(pubDate[0:10], recordTimeStr) <= 0:
-                    continue
+            # if source in [u"科委", u"知识产权局"]:
+            #     if compare_time(pubDate[0:10], recordTimeStr) <= 0:
+            #         continue
+            # else:
+            #     if compare_time(pubDate[0:10], recordTimeStr) <= 0:
+            #         continue
+            if compare_time(pubDate[0:10], recordTimeStr) <= 0:
+                continue
             # if source in [u"科委", u"知识产权局"]:
             #     if compare_time(pubDate[0:10], '2018-06-01') <= 0:
             #         continue
@@ -93,6 +115,7 @@ def scrap_policy():
         u"中央部委",
         u"北京市",
         u"天津市",
+
         u"河北省",
         u"东城区",
         u"西城区",
@@ -113,20 +136,25 @@ def scrap_policy():
         u"邯郸市",
         u"衡水市",
         u"廊坊市",
-        u"石家庄市"]
+        u"石家庄市"
+    ]
     # addrs = ["东城区","西城区","朝阳区","海淀区"]
-    recordTime = requests.get('http://47.95.10.33:8000/policy/recordTime/')
-    print('recordTime: ' + recordTime.text[0:10])
-    recordTimeStr = recordTime.text[0:10]
+    print('nowTime: ' + time.strftime('%Y-%m-%d', time.localtime(time.time())))
+
+    # agents = 5
+    # chunksize = 3
+    # with Pool(processes=agents) as pool:
+    #     pool.map(searchData, addrs, chunksize)
+
     for addr in addrs:
-        searchData(addr, recordTimeStr)
+        searchData(addr)
     print('END')
 
 
 def test():
     with open('a.txt', 'w') as f:
         f.write('Hello, world!')
-    print(6666)
+    print('')
     return 1
 
 

@@ -119,7 +119,8 @@ class SearchView(View):
 
 class RecordTimeView(View):
     def get(self, request):
-        policy = Policy.objects.order_by('-pubDate')[0]
+        addr = request.GET.get('addr', '中央')
+        policy = Policy.objects.filter(addr__name=addr).order_by('-pubDate')[0]
         return HttpResponse(policy.pubDate, content_type='application/json')
 
 

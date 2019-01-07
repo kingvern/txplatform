@@ -391,6 +391,7 @@ class MyOrderView(LoginRequiredMixin, View):
             "user_project": project_order,
         })
 
+
 class MySellOrderView(LoginRequiredMixin, View):
     """我卖出的订单"""
 
@@ -401,8 +402,6 @@ class MySellOrderView(LoginRequiredMixin, View):
             "user_patent": patent_order,
             "user_project": project_order,
         })
-
-
 
 
 class MyPublishView(LoginRequiredMixin, View):
@@ -481,7 +480,8 @@ class IndexView(View):
         patent_1 = Patent.objects.all().filter(patent_category='syxxzl')[:12]
         patent_2 = Patent.objects.all().filter(patent_category='wgzl')[:12]
 
-        policy = Policy.objects.all().filter(Q(source__if_show=True) & Q(addr__if_show=True) & Q(source_id='51'))[:10]
+        policy = Policy.objects.order_by('-pubDate').filter(
+            Q(source__if_show=True) & Q(addr__if_show=True) & Q(source_id='51'))[:10]
 
         return render(request, 'index.html', {
             "bar_pic": bar_pic,
@@ -542,3 +542,8 @@ class MyFavGalleryView(View):
         return render(request, "usercenter-fav-gallery.html", {
             "gallery_list": gallery_list
         })
+
+
+class AgreementView(View):
+    def get(self, request):
+        return render(request, "agreement.html", {})
