@@ -1,6 +1,7 @@
 # _*_ coding: utf-8 _*_
 from datetime import datetime
 import weasyprint
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.shortcuts import render
@@ -260,10 +261,12 @@ class DeletePublishView(View):
             return HttpResponse('{"status":"fail", "msg":"删除出错"}', content_type='application/json')
 
 
-class OrderView(View):
+class OrderView(LoginRequiredMixin, View):
     """
     下单功能
     """
+    login_url = '/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         id = request.GET.get('id', 0)

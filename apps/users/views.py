@@ -186,6 +186,8 @@ class ResetPwdView(View):
 
 class UpdateMobileView(LoginRequiredMixin, View):
     """更新手机号"""
+    login_url = '/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         modify_form = UpdateMobileForm()
@@ -283,6 +285,9 @@ class LogoutView(View):
 class UserInfoView(LoginRequiredMixin, View):
     """用户中心"""
 
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     def get(self, request):
         info_form = UserInfoForm(instance=request.user)
         return render(request, "usercenter-info.html", {
@@ -308,6 +313,9 @@ class UserInfoView(LoginRequiredMixin, View):
 
 class UserAuthView(LoginRequiredMixin, View):
     """用户认证"""
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         info_form = UserAuthForm(instance=request.user)
@@ -395,6 +403,9 @@ class MyOrderView(LoginRequiredMixin, View):
 class MySellOrderView(LoginRequiredMixin, View):
     """我卖出的订单"""
 
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     def get(self, request):
         patent_order = BuyerPatent.objects.filter(patent__seller=request.user)
         project_order = BuyerProject.objects.filter(project__seller=request.user)
@@ -406,6 +417,9 @@ class MySellOrderView(LoginRequiredMixin, View):
 
 class MyPublishView(LoginRequiredMixin, View):
     """我的发布管理"""
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         patent_list = Patent.objects.filter(seller=request.user)
@@ -420,6 +434,9 @@ class MyPublishView(LoginRequiredMixin, View):
 
 class MyFavView(LoginRequiredMixin, View):
     """我的关注"""
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         patent_list = []
@@ -496,7 +513,11 @@ class IndexView(View):
         })
 
 
-class MyFavPolicyView(View):
+class MyFavPolicyView(LoginRequiredMixin, View):
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     def get(self, request):
         policy_list = []
         ids = UserFavorite.objects.filter(user=request.user, fav_type=0)
@@ -508,7 +529,11 @@ class MyFavPolicyView(View):
         })
 
 
-class MyFavIncubatorView(View):
+class MyFavIncubatorView(LoginRequiredMixin, View):
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     def get(self, request):
         couveuse_list = []
         couveuse_ids = UserFavorite.objects.filter(user=request.user, fav_type=3)
@@ -532,7 +557,11 @@ class MyFavIncubatorView(View):
         })
 
 
-class MyFavGalleryView(View):
+class MyFavGalleryView(LoginRequiredMixin, View):
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     def get(self, request):
         gallery_list = []
         gallery_ids = UserFavorite.objects.filter(user=request.user, fav_type=6)

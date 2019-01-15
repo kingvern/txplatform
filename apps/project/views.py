@@ -1,6 +1,7 @@
 # _*_ coding: utf-8 _*_
 import json
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.db.models import Q
 from django.shortcuts import render
@@ -150,7 +151,11 @@ class ProjectDetailView(View):
         })
 
 
-class AddProjectView(View):
+class AddProjectView(LoginRequiredMixin, View):
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     def post(self, request):
         add_project_form = AddProjectForm(request.POST, request.FILES, )
         if add_project_form.is_valid():
@@ -168,7 +173,11 @@ class AddProjectView(View):
         return render(request, 'usercenter-publish-project.html', {'project_form': add_project_form})
 
 
-class ModifyView(View):
+class ModifyView(LoginRequiredMixin, View):
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     def post(self, request, project_id):
         # project_id = request.POST.get('id', 0)
         project = Project.objects.get(id=int(project_id))

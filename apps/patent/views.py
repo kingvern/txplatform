@@ -1,6 +1,7 @@
 # _*_ coding: utf-8 _*_
 import json
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.db.models import Q
 from django.shortcuts import render
@@ -169,7 +170,11 @@ class PatentDetailView(View):
         })
 
 
-class AddPatentView(View):
+class AddPatentView(LoginRequiredMixin, View):
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     def post(self, request):
         add_patent_form = AddPatentForm(request.POST, request.FILES)
         if add_patent_form.is_valid():
@@ -188,7 +193,11 @@ class AddPatentView(View):
         return render(request, 'usercenter-publish-patent.html', {'patent_form': add_patent_form})
 
 
-class ModifyView(View):
+class ModifyView(LoginRequiredMixin, View):
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
     def post(self, request, patent_id):
         # patent_id = request.POST.get('id', 0)
         patent = Patent.objects.get(id=int(patent_id))
