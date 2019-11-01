@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91c2da21-d35c-41e8-84f0-6005e63dedf5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/apps/operation/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/patent/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/patent/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/project/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/usercenter-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +14,7 @@
     <SUITE FILE_PATH="coverage/platorm$scrap_chart.coverage" NAME="scrap_chart Coverage Results" MODIFIED="1540451748677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/platorm$scrap_policy.coverage" NAME="scrap_policy Coverage Results" MODIFIED="1546862799200" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/scrap" />
     <SUITE FILE_PATH="coverage/platorm$scrap_policy__1_.coverage" NAME="scrap_policy (1) Coverage Results" MODIFIED="1546862835012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/scrap" />
+    <SUITE FILE_PATH="coverage/platform$scrap_policy__1_.coverage" NAME="scrap_policy (1) Coverage Results" MODIFIED="1572145517682" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/scrap" />
     <SUITE FILE_PATH="coverage/platorm$demo.coverage" NAME="demo Coverage Results" MODIFIED="1540125006538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/platorm$yunpian.coverage" NAME="yunpian Coverage Results" MODIFIED="1540799057016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/utils" />
   </component>
@@ -192,26 +187,59 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1788965506">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="2" />
+          <entry key="txt" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Python" value="2" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/operation/views.py">
+        <entry file="file://$PROJECT_DIR$/requirements_new.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="614">
-              <caret line="266" column="7" lean-forward="true" selection-start-line="266" selection-start-column="7" selection-end-line="268" selection-end-column="32" />
+            <state relative-caret-position="60">
+              <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/platform/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-401">
               <folding>
-                <element signature="e#24#53#0" expanded="true" />
+                <element signature="e#330#339#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/apps/patent/views.py">
+        <entry file="file://$PROJECT_DIR$/platorm/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
+            <state relative-caret-position="-1952">
+              <caret line="33" column="27" lean-forward="true" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
+              <folding>
+                <element signature="e#330#339#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -219,8 +247,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/project/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="175" column="17" lean-forward="true" selection-start-line="175" selection-start-column="17" selection-end-line="179" />
+            <state relative-caret-position="2445">
+              <caret line="175" column="17" selection-start-line="175" selection-start-column="17" selection-end-line="179" />
             </state>
           </provider>
         </entry>
@@ -228,11 +256,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/scrap/scrap_policy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-59">
+            <state relative-caret-position="450">
               <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
               <folding>
                 <element signature="e#68#83#0" expanded="true" />
-                <marker date="1546864596396" expanded="true" signature="4202:4205" ph="..." />
               </folding>
             </state>
           </provider>
@@ -241,11 +268,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/policy/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="197" column="84" lean-forward="true" selection-start-line="197" selection-start-column="8" selection-end-line="197" selection-end-column="84" />
-              <folding>
-                <marker date="1546855916534" expanded="true" signature="4221:4454" ph="..." />
-              </folding>
+            <state relative-caret-position="2805">
+              <caret line="197" column="84" selection-start-line="197" selection-start-column="8" selection-end-line="197" selection-end-column="84" />
             </state>
           </provider>
         </entry>
@@ -253,8 +277,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="145" column="46" lean-forward="true" selection-start-line="145" selection-start-column="46" selection-end-line="145" selection-end-column="46" />
+            <state relative-caret-position="2175">
+              <caret line="145" column="46" selection-start-line="145" selection-start-column="46" selection-end-line="145" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -262,8 +286,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="290" lean-forward="true" selection-start-line="290" selection-end-line="290" />
+            <state relative-caret-position="4350">
+              <caret line="290" selection-start-line="290" selection-end-line="290" />
             </state>
           </provider>
         </entry>
@@ -271,7 +295,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/policy/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-819">
+            <state relative-caret-position="105">
               <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
             </state>
           </provider>
@@ -280,7 +304,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/agreement.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
+            <state relative-caret-position="165">
               <caret line="11" column="32" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="32" />
             </state>
           </provider>
@@ -439,10 +463,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="118" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="44" />
     <option name="y" value="23" />
-    <option name="width" value="1403" />
+    <option name="width" value="1395" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -453,86 +477,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="club" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="operation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="patent" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="policy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="scrap" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="users" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="platorm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="platorm" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="platform" type="b2602c69:ProjectViewProjectNode" />
+              <item name="platform" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -579,7 +535,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.scrap_policy (1)">
+  <component name="RunManager" selected="Django server.new-remote">
     <configuration name="demo" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="platorm" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -843,15 +799,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="118" y="23" width="1403" height="877" extended-state="0" />
-    <editor active="true" />
+    <frame x="44" y="23" width="1395" height="877" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49899396" visible="true" weight="0.2946363" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49899396" visible="true" weight="0.3030303" />
       <window_info id="Structure" order="1" sideWeight="0.501006" side_tool="true" weight="0.15665236" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.73842764" weight="0.28280255" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7376929" weight="0.28280255" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.570169" weight="0.3210191" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -860,8 +815,8 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.48934606" weight="0.32738853" />
       <window_info anchor="bottom" id="manage.py@platorm" order="10" sideWeight="0.6847906" weight="0.34012738" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5216752" side_tool="true" visible="true" weight="0.16305733" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.62821454" weight="0.3312102" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.37324464" side_tool="true" visible="true" weight="0.3312102" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.62675536" visible="true" weight="0.3312102" />
       <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.49116346" weight="0.32611465" />
       <window_info anchor="bottom" id="File Transfer" order="14" sideWeight="0.47832477" visible="true" weight="0.16305733" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -926,23 +881,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/anaconda3/envs/platorm/lib/python3.6/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4785">
-          <caret line="319" selection-start-line="319" selection-end-line="319" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platorm/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="57" column="7" selection-start-line="57" selection-start-column="7" selection-end-line="57" selection-end-column="7" />
-          <folding>
-            <element signature="e#723#732#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/users/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="151">
@@ -1003,9 +941,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2586">
           <caret line="191" column="44" selection-start-line="191" selection-start-column="44" selection-end-line="191" selection-end-column="44" />
-          <folding>
-            <element signature="e#3424#3443#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1013,16 +948,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1551">
           <caret line="157" column="44" selection-start-line="157" selection-start-column="44" selection-end-line="157" selection-end-column="44" />
-          <folding>
-            <element signature="e#3648#3656#0#HTML" expanded="true" />
-            <element signature="e#3656#3664#0#HTML" expanded="true" />
-            <element signature="e#3770#3778#0#HTML" expanded="true" />
-            <element signature="e#3778#3786#0#HTML" expanded="true" />
-            <element signature="e#5013#5021#0#HTML" expanded="true" />
-            <element signature="e#5021#5029#0#HTML" expanded="true" />
-            <element signature="e#5135#5143#0#HTML" expanded="true" />
-            <element signature="e#5143#5151#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1040,16 +965,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3092">
           <caret line="210" column="44" selection-start-line="210" selection-start-column="44" selection-end-line="210" selection-end-column="44" />
-          <folding>
-            <element signature="e#6505#6513#0#HTML" expanded="true" />
-            <element signature="e#6513#6521#0#HTML" expanded="true" />
-            <element signature="e#6627#6635#0#HTML" expanded="true" />
-            <element signature="e#6635#6643#0#HTML" expanded="true" />
-            <element signature="e#7878#7886#0#HTML" expanded="true" />
-            <element signature="e#7886#7894#0#HTML" expanded="true" />
-            <element signature="e#8000#8008#0#HTML" expanded="true" />
-            <element signature="e#8008#8016#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1057,17 +972,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2494">
           <caret line="176" column="44" selection-start-line="176" selection-start-column="44" selection-end-line="176" selection-end-column="44" />
-          <folding>
-            <element signature="e#3751#3758#0#HTML" expanded="true" />
-            <element signature="e#4925#4933#0#HTML" expanded="true" />
-            <element signature="e#4933#4941#0#HTML" expanded="true" />
-            <element signature="e#5047#5055#0#HTML" expanded="true" />
-            <element signature="e#5055#5063#0#HTML" expanded="true" />
-            <element signature="e#6298#6306#0#HTML" expanded="true" />
-            <element signature="e#6306#6314#0#HTML" expanded="true" />
-            <element signature="e#6420#6428#0#HTML" expanded="true" />
-            <element signature="e#6428#6436#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1075,9 +979,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1318">
           <caret line="94" column="12" selection-start-line="94" selection-start-column="12" selection-end-line="94" selection-end-column="12" />
-          <folding>
-            <element signature="e#2078#2100#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1120,9 +1021,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="63" selection-start-line="10" selection-start-column="63" selection-end-line="10" selection-end-column="63" />
-          <folding>
-            <element signature="e#25#66#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1196,9 +1094,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
           <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
-          <folding>
-            <element signature="e#25#66#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1223,93 +1118,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/platorm/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1494">
-          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
-          <folding>
-            <element signature="e#330#339#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2018.2/remote_sources/-931610722/2084385786/requests/api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="103" column="4" selection-start-line="103" selection-start-column="4" selection-end-line="103" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2018.2/remote_sources/-931610722/-1506120977/json/decoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="356" selection-start-line="356" selection-end-line="356" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2018.2/remote_sources/-931610722/2084385786/requests/api.py" />
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2018.2/remote_sources/-931610722/-1506120977/json/decoder.py" />
     <entry file="file://$USER_HOME$/anaconda3/envs/platorm/lib/python3.6/multiprocessing/pool.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
           <caret line="669" selection-start-line="669" selection-end-line="669" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/agreement.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="11" column="32" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/policy/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-819">
-          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/policy/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="197" column="84" lean-forward="true" selection-start-line="197" selection-start-column="8" selection-end-line="197" selection-end-column="84" />
-          <folding>
-            <marker date="1546855916534" expanded="true" signature="4221:4454" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/scrap/scrap_policy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-59">
-          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
-          <folding>
-            <element signature="e#68#83#0" expanded="true" />
-            <marker date="1546864596396" expanded="true" signature="4202:4205" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="290" lean-forward="true" selection-start-line="290" selection-end-line="290" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="145" column="46" lean-forward="true" selection-start-line="145" selection-start-column="46" selection-end-line="145" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/operation/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="614">
-          <caret line="266" column="7" lean-forward="true" selection-start-line="266" selection-start-column="7" selection-end-line="268" selection-end-column="32" />
-          <folding>
-            <element signature="e#24#53#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1319,24 +1133,102 @@
           <caret line="560" lean-forward="true" selection-start-line="560" selection-end-line="562" selection-end-column="32" />
           <folding>
             <element signature="e#25#36#0" expanded="true" />
-            <marker date="1547542055598" expanded="true" signature="15215:16414" ph="..." />
-            <marker date="1547542055598" expanded="true" signature="18352:18708" ph="..." />
-            <marker date="1547542055598" expanded="true" signature="20357:20362" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/project/views.py">
+    <entry file="file://$PROJECT_DIR$/apps/operation/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="175" column="17" lean-forward="true" selection-start-line="175" selection-start-column="17" selection-end-line="179" />
+        <state relative-caret-position="3690">
+          <caret line="266" column="7" selection-start-line="266" selection-start-column="7" selection-end-line="268" selection-end-column="32" />
+          <folding>
+            <element signature="e#24#53#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/patent/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
+        <state relative-caret-position="2460">
+          <caret line="176" selection-start-line="176" selection-end-line="176" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/project/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2445">
+          <caret line="175" column="17" selection-start-line="175" selection-start-column="17" selection-end-line="179" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/scrap/scrap_policy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
+          <folding>
+            <element signature="e#68#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/policy/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2805">
+          <caret line="197" column="84" selection-start-line="197" selection-start-column="8" selection-end-line="197" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2175">
+          <caret line="145" column="46" selection-start-line="145" selection-start-column="46" selection-end-line="145" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4350">
+          <caret line="290" selection-start-line="290" selection-end-line="290" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/policy/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/agreement.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="32" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements_new.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platform/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-401">
+          <folding>
+            <element signature="e#330#339#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platorm/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1952">
+          <caret line="33" column="27" lean-forward="true" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
+          <folding>
+            <element signature="e#330#339#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
