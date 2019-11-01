@@ -5,7 +5,7 @@
 # from random import Random
 #
 # from users.models import EmailVerifyRecord
-# from platorm.settings import EMAIL_FROM
+# from txplatform.settings import EMAIL_FROM
 #
 #
 # def random_str(randomLength=8):

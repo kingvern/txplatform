@@ -9,7 +9,7 @@ from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 
-from platorm import settings
+from txplatform import settings
 from .models import Patent
 from operation.models import UserFavorite, UserJoin, BuyerPatent, BuyerProject
 from policy.models import Policy
@@ -19,7 +19,7 @@ from incubator.models import Couveuse, Park, Financial
 from gallery.models import Gallery
 from .forms import AddOrderForm
 from users.models import UserProfile
-from platorm.settings import APIKEY
+from txplatform.settings import APIKEY
 
 # import locale
 # locale.getdefaultlocale()
@@ -277,11 +277,11 @@ class OrderView(LoginRequiredMixin, View):
                 exist_record = exist_records[0]
                 if exist_record.step == '0':
                     # 下单未付款
-                    from platorm.settings import NAME, ADDRESS, CONTACT, MOBILE
+                    from txplatform.settings import NAME, ADDRESS, CONTACT, MOBILE
                     return render(request, 'pay_order.html', {
                         'order': exist_record
                     })
-            from platorm.settings import NAME, ADDRESS, CONTACT, MOBILE
+            from txplatform.settings import NAME, ADDRESS, CONTACT, MOBILE
             add_order_form = AddOrderForm()
             return render(request, 'add_order.html', {
                 'patent': patent,
@@ -312,7 +312,7 @@ class OrderView(LoginRequiredMixin, View):
                 patent = Patent.objects.get(id=int(id))
 
                 if request.user == patent.seller:
-                    from platorm.settings import NAME, ADDRESS, CONTACT, MOBILE
+                    from txplatform.settings import NAME, ADDRESS, CONTACT, MOBILE
                     return render(request, 'add_order.html', {
                         'patent': patent,
                         'NAME': NAME,
@@ -346,7 +346,7 @@ class OrderView(LoginRequiredMixin, View):
                     # return render(request, 'pay_order.html', {'order': order})
                     return HttpResponseRedirect("/operation/add_order/?id=" + id)
                 else:
-                    from platorm.settings import NAME, ADDRESS, CONTACT, MOBILE
+                    from txplatform.settings import NAME, ADDRESS, CONTACT, MOBILE
                     patent = Patent.objects.get(id=int(id))
                     return render(request, 'add_order.html', {
                         'patent': patent,

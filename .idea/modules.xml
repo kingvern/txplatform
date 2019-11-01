@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/platorm.iml" filepath="$PROJECT_DIR$/.idea/platorm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/txplatform.iml" filepath="$PROJECT_DIR$/.idea/txplatform.iml" />
     </modules>
   </component>
 </project>

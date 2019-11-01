@@ -26,7 +26,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 import re
 import random
-from platorm.settings import APIKEY
+from txplatform.settings import APIKEY
 
 from utils.yunpian import YunPian
 
