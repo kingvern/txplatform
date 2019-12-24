@@ -3,16 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="91c2da21-d35c-41e8-84f0-6005e63dedf5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/txplatform.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/txplatform.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/gallery.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/gallery.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/gallery-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/gallery-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/txplatform/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/txplatform/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/txplatform_config.docx" beforeDir="false" afterPath="$PROJECT_DIR$/txplatform_config.docx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -273,7 +263,7 @@
       <workItem from="1574524911831" duration="5698000" />
       <workItem from="1574691491258" duration="13000" />
       <workItem from="1574750593026" duration="960000" />
-      <workItem from="1577149979160" duration="907000" />
+      <workItem from="1577149979160" duration="1003000" />
     </task>
     <servers />
   </component>
