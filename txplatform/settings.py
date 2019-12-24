@@ -107,10 +107,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'txplatform',
-        'USER': 'txplatform',
-        # 'HOST': '39.100.68.169',
-        'PASSWORD': 'txplatform',
-        'HOST': 'localhost',
+        'USER': 'root',
+        'HOST': '39.100.199.59',
+        'PASSWORD': '123456',
+        # 'HOST': 'localhost',
 
     }
 }

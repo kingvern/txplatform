@@ -50,13 +50,13 @@
                             <div class="module-item-img-box">
                                 <img class="center-block" src="{{ MEDIA_URL }}{{ gallery.pic }}"/>
                             </div>
-                            <div class="module-item-text">
-                                <p class="title"><a
-                                        href="/gallery/detail/{{ gallery.id }}/">{{ gallery.name }}</a></p>
-                                <p class="content">活动时间：{{ gallery.time_begin }}-{{ gallery.time_end }} </p>
-                                <p class="content">活动地点：{{ gallery.addr }}</p>
-                                <p class="content">简介：{{ gallery.descs }}</p>
-{#                                <p class="content">简介：{% autoescape off %}{{ gallery.descs }}{% endautoescape %}</p>#}
+                            <div class="module-item-text text-box">
+                                <span class="title"><a
+                                        href="/gallery/detail/{{ gallery.id }}/">{{ gallery.name }}</a></span>
+                                <span class="content">活动时间：{{ gallery.time_begin }}-{{ gallery.time_end }} </span>
+                                <span class="content">活动地点：{{ gallery.addr }}</span>
+{#                                <p class="content">简介：{{ gallery.descs }}</p>#}
+                                <span class="detail">简介：{% autoescape off %}{{ gallery.descs }}{% endautoescape %}</span>
                             </div>
 
                             <div class="module-item-btn-box">

@@ -3,8 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="91c2da21-d35c-41e8-84f0-6005e63dedf5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/txplatform.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/txplatform.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/gallery.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/gallery.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/gallery-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/gallery-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/txplatform/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/txplatform/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/txplatform_config.docx" beforeDir="false" afterPath="$PROJECT_DIR$/txplatform_config.docx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,80 +56,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>Policy.objects</find>
-      <find>Add</find>
-      <find>stylesheets</find>
-      <find>STATIC</find>
-      <find>encoding</find>
-      <find>w</find>
-      <find>RMB</find>
-      <find>utf</find>
-      <find>?type_id</find>
-      <find>search_keywords</find>
-      <find>import datetime</find>
-      <find>datetime</find>
-      <find>info</find>
-      <find>table</find>
-      <find>usercenter-table</find>
-      <find>django_crontab</find>
-      <find>收藏</find>
-      <find>panel-item</find>
-      <find>if_show=</find>
-      <find>合同下载</find>
-      <find>合同</find>
-      <find>img</find>
-      <find>MED</find>
-      <find>med</find>
-      <find>index</find>
-      <find>record</find>
-      <find>1234</find>
-      <find>12354678</find>
-      <find>23333333</find>
-      <find>in</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>&lt;li&gt;&lt;a href=&quot;/&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;</replace>
-      <replace>project_form</replace>
-      <replace>patent</replace>
-      <replace>order-item</replace>
-      <replace>incubator</replace>
-      <replace>project</replace>
-      <replace>register_form</replace>
-      <replace>manage-list</replace>
-      <replace>resource</replace>
-      <replace>module</replace>
-      <replace>club</replace>
-      <replace>models.ForeignKey(on_delete=models.CASCADE,</replace>
-      <replace>from django.urls import reverse</replace>
-      <replace>is_authenticated</replace>
-      <replace>def __str__\(self\)\:\n        return self\.name\</replace>
-      <replace>def __str_</replace>
-      <replace>gallery</replace>
-      <replace>path(</replace>
-      <replace>'</replace>
-      <replace>('</replace>
-      <replace>&lt;div class=&quot;index-module-title&quot;&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;</replace>
-      <replace>?type_id</replace>
-      <replace>?search_keywords={{ search_keywords }}&amp;type_id</replace>
-      <replace>keywords</replace>
-      <replace>club-table</replace>
-      <replace>关注</replace>
-      <replace />
-      <replace>60551593</replace>
-      <replace>010 - 60551593</replace>
-      <replace>010-60551593</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>$PROJECT_DIR$/static/js</dir>
-      <dir>$PROJECT_DIR$/apps/incubator</dir>
-      <dir>$PROJECT_DIR$/static</dir>
-      <dir>$PROJECT_DIR$/apps</dir>
-      <dir>$PROJECT_DIR$/templates</dir>
-      <dir>$PROJECT_DIR$</dir>
-    </dirStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -130,6 +64,7 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SearchEverywhereHistoryKey" value="user&#9;FILE&#9;file:///Users/kingvern/Workspace/platorm/templates/usercenter-base.html&#10;pay&#9;FILE&#9;file:///Users/kingvern/Workspace/platorm/templates/pay_order.html&#10;patent-d&#9;FILE&#9;file:///Users/kingvern/Workspace/platorm/templates/patent-detail.html" />
@@ -143,7 +78,7 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -290,9 +225,9 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="platorm.settings" />
+        <env name="DJANGO_SETTINGS_MODULE" value="txplatform.settings" />
       </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/txplatform_env/bin/python" />
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda2/envs/txplatform/bin/python" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -301,7 +236,7 @@
       <option name="port" value="8000" />
       <option name="host" value="0.0.0.0" />
       <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
+      <option name="browserUrl" value="http://0.0.0.0:8000/" />
       <option name="runTestServer" value="false" />
       <option name="runNoReload" value="false" />
       <option name="useCustomRunCommand" value="false" />
@@ -335,18 +270,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1537537813459</updated>
-      <workItem from="1574524911831" duration="299000" />
+      <workItem from="1574524911831" duration="5698000" />
+      <workItem from="1574691491258" duration="13000" />
+      <workItem from="1574750593026" duration="960000" />
+      <workItem from="1577149979160" duration="907000" />
     </task>
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -356,7 +285,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

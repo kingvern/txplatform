@@ -53,7 +53,8 @@
 
     <div class="row">
         {#        <div class="col-md-3">#}
-        <img class="col-md-4 logo-img" src="{% static 'img/logo.png' %}"/>
+        <a class="{% ifequal '/' request.path %}active{% endifequal %}" href="/">
+            <img class="col-md-4 logo-img" src="{% static 'img/logo.png' %}"/></a>
         {#        </div>#}
         {#        <div class="col-md-1"></div>#}
         <div class="navbar-header pull-right logo-nav">
