@@ -22584,3 +22584,6 @@ Not Found: /cache/global/img/gs.gif
 [pid: 6649|app: 0|req: 7023/8297] 223.71.167.163 () {34 vars in 442 bytes} [Thu Apr 16 18:30:10 2020] GET / => generated 29158 bytes in 33 msecs (HTTP/1.1 200) 4 headers in 125 bytes (1 switches on core 0)
 Not Found: /cloud-app/include/css/uncall.css
 [pid: 6648|app: 0|req: 1071/8298] 139.205.177.87 () {36 vars in 746 bytes} [Thu Apr 16 18:31:38 2020] GET /cloud-app/include/css/uncall.css => generated 4112 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 6649|app: 0|req: 7024/8299] 221.216.87.0 () {38 vars in 733 bytes} [Thu Apr 16 20:28:49 2020] GET /favicon.ico => generated 4049 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 6648|app: 0|req: 1072/8300] 83.143.86.62 () {34 vars in 375 bytes} [Thu Apr 16 20:29:02 2020] GET / => generated 29158 bytes in 33 msecs (HTTP/1.1 200) 4 headers in 125 bytes (1 switches on core 0)
