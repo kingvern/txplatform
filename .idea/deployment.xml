@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" showNewOnTargetInSync="false" showExcludedInSync="true">
+  <component name="PublishConfigData" autoUpload="Always" serverName="root@39.100.199.59:22" showNewOnTargetInSync="false" showExcludedInSync="true">
+    <serverData>
+      <paths name="root@39.100.199.59:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/root/txplatform" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
     <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

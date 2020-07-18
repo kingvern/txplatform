@@ -49,13 +49,15 @@ class DetailView(View):
         has_join = False
         has_fav = False
         has_zan = False
-        if UserJoin.objects.filter(user=request.user, join_id=gallery.id, join_type=3):
-            has_join = True
+        # 必须是用户已登录我们才需要判断。
+        if request.user.is_authenticated:
+            if UserJoin.objects.filter(user=request.user, join_id=gallery.id, join_type=3):
+                has_join = True
 
-        if UserFavorite.objects.filter(user=request.user, fav_id=gallery.id, fav_type=7):
-            has_zan = True
-        if UserFavorite.objects.filter(user=request.user, fav_id=gallery.id, fav_type=6):
-            has_fav = True
+            if UserFavorite.objects.filter(user=request.user, fav_id=gallery.id, fav_type=7):
+                has_zan = True
+            if UserFavorite.objects.filter(user=request.user, fav_id=gallery.id, fav_type=6):
+                has_fav = True
 
         return render(request, "gallery-detail.html", {
             "gallery": gallery,
