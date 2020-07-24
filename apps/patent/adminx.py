@@ -5,6 +5,8 @@ import xadmin
 from .models import Patent
 
 
+
+
 class PatentAdmin(object):
     list_display = ['id', 'name', 'seller', 'patent_id', 'patent_category', 'price', 'keyword', 'click_num', 'fav_num',
                     'if_show', 'shop_status', 'note']
@@ -15,6 +17,8 @@ class PatentAdmin(object):
     refresh_times = [3, 5]
     # 富文本
     style_fields = {"detail": "ueditor"}
+
+    import_excel = True  # 控制开关
 
     # def save_models(self):
     #     obj = self.new_obj

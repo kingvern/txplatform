@@ -10,7 +10,7 @@ import time
 
 
 def searchData(addr):
-    recordTime = requests.get('http://47.95.10.33:8000/policy/recordTime/?addr=' + addr)
+    recordTime = requests.get('http://39.100.199.59:8000/policy/recordTime/?addr=' + addr)
     recordTimeStr = recordTime.text[0:10]
 
     print(addr + 'recordTime: ' + recordTimeStr)
@@ -89,7 +89,7 @@ def searchData(addr):
                 'pubDate': pubDate,
                 'info': info
             }
-            response = requests.post('http://47.95.10.33:8000/policy/addPolicy/', data=policy_data)
+            response = requests.post('http://39.100.199.59:8000/policy/addPolicy/', data=policy_data)
             print(response.text.encode("utf8"))
 
 

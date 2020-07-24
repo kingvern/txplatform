@@ -405,7 +405,6 @@ class DeleteOrderView(View):
     """
 
     def post(self, request):
-        # 表明你收藏的不管是课程，讲师，还是机构。他们的id
         # 默认值取0是因为空串转int报错
         id = request.POST.get('id', 0)
         # 取到你收藏的类别，从前台提交的ajax请求中取

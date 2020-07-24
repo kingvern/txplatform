@@ -36,11 +36,11 @@
                         <span id="{{ patent.id }}" class="module-item-btn fav">关注</span>
                     {% endif %}
                     <span class="module-item-btn ask">咨询</span>
-                    {% if patent.is_owner %}
-                    {% else %}
+                    {% if patent.available %}
                         <span class="module-item-btn">
                             <a href="{% url 'operation:order' %}?id={{ patent.id }}">购买</a>
                         </span>
+                    {% else %}
                     {% endif %}
                 </div>
 

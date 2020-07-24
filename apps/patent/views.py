@@ -9,6 +9,7 @@ from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 
+from patent.adminx import PatentAdmin
 from .models import Patent
 from .forms import AddPatentForm, ModifyPatentForm
 from operation.models import UserFavorite
@@ -146,14 +147,15 @@ class PatentDetailView(View):
 
         # 是否收藏
         patent.has_fav = False
-        patent.is_owner = False
+
+        patent.available = True
 
         # 必须是用户已登录我们才需要判断。
         if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user, fav_id=patent.id, fav_type=1):
                 patent.has_fav = True
             if request.user == patent.seller:
-                patent.is_owner = True
+                patent.available = False
 
         # 取出标签找到标签相同的patent
         keyword = patent.keyword
@@ -175,7 +177,10 @@ class AddPatentView(LoginRequiredMixin, View):
     login_url = '/login/'
     redirect_field_name = 'next'
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
+        # if 'excel' in request.FILES:
+        #     # pass
+        #     return super(PatentAdmin, self).post(request, args, kwargs)
         add_patent_form = AddPatentForm(request.POST, request.FILES)
         if add_patent_form.is_valid():
             patent = add_patent_form.save(commit=False)

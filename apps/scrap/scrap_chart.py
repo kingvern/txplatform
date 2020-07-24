@@ -2,10 +2,10 @@
 import os
 import sys
 
-reload(sys)
+# reload(sys)
 sys.setdefaultencoding('utf-8')
 
-print sys.getdefaultencoding()
+# print sys.getdefaultencoding()
 
 # 通过在发送post请求时添加一个data参数，这个data参数可以通过字典构造成
 import requests
@@ -19,7 +19,7 @@ def searchData(tab, tab2, title, paramField):
     response = requests.get(url)
     jsonData = response.text
     jsonData = str(jsonData).replace('u\'', '\'').decode("unicode-escape")
-    print jsonData.encode("utf8")
+    # print jsonData.encode("utf8")
     chart_data = {
         "tab": tab,
         "tab2": tab2,
@@ -31,12 +31,12 @@ def searchData(tab, tab2, title, paramField):
 
 
 def printData(tab, tab2, title, paramField):
-    print sys.getdefaultencoding()
-    print tab.encode("utf8"), tab2.encode("utf8"), title.encode("utf8"), paramField.encode("utf8")
+    print(sys.getdefaultencoding())
+    print(tab.encode("utf8"), tab2.encode("utf8"), title.encode("utf8"), paramField.encode("utf8"))
 
 
 def scrap_chart():
-    print sys.getdefaultencoding()
+    # print sys.getdefaultencoding()
     print('START')
     clues = [
         [u"科技成果库分析", u"成果类型", u"科技成果成果类型分布", u"1.1"],
