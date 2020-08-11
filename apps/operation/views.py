@@ -21,6 +21,7 @@ from .forms import AddOrderForm
 from users.models import UserProfile
 from txplatform.settings import APIKEY
 
+
 # import locale
 # locale.getdefaultlocale()
 # Create your views here.

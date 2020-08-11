@@ -17,7 +17,7 @@
             {% for patent in patent_list %}
                 <div class="module-item-box ">
                     <div class="module-item-img-box">
-                        <img class="module-item-img" src="{{ patent.imgo | default:"/static/img/index-item1.png" }}"/>
+                        <img class="module-item-img" src="{{ patent.imgo | default:"/media/image/default.png" }}"/>
                     </div>
                     <div class="module-item-text">
                         <p class="title"><a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tio }}</a></p>

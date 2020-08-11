@@ -67,17 +67,17 @@ class SSDPatent(models.Model):
     crc = models.CharField(max_length=300, verbose_name=u'crc', default='', null=True, blank=True)
     cri = models.CharField(max_length=300, verbose_name=u'cri', default='', null=True, blank=True)
 
-    addd = models.DateTimeField(default=None, null=True, blank=True, verbose_name=u'addd日期')
-    pdd = models.DateTimeField(default=None, null=True, blank=True, verbose_name=u'pdd日期')
-
-    imgnamee = models.ImageField(default=None, upload_to='image/%Y/%m', null=True, blank=True, max_length=100,
-                                 verbose_name=u'imgnamee')
-    imgoo = models.ImageField(default=None, upload_to='image/%Y/%m', null=True, blank=True, max_length=100,
-                              verbose_name=u'imgoo')
-    absoimgpathh = models.ImageField(default=None, upload_to='image/%Y/%m', null=True, blank=True, max_length=100,
-                                     verbose_name=u'absoimgpathh')
-    pdff = models.FileField(default=None, upload_to='pdf/%Y/%m', null=True, blank=True, max_length=100,
-                            verbose_name=u'pdff')
+    # addd = models.DateTimeField(default=None, null=True, blank=True, verbose_name=u'addd日期')
+    # pdd = models.DateTimeField(default=None, null=True, blank=True, verbose_name=u'pdd日期')
+    #
+    # imgnamee = models.ImageField(default=None, upload_to='image/%Y/%m', null=True, blank=True, max_length=100,
+    #                              verbose_name=u'imgnamee')
+    # imgoo = models.ImageField(default=None, upload_to='image/%Y/%m', null=True, blank=True, max_length=100,
+    #                           verbose_name=u'imgoo')
+    # absoimgpathh = models.ImageField(default=None, upload_to='image/%Y/%m', null=True, blank=True, max_length=100,
+    #                                  verbose_name=u'absoimgpathh')
+    # pdff = models.FileField(default=None, upload_to='pdf/%Y/%m', null=True, blank=True, max_length=100,
+    #                         verbose_name=u'pdff')
 
     price = models.IntegerField(default=0, verbose_name='价格')
     bargain = models.BooleanField(default=True, verbose_name='议价')

@@ -185,6 +185,12 @@
     color: #72a6f8;
     line-height: 50px;
     text-decoration: none;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 560px;
+    margin-bottom: -14px;
 }
 
 .module-list .module-item-box .module-item-text .title a {

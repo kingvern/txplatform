@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'scrap',
 
     'xadmin',
+    # 'contenttypes',
     'crispy_forms',
     'captcha',
     'pure_pagination',

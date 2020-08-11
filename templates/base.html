@@ -70,10 +70,10 @@
                     <a class="{% ifequal '/ssdpatent' request.path|slice:":10" %}active{% endifequal %}"
                        href="{% url 'ssdpatent:list' %}">交易平台</a>
                 </li>
-{#                <li>#}
-{#                    <a class="{% ifequal '/project' request.path|slice:":8" %}active{% endifequal %}"#}
-{#                       href="{% url 'project:list' %}">转化平台</a>#}
-{#                </li>#}
+                {#                <li>#}
+                {#                    <a class="{% ifequal '/project' request.path|slice:":8" %}active{% endifequal %}"#}
+                {#                       href="{% url 'project:list' %}">转化平台</a>#}
+                {#                </li>#}
                 <li>
                     <a class="{% ifequal '/incubator' request.path|slice:":10" %}active{% endifequal %}"
                        href="{% url 'incubator:list' %}">孵化平台</a>
@@ -100,7 +100,7 @@
         <span class="search-bar-title">
             {% ifequal '/policy' request.path|slice:":7" %}资讯平台{% endifequal %}
             {% ifequal '/ssdpatent' request.path|slice:":10" %}交易平台{% endifequal %}
-{#            {% ifequal '/project' request.path|slice:":8" %}转化平台{% endifequal %}#}
+            {#            {% ifequal '/project' request.path|slice:":8" %}转化平台{% endifequal %}#}
             {% ifequal '/incubator' request.path|slice:":10" %}孵化平台{% endifequal %}
             {% ifequal '/gallery' request.path|slice:":8" %}展会服务{% endifequal %}
             {% ifequal '/club' request.path|slice:":5" %}关于我们{% endifequal %}
@@ -111,13 +111,20 @@
             <form class="form-search pull-right search-bar-box"
                   action="{% ifequal '/policy' request.path|slice:":7" %}{% url 'policy:search' %}{% endifequal %}
                 {% ifequal '/ssdpatent' request.path|slice:":10" %}{% url 'ssdpatent:search' %}{% endifequal %}
+                {% ifequal '/operation' request.path|slice:":10" %}{% url 'ssdpatent:search' %}{% endifequal %}
 {#                {% ifequal '/project' request.path|slice:":8" %}{% url 'project:search' %}{% endifequal %}#}
                 {% ifequal '/incubator' request.path|slice:":10" %}{% url 'incubator:search' %}{% endifequal %}
                 {% ifequal '/gallery' request.path|slice:":8" %}{% url 'gallery:list' %}{% endifequal %}
                 {% ifequal '/club' request.path|slice:":5" %}{% url 'club:home' %}{% endifequal %}">
                 <div class="input-group search-bar-box">
                     <input type="text" class="form-control" name="keywords"
-                           placeholder="{% ifequal '/policy' request.path|slice:":7" %}搜索政策{% endifequal %}{% ifequal '/ssdpatent' request.path|slice:":10" %}搜索专利{% endifequal %}{% ifequal '/project' request.path|slice:":8" %}搜索项目{% endifequal %}{% ifequal '/incubator' request.path|slice:":10" %}搜索孵化器{% endifequal %}{% ifequal '/gallery' request.path|slice:":8" %}搜索展会{% endifequal %}{% ifequal '/club' request.path|slice:":5" %}搜索{% endifequal %}"
+                           placeholder="{% ifequal '/policy' request.path|slice:":7" %}搜索政策{% endifequal %}
+{% ifequal '/ssdpatent' request.path|slice:":10" %}搜索专利{% endifequal %}
+{% ifequal '/operation' request.path|slice:":10" %}搜索专利{% endifequal %}
+{#{% ifequal '/project' request.path|slice:":8" %}搜索项目{% endifequal %}#}
+{% ifequal '/incubator' request.path|slice:":10" %}搜索孵化器{% endifequal %}
+{% ifequal '/gallery' request.path|slice:":8" %}搜索展会{% endifequal %}
+{% ifequal '/club' request.path|slice:":5" %}搜索{% endifequal %}"
                            value="{{ keywords }}">
                     <span class="input-group-btn">
                     <button class="btn search-bar-btn" type="submit">查找</button>
@@ -155,7 +162,7 @@
         </div>
         <div class="col-md-12 row">
             <div class="footer-copyright pull-left">
-               运营商:首都师范大学
+                运营商:首都师范大学
             </div>
             <div class="footer-worktime pull-right">工作日:8:30-17:30</div>
         </div>

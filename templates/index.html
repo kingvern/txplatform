@@ -183,7 +183,7 @@
                 {% for patent in patent_0 %}
                     <a class="content" href="/ssdpatent/detail/{{ patent.id }}/">
                         <span class="tag">{{ patent.pdt }}</span>
-                        <img src="{{ patent.imgo | default:"/static/img/index-item1.png"  }}"/>
+                        <img src="{{ patent.imgo | default:"/media/image/default.png"  }}"/>
                         <span class="name">{{ patent.tio }}</span>
                     </a>
 
@@ -194,7 +194,7 @@
                 {% for patent in patent_1 %}
                     <a class="content" href="/ssdpatent/detail/{{ patent.id }}/">
                         <span class="tag">{{ patent.pdt }}</span>
-                        <img src="{{ patent.imgo | default:"/static/img/index-item1.png"  }}"/>
+                        <img src="{{ patent.imgo | default:"/media/image/default.png"  }}"/>
                         <span class="name">{{ patent.tio }}</span>
                     </a>
 
@@ -205,7 +205,7 @@
                 {% for patent in patent_2 %}
                     <a class="content" href="/ssdpatent/detail/{{ patent.id }}/">
                         <span class="tag">{{ patent.pdt }}</span>
-                        <img src="{{ patent.imgo | default:"/static/img/index-item1.png" }}"/>
+                        <img src="{{ patent.imgo | default:"/media/image/default.png" }}"/>
                         <span class="name">{{ patent.tio }}</span>
                     </a>
 

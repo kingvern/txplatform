@@ -98,14 +98,20 @@
                         <div class="module-item-box ">
                             <div class="module-item-img-box">
                                 <img class="module-item-img"
-                                     src="{{ patent.imgo | default:"/static/img/index-item1.png" }}"/>
+                                     src="{{ patent.imgo | default:"/media/image/default.png" }}"/>
                             </div>
                             <div class="module-item-text">
                                 <p class="title"><a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tio }}</a></p>
                                 <p class="content">
                                     专利(申请号):{{ patent.ano }}/{{ patent.lc }}</p>
                                 <p class="content">所属机构:{{ patent.asc }}</p>
-                                {#                                <p class="content">价格:<span class="price">{{ patent.price }}</span>元 </p>#}
+                                <p class="content">
+                                    {% ifequal patent.price '0' %}
+                                        价格:<span class="price">{{ patent.price }}</span>元
+                                    {% else %}
+                                        议价
+                                    {% endifequal %}
+                                </p>
                             </div>
                             <div class="module-item-btn-box">
                                 {% if patent.has_fav %}
@@ -113,7 +119,9 @@
                                 {% else %}
                                     <span id="{{ patent.id }}" class="module-item-btn fav">关注</span>
                                 {% endif %}
-                                <span class="module-item-btn ask">咨询</span>
+                                {% if not patent.if_success %}
+                                    <span class="module-item-btn ask">咨询</span>
+                                {% endif %}
                             </div>
 
 
