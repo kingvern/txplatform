@@ -10,20 +10,20 @@
 
         <ul class="nav nav-tabs manage-nav">
             <li role="presentation" id="patent-li" class="active"><a>专利商品</a></li>
-            <li role="presentation" id="project-li"><a>技术项目</a></li>
+{#            <li role="presentation" id="project-li"><a>技术项目</a></li>#}
         </ul>
 
         <div class="manage-list" id="patent-table">
             {% for patent in patent_list %}
                 <div class="module-item-box ">
                     <div class="module-item-img-box">
-                        <img class="module-item-img" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/>
+                        <img class="module-item-img" src="{{ patent.imgo | default:"/static/img/index-item1.png" }}"/>
                     </div>
                     <div class="module-item-text">
-                        <p class="title"><a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a></p>
+                        <p class="title"><a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tio }}</a></p>
                         <p>
-                            专利(申请号):{{ patent.patent_id }}/{{ patent.get_patent_category_display }}</p>
-                        <p>行业:{{ patent.get_field_category_display }}</p>
+                            专利(申请号):{{ patent.ano }}</p>
+                        <p>行业:{{ patent.pdt }}</p>
                         <p>价格:<span class="price">{{ patent.price }}</span>元 </p>
                     </div>
                     <div class="module-item-btn-box">
@@ -33,27 +33,27 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="manage-list" id="project-table" style="display: none;">
-            {% for project in project_list %}
-                <div class="module-item-box ">
-                    <div class="module-item-img-box">
-                        <img class="module-item-img" src="{{ MEDIA_URL }}{{ project.main_pic }}"/>
-                    </div>
-                    <div class="module-item-text">
-                        <p class="title"><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></p>
-                        <p>
-                            技术成熟度:{{ project.get_project_step_display }}</p>
-                        <p>行业:{{ project.get_field_category_display }}</p>
-                        <p>合作方式:<span class="price">{{ project.get_cooperation_display }}</span>
-                        </p>
-                    </div>
-                    <div class="module-item-btn-box">
-                        <span id="{{ project.id }}" class="module-item-btn-faved fav"  key="{{ project.id }}" type="2">取消关注</span>
-                        <span class="module-item-btn ask">咨询</span>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+{#        <div class="manage-list" id="project-table" style="display: none;">#}
+{#            {% for project in project_list %}#}
+{#                <div class="module-item-box ">#}
+{#                    <div class="module-item-img-box">#}
+{#                        <img class="module-item-img" src="{{ MEDIA_URL }}{{ project.main_pic }}"/>#}
+{#                    </div>#}
+{#                    <div class="module-item-text">#}
+{#                        <p class="title"><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></p>#}
+{#                        <p>#}
+{#                            技术成熟度:{{ project.get_project_step_display }}</p>#}
+{#                        <p>行业:{{ project.get_field_category_display }}</p>#}
+{#                        <p>合作方式:<span class="price">{{ project.get_cooperation_display }}</span>#}
+{#                        </p>#}
+{#                    </div>#}
+{#                    <div class="module-item-btn-box">#}
+{#                        <span id="{{ project.id }}" class="module-item-btn-faved fav"  key="{{ project.id }}" type="2">取消关注</span>#}
+{#                        <span class="module-item-btn ask">咨询</span>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
     </div>
 
 {% endblock %}

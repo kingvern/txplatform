@@ -18,8 +18,8 @@
 {% block content %}
     <section class="container policy-banner-module">
 
-        <img class="module-item-img" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/>
-        <p>{{ patent.id }}{{ patent.name }}{{ patent.field_category }}{{ patent.patent_category }}</p>
+        <img class="module-item-img" src="{{ patent.imgo | default:"/static/img/index-item1.png" }}"/>
+        <p>{{ patent.id }}{{ patent.tio }}{{ patent.field_category }}{{ patent.patent_category }}</p>
     </section>
 
     <section class="container policy-banner-module">

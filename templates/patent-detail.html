@@ -8,8 +8,8 @@
     <section class="container">
         <ul class="breadcrumb">
             <li><a href="/">首页</a></li>
-            <li><a href="{% url 'patent:list' %}">专利商品列表</a></li>
-            <li class="active">{{ patent.name }}</li>
+            <li><a href="{% url 'ssdpatent:list' %}">专利商品列表</a></li>
+            <li class="active">{{ patent.tio }}</li>
         </ul>
     </section>
 {% endblock %}
@@ -18,15 +18,16 @@
     <section class="container">
         <div class="row">
             <div class="col-md-5">
-                <img class="main-pic" src="{{ MEDIA_URL }}{{ patent.main_pic }}"/>
+                <img class="main-pic" src="{{ patent.imgo | default:"/static/img/index-item1.png" }}"/>
             </div>
             <div class="col-md-7 panel-module">
-                <span class="title">{{ patent.name }}</span>
+                <span class="title">{{ patent.tio }}</span>
                 <div class="table">
-                    <span class="content">类别：{{ patent.get_patent_category_display }}</span>
-                    <span class="content">专利(申请号)：{{ patent.patent_id }}</span>
-                    <span class="content">行业：{{ patent.get_field_category_display }}</span>
-                    <span class="content">价格：<span class="price">{{ patent.price }}</span>元 </span>
+                    <span class="content">类别：{{ patent.pdt }}</span>
+                    <span class="content">专利(申请号)：{{ patent.ano }}</span>
+                    <span class="content">所属机构：{{ patent.asc }}</span>
+
+                    <span class="content">价格：<span class="price">{{ patent.price }}</span>元</span>
 
                 </div>
                 <div class="module-item-btn-box">
@@ -58,26 +59,32 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="thead">专利名称：</th>
-                    <td>{{ patent.name }}</td>
+                    <td>{{ patent.tio }}</td>
                     <th scope="row" class="thead">专利类别：</th>
-                    <td>{{ patent.get_patent_category_display }}</td>
+                    <td>{{ patent.pdt }}</td>
                 </tr>
                 <tr>
-                    <th scope="row" class="thead">专利号：</th>
-                    <td>{{ patent.IPC_num }}</td>
-                    <th scope="row" class="thead">专利行业：</th>
-                    <td>{{ patent.get_field_category_display }}</td>
+                    <th scope="row" class="thead">申请人：</th>
+                    <td>{{ patent.apo }}</td>
+                    <th scope="row" class="thead">文献号：</th>
+                    <td>{{ patent.pno }}</td>
                 </tr>
                 <tr>
-                    <th scope="row" class="thead">所在地区：</th>
-                    <td>{{ patent.get_province_display }}</td>
-                    <th scope="row" class="thead">专利有效期：</th>
-                    <td>{{ patent.patent_expired }}</td>
+                    <th scope="row" class="thead">IPC：</th>
+                    <td>{{ patent.ipc }}</td>
+                    <th scope="row" class="thead">PDF：</th>
+                    <td><a href="{{ patent.pdf }}">下载</a> </td>
                 </tr>
                 </tbody>
             </table>
             {% autoescape off %}
-                {{ patent.detail }}
+                {{ patent.abso }}
+            {% endautoescape %}
+            {% autoescape off %}
+                {{ patent.absc }}
+            {% endautoescape %}
+            {% autoescape off %}
+                {{ patent.abse }}
             {% endautoescape %}
         </div>
 
@@ -146,17 +153,16 @@
         <div class="recommend-content container">
             {% for p in relate_patents %}
                 <div class="recommend-item">
-                    <img src="{{ MEDIA_URL }}{{ p.main_pic }}"/>
+                    <img src="{{ p.imgo }}"/>
                     {#                    <img src="/media/image/2018/12/WX20181031-0929032x.png"/>#}
                     <div class="box">
                         <span class="title">
-                            {{ p.name }}
+                            {{ p.tio }}
                         </span>
                         <div class="table">
-                            <p class="content">
-                                专利(申请号):{{ patent.patent_id }}/{{ patent.get_patent_category_display }}</p>
-                            <p class="content">行业:{{ patent.get_field_category_display }}</p>
-                            <p class="content">价格:<span class="price">{{ patent.price }}</span>元 </p>
+                            <p class="content">专利(申请号):{{ p.ano }}</p>
+                            <p class="content">所属机构：{{ p.asc }}</p>
+                            <p class="content">价格:<span class="price">{{ p.price }}</span>元 </p>
                         </div>
                     </div>
                 </div>

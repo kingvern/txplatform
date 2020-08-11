@@ -10,7 +10,7 @@
 
         <ul class="nav nav-tabs manage-nav">
             <li role="presentation" id="patent-li" class="active"><a >专利商品</a></li>
-            <li role="presentation" id="project-li"><a >技术项目</a></li>
+{#            <li role="presentation" id="project-li"><a >技术项目</a></li>#}
         </ul>
         <table class="table table-bordered  manage-table" id="patent-table">
             <thead>
@@ -26,7 +26,7 @@
             {% for patent in patent_list %}
                 <tr key="{{ patent.id }}" type="1">
                     <td>{{ patent.id }}</td>
-                    <td><a href="/patent/detail/{{ patent.id }}/">{{ patent.name }}</a></td>
+                    <td><a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tio }}</a></td>
                     <td>{{ patent.get_patent_category_display }}</td>
                     <td>{{ patent.get_shop_status_display }}</td>
                     <td>
@@ -38,7 +38,7 @@
                             <span class="cancel_publish">下架</span>
                             <span class="delete_publish">删除</span>
                         {% endifequal %}
-                        {% ifequal patent.shop_status '-1' %}<a href="/patent/modify/{{ patent.id }}/">修改</a>
+                        {% ifequal patent.shop_status '-1' %}<a href="/ssdpatent/modify/{{ patent.id }}/">修改</a>
                             <span class="cancel_publish">上架</span>
                             <span class="delete_publish">删除</span>
                         {% endifequal %}
@@ -49,43 +49,43 @@
             </tbody>
         </table>
 
-        <table class="table table-bordered  manage-table" id="project-table" style="display: none;">
-            <thead>
-            <tr>
-                <th>编号</th>
-                <th>名字</th>
-                <th>交易方式</th>
-                <th>阶段</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for project in project_list %}
-                <tr key="{{ project.id }}" type="2">
-                    <td>{{ project.id }}</td>
-                    <td><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></td>
-                    <td>{{ project.get_cooperation_display }}</td>
-                    <td>{{ project.get_shop_status_display }}</td>
-                    <td>
-                        {% ifequal project.shop_status '0' %}
-                            <span class="cancel_publish">下架</span>
-                            <span class="delete_publish">删除</span>
-                        {% endifequal %}
-                        {% ifequal project.shop_status '1' %}
-                            <span class="cancel_publish">下架</span>
-                            <span class="delete_publish">删除</span>
-                        {% endifequal %}
-                        {% ifequal project.shop_status '-1' %}
-                            <a href="/project/modify/{{ project.id }}/">修改</a>
-                            <span class="cancel_publish">上架</span>
-                            <span class="delete_publish">删除</span>
-                        {% endifequal %}
-                    </td>
-
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+{#        <table class="table table-bordered  manage-table" id="project-table" style="display: none;">#}
+{#            <thead>#}
+{#            <tr>#}
+{#                <th>编号</th>#}
+{#                <th>名字</th>#}
+{#                <th>交易方式</th>#}
+{#                <th>阶段</th>#}
+{#                <th>操作</th>#}
+{#            </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#            {% for project in project_list %}#}
+{#                <tr key="{{ project.id }}" type="2">#}
+{#                    <td>{{ project.id }}</td>#}
+{#                    <td><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></td>#}
+{#                    <td>{{ project.get_cooperation_display }}</td>#}
+{#                    <td>{{ project.get_shop_status_display }}</td>#}
+{#                    <td>#}
+{#                        {% ifequal project.shop_status '0' %}#}
+{#                            <span class="cancel_publish">下架</span>#}
+{#                            <span class="delete_publish">删除</span>#}
+{#                        {% endifequal %}#}
+{#                        {% ifequal project.shop_status '1' %}#}
+{#                            <span class="cancel_publish">下架</span>#}
+{#                            <span class="delete_publish">删除</span>#}
+{#                        {% endifequal %}#}
+{#                        {% ifequal project.shop_status '-1' %}#}
+{#                            <a href="/project/modify/{{ project.id }}/">修改</a>#}
+{#                            <span class="cancel_publish">上架</span>#}
+{#                            <span class="delete_publish">删除</span>#}
+{#                        {% endifequal %}#}
+{#                    </td>#}
+{##}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
     </div>
 
 {% endblock %}

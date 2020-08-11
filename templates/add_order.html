@@ -9,8 +9,8 @@
         <div>
             <ul class="breadcrumb">
                 <li><a href="/">首页</a></li>
-                <li><a href="{% url 'patent:list' %}">专利列表</a></li>
-                <li><a href="{% url 'patent:detail' patent.id %}">{{ patent.name }}</a></li>
+                <li><a href="{% url 'ssdpatent:list' %}">专利列表</a></li>
+                <li><a href="{% url 'ssdpatent:detail' patent.id %}">{{ patent.tio }}</a></li>
                 <li class="active"><a>下单</a></li>
             </ul>
         </div>
@@ -40,7 +40,7 @@
 
                             <div class="table">
                                 <span class="title">
-                                    {{ patent.name }}
+                                    {{ patent.tio }}
                                 </span>
                                 <span class="content">
                                     专利(申请号):{{ patent.patent_id }}
@@ -48,13 +48,21 @@
                             </div>
                         </div>
                     </td>
+{#                    <td>#}
+{#                        <p>单&nbsp;&nbsp;&nbsp;价：{{ patent.price | floatformat:2 }}</p>#}
+{#                        <p>服务费：{{ patent.hire | floatformat:2 }}</p>#}
+{#                    </td>#}
+{##}
+{#                    <td>#}
+{#                        <p class="price">￥{{ patent.price|add:patent.hire | floatformat:2 }}</p>#}
+{#                    </td>#}
                     <td>
                         <p>单&nbsp;&nbsp;&nbsp;价：{{ patent.price | floatformat:2 }}</p>
-                        <p>服务费：{{ patent.hire | floatformat:2 }}</p>
+                        <p>服务费：{{ patent.price | floatformat:2 }}</p>
                     </td>
 
                     <td>
-                        <p class="price">￥{{ patent.price|add:patent.hire | floatformat:2 }}</p>
+                        <p class="price">￥{{ patent.price|add:patent.price | floatformat:2 }}</p>
                     </td>
 
                 </tr>
@@ -105,8 +113,8 @@
             <div class="detail-content order-submit-box">
 
                 <p>单&nbsp;&nbsp;&nbsp;价：<span class="price">￥{{ patent.price | floatformat:2 }}</span></p>
-                <p>服务费：<span class="price">￥{{ patent.hire | floatformat:2 }}</span></p>
-                <p>应付金额：<span class="price">￥{{ patent.price|add:patent.hire | floatformat:2 }}</span></p>
+                <p>服务费：<span class="price">￥{{ patent.price | floatformat:2 }}</span></p>
+                <p>应付金额：<span class="price">￥{{ patent.price|add:patent.price  | floatformat:2 }}</span></p>
                 <div class="checkbox">
                     {{ add_order_form.agree }}<a class="agreement">《平台交易服务协议》</a>
                 </div>

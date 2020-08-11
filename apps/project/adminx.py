@@ -19,4 +19,4 @@ class ProjectAdmin(object):
     style_fields = {"detail": "ueditor"}
 
 
-xadmin.site.register(Project, ProjectAdmin)
+# xadmin.site.register(Project, ProjectAdmin)

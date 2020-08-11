@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block title %}政策展示{% endblock %}
+{% block title %}孵化平台{% endblock %}
 {% block custom_css %}
     <link rel="stylesheet" href="{% static 'css/incubator.css' %}">
 {% endblock %}
@@ -57,9 +57,8 @@
                         </div>
                     </a>
                 </div>
+
                 <div class="filter">
-
-
                     <div class="filter-box">
                         <div class="filter-title"><span>行政</span></div>
                         <ul id=""
@@ -114,45 +113,45 @@
                             <div class="filter-title"><span>级别</span></div>
                             <ul id=""
                                 class="filter-list province province{{ provinces.0.main }} {% ifnotequal provinces.0.main main %}dispear{% endifnotequal %}">
-                                <li class="filter-item {% ifequal area1 '' %}filter-active{% endifequal %}"
+                                <li class="filter-item {% ifequal level '' %}filter-active{% endifequal %}"
                                     role="presentation">
                                     <a role="menuitem" tabindex="-1"
-                                       href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}"><span
+                                       href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&level="><span
                                             class="">全部</span></a>
                                 </li>
 
-                                <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
+                                <li class="filter-item {% ifequal level '国家级'  %}filter-active{% endifequal %}"
                                     role="presentation">
                                     <a role="menuitem" tabindex="-1"
-                                       href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
+                                       href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&level=国家级"><span>
                                     国家级
                                 </span></a>
                                 </li>
-                                <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
+                                <li class="filter-item {% ifequal level '省级'  %}filter-active{% endifequal %}"
                                     role="presentation">
                                     <a role="menuitem" tabindex="-1"
-                                       href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
+                                       href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&level=省级"><span>
                                     省级
                                 </span></a>
                                 </li>
-                                <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
+                                <li class="filter-item {% ifequal level '市级' %}filter-active{% endifequal %}"
                                     role="presentation">
                                     <a role="menuitem" tabindex="-1"
-                                       href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
+                                       href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&level=市级"><span>
                                     市级
                                 </span></a>
                                 </li>
-                                <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
+                                <li class="filter-item {% ifequal level '区级'  %}filter-active{% endifequal %}"
                                     role="presentation">
                                     <a role="menuitem" tabindex="-1"
-                                       href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
+                                       href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&level=区级"><span>
                                     区级
                                 </span></a>
                                 </li>
                             </ul>
                         </div>
                     {% else %}
-                        {% ifnotequal area0 '' %}
+{#                        {% ifnotequal area0 '' %}#}
                             <div class="filter-box-bottom">
                                 <div class="filter-title"><span>行政</span></div>
                                 <ul id=""
@@ -163,25 +162,27 @@
                                            href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}"><span
                                                 class="">全部</span></a>
                                     </li>
-                                    {% for area1_ in area1s %}
-                                        <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
-                                            role="presentation">
-                                            <a role="menuitem" tabindex="-1"
-                                               href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
-                                            {% ifnotequal type_id '3' %}
-                                                {% ifequal area0 '河北' %}{{ area1_.area1|slice:'4:' }}{% endifequal %}
-                                                {% ifequal area0 '北京' %}{{ area1_.area1|slice:'8:' }}{% endifequal %}
-                                                {% ifequal area0 '天津' %}{{ area1_.area1|slice:'8:' }}{% endifequal %}
-                                            {% else %}
-                                                {{ area1_.area1 }}
-                                            {% endifnotequal %}
+                                    {% ifnotequal area0 '' %}
+                                        {% for area1_ in area1s %}
+                                            <li class="filter-item {% ifequal area1 area1_.area1 %}filter-active{% endifequal %}"
+                                                role="presentation">
+                                                <a role="menuitem" tabindex="-1"
+                                                   href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}"><span>
+                                                {% ifnotequal type_id '3' %}
+                                                    {% ifequal area0 '河北' %}{{ area1_.area1|slice:'4:' }}{% endifequal %}
+                                                    {% ifequal area0 '北京' %}{{ area1_.area1|slice:'8:' }}{% endifequal %}
+                                                    {% ifequal area0 '天津' %}{{ area1_.area1|slice:'8:' }}{% endifequal %}
+                                                {% else %}
+                                                    {{ area1_.area1 }}
+                                                {% endifnotequal %}
 
-                                            </span></a>
-                                        </li>
-                                    {% endfor %}
+                                                </span></a>
+                                            </li>
+                                        {% endfor %}
+                                    {% endifnotequal %}
                                 </ul>
                             </div>
-                        {% endifnotequal %}
+{#                        {% endifnotequal %}#}
                     {% endifequal %}
                 </div>
                 {#列表#}
@@ -224,7 +225,7 @@
                     <ul class="pagination ">
                         {% if incubator.has_previous %}
                             <li>
-                                <a href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ incubator.previous_page_number }}"
+                                <a href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1 }}&level={{ level }}&page={{ incubator.previous_page_number }}"
                                    class="prev">&lsaquo;&lsaquo; </a></li>
                         {% else %}
                             <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>
@@ -235,7 +236,7 @@
                                     <li><span class="current page">{{ page }}</span></li>
                                 {% else %}
                                     <li>
-                                        <a href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ page }}"
+                                        <a href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1 }}&level={{ level }}&page={{ page }}"
                                            class="page">{{ page }}</a>
                                     </li>
                                 {% endifequal %}
@@ -245,7 +246,7 @@
                         {% endfor %}
                         {% if incubator.has_next %}
                             <li>
-                                <a href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1_.area1 }}&page={{ incubator.next_page_number }}"
+                                <a href="?keywords={{ keywords }}&type_id={{ type_id }}&area0={{ area0 }}&area1={{ area1 }}&level={{ level }}&page={{ incubator.next_page_number }}"
                                    class="next">
                                     &rsaquo;&rsaquo;</a></li>
                         {% else %}

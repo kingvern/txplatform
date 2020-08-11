@@ -77,7 +77,7 @@
                         </li>
                         <li>
                             <a class="{% ifequal current_page "patent" %}active{% endifequal %}"
-                               href="{% url 'patent:list' %}">交易平台</a>
+                               href="{% url 'ssdpatent:list' %}">交易平台</a>
                         </li>
                         <li>
                             <a class="{% ifequal current_page "project" %}active{% endifequal %}"
@@ -93,7 +93,7 @@
                         </li>
                         <li>
                             <a class="{% ifequal current_page "club" %}active{% endifequal %}"
-                               href="{% url 'club:home' %}">俱乐部</a>
+                               href="{% url 'club:home' %}">关于我们</a>
                         </li>
                     </ul>
                 </div>
@@ -139,9 +139,9 @@
                             <div class="sidebar-panel-node"></div>
                         </div>
                         <a class="sidebar-panel-item {% ifequal  '/patent/add_patent/' request.path %} sidebar-active{% endifequal %}"
-                           href="{% url 'patent:add_patent' %}">发布专利</a>
-                        <a class="sidebar-panel-item {% ifequal  '/project/add_project/' request.path %} sidebar-active{% endifequal %}"
-                           href="{% url 'project:add_project' %}">发布项目</a>
+                           href="{% url 'ssdpatent:add_patent' %}">发布专利</a>
+{#                        <a class="sidebar-panel-item {% ifequal  '/project/add_project/' request.path %} sidebar-active{% endifequal %}"#}
+{#                           href="{% url 'project:add_project' %}">发布项目</a>#}
                         <a class="sidebar-panel-item {% ifequal  '/users/mysellorder/' request.path %} sidebar-active{% endifequal %}"
                            href="{% url 'users:mysellorder' %}">订单管理</a>
                         <a class="sidebar-panel-item {% ifequal  '/users/mypublish/' request.path %} sidebar-active{% endifequal %}"
@@ -179,7 +179,7 @@
     <div class="container">
         <div class="col-md-12 row">
             <div class="footer-nav pull-left">
-                关于本站 | 新闻中心 | 诚聘英才 | 联系我们
+                关于本站 | 新闻中心 | 联系我们
             </div>
             <div class="footer-contact pull-right">
 
@@ -189,7 +189,7 @@
         </div>
         <div class="col-md-12 row">
             <div class="footer-copyright pull-left">
-                Copyright © 2007 - 2018 千松 版权所有 运营商:北京千松科技发展有限公司
+                运营商:首都师范大学
             </div>
             <div class="footer-worktime pull-right">工作日:8:30-17:30</div>
         </div>

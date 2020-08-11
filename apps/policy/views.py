@@ -37,7 +37,7 @@ class PolicyListView(View):
         policy = all_policy.filter(Q(source__if_show=True) & Q(addr__if_show=True))
 
         main = '0'
-        mains = [u'中央', u'北京', u'天津', u'河北']
+        mains = [u'中央', u'北京']
         province_id = request.GET.get('province', '3')
         if province_id:
             policy = policy.filter(addr=province_id)
@@ -90,7 +90,8 @@ class SearchView(View):
         policy = Policy.objects.all().filter(Q(source__if_show=True) & Q(addr__if_show=True))
         search_keywords = request.GET.get('keywords', '')
         if search_keywords:
-            policy = policy.filter(Q(title__icontains=search_keywords) | Q(info__icontains=search_keywords))
+            policy = policy.filter(Q(title__icontains=search_keywords))
+            # policy = policy.filter(Q(title__icontains=search_keywords) | Q(info__icontains=search_keywords))
         pubDate = request.GET.get('pubDate', "")
         click_num = request.GET.get('click_num', "")
         if pubDate:

@@ -5,10 +5,21 @@ from captcha.fields import CaptchaField
 
 from users.models import UserProfile, UpdateMobileRecord
 
+my_default_errors = {
+    'required': '请填写',
+    'invalid': '无效值',
+}
+
 
 class LoginForm(forms.Form):
-    username = forms.CharField(required=True)
-    password = forms.CharField(required=True, min_length=6)
+    username = forms.CharField(required=True, error_messages={
+        'required': '请填写用户名或手机号',
+        'invalid': '无效值',
+    })
+    password = forms.CharField(required=True, min_length=6, error_messages={
+        'required': '请填写密码',
+        'invalid': '无效值',
+    })
 
 
 class RegisterForm(forms.Form):
@@ -47,7 +58,7 @@ class UploadImageForm(forms.ModelForm):
 class UserInfoForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['username', 'gender', 'birthday',  'mobile']
+        fields = ['username', 'gender', 'birthday', 'mobile']
 
 
 class UserAuthForm(forms.ModelForm):

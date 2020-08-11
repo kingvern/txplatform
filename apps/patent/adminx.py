@@ -39,4 +39,4 @@ class PatentAdmin(object):
     #     obj.save()
 
 
-xadmin.site.register(Patent, PatentAdmin)
+# xadmin.site.register(Patent, PatentAdmin)

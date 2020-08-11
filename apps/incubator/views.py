@@ -13,7 +13,14 @@ class ListView(View):
     def get(self, request):
         type_id = request.GET.get('type_id', '0')
 
-        all_incubator = Couveuse.objects.all()
+        area0 = request.GET.get('area0', '')
+        area1 = request.GET.get('area1', '')
+        level = request.GET.get('level', '')
+
+
+        if type_id == '0':
+            all_incubator = Couveuse.objects.all()
+
         if type_id == '1':
             all_incubator = Park.objects.all()
         if type_id == '2':
@@ -21,12 +28,13 @@ class ListView(View):
         if type_id == '3':
             all_incubator = YellowPage.objects.all()
 
-        area0 = request.GET.get('area0', '')
-        area1 = request.GET.get('area1', '')
 
         area0s = all_incubator.values('area0').distinct()
         # levels = all_incubator.values('level').distinct()
         # types = all_incubator.values('type').distinct()
+
+        if type_id == '0' and level:
+            all_incubator = all_incubator.filter(level=level)
 
         if area0:
             all_incubator = all_incubator.filter(area0=area0)
@@ -67,6 +75,7 @@ class ListView(View):
             'area1': area1,
             'area0s': area0s,
             'area1s': area1s,
+            'level': level,
             "recommend_couveuse": recommend_couveuse,
             "recommend_park": recommend_park,
             "recommend_financial": recommend_financial,
@@ -100,9 +109,6 @@ class SearchView(View):
             if search_keywords:
                 all_incubator = all_incubator.filter(
                     Q(name__icontains=search_keywords) | Q(addr__icontains=search_keywords))
-
-
-
 
         area0 = request.GET.get('area0', '')
         area1 = request.GET.get('area1', '')

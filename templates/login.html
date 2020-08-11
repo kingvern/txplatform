@@ -19,15 +19,18 @@
                 </div>
                 <div class="form">
                     <div class="input">
-                        <input name="username" type="text" placeholder="手机号："/>
-                        <span>{{ login_form.errors.username.0 }}</span>
+                        <input name="username" type="text" placeholder="手机号或用户名："/>
+{#                        <span>{{ login_form.errors.username.0 }}</span>#}
                     </div>
                     <div class="input">
                         <input name="password" type="password" placeholder="密码："/>
-                        <span>{{ login_form.errors.password.0 }}</span>
+{#                        <span>{{ login_form.errors.password.0 }}</span>#}
                     </div>
                     <a class="forget" href="{% url 'reset_pwd' %}">忘记密码</a>
-                    {{ msg }}
+                    <span class="error_msg">{{ login_form.errors.password.0 }}</span>
+                    <span class="error_msg">{{ login_form.errors.username.0 }}</span>
+                    <span class="error_msg">{{ msg }} </span>
+
                     <input type="hidden" name="next" value="{{ redirect_url }}"/>
                     {% csrf_token %}
                 </div>

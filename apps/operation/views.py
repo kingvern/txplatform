@@ -1,4 +1,5 @@
 # _*_ coding: utf-8 _*_
+# _*_ coding: utf-8 _*_
 from datetime import datetime
 import weasyprint
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,10 +11,9 @@ from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 
 from txplatform import settings
-from .models import Patent
 from operation.models import UserFavorite, UserJoin, BuyerPatent, BuyerProject
 from policy.models import Policy
-from patent.models import Patent
+from ssdpatent.models import SSDPatent
 from project.models import Project
 from incubator.models import Couveuse, Park, Financial
 from gallery.models import Gallery
@@ -53,7 +53,7 @@ class AddFavView(View):
                     policy.fav_num = 0
                 policy.save()
             elif int(type) == 1:
-                patent = Patent.objects.get(id=int(id))
+                patent = SSDPatent.objects.get(id=int(id))
                 patent.fav_num -= 1
                 if patent.fav_num < 0:
                     patent.fav_num = 0
@@ -107,7 +107,7 @@ class AddFavView(View):
                     item.fav_num += 1
                     item.save()
                 elif int(type) == 1:
-                    item = Patent.objects.get(id=int(id))
+                    item = SSDPatent.objects.get(id=int(id))
                     item.fav_num += 1
                     item.save()
                     return HttpResponse('{"status":"success", "msg":"取消关注"}', content_type='application/json')
@@ -198,7 +198,7 @@ class CancelPublishView(View):
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
 
         if int(type) == 1:
-            patent = Patent.objects.get(id=int(id))
+            patent = SSDPatent.objects.get(id=int(id))
             if patent.shop_status != '-1':
                 patent.shop_status = '-1'
                 patent.if_show = False
@@ -223,7 +223,7 @@ class CancelPublishView(View):
                 return HttpResponse('{"status":"success", "msg":"下架"}', content_type='application/json')
         else:
             return HttpResponse('{"status":"fail", "msg":"下架出错"}', content_type='application/json')
-        # patent_list = Patent.objects.filter(seller=request.user)
+        # patent_list = SSDPatent.objects.filter(seller=request.user)
         # project_list = Project.objects.filter(seller=request.user)
         # return render(request, "usercenter-myPublish.html", {
         #     "patent_list": patent_list,
@@ -249,7 +249,7 @@ class DeletePublishView(View):
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
 
         if int(type) == 1:
-            patent = Patent.objects.get(id=int(id))
+            patent = SSDPatent.objects.get(id=int(id))
             patent.delete()
             return HttpResponse('{"status":"success", "msg":"已经删除"}', content_type='application/json')
 
@@ -271,7 +271,7 @@ class OrderView(LoginRequiredMixin, View):
     def get(self, request):
         id = request.GET.get('id', 0)
         if int(id) > 0:
-            patent = Patent.objects.get(id=int(id))
+            patent = SSDPatent.objects.get(id=int(id))
             exist_records = BuyerPatent.objects.filter(buyer=request.user, patent=patent, step__in=['0', '1', '2', '3'])
             if exist_records:
                 exist_record = exist_records[0]
@@ -309,7 +309,7 @@ class OrderView(LoginRequiredMixin, View):
         if int(type) == 1:
             if int(type) == 1 and int(id) > 0:
                 add_order_form = AddOrderForm(request.POST)
-                patent = Patent.objects.get(id=int(id))
+                patent = SSDPatent.objects.get(id=int(id))
 
                 if request.user == patent.seller:
                     from txplatform.settings import NAME, ADDRESS, CONTACT, MOBILE
@@ -327,6 +327,8 @@ class OrderView(LoginRequiredMixin, View):
 
                     order.buyer = request.user
                     order.patent = patent
+                    # ('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'交易中'), ('3', u'已交易')
+                    patent.shop_status = '2'
                     patent.if_show = False
                     patent.save()
 
@@ -335,9 +337,7 @@ class OrderView(LoginRequiredMixin, View):
                     order.order_contact = request.POST.get('order_contact', '')
                     order.order_mobile = request.POST.get('order_mobile', '')
 
-                    order.base_price = patent.price
-                    order.serve_fee = patent.hire
-                    order.total_price = patent.hire + patent.price
+                    order.price = patent.price
                     order.step = '0'
 
                     order.save()
@@ -347,7 +347,7 @@ class OrderView(LoginRequiredMixin, View):
                     return HttpResponseRedirect("/operation/add_order/?id=" + id)
                 else:
                     from txplatform.settings import NAME, ADDRESS, CONTACT, MOBILE
-                    patent = Patent.objects.get(id=int(id))
+                    patent = SSDPatent.objects.get(id=int(id))
                     return render(request, 'add_order.html', {
                         'patent': patent,
                         'NAME': NAME,

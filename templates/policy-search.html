@@ -65,7 +65,7 @@
             <ul class="pagination ">
                 {% if policy.has_previous %}
                     <li>
-                        <a href="?department={{ department_id }}&province={{ province_id }}&page={{ policy.previous_page_number }}"
+                        <a href="?keywords={{ keywords }}&page={{ policy.previous_page_number }}"
                            class="prev">&lsaquo;&lsaquo; </a></li>
                 {% else %}
                     <li><span class="disabled prev">&lsaquo;&lsaquo; </span></li>

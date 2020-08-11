@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'operation',
     'patent',
+    'ssdpatent',
     'project',
     'incubator',
     'policy',
@@ -162,6 +163,12 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
 )
+
+
+# # 文件上传配置
+# UPLOAD_ROOT = os.path.join(BASE_DIR,'upload')
+
+
 
 EMAIL_HOST = 'smtp.sina.com'
 EMAIL_PORT = 25

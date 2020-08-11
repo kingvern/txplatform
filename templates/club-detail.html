@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}俱乐部详情{% endblock %}
+{% block title %}详情{% endblock %}
 {% block custom_css %}
     <link rel="stylesheet" href="{% static 'css/club.css' %}">
 {% endblock %}
@@ -9,8 +9,8 @@
         <div>
             <ul class="breadcrumb">
                 <li><a href="/">首页</a></li>
-                <li><a href="{% url 'gallery:list' %}">俱乐部</a></li>
-                <li><a>俱乐部详情</a></li>
+                <li><a href="{% url 'gallery:list' %}">关于我们</a></li>
+                <li><a>详情</a></li>
             </ul>
         </div>
     </section>

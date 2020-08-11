@@ -44,6 +44,7 @@ urlpatterns = [
     path('users/', include(('users.urls', 'users'), namespace='users')),
     path('policy/', include(('policy.urls', 'policy'), namespace='policy')),
     path('patent/', include(('patent.urls', 'patent'), namespace='patent')),
+    path('ssdpatent/', include(('ssdpatent.urls', 'ssdpatent'), namespace='ssdpatent')),
     path('project/', include(('project.urls', 'project'), namespace='project')),
 
     path('incubator/', include(('incubator.urls', 'incubator'), namespace='incubator')),

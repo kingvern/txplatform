@@ -4,6 +4,7 @@ from datetime import datetime
 
 from django.db import models
 
+from ssdpatent.models import SSDPatent
 from users.models import UserProfile
 from patent.models import Patent
 from project.models import Project
@@ -67,7 +68,7 @@ class BuyerPatent(models.Model):
     order_address = models.CharField(max_length=100, default='', verbose_name=u'地址')
     order_contact = models.CharField(max_length=100, default='', verbose_name=u'联系人')
     order_mobile = models.CharField(max_length=11, default='', verbose_name=u'手机')
-    patent = models.ForeignKey(Patent, on_delete=models.CASCADE, verbose_name=u'专利')
+    patent = models.ForeignKey(SSDPatent, on_delete=models.CASCADE, verbose_name=u'专利')
     base_price = models.IntegerField(default=0, verbose_name=u'基础费')
     serve_fee = models.IntegerField(default=0, verbose_name=u'服务费')
     total_price = models.IntegerField(default=0, verbose_name=u'总费')
@@ -109,6 +110,13 @@ class BuyerPatent(models.Model):
 
     def save(self, *args, **kwargs):
         self.step_time = datetime.now()
+        # ('-1', u'已取消'), ('0', u'下单未付款'), ('1', u'买家已付款'), ('2', u'已提交专利局'), ('3', u'交易完成')
+        if self.step == '3':
+            # ('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'交易中'), ('3', u'已交易')
+            patent = self.patent
+            patent.shop_status = '2'
+            patent.save()
+
         super(self.__class__, self).save(*args, **kwargs)
 
 

@@ -14,7 +14,7 @@ from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from operation.models import UserFavorite, UserMessage, BuyerPatent, BuyerProject
 from policy.models import Policy, Banner
 from project.models import Project
-from patent.models import Patent
+from ssdpatent.models import SSDPatent
 from incubator.models import Couveuse, Park, Financial
 from gallery.models import Gallery
 from utils.id_card import checkIDNumber
@@ -367,8 +367,7 @@ class UploadImageView(LoginRequiredMixin, View):
 
     def post(self, request):
         # 这时候用户上传的文件就已经被保存到imageform了 ，为modelform添加instance值直接保存
-        image_form = UploadImageForm(
-            request.POST, request.FILES, instance=request.user)
+        image_form = UploadImageForm(request.POST, request.FILES, instance=request.user)
         if image_form.is_valid():
             image_form.save()
             # 取出cleaned data中的值,一个dict
@@ -422,7 +421,7 @@ class MyPublishView(LoginRequiredMixin, View):
     redirect_field_name = 'next'
 
     def get(self, request):
-        patent_list = Patent.objects.filter(seller=request.user)
+        patent_list = SSDPatent.objects.filter(seller=request.user)
         project_list = Project.objects.filter(seller=request.user)
         return render(request, "usercenter-myPublish.html", {
             "patent_list": patent_list,
@@ -442,7 +441,7 @@ class MyFavView(LoginRequiredMixin, View):
         patent_list = []
         patent_ids = UserFavorite.objects.filter(user=request.user, fav_type=1)
         for patent_id in patent_ids:
-            patent = Patent.objects.get(id=int(patent_id.fav_id))
+            patent = SSDPatent.objects.get(id=int(patent_id.fav_id))
             patent_list.append(patent)
 
         project_list = []
@@ -492,10 +491,11 @@ class IndexView(View):
         project = Project.objects.all().order_by('-click_num')[:6]
         bar_pic = Banner.objects.filter(if_toutiao=True)[:1][0]
 
-        patent_bar = Patent.objects.all().order_by('-click_num')[:10]
-        patent_0 = Patent.objects.all().filter(patent_category='fmzl')[:12]
-        patent_1 = Patent.objects.all().filter(patent_category='syxxzl')[:12]
-        patent_2 = Patent.objects.all().filter(patent_category='wgzl')[:12]
+        # patent_bar = SSDPatent.objects.all().order_by('-click_num')[:10]
+        patent_bar = SSDPatent.objects.all().filter(if_success=True)[:10]
+        patent_0 = SSDPatent.objects.all().filter(pdt='发明')[:12]
+        patent_1 = SSDPatent.objects.all().filter(pdt='实用新型')[:12]
+        patent_2 = SSDPatent.objects.all().filter(pdt='外观设计')[:12]
 
         policy = Policy.objects.order_by('-pubDate').filter(
             Q(source__if_show=True) & Q(addr__if_show=True) & Q(source_id='51'))[:10]
@@ -514,7 +514,6 @@ class IndexView(View):
 
 
 class MyFavPolicyView(LoginRequiredMixin, View):
-
     login_url = '/login/'
     redirect_field_name = 'next'
 
@@ -530,7 +529,6 @@ class MyFavPolicyView(LoginRequiredMixin, View):
 
 
 class MyFavIncubatorView(LoginRequiredMixin, View):
-
     login_url = '/login/'
     redirect_field_name = 'next'
 
@@ -558,7 +556,6 @@ class MyFavIncubatorView(LoginRequiredMixin, View):
 
 
 class MyFavGalleryView(LoginRequiredMixin, View):
-
     login_url = '/login/'
     redirect_field_name = 'next'
 

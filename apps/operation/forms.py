@@ -1,13 +1,13 @@
 # _*_ coding: utf-8 _*_
 from django import forms
 
-from .models import Patent
+from .models import SSDPatent
 
 
-class AddPatentForm(forms.ModelForm):
-    class Meta:
-        model = Patent
-        exclude = ['seller', 'hire', 'more_pic', 'click_num', 'fav_num', 'shop_status', 'add_time']
+# class AddPatentForm(forms.ModelForm):
+#     class Meta:
+#         model = SSDPatent
+#         exclude = ['seller', 'if_success', 'click_num', 'fav_num', 'shop_status', 'add_time']
 
 
 class AddOrderForm(forms.Form):

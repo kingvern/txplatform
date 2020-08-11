@@ -54,7 +54,7 @@
 }
 
 .login-form-box .form .input {
-    width: 70%;
+    width: 75%;
     position: relative;
 }
 
@@ -66,9 +66,14 @@
 
 .login-form-box .form .input span {
     color: red;
+    font-size: 12px;
     position: absolute;
     right: 0px;
-    top: 12px;
+    top: 14px;
+}
+
+.error_msg{
+    color: red;
 }
 
 .login-form-box .form .getcode {

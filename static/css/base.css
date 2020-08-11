@@ -132,6 +132,13 @@
     padding-left: 6px;
 }
 
+/*.module-title-text a{*/
+/*    border-left: #66a4f5 3px solid;*/
+/*    color: #66a4f5;*/
+/*    height: 9px;*/
+/*    padding-left: 6px;*/
+/*}*/
+
 .module-more {
     font-size: 1em;
 }
