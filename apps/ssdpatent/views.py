@@ -42,15 +42,16 @@ class SSDPatentListView(View):
         price_up = request.GET.get('price_up', '')
 
         # newest_patent = all_patent.order_by('-add_time')[:10]
-        newest_patent = SSDPatent.objects.all().filter(if_success=True)[:10]
+        newest_patent = SSDPatent.objects.all().filter(shop_status='3')[:10]
 
 
-        # FIELD = (
-        #     ('0', u'食品饮料'), ('1', u'建筑建材'), ('2', u'家居用品'), ('3', u'轻工纺织'), ('4', u'化学化工'), ('5', u'新能源'),
-        #     ('6', u'机械'),
-        #     ('7', u'环保和资源'), ('8', u'橡胶塑料'), ('9', u'仪器仪表'), ('10', u'新型材料'), ('11', u'电子信息'), ('12', u'医药与医疗'),
-        #     ('13', u'农林牧业'), ('14', u'海洋开发'), ('15', u'航空航天'), ('16', u'采矿冶金'), ('17', u'电气自动化'), ('18', u'包装印刷'),
-        #     ('19', u'教育休闲'), ('20', u'钒钛产业'), ('21', u'安全防护'), ('22', u'交通运输'))
+        FIELD = (
+            ('0', '未分类'), ('1', '太赫兹'), ('2', '遥感成像'), ('3', '高可靠嵌入式'), ('4', '智能识别'),
+             ('5', '化学化工'), ('6', '新能源'), ('7', '机械'), ('8', '环保和资源'), ('9', '交通运输'),
+             ('10', '橡胶塑料'), ('11', '仪器仪表'), ('12', '新型材料'), ('13', '电子信息'),
+             ('14', '医药与医疗'), ('15', '农林牧业'), ('16', '海洋开发'), ('17', '航空航天'),
+             ('18', '采矿治金'), ('19', '电气自动化'), ('20', '包装印刷'), ('21', '教育休闲'),
+             ('22', '钒钛产业'), ('23', '安全防护'))
 
         # field_categorys_array = []
         # for field_category in field_categorys:
@@ -65,21 +66,21 @@ class SSDPatentListView(View):
         # for patent_category in patent_categorys:
         #     patent_categorys_array.append({'key': patent_category[0], 'value': PATENT[patent_category[0]]})
 
-        FIELD_set = set()
-        asc_patents = all_patent.order_by('asc')
-        asc_patents = asc_patents.values('asc').distinct()
-        for asc_patent in asc_patents:
-            FIELD_set |= (set(asc_patent['asc'].split(';')))
-        FIELD = list(FIELD_set)
+        # FIELD_set = set()
+        # asc_patents = all_patent.order_by('asc')
+        # asc_patents = asc_patents.values('asc').distinct()
+        # for asc_patent in asc_patents:
+        #     FIELD_set |= (set(asc_patent['asc'].split(';')))
+        # FIELD = list(FIELD_set)
 
         if field_category:
-            all_patent = all_patent.filter(asc__contains=field_category)
+            all_patent = all_patent.filter(category=field_category)
         if patent_category:
             all_patent = all_patent.filter(pdt=patent_category)
         if success_category == '1':
-            all_patent = all_patent.filter(if_success=True)
+            all_patent = all_patent.filter(shop_status='3')
         elif success_category == '0':
-            all_patent = all_patent.filter(if_success=False)
+            all_patent = all_patent.filter(~Q(shop_status='3'))
 
 
         if price_down:

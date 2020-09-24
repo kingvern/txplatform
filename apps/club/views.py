@@ -37,6 +37,13 @@ class DetailView(View):
             "section": section
         })
 
+class BannerDetailView(View):
+    def get(self, request, banner_id):
+        banner = Banner.objects.get(id=int(banner_id))
+
+        return render(request, "club-banner-detail.html", {
+            "banner": banner
+        })
 
 class AddMemberView(LoginRequiredMixin, View):
     def get(self, request):

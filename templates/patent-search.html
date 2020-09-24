@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load filters %}
 {% block title %}专利列表{% endblock %}
 {% block custom_css %}
     <link rel="stylesheet" href="{% static 'css/patent.css' %}">
@@ -48,10 +49,10 @@
                     {% for patent in all_patent.object_list %}
                         <div class="module-item-box ">
                             <div class="module-item-img-box">
-                                <img class="module-item-img" src="{{ patent.imgo | default:"/media/image/default.png" }}"/>
+                                <img class="module-item-img" src="{% if patent.imgo %}{% if patent.imgo.url|filter_imgo %}{{ MEDIA_URL }}{% endif %}{{ patent.imgo }}{% else %}{{ "/media/image/default.png" }}{% endif %}"/>
                             </div>
                             <div class="module-item-text">
-                                <p class="title"><a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tio }}</a></p>
+                                <p class="title"><a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tic }}</a></p>
                                 <p class="content">
                                     专利(申请号):{{ patent.ano }}/{{ patent.lc }}</p>
                                 <p class="content">所属机构:{{ patent.asc }}</p>
@@ -69,9 +70,9 @@
                                 {% else %}
                                     <span id="{{ patent.id }}" class="module-item-btn fav">关注</span>
                                 {% endif %}
-                                {% if not patent.if_success %}
+                                {% ifnotequal patent.shop_status '3' %}
                                     <span class="module-item-btn" data-toggle="modal" data-target="#myModal">咨询</span>
-                                {% endif %}
+                                {% endifnotequal %}
 
                             </div>
 
@@ -126,7 +127,7 @@
                     <div class="rank-list">
                         {% for patent in newest_patent %}
                             <div class="rank-item">
-                                <a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tio }}</a>
+                                <a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tic }}</a>
                             </div>
                         {% endfor %}
                     </div>

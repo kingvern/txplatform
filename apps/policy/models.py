@@ -11,7 +11,7 @@ from django.db import models
 class Province(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'行政名称')
     main = models.CharField(max_length=100, choices=(('0', u'中央'), ('1', u'北京'), ('2', '天津'), ('3', '河北省')),
-                            default='0', null=True,verbose_name=u'上级名称')
+                            default='0', null=True, verbose_name=u'上级名称')
     if_show = models.BooleanField(default=True, verbose_name=u'是否显示')
 
     class Meta:
@@ -37,8 +37,8 @@ class Department(models.Model):
 class Policy(models.Model):
     title = models.CharField(max_length=100, default='', verbose_name=u'政策名')
     policy_id = models.CharField(max_length=20, default='', verbose_name=u'政策ID')
-    addr = models.ForeignKey(Province,on_delete=models.CASCADE,  verbose_name=u'所属行政')
-    source = models.ForeignKey(Department,on_delete=models.CASCADE,  verbose_name=u'所属部门')
+    addr = models.ForeignKey(Province, on_delete=models.CASCADE, verbose_name=u'所属行政')
+    source = models.ForeignKey(Department, on_delete=models.CASCADE, verbose_name=u'所属部门')
     info = models.TextField(verbose_name=u'政策详情')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
@@ -74,7 +74,11 @@ class Banner(models.Model):
 
 
 class Chart(models.Model):
-    tab = models.CharField(default='', max_length=20, verbose_name='主菜单')
+    tab = models.CharField(default='应用技术成果分析', max_length=20, verbose_name='主菜单', choices=(('应用技术成果分析', '应用技术成果分析'),
+                                                                                   ('可转化成果分析', '可转化成果分析'),
+                                                                                   ('科研人才分析', '科研人才分析'),
+                                                                                   ('科研机构分析', '科研机构分析'),
+                                                                                   ('科技成果库分析', '科技成果库分析')))
     tab2 = models.CharField(default='', max_length=20, verbose_name='分菜单')
     title = models.CharField(default='', max_length=100, verbose_name=u'图表名')
     data = models.TextField(default='', verbose_name=u'图表数据')

@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 class IncubatorConfig(AppConfig):
     name = 'incubator'
-    verbose_name = u'4. 孵化平台管理'
+    verbose_name = u'3. 孵化平台管理'

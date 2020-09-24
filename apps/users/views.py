@@ -492,7 +492,7 @@ class IndexView(View):
         bar_pic = Banner.objects.filter(if_toutiao=True)[:1][0]
 
         # patent_bar = SSDPatent.objects.all().order_by('-click_num')[:10]
-        patent_bar = SSDPatent.objects.all().filter(if_success=True)[:10]
+        patent_bar = SSDPatent.objects.all().filter(shop_status='3')[:10]
         patent_0 = SSDPatent.objects.all().filter(pdt='发明')[:12]
         patent_1 = SSDPatent.objects.all().filter(pdt='实用新型')[:12]
         patent_2 = SSDPatent.objects.all().filter(pdt='外观设计')[:12]

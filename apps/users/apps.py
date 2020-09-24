@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 class UsersConfig(AppConfig):
     name = 'users'
-    verbose_name = u'8. 用户管理'
+    verbose_name = u'7. 用户管理'

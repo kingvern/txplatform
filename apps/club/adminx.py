@@ -14,7 +14,7 @@ class BannerAdmin(object):
 
 
 class SectionAdmin(object):
-    list_display = ['title', 'detail', 'if_show', 'click_num', 'fav_num']
+    list_display = ['title', 'if_show', 'click_num', 'fav_num']
     search_fields = ['title', 'detail', 'if_show']
     list_filter = ['title', 'detail', 'if_show', 'click_num', 'fav_num']
     # 富文本

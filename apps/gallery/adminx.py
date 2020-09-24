@@ -12,5 +12,7 @@ class GalleryAdmin(object):
     # 富文本
     style_fields = {"descs": "ueditor"}
 
+    list_editable = ['status', 'if_recommend']
+
 
 xadmin.site.register(Gallery, GalleryAdmin)

@@ -2,121 +2,65 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91c2da21-d35c-41e8-84f0-6005e63dedf5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/patent/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/image/2019/12/the__club.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/club-banner-detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/club/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/club/migrations/0002_auto_20181116_1957.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/club/migrations/0003_member_field.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/club/migrations/0004_auto_20181117_0014.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/gallery/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/gallery/migrations/0002_auto_20181114_1625.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/gallery/migrations/0003_auto_20181116_1807.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/incubator/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/incubator/migrations/0002_auto_20180923_0304.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/incubator/migrations/0003_couveuse_financial_park.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/incubator/migrations/0004_auto_20181106_1401.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/incubator/migrations/0005_auto_20181108_1356.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/incubator/migrations/0006_remove_park_type.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/incubator/migrations/0007_auto_20181108_1619.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/incubator/migrations/0008_auto_20181115_2021.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/incubator/migrations/0009_yellowpage.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/incubator/migrations/0010_auto_20181212_1345.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0002_auto_20181116_2255.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0003_auto_20190101_1225.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0004_auto_20200803_0949.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0005_auto_20200811_1529.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/operation/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0002_banner_chart.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0003_auto_20181021_1533.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0004_remove_policy_add_time.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0005_auto_20181022_1201.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0006_auto_20181022_1451.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0007_auto_20181022_1756.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0008_auto_20181023_1155.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0009_auto_20181023_1254.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0010_auto_20181023_1511.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0011_chart_type.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0012_auto_20181023_1615.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0013_auto_20181025_1905.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0014_auto_20181025_1924.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0015_auto_20181025_1926.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/0016_auto_20190101_1225.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0002_auto_20181019_1000.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0003_auto_20181019_1320.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0004_auto_20181019_1325.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0005_project_seller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0006_auto_20181108_1356.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0007_delete_category.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0008_auto_20181116_1138.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0009_projectt.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0010_auto_20181116_1809.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0011_auto_20181116_1927.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0012_projectt.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0013_auto_20181116_1931.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0014_auto_20181116_2255.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/project/migrations/0015_project_org.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0002_auto_20200803_1900.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0003_auto_20200803_1902.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0004_auto_20200803_1907.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0005_auto_20200803_1914.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0006_auto_20200803_1929.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0007_auto_20200803_1935.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0008_auto_20200803_1936.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0009_auto_20200803_1954.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0010_auto_20200803_1956.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0011_auto_20200803_2001.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0012_auto_20200803_2002.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0013_auto_20200803_2003.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0014_auto_20200807_2001.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0015_ssdpatent_if_success.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0016_auto_20200811_2004.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0017_auto_20200811_2006.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0018_remove_ssdpatent_add.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0019_ssdpatent_addd.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/0020_auto_20200811_2008.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/club/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/club/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/club/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/club/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/club/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/delete.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/club/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/club/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/club/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/club/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/club/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/club/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/gallery/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/gallery/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/gallery/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/gallery/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/gallery/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/gallery/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/ssdpatent/templatetags/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/gallery/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/gallery/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/incubator/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/incubator/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/incubator/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/ssdpatent/templatetags/filters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/operation/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/operation/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/patent/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/policy/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/policy/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/policy/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/policy/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/policy/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/policy/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/policy/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/policy/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/policy/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/project/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/ssdpatent/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/ssdpatent/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/migrations/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/ssdpatent/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/ssdpatent/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0002_auto_20180922_0904.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0003_auto_20180922_0954.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0004_auto_20180928_1211.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0005_auto_20181019_1000.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0006_auto_20181019_1523.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0007_auto_20181019_1539.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0008_verifycode.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0009_auto_20181101_1605.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0010_auto_20181101_1612.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0011_auto_20181115_2021.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0012_auto_20181116_2028.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0013_remove_userprofile_nick_name.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0014_auto_20190101_1225.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2019/12/交易平台.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2019/12/交易平台.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2019/12/交易平台_hsUOz6g.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2019/12/交易平台_hsUOz6g.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2020/02/画板_24x.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2020/02/画板_24x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本4x.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本4x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_104x.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_104x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_24x.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_24x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_34x.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_34x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_44x.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_44x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_54x.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_54x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_64x.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_64x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_74x.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_74x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_84x.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_84x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_94x.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/2020/02/画板_2_副本_94x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/default.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/default.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/image/incubator.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/image/incubator.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/gallery.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/gallery.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/ssdpatent/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/utils/yunpian.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/utils/yunpian.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/add_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/add_order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/agreement.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/agreement.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/club-home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/club-home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/finish_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/finish_order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/gallery-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/gallery-detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/gallery-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/gallery-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/order_pdf.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/order_pdf.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ordercontract.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ordercontract.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/patent-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/patent-detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/patent-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/patent-list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/patent-search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/patent-search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/pay_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pay_order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/policy-home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/policy-home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/policy-list-bak.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/policy-list-bak.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/policy-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/policy-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/policy-search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/policy-search.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/project-search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/project-search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/txplatform/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/txplatform/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usercenter-fav-policy.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-fav-policy.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usercenter-fav.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-fav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usercenter-myOrder.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-myOrder.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usercenter-myPublish.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-myPublish.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usercenter-mySellOrder.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-mySellOrder.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usercenter-publish-patent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-publish-patent.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -178,26 +122,26 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/img" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/apps/club/migrations" />
+      <recent name="$PROJECT_DIR$/apps/gallery/migrations" />
+      <recent name="$PROJECT_DIR$/apps/incubator/migrations" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/extra_apps/xadmin/templates/xadmin" />
       <recent name="$PROJECT_DIR$/static/img" />
       <recent name="$PROJECT_DIR$/media/image" />
       <recent name="$PROJECT_DIR$/apps/scrap" />
       <recent name="$PROJECT_DIR$/static/css/bootstrap" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/apps/club/migrations" />
-      <recent name="$PROJECT_DIR$/apps/gallery/migrations" />
-      <recent name="$PROJECT_DIR$/apps/incubator/migrations" />
-      <recent name="$PROJECT_DIR$/apps/operation/migrations" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -431,7 +375,13 @@
       <workItem from="1595502250757" duration="12424000" />
       <workItem from="1596011040757" duration="1376000" />
       <workItem from="1596415342626" duration="23685000" />
-      <workItem from="1596801442126" duration="33495000" />
+      <workItem from="1596801442126" duration="34250000" />
+      <workItem from="1597745942932" duration="8739000" />
+      <workItem from="1597847673314" duration="397000" />
+      <workItem from="1598255389973" duration="14416000" />
+      <workItem from="1598959468710" duration="520000" />
+      <workItem from="1599742581252" duration="525000" />
+      <workItem from="1600449647512" duration="167000" />
     </task>
     <servers />
   </component>
@@ -456,13 +406,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/apps/club/views.py</url>
-          <line>49</line>
+          <line>56</line>
           <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/apps/users/views.py</url>
-          <line>78</line>
-          <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/apps/patent/adminx.py</url>

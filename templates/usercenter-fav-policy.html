@@ -17,7 +17,7 @@
             <tbody>
             {% for policy in policy_list %}
                 <tr key="{{ policy.id }}" type="0">
-                    <td><a href="/policy/detail/{{ policy.policy_id }}/">{{ policy.title }}</a></td>
+                    <td><a href="/policy/detail/{{ policy.id }}/">{{ policy.title }}</a></td>
                     <td><span class="fav">取消收藏</span></td>
                 </tr>
             {% endfor %}

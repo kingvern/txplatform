@@ -17,7 +17,7 @@
             <tr>
                 <th>订单编号</th>
                 <th>商品名称</th>
-                <th>商品类型</th>
+{#                <th>商品类型</th>#}
                 <th>订单金额</th>
                 <th>订单状态</th>
                 <th>资料</th>
@@ -29,12 +29,12 @@
             {% for patent_order in user_patent %}
                 <tr key="{{ patent_order.id }}">
                     <td>{{ patent_order.id }}</td>
-                    <td>{{ patent_order.patent.tio }}</td>
-                    <td>专利</td>
+                    <td>{{ patent_order.patent.tic }}</td>
+{#                    <td>专利</td>#}
                     <td>{{ patent_order.total_price }}</td>
                     <td>{{ patent_order.get_step_display }}</td>
                     <td>
-                        <a href="/operation/get_order_pdf/?order_id={{ patent_order.id }}">合同下载</a></td>
+                        <a href="/operation/get_order_pdf/?order_id={{ patent_order.id }}">格式合同下载</a></td>
                     <td>
                         {% ifequal patent_order.step '0' %}
                             <span class="cancel_order clickable">取消</span>

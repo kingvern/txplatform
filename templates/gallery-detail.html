@@ -36,11 +36,11 @@
                 {% else %}
                     <span id="{{ gallery.id }}" class="module-item-btn fav">收藏</span>
                 {% endif %}
-                {% if has_join %}
-                    <span id="{{ gallery.id }}" class="module-item-btn-faved join">取消报名</span>
-                {% else %}
-                    <span id="{{ gallery.id }}" class="module-item-btn join">报名</span>
-                {% endif %}
+{#                {% if has_join %}#}
+{#                    <span id="{{ gallery.id }}" class="module-item-btn-faved join">取消报名</span>#}
+{#                {% else %}#}
+{#                    <span id="{{ gallery.id }}" class="module-item-btn join">报名</span>#}
+{#                {% endif %}#}
                 {% if has_zan %}
                     <span id="{{ gallery.id }}" class="module-item-btn-faved zan">取消点赞</span>
                 {% else %}
@@ -48,9 +48,9 @@
                 {% endif %}
 
 
-                <span class="module-item-btn share" onclick="share()">
-                    分享
-                </span>
+{#                <span class="module-item-btn share" onclick="share()">#}
+{#                    分享#}
+{#                </span>#}
                 <div class="social-share1" style="text-align:center; display:none;" id="shareDiv">
                     <img id="testimg" style="float:right;cursor:pointer" alt="" width="300" height="300"/>
                 </div>

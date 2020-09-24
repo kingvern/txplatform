@@ -63,9 +63,9 @@
                                 {% else %}
                                     <span id="{{ project.id }}" class="module-item-btn fav">关注</span>
                                 {% endif %}
-                                {% if not patent.if_success %}
+                                {% ifnotequal patent.shop_status '3' %}
                                     <span class="module-item-btn" data-toggle="modal" data-target="#myModal">咨询</span>
-                                {% endif %}
+                                {% endifnotequal %}
                             </div>
 
 

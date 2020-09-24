@@ -12,20 +12,17 @@ from .models import SSDPatent
 
 
 class SSDPatentAdmin(object):
-    list_display = [ 'id','tio', 'tic', 'tie','if_success', 'absc', 'abse',  'inc', 'agc',  'ano',  'ans','abso',
-                    'ino', 'ine',  'exo', 'pd', 'asc', 'ipc', 'ase', 'aso', 'exc', 'pK', 'sfpns', 'lssc', 'vu',
-                    'crc', 'pdfexist', 'ape', 'apc', 'cri', 'apo', 'cro', 'pdt', 'pns', 'pid', 'pno', 'depc', 'ad',
-                    'ago', 'pdf', 'age', 'lc', 'debeo', 'debec', 'cre', 'debee', 'note', 'shop_status',
-                    'if_show']
-    search_fields = ['abso', 'tie', 'absc', 'abse', 'tio', 'inc', 'agc',  'ano', 'tic', 'ans',
+    list_display = ['tic', 'category',  'short_absc',  'inc',  'ans','asc',
+                      'pdt', 'pns', 'note', 'shop_status', 'if_show']
+    search_fields = ['abso', 'tie', 'absc','category', 'abse', 'tio', 'inc', 'agc',  'ano', 'tic', 'ans',
                     'ino', 'ine',  'exo', 'pd', 'asc', 'ipc', 'ase', 'aso', 'exc', 'pK', 'sfpns', 'lssc', 'vu',
                     'crc', 'pdfexist', 'ape', 'apc', 'cri', 'apo', 'cro', 'pdt', 'pns', 'pid', 'pno', 'depc', 'ad',
                     'ago', 'pdf', 'age', 'lc', 'debeo', 'debec', 'cre', 'debee', 'note',]
-    list_filter = ['abso', 'tie', 'absc', 'abse', 'tio', 'inc', 'agc',  'ano', 'tic', 'ans',
+    list_filter = ['abso', 'tie', 'absc', 'category','abse', 'tio', 'inc', 'agc',  'ano', 'tic', 'ans',
                     'ino', 'ine',  'exo', 'pd', 'asc', 'ipc', 'ase', 'aso', 'exc', 'pK', 'sfpns', 'lssc', 'vu',
                     'crc', 'pdfexist', 'ape', 'apc', 'cri', 'apo', 'cro', 'pdt', 'pns', 'pid', 'pno', 'depc', 'ad',
                     'ago', 'pdf', 'age', 'lc', 'debeo', 'debec', 'cre', 'debee', 'note',]
-    list_editable = ['note', 'if_success', 'shop_status', 'if_show']
+    list_editable = ['category','note', 'shop_status', 'if_show']
     refresh_times = [3, 5]
     # 富文本
     # style_fields = {"detail": "ueditor"}

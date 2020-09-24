@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load filters %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -86,7 +87,7 @@
                     <div class="rank-list">
                         {% for patent in patent_bar %}
                             <div class="rank-item">
-                                <a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tio }}</a>
+                                <a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tic }}</a>
                             </div>
                         {% endfor %}
                     </div>
@@ -116,7 +117,7 @@
                     <img src="{% static 'img/index-module2.png' %}" />
                     <a class="title">转化交易</a>
                     <div class="content">
-                        <a href="{% url 'ssdpatent:search' %}">查找专利</a>
+                        <a href="{% url 'ssdpatent:list' %}">查找专利</a>
                         <a href="{% url 'ssdpatent:list' %}?success_category=1">成功案例</a>
                     </div>
                     <div class="content">
@@ -183,8 +184,8 @@
                 {% for patent in patent_0 %}
                     <a class="content" href="/ssdpatent/detail/{{ patent.id }}/">
                         <span class="tag">{{ patent.pdt }}</span>
-                        <img src="{{ patent.imgo | default:"/media/image/default.png"  }}"/>
-                        <span class="name">{{ patent.tio }}</span>
+                        <img src="{% if patent.imgo %}{% if patent.imgo.url|filter_imgo %}{{ MEDIA_URL }}{% endif %}{{ patent.imgo }}{% else %}{{ "/media/image/default.png" }}{% endif %}"/>
+                        <span class="name">{{ patent.tic }}</span>
                     </a>
 
                 {% endfor %}
@@ -194,8 +195,8 @@
                 {% for patent in patent_1 %}
                     <a class="content" href="/ssdpatent/detail/{{ patent.id }}/">
                         <span class="tag">{{ patent.pdt }}</span>
-                        <img src="{{ patent.imgo | default:"/media/image/default.png"  }}"/>
-                        <span class="name">{{ patent.tio }}</span>
+                        <img src="{% if patent.imgo %}{% if patent.imgo.url|filter_imgo %}{{ MEDIA_URL }}{% endif %}{{ patent.imgo }}{% else %}{{ "/media/image/default.png" }}{% endif %}"/>
+                        <span class="name">{{ patent.tic }}</span>
                     </a>
 
                 {% endfor %}
@@ -205,8 +206,8 @@
                 {% for patent in patent_2 %}
                     <a class="content" href="/ssdpatent/detail/{{ patent.id }}/">
                         <span class="tag">{{ patent.pdt }}</span>
-                        <img src="{{ patent.imgo | default:"/media/image/default.png" }}"/>
-                        <span class="name">{{ patent.tio }}</span>
+                        <img src="{% if patent.imgo %}{% if patent.imgo.url|filter_imgo %}{{ MEDIA_URL }}{% endif %}{{ patent.imgo }}{% else %}{{ "/media/image/default.png" }}{% endif %}"/>
+                        <span class="name">{{ patent.tic }}</span>
                     </a>
 
                 {% endfor %}
@@ -282,7 +283,7 @@
             {% for policy in policy %}
                 <div class="policy-item">
                     <span class="policy-item-title"><a
-                            href="/policy/detail/{{ policy.policy_id }}/"> {{ policy.title }}</a></span>
+                            href="/policy/detail/{{ policy.id }}/"> {{ policy.title }}</a></span>
                     <span class="policy-item-source"> {{ policy.addr }}{{ policy.source }} </span><span
                         class="policy-item-time">{{ policy.pubDate }}</span>
 

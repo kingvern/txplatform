@@ -37,7 +37,7 @@ class Section(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加日期')
 
     class Meta:
-        verbose_name = '分节'
+        verbose_name = '文章'
         verbose_name_plural = verbose_name
 
     def __str__(self):

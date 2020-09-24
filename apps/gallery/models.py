@@ -15,7 +15,8 @@ class Gallery(models.Model):
     addr = models.CharField(max_length=30, blank=True, null=True, verbose_name='地址')
     time_begin = models.DateTimeField(default=datetime.now, verbose_name=u'活动开始日期')
     time_end = models.DateTimeField(default=datetime.now, verbose_name=u'活动结束日期')
-    status = models.CharField(max_length=50, verbose_name=u'活动状态')
+    status = models.CharField(max_length=50, default='0',
+                              choices=(('未开始', u'未开始'), ('进行中', u'进行中'), ('已结束', u'已结束')), verbose_name=u'活动状态')
     type = models.CharField(max_length=10, default='0',
                             choices=(('0', u'线上活动'), ('1', u'线下活动')), verbose_name=u'活动类型')
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')

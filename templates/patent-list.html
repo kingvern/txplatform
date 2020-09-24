@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load filters %}
 {% block title %}专利列表{% endblock %}
 {% block custom_css %}
     <link rel="stylesheet" href="{% static 'css/patent.css' %}">
@@ -18,8 +19,30 @@
     <section class="container">
         <div class="filter">
             {#筛选行业分类#}
+{#            <div class="filter-box">#}
+{#                <div class="filter-title"><span>所属机构</span></div>#}
+{##}
+{#                <ul class="filter-list">#}
+{#                    <li class="filter-item {% ifequal field_category_id '' %}filter-active{% endifequal %}"#}
+{#                        role="presentation">#}
+{#                        <a role="menuitem" tabindex="-1"#}
+{#                           href="?field_category=&patent_category={{ patent_category_id }}&success_category={{ success_category_id }}">#}
+{#                            <span>全部</span></a>#}
+{#                    </li>#}
+{#                    {% for field_category_ in field_categorys %}#}
+{#                        <li class="filter-item {% ifequal field_category_id field_category_ %}filter-active{% endifequal %}"#}
+{#                            role="presentation">#}
+{#                            <a role="menuitem" tabindex="-1"#}
+{#                               href="?field_category={{ field_category_ }}&patent_category={{ patent_category_id }}&success_category={{ success_category_id }}">#}
+{#                                <span>#}
+{#                                    {{ field_category_ }}</span></a>#}
+{#                        </li>#}
+{#                    {% endfor %}#}
+{##}
+{#                </ul>#}
+{#            </div>#}
             <div class="filter-box">
-                <div class="filter-title"><span>所属机构</span></div>
+                <div class="filter-title"><span>行业分类</span></div>
 
                 <ul class="filter-list">
                     <li class="filter-item {% ifequal field_category_id '' %}filter-active{% endifequal %}"
@@ -29,12 +52,12 @@
                             <span>全部</span></a>
                     </li>
                     {% for field_category_ in field_categorys %}
-                        <li class="filter-item {% ifequal field_category_id field_category_ %}filter-active{% endifequal %}"
+                        <li class="filter-item {% ifequal field_category_id field_category_.0 %}filter-active{% endifequal %}"
                             role="presentation">
                             <a role="menuitem" tabindex="-1"
-                               href="?field_category={{ field_category_ }}&patent_category={{ patent_category_id }}&success_category={{ success_category_id }}">
+                               href="?field_category={{ field_category_.0 }}&patent_category={{ patent_category_id }}&success_category={{ success_category_id }}">
                                 <span>
-                                    {{ field_category_ }}</span></a>
+                                    {{ field_category_.1 }}</span></a>
                         </li>
                     {% endfor %}
 
@@ -98,10 +121,10 @@
                         <div class="module-item-box ">
                             <div class="module-item-img-box">
                                 <img class="module-item-img"
-                                     src="{{ patent.imgo | default:"/media/image/default.png" }}"/>
+                                     src="{% if patent.imgo %}{% if patent.imgo.url|filter_imgo %}{{ MEDIA_URL }}{% endif %}{{ patent.imgo }}{% else %}{{ "/media/image/default.png" }}{% endif %}"/>
                             </div>
                             <div class="module-item-text">
-                                <p class="title"><a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tio }}</a></p>
+                                <p class="title"><a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tic }}</a></p>
                                 <p class="content">
                                     专利(申请号):{{ patent.ano }}/{{ patent.lc }}</p>
                                 <p class="content">所属机构:{{ patent.asc }}</p>
@@ -119,9 +142,9 @@
                                 {% else %}
                                     <span id="{{ patent.id }}" class="module-item-btn fav">关注</span>
                                 {% endif %}
-                                {% if not patent.if_success %}
+                                {% ifnotequal  patent.shop_status '3' %}
                                     <span class="module-item-btn ask">咨询</span>
-                                {% endif %}
+                                {% endifnotequal %}
                             </div>
 
 
@@ -175,7 +198,7 @@
                     <div class="rank-list">
                         {% for patent in newest_patent %}
                             <div class="rank-item">
-                                <a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tio }}</a>
+                                <a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tic }}</a>
                             </div>
                         {% endfor %}
                     </div>

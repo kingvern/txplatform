@@ -28,29 +28,32 @@ class UserMessageAdmin(object):
 
 # 卖家 业务员 合同 资料(业务员上传) 业务员接收
 class BuyerPatentAdmin(object):
-    list_display = ['id', 'patent', 'get_seller_username', 'get_seller_mobile', 'buyer', 'total_price', 'step', 'staff']
-    search_fields = ['id', 'patent__name', 'buyer__username', 'buyer__mobile', 'total_price', 'step']
+    list_display = ['id', 'patent', 'get_seller_username', 'get_seller_mobile', 'buyer', 'total_price', 'contract',
+                    'prof', 'step', 'step_time', 'add_time', 'staff']
+    search_fields = ['id', 'patent__tic', 'buyer__username', 'buyer__mobile', 'total_price', 'step']
     list_filter = ['id', 'patent', 'buyer', 'total_price', 'step']
     refresh_times = [3, 5]
-    list_editable = ['step', 'staff']
+    list_editable = ['contract', 'prof', 'step', 'staff']
 
-    # def save_models(self):
-    #     #  在保存课程的时候统计课程机构的课程数
-    #     obj = self.new_obj
-    #     obj.step_time = datetime.now()
-    #     obj.save()
-    #     if obj.step == '-1':
-    #         patent = obj.patent
-    #         patent.shop_status = 1
-    #         patent.save()
-    #     if obj.step in ['0', '1', '2']:
-    #         patent = obj.patent
-    #         patent.shop_status = 2
-    #         patent.save()
-    #     if obj.step == '3':
-    #         patent = obj.patent
-    #         patent.shop_status = 3
-    #         patent.save()
+    # SSDPatent shop_status ('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'交易中'), ('3', u'已交易')
+    # BuyerPatent step ('-1', u'已取消'), ('0', u'下单未付款'), ('1', u'买家已付款'), ('2', u'已提交专利局'), ('3', u'交易完成')
+    # bingo
+    def save_models(self):
+        obj = self.new_obj
+        obj.step_time = datetime.now()
+        obj.save()
+        if obj.step == '-1':
+            patent = obj.patent
+            patent.shop_status = 1
+            patent.save()
+        if obj.step in ['0', '1', '2']:
+            patent = obj.patent
+            patent.shop_status = 2
+            patent.save()
+        if obj.step == '3':
+            patent = obj.patent
+            patent.shop_status = 3
+            patent.save()
 
 
 # 卖家 业务员 合同 资料(业务员上传) 业务员接收
@@ -66,8 +69,8 @@ class BuyerProjectAdmin(object):
     list_editable = ['step', 'contract', 'prof', 'protocol', 'staff']
 
 
-xadmin.site.register(UserAsk, UserAskAdmin)
+# xadmin.site.register(UserAsk, UserAskAdmin)
 xadmin.site.register(UserFavorite, UserFavoriteAdmin)
-xadmin.site.register(UserMessage, UserMessageAdmin)
+# xadmin.site.register(UserMessage, UserMessageAdmin)
 xadmin.site.register(BuyerPatent, BuyerPatentAdmin)
 # xadmin.site.register(BuyerProject, BuyerProjectAdmin)

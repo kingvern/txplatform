@@ -33,6 +33,14 @@ class SSDPatent(models.Model):
     absc = models.TextField(max_length=1000, verbose_name=u'摘要-中文', default='', null=True, blank=True)
     imgtitle = models.CharField(max_length=50, verbose_name=u'缩略图', default='', null=True, blank=True)
     imgname = models.CharField(max_length=200, verbose_name=u'缩略图名称', default='', null=True, blank=True)
+    category = models.CharField(max_length=3,
+                                choices=(('0', '未分类'), ('1', '太赫兹'), ('2', '遥感成像'), ('3', '高可靠嵌入式'), ('4', '智能识别'),
+                                         ('5', '化学化工'), ('6', '新能源'), ('7', '机械'), ('8', '环保和资源'), ('9', '交通运输'),
+                                         ('10', '橡胶塑料'), ('11', '仪器仪表'), ('12', '新型材料'), ('13', '电子信息'),
+                                         ('14', '医药与医疗'), ('15', '农林牧业'), ('16', '海洋开发'), ('17', '航空航天'),
+                                         ('18', '采矿治金'), ('19', '电气自动化'), ('20', '包装印刷'), ('21', '教育休闲'),
+                                         ('22', '钒钛产业'), ('23', '安全防护')), default='0',
+                                verbose_name=u'行业分类', null=True, blank=True)
     # IMGTITLE = models.CharField(max_length=50, verbose_name=u'缩略图', default='', null=True, blank=True)
     # IMGNAME = models.CharField(max_length=50, verbose_name=u'缩略图名称', default='', null=True, blank=True)
     lssc = models.CharField(max_length=50, verbose_name=u'当前权利状态', default='', null=True, blank=True)
@@ -40,8 +48,9 @@ class SSDPatent(models.Model):
     debec = models.TextField(max_length=1000, verbose_name=u'简要说明-中文', default='', null=True, blank=True)
     debeo = models.TextField(max_length=1000, verbose_name=u'简要说明-原始', default='', null=True, blank=True)
     debee = models.TextField(max_length=1000, verbose_name=u'简要说明-英文', default='', null=True, blank=True)
-    depc = models.TextField(max_length=1000, verbose_name=u'简要说明-英文', default='', null=True, blank=True)
-    imgo = models.CharField(max_length=200, verbose_name=u'原始图', default='', null=True, blank=True)
+    depc = models.TextField(max_length=1000, verbose_name=u'简要说明-中文', default='', null=True, blank=True)
+    # imgo = models.CharField(max_length=200, verbose_name=u'原始图', default='', null=True, blank=True)
+    imgo = models.ImageField(upload_to='image/%Y/%m', default='image/default.png', max_length=200, verbose_name=u'原始图', null=True, blank=True)
     # IMGO = models.CharField(max_length=50, verbose_name=u'原始图', default='', null=True, blank=True)
     absoimgpath = models.CharField(max_length=200, verbose_name=u'摘要图', default='', null=True, blank=True)
     pdfexist = models.CharField(max_length=50, verbose_name=u'是否存在PDF', default='', null=True, blank=True)
@@ -82,7 +91,7 @@ class SSDPatent(models.Model):
     price = models.IntegerField(default=0, verbose_name='价格')
     bargain = models.BooleanField(default=True, verbose_name='议价')
 
-    if_success = models.BooleanField(default=False, verbose_name='是否为成功案例')
+    if_success = models.BooleanField(default=False, verbose_name='忽视我')
 
     seller = models.ForeignKey(UserProfile, on_delete=models.CASCADE, default=None, verbose_name=u'卖家', null=True,
                                blank=True)
@@ -94,6 +103,97 @@ class SSDPatent(models.Model):
     click_num = models.IntegerField(default=0, verbose_name=u'点击次数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏次数')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加日期')
+
+    # 控制显示长度，必须在adminx的list_display变量中改为函数名
+    def short_abso(self):
+        if len(str(self.abso)) > 30:
+            return '{}...'.format(str(self.abso)[0:29])
+        else:
+            return str(self.abso)
+
+    short_abso.allow_tags = True
+    short_abso.short_description = ''
+
+    def short_abse(self):
+        if len(str(self.abse)) > 30:
+            return '{}...'.format(str(self.abse)[0:29])
+        else:
+            return str(self.abse)
+
+    short_abse.allow_tags = True
+
+    def short_absc(self):
+        if len(str(self.absc)) > 30:
+            return '{}...'.format(str(self.absc)[0:29])
+        else:
+            return str(self.absc)
+
+    short_absc.allow_tags = True
+    short_absc.short_description = '摘要-中文'
+
+    def short_debec(self):
+        if len(str(self.debec)) > 30:
+            return '{}...'.format(str(self.debec)[0:29])
+        else:
+            return str(self.debec)
+
+    short_debec.allow_tags = True
+
+    def short_debeo(self):
+        if len(str(self.debeo)) > 30:
+            return '{}...'.format(str(self.debeo)[0:29])
+        else:
+            return str(self.debeo)
+
+    short_debeo.allow_tags = True
+
+    def short_debee(self):
+        if len(str(self.debee)) > 30:
+            return '{}...'.format(str(self.debee)[0:29])
+        else:
+            return str(self.debee)
+
+    short_debee.allow_tags = True
+
+    def short_depc(self):
+        if len(str(self.depc)) > 30:
+            return '{}...'.format(str(self.depc)[0:29])
+        else:
+            return str(self.depc)
+
+    short_depc.allow_tags = True
+
+    def short_cre(self):
+        if len(str(self.cre)) > 30:
+            return '{}...'.format(str(self.cre)[0:29])
+        else:
+            return str(self.cre)
+
+    short_cre.allow_tags = True
+
+    def short_cro(self):
+        if len(str(self.cro)) > 30:
+            return '{}...'.format(str(self.cro)[0:29])
+        else:
+            return str(self.cro)
+
+    short_cro.allow_tags = True
+
+    def short_crc(self):
+        if len(str(self.crc)) > 30:
+            return '{}...'.format(str(self.crc)[0:29])
+        else:
+            return str(self.crc)
+
+    short_crc.allow_tags = True
+
+    def short_cri(self):
+        if len(str(self.cri)) > 30:
+            return '{}...'.format(str(self.cri)[0:29])
+        else:
+            return str(self.cri)
+
+    short_cri.allow_tags = True
 
     def get_seller_mobile(self):
         return self.seller.mobile
@@ -107,8 +207,9 @@ class SSDPatent(models.Model):
     def __str__(self):
         return self.tio
 
+    # SSDPatent shop_status ('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'交易中'), ('3', u'已交易')
+    # BuyerPatent step ('-1', u'已取消'), ('0', u'下单未付款'), ('1', u'买家已付款'), ('2', u'已提交专利局'), ('3', u'交易完成')
     def save(self, *args, **kwargs):
-        # ('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'交易中'), ('3', u'已交易')
         if self.shop_status == '1':
             self.if_show = True
         else:

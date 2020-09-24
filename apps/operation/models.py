@@ -95,27 +95,41 @@ class BuyerPatent(models.Model):
                               related_name='patent_staff_set')
 
     def get_seller_username(self):
-        return self.patent.seller.username
+        return self.patent.asc
 
-    get_seller_username.short_description = "卖家名字"
+    get_seller_username.short_description = "专利权人"
 
     def get_seller_mobile(self):
-        return self.patent.seller.mobile
+        return self.patent.inc
 
-    get_seller_mobile.short_description = "卖家手机号"
+    get_seller_mobile.short_description = "发明人"
 
     class Meta:
         verbose_name = '专利交易管理'
         verbose_name_plural = verbose_name
 
     def save(self, *args, **kwargs):
+        # SSDPatent shop_status ('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'交易中'), ('3', u'已交易')
+        # BuyerPatent step ('-1', u'已取消'), ('0', u'下单未付款'), ('1', u'买家已付款'), ('2', u'已提交专利局'), ('3', u'交易完成')
         self.step_time = datetime.now()
-        # ('-1', u'已取消'), ('0', u'下单未付款'), ('1', u'买家已付款'), ('2', u'已提交专利局'), ('3', u'交易完成')
-        if self.step == '3':
-            # ('-1', u'已下架'), ('0', u'审核中'), ('1', u'已上架'), ('2', u'交易中'), ('3', u'已交易')
+        if self.step == '-1':
+            patent = self.patent
+            patent.shop_status = '1'
+            patent.save()
+        if self.step in ['0', '1', '2']:
             patent = self.patent
             patent.shop_status = '2'
             patent.save()
+        if self.step == '3':
+            patent = self.patent
+            patent.shop_status = '3'
+            patent.save()
+
+
+        # if self.step == '3':
+        #     patent = self.patent
+        #     patent.shop_status = '2'
+        #     patent.save()
 
         super(self.__class__, self).save(*args, **kwargs)
 

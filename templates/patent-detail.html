@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load filters %}
 {% load staticfiles %}
 {% block title %}专利展示{% endblock %}
 {% block custom_css %}
@@ -9,7 +10,7 @@
         <ul class="breadcrumb">
             <li><a href="/">首页</a></li>
             <li><a href="{% url 'ssdpatent:list' %}">专利商品列表</a></li>
-            <li class="active">{{ patent.tio }}</li>
+            <li class="active">{{ patent.tic }}</li>
         </ul>
     </section>
 {% endblock %}
@@ -18,10 +19,11 @@
     <section class="container">
         <div class="row">
             <div class="col-md-5">
-                <img class="main-pic" src="{{ patent.imgo | default:"/media/image/default.png" }}"/>
+                <img class="main-pic" src="{% if patent.imgo %}{% if patent.imgo.url|filter_imgo %}{{ MEDIA_URL }}{% endif %}{{ patent.imgo }}{% else %}{{ "/media/image/default.png" }}{% endif %}"/>
+{#                <img class="main-pic" src="{{ patent.imgo.url  }}"/>#}
             </div>
             <div class="col-md-7 panel-module">
-                <span class="title">{{ patent.tio }}</span>
+                <span class="title">{{ patent.tic }}</span>
                 <div class="table">
                     <span class="content">类别：{{ patent.pdt }}</span>
                     <span class="content">专利(申请号)：{{ patent.ano }}</span>
@@ -43,13 +45,13 @@
                     {% else %}
                         <span id="{{ patent.id }}" class="module-item-btn fav">关注</span>
                     {% endif %}
-                    {% if not patent.if_success %}
+                    {% ifnotequal patent.shop_status '3' %}
                         <span class="module-item-btn ask">咨询</span>
                         <span class="module-item-btn">
                             <a href="{% url 'operation:order' %}?id={{ patent.id }}">购买</a>
                         </span>
                     {% else %}
-                    {% endif %}
+                    {% endifnotequal %}
                 </div>
 
             </div>
@@ -66,7 +68,7 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="thead">专利名称：</th>
-                    <td>{{ patent.tio }}</td>
+                    <td>{{ patent.tic }}</td>
                     <th scope="row" class="thead">专利类别：</th>
                     <td>{{ patent.pdt }}</td>
                 </tr>
@@ -160,11 +162,11 @@
         <div class="recommend-content container">
             {% for p in relate_patents %}
                 <div class="recommend-item">
-                    <img src="{{ p.imgo }}"/>
+                    <img src="{{ p.imgo | default:"/media/image/default.png" }}"/>
                     {#                    <img src="/media/image/2018/12/WX20181031-0929032x.png"/>#}
                     <div class="box">
                         <span class="title">
-                            {{ p.tio }}
+                            <a href="/ssdpatent/detail/{{ p.id }}/">{{ p.tic }}</a>
                         </span>
                         <div class="table">
                             <p class="content">专利(申请号):{{ p.ano }}</p>

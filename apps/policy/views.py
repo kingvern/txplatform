@@ -128,7 +128,7 @@ class RecordTimeView(View):
 class PolicyDetailView(View):
     def get(self, request, policy_id):
         # 此处的id为表默认为我们添加的值。
-        policy = Policy.objects.get(policy_id=policy_id)
+        policy = Policy.objects.get(id=policy_id)
         # 增加政策点击数
         policy.click_num += 1
         policy.save()

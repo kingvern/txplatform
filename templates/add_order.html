@@ -10,7 +10,7 @@
             <ul class="breadcrumb">
                 <li><a href="/">首页</a></li>
                 <li><a href="{% url 'ssdpatent:list' %}">专利列表</a></li>
-                <li><a href="{% url 'ssdpatent:detail' patent.id %}">{{ patent.tio }}</a></li>
+                <li><a href="{% url 'ssdpatent:detail' patent.id %}">{{ patent.tic }}</a></li>
                 <li class="active"><a>下单</a></li>
             </ul>
         </div>
@@ -40,7 +40,7 @@
 
                             <div class="table">
                                 <span class="title">
-                                    {{ patent.tio }}
+                                    {{ patent.tic }}
                                 </span>
                                 <span class="content">
                                     专利(申请号):{{ patent.patent_id }}
@@ -116,7 +116,7 @@
                 <p>服务费：<span class="price">￥{{ patent.price | floatformat:2 }}</span></p>
                 <p>应付金额：<span class="price">￥{{ patent.price|add:patent.price  | floatformat:2 }}</span></p>
                 <div class="checkbox">
-                    {{ add_order_form.agree }}<a class="agreement">《平台交易服务协议》</a>
+                    {{ add_order_form.agree }}<a class="agreement">《高价值专利培育运营中心交易服务协议》</a>
                 </div>
                 {{ add_order_form.errors.agree.0 }}
                 {{ msg }}

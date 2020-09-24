@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load filters %}
 {% block title %}政策详情{% endblock %}
 {% block custom_css %}
     <link rel="stylesheet" href="{% static 'css/policy.css' %}">
@@ -18,8 +19,8 @@
 {% block content %}
     <section class="container policy-banner-module">
 
-        <img class="module-item-img" src="{{ patent.imgo | default:"/media/image/default.png" }}"/>
-        <p>{{ patent.id }}{{ patent.tio }}{{ patent.field_category }}{{ patent.patent_category }}</p>
+        <img class="module-item-img" src="{% if patent.imgo %}{% if patent.imgo.url|filter_imgo %}{{ MEDIA_URL }}{% endif %}{{ patent.imgo }}{% else %}{{ "/media/image/default.png" }}{% endif %}"/>
+        <p>{{ patent.id }}{{ patent.tic }}{{ patent.field_category }}{{ patent.patent_category }}</p>
     </section>
 
     <section class="container policy-banner-module">

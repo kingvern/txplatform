@@ -1,7 +1,7 @@
 {% extends 'usercenter-base.html' %}
 {% block title %} 我的关注{% endblock %}
 {% load staticfiles %}
-
+{% load filters %}
 {% block right_content %}
     <div class="head">
         <span>{{ STATIC_URL }}技术关注</span>
@@ -17,10 +17,10 @@
             {% for patent in patent_list %}
                 <div class="module-item-box ">
                     <div class="module-item-img-box">
-                        <img class="module-item-img" src="{{ patent.imgo | default:"/media/image/default.png" }}"/>
+                        <img class="module-item-img" src="{% if patent.imgo %}{% if patent.imgo.url|filter_imgo %}{{ MEDIA_URL }}{% endif %}{{ patent.imgo }}{% else %}{{ "/media/image/default.png" }}{% endif %}"/>
                     </div>
                     <div class="module-item-text">
-                        <p class="title"><a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tio }}</a></p>
+                        <p class="title"><a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tic }}</a></p>
                         <p>
                             专利(申请号):{{ patent.ano }}</p>
                         <p>行业:{{ patent.pdt }}</p>

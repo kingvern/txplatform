@@ -55,7 +55,7 @@
             <div class="">
                 {% for policy in a_policy.object_list %}
                     {#            <p>1</p>#}
-                    <a href="/policy/detail/{{ policy.policy_id }}/">{{ policy.title }}</a>
+                    <a href="/policy/detail/{{ policy.id }}/">{{ policy.title }}</a>
                     <p>{{ policy.addr.id }}{{ policy.addr }}{{ policy.source }} {{ policy.pubDate }}</p>
                 {% endfor %}
             </div>
@@ -120,7 +120,7 @@
             <div class="">
                 {% for policy in b_policy.object_list %}
                     {#            <p>2</p>#}
-                    <a href="/policy/detail/{{ policy.policy_id }}/">{{ policy.title }}</a>
+                    <a href="/policy/detail/{{ policy.id }}/">{{ policy.title }}</a>
                     <p>{{ policy.addr }}{{ policy.source }} {{ policy.pubDate }}</p>
                 {% endfor %}
             </div>

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}详情{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/club.css' %}">
+{% endblock %}
+{% block custom_bread %}
+    <section class="container">
+        <div>
+            <ul class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li><a href="{% url 'gallery:list' %}">关于我们</a></li>
+                <li><a>详情</a></li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+
+    <section class="container club-banner-module">
+        <div class="module-content">
+
+            <h1 class="text-center">{{ banner.title }}</h1>
+        <img style="width: 100%" src="{{ MEDIA_URL }}{{ banner.pic }}">
+            <div class="club-content">
+                {% autoescape off %}
+                    {{ banner.detail }}
+                {% endautoescape %}
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
+{% block custom_js %}
+
+{% endblock %}

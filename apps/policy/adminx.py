@@ -27,7 +27,7 @@ class PolicyAdmin(object):
 
 
 class BannerAdmin(object):
-    list_display = ['title', 'detail', 'click_num', 'fav_num', 'if_show', 'if_toutiao', 'add_time']
+    list_display = ['title', 'click_num', 'fav_num', 'if_show', 'if_toutiao', 'add_time']
     search_fields = ['title', 'detail', 'click_num', 'fav_num', 'if_show', 'if_toutiao']
     list_filter = ['title', 'detail', 'click_num', 'fav_num', 'if_show', 'if_toutiao', 'add_time']
     list_editable = ['if_show', 'if_toutiao']

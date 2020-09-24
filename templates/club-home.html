@@ -22,8 +22,10 @@
                     <div class="carousel-inner">
                         {% for banner in  all_banner %}
                             <div class="item {% if forloop.first %}active{% endif %}">
-                                <img src="{{ MEDIA_URL }}{{ banner.pic }}">
-                                <div class="carousel-caption">{{ banner.title }}</div>
+                                <a href="/club/banner/{{ banner.id }}/">
+                                    <img src="{{ MEDIA_URL }}{{ banner.pic }}">
+                                    <div class="carousel-caption">{{ banner.title }}</div>
+                                </a>
                             </div>
                         {% endfor %}
                     </div>
@@ -57,10 +59,10 @@
         <ul class="club-logo-list">
             {% for member in  all_member %}
                 <li class="club-logo-item">
-                    <img src="{{ MEDIA_URL }}{{ member.logo }}"/>
+                <img src="{{ MEDIA_URL }}{{ member.logo }}"/>
                 </div>
             {% endfor %}
-        </div>
+            </div>
 
     </section>
 
@@ -92,6 +94,8 @@
         {#    $('#myCarousel').on('slide.bs.carousel', function () {#}
         {#        alert("当调用 slide 实例方法时立即触发该事件。");#}
         {#    });#}
-        {#});#}
+        {#})
+        ;
+        #}
     </script>
 {% endblock %}

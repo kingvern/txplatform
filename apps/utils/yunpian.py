@@ -12,7 +12,8 @@ class YunPian(object):
         parmas = {
             'apikey': self.api_key,
             'mobile': mobile,
-            'text': '【闪电树懒】您的验证码是{code}'.format(code=code)
+            'text': '【闪电树懒科技】您的验证码是{code}'.format(code=code)
+            # 'text': '【王远欣】您的验证码是{code}'.format(code=code)
         }
         # text必须要跟云片后台的模板内容 保持一致，不然发送不出去！
         r = requests.post(self.single_send_url, data=parmas)
