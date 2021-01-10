@@ -15,5 +15,4 @@ urlpatterns = [
     url(r'^add_patent/', AddSSDPatentView.as_view(), name='add_patent'),
     url(r'^modify/(?P<patent_id>\d+)/', ModifyView.as_view(), name='modify'),
     url(r'^save_patent/', SavePatentView.as_view(), name='save_patent'),
-
 ]

@@ -183,3 +183,20 @@ class BuyerProject(models.Model):
     class Meta:
         verbose_name = '技术项目订单管理'
         verbose_name_plural = verbose_name
+
+class PatentComments(models.Model):
+    # 会涉及两个外键: 1. 用户， 2. 专利。import进来
+    patent = models.ForeignKey(SSDPatent, on_delete=models.CASCADE, verbose_name=u"专利")
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name=u"用户")
+    comment = models.CharField(max_length=250, verbose_name=u"评论")
+    contact_name = models.CharField(max_length=250, verbose_name=u"联系人名字")
+    contact_phone = models.CharField(max_length=250, verbose_name=u"联系人电话")
+    budget = models.IntegerField(default=0, verbose_name=u"预算")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name=u"评论时间")
+
+    class Meta:
+        verbose_name = u"专利评论"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return '用户({0})对于《{1}》 评论 :'.format(self.user, self.patent)

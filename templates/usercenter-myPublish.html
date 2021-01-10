@@ -9,8 +9,8 @@
     <div class="manage">
 
         <ul class="nav nav-tabs manage-nav">
-            <li role="presentation" id="patent-li" class="active"><a >专利商品</a></li>
-{#            <li role="presentation" id="project-li"><a >技术项目</a></li>#}
+            <li role="presentation" id="patent-li" class="active"><a>专利商品</a></li>
+            {#            <li role="presentation" id="project-li"><a >技术项目</a></li>#}
         </ul>
         <table class="table table-bordered  manage-table" id="patent-table">
             <thead>
@@ -49,43 +49,43 @@
             </tbody>
         </table>
 
-{#        <table class="table table-bordered  manage-table" id="project-table" style="display: none;">#}
-{#            <thead>#}
-{#            <tr>#}
-{#                <th>编号</th>#}
-{#                <th>名字</th>#}
-{#                <th>交易方式</th>#}
-{#                <th>阶段</th>#}
-{#                <th>操作</th>#}
-{#            </tr>#}
-{#            </thead>#}
-{#            <tbody>#}
-{#            {% for project in project_list %}#}
-{#                <tr key="{{ project.id }}" type="2">#}
-{#                    <td>{{ project.id }}</td>#}
-{#                    <td><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></td>#}
-{#                    <td>{{ project.get_cooperation_display }}</td>#}
-{#                    <td>{{ project.get_shop_status_display }}</td>#}
-{#                    <td>#}
-{#                        {% ifequal project.shop_status '0' %}#}
-{#                            <span class="cancel_publish">下架</span>#}
-{#                            <span class="delete_publish">删除</span>#}
-{#                        {% endifequal %}#}
-{#                        {% ifequal project.shop_status '1' %}#}
-{#                            <span class="cancel_publish">下架</span>#}
-{#                            <span class="delete_publish">删除</span>#}
-{#                        {% endifequal %}#}
-{#                        {% ifequal project.shop_status '-1' %}#}
-{#                            <a href="/project/modify/{{ project.id }}/">修改</a>#}
-{#                            <span class="cancel_publish">上架</span>#}
-{#                            <span class="delete_publish">删除</span>#}
-{#                        {% endifequal %}#}
-{#                    </td>#}
-{##}
-{#                </tr>#}
-{#            {% endfor %}#}
-{#            </tbody>#}
-{#        </table>#}
+        {#        <table class="table table-bordered  manage-table" id="project-table" style="display: none;">#}
+        {#            <thead>#}
+        {#            <tr>#}
+        {#                <th>编号</th>#}
+        {#                <th>名字</th>#}
+        {#                <th>交易方式</th>#}
+        {#                <th>阶段</th>#}
+        {#                <th>操作</th>#}
+        {#            </tr>#}
+        {#            </thead>#}
+        {#            <tbody>#}
+        {#            {% for project in project_list %}#}
+        {#                <tr key="{{ project.id }}" type="2">#}
+        {#                    <td>{{ project.id }}</td>#}
+        {#                    <td><a href="/project/detail/{{ project.id }}/">{{ project.name }}</a></td>#}
+        {#                    <td>{{ project.get_cooperation_display }}</td>#}
+        {#                    <td>{{ project.get_shop_status_display }}</td>#}
+        {#                    <td>#}
+        {#                        {% ifequal project.shop_status '0' %}#}
+        {#                            <span class="cancel_publish">下架</span>#}
+        {#                            <span class="delete_publish">删除</span>#}
+        {#                        {% endifequal %}#}
+        {#                        {% ifequal project.shop_status '1' %}#}
+        {#                            <span class="cancel_publish">下架</span>#}
+        {#                            <span class="delete_publish">删除</span>#}
+        {#                        {% endifequal %}#}
+        {#                        {% ifequal project.shop_status '-1' %}#}
+        {#                            <a href="/project/modify/{{ project.id }}/">修改</a>#}
+        {#                            <span class="cancel_publish">上架</span>#}
+        {#                            <span class="delete_publish">删除</span>#}
+        {#                        {% endifequal %}#}
+        {#                    </td>#}
+        {##}
+        {#                </tr>#}
+        {#            {% endfor %}#}
+        {#            </tbody>#}
+        {#        </table>#}
     </div>
 
 {% endblock %}
@@ -114,7 +114,7 @@
 
                     } else if (data.status == 'success') {
 
-                            window.location.href = "{% url 'users:mypublish' %}";
+                        window.location.href = "{% url 'users:mypublish' %}";
 
                     }
                 },
@@ -142,7 +142,7 @@
                         }
 
                     } else if (data.status == 'success') {
-                            window.location.href = "{% url 'users:mypublish' %}";
+                        window.location.href = "{% url 'users:mypublish' %}";
                     }
                 },
             });
@@ -163,11 +163,26 @@
         })
 
         $('.cancel_publish').on('click', function () {
-            cancel_publish($(this), $(this).parent().parent().attr('key'), $(this).parent().parent().attr('type'));
+            let that = this;
+            layer.confirm("确认下架？", {
+                btn: ['下架']
+            },function () {
+                // 按钮2的事件
+                cancel_publish($(that), $(that).parent().parent().attr('key'), $(that).parent().parent().attr('type'));
+
+            });
             {#setTimeout(window.location.reload(), 3000);#}
         });
         $('.delete_publish').on('click', function () {
-            delete_publish($(this), $(this).parent().parent().attr('key'), $(this).parent().parent().attr('type'));
+            let that = this;
+            layer.confirm("确认删除？", {
+                btn: ['删除']
+            },function () {
+                // 按钮2的事件
+                delete_publish($(that), $(that).parent().parent().attr('key'), $(that).parent().parent().attr('type'));
+
+            });
+
             {#setTimeout(window.location.reload(), 3000);#}
         });
 

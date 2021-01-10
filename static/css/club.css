@@ -32,6 +32,11 @@
     color: #333333;
 }
 
+
+.section a:hover{
+    color: #66A5FF !important;
+}
+
 .club-title {
     font-size: 1.3em;
     padding-bottom: 6px;

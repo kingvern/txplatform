@@ -19,8 +19,12 @@
     <section class="container">
         <div class="row">
             <div class="col-md-5">
-                <img class="main-pic" src="{% if patent.imgo %}{% if patent.imgo.url|filter_imgo %}{{ MEDIA_URL }}{% endif %}{{ patent.imgo }}{% else %}{{ "/media/image/default.png" }}{% endif %}"/>
-{#                <img class="main-pic" src="{{ patent.imgo.url  }}"/>#}
+                <img class="main-pic" src="
+
+
+
+                        {% if patent.imgo %}{% if patent.imgo.url|filter_imgo %}{{ MEDIA_URL }}{% endif %}{{ patent.imgo }}{% else %}{{ "/media/image/default.png" }}{% endif %}"/>
+                {#                <img class="main-pic" src="{{ patent.imgo.url  }}"/>#}
             </div>
             <div class="col-md-7 panel-module">
                 <span class="title">{{ patent.tic }}</span>
@@ -155,6 +159,60 @@
         </div>
     </section>
 
+    <section class="container detail-module">
+        <span class="detail-title">
+         留言
+        </span>
+        <div class="detail-content">
+            <!--发布评论-->
+            <div id="panel-body">
+                <div class="form-group">
+                    <label class="control-label requiredField">联系人名字</label>
+                    <input id="comment-input-contact-name" class="text-field admintextinputwidget form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label requiredField">联系人电话</label>
+                    <input id="comment-input-contact-phone" class="text-field admintextinputwidget form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label requiredField">预算</label>
+                    <input id="comment-input-budget" class="text-field admintextinputwidget form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label requiredField">描述</label>
+                    <textarea id="comment-textarea" class="text-field admintextinputwidget form-control"  placeholder="发表您的意向" ></textarea>
+                </div>
+
+                <div class="module-item-btn-box">
+                    <span id="comment-submit" class="module-item-btn">发表评论</span>
+                </div>
+            </div>
+{#            <div class="comment-list">#}
+{#                <div class="mod-post" id="comment-list">#}
+{##}
+{#                    {% for comment in comments %}#}
+{#                        <div class="post-row">#}
+{#                            <div class="media">#}
+{#                                <span target="_blank"><img src='{{ MEDIA_URL }}{{ comment.user.avatar }}' width='40'#}
+{#                                                           height='40'/></span>#}
+{#                            </div>#}
+{#                            <div class="bd">#}
+{#                                <div class="tit">#}
+{#                                    <span target="">{{ comment.user.id }}</span>#}
+{#                                </div>#}
+{#                                <p class="cnt">{{ comment.comment }}</p>#}
+{#                                <div class="">#}
+{#                                    <span title="创建时间" class="">时间：{{ comment.add_time }}</span>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{##}
+{#                </div>#}
+{#            </div>#}
+        </div>
+    </section>
+
     <section class="recommend-module">
     <span class="recommend-title">
             相关专利商品
@@ -220,6 +278,53 @@
 
         $('.fav').on('click', function () {
             add_fav($(this), {{ patent.id }}, 1);
+        });
+
+        //添加评论
+        $('#comment-submit').on('click', function () {
+            let comment = $("#comment-textarea").val()
+            let contact_name = $("#comment-input-contact-name").val()
+            let contact_phone = $("#comment-input-contact-phone").val()
+            let budget = $("#comment-input-budget").val()
+
+            if (comment == "") {
+                alert("评论不能为空")
+                return
+            } else {
+                console.log(comment)
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "{% url 'operation:add_comment' %}",
+                    data: {
+                        'patent_id':{{ patent.id }},
+                        'comment': comment,
+                        'contact_name': contact_name,
+                        'contact_phone': contact_phone,
+                        'budget': budget
+                    },
+                    async: true,
+                    beforeSend: function (xhr, settings) {
+                        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    },
+                    success: function (data) {
+                        console.log(data)
+                        if (data.status == 'fail') {
+                            if (data.msg == '用户未登录') {
+                                window.location.href = "{% url 'login' %}";
+                            } else {
+                                alert(data.msg)
+                            }
+
+                        } else if (data.status == 'success') {
+                            alert('提交成功')
+                            window.location.reload();//刷新当前页面.
+                        }
+                    },
+                });
+
+            }
+
         });
 
 

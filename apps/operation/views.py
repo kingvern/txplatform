@@ -11,7 +11,7 @@ from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 
 from txplatform import settings
-from operation.models import UserFavorite, UserJoin, BuyerPatent, BuyerProject
+from operation.models import UserFavorite, UserJoin, BuyerPatent, BuyerProject, PatentComments
 from policy.models import Policy
 from ssdpatent.models import SSDPatent
 from project.models import Project
@@ -487,3 +487,33 @@ class GetOrderPDF(View):
         # 写入
         weasyprint.HTML(string=html, encoding='utf-8').write_pdf(response)
         return response
+
+# ajax方式添加评论
+class AddCommentsView(View):
+    def post(self, request):
+        if not request.user.is_authenticated:
+            # 未登录时返回json提示未登录，跳转到登录页面是在ajax中做的
+            return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
+        patent_id = request.POST.get("patent_id", 0)
+        comment = request.POST.get("comment", "")
+        contact_name = request.POST.get("contact_name", "")
+        contact_phone = request.POST.get("contact_phone", "")
+        budget = request.POST.get("budget", "")
+
+
+        if int(patent_id) > 0 and comment:
+            patent_comment = PatentComments()
+            # get只能取出一条数据，如果有多条抛出异常。没有数据也抛异常
+            # filter取一个列表出来，queryset。没有数据返回空的queryset不会抛异常
+            patent = SSDPatent.objects.get(id = int(patent_id))
+            # 外键存入要存入对象
+            patent_comment.patent = patent
+            patent_comment.comment = comment
+            patent_comment.contact_name = contact_name
+            patent_comment.contact_phone = contact_phone
+            patent_comment.budget = budget
+            patent_comment.user = request.user
+            patent_comment.save()
+            return HttpResponse('{"status":"success", "msg":"评论成功"}', content_type='application/json')
+        else:
+            return HttpResponse('{"status":"fail", "msg":"评论失败"}', content_type='application/json')

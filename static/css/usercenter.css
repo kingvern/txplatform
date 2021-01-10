@@ -267,3 +267,13 @@ body {
     margin: 5px;
     border: #72a6f8 1px solid;
 }
+
+.delete_publish:hover{
+    cursor:pointer;
+    color: red;
+}
+
+.cancel_publish:hover{
+    cursor:pointer;
+    color:red;
+}

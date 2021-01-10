@@ -14,6 +14,8 @@
         <form action="
 
 
+
+
                 {% ifequal type 'ssdpatent:modify' %}{% url 'ssdpatent:modify' patent.id %}{% else %}{% url 'ssdpatent:add_patent' %}{% endifequal %}"
               method="POST" id="patent_form">
             {% csrf_token %}
@@ -51,11 +53,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="th">{{ patent_form.tic.label }}:</td>
+                    <td class="th">{{ patent_form.tio.label }}:</td>
                     <td>
                         <div class="input">
-                            {{ patent_form.tic }}
-                            <span>{{ patent_form.errors.tic.0 }}</span>
+                            {{ patent_form.tio }}
+                            <span>{{ patent_form.errors.tio.0 }}</span>
                         </div>
                     </td>
                 </tr>
@@ -63,7 +65,13 @@
                     <td class="th">{{ patent_form.category.label }}:</td>
                     <td>
                         <div class="input">
-                            {{ patent_form.tic }}
+                            {{ patent_form.category }}
+{#                            <select name="category">#}
+                                {# 这里我们遍历form表单中的SELVALUE这个字典,然后把key,value成对取出  #}
+{#                                {% for key,value in patent_form.CATEGORY_LIST %}#}
+{#                                    <option value="{{ key }}">{{ value }}</option>#}
+{#                                {% endfor %}#}
+{#                            </select>#}
                             <span>{{ patent_form.errors.category.0 }}</span>
                         </div>
                     </td>

@@ -8,14 +8,21 @@ from users.models import UserProfile
 
 from DjangoUeditor.models import UEditorField
 
-
 # Create your models here.
+from django.core import validators
+from django.core.exceptions import ValidationError
+import re
 
 
 class SSDPatent(models.Model):
+    phone_validator = validators.RegexValidator(regex="1[345678]\d{9}", message='请输入正确格式的手机号码！')
+    english_validator = validators.RegexValidator(regex="[a-zA-Z0-9]", message='请输入正确格式的英文！')
+    # chinese_validator = validators.RegexValidator(regex="[\u4e00-\u9fa5]", message='请输入正确格式的中文！')
+
     pid = models.CharField(max_length=50, verbose_name=u'专利编码', default='', null=True, blank=True)
-    tic = models.CharField(max_length=50, verbose_name=u'标题-中文', default='', null=True, blank=True)
-    tie = models.CharField(max_length=500, verbose_name=u'标题-英文', default='', null=True, blank=True)
+    tic = models.CharField(max_length=50, verbose_name=u'标题-中文', default='')
+    tie = models.CharField(max_length=500, verbose_name=u'标题-英文', default='', null=True, blank=True,
+                           validators=[english_validator])
     tio = models.CharField(max_length=50, verbose_name=u'标题-原始', default='', null=True, blank=True)
     ano = models.CharField(max_length=50, verbose_name=u'申请号-原始', default='', null=True, blank=True)
     ad = models.CharField(max_length=50, verbose_name=u'申请日', default='', null=True, blank=True)
@@ -36,11 +43,19 @@ class SSDPatent(models.Model):
     category = models.CharField(max_length=3,
                                 choices=(('0', '未分类'), ('1', '太赫兹'), ('2', '遥感成像'), ('3', '高可靠嵌入式'), ('4', '智能识别'),
                                          ('5', '化学化工'), ('6', '新能源'), ('7', '机械'), ('8', '环保和资源'), ('9', '交通运输'),
-                                         ('10', '橡胶塑料'), ('11', '仪器仪表'), ('12', '新型材料'), ('13', '电子信息'),
-                                         ('14', '医药与医疗'), ('15', '农林牧业'), ('16', '海洋开发'), ('17', '航空航天'),
-                                         ('18', '采矿治金'), ('19', '电气自动化'), ('20', '包装印刷'), ('21', '教育休闲'),
-                                         ('22', '钒钛产业'), ('23', '安全防护')), default='0',
+                                         ('21', '教育'), ('11', '仪器仪表'), ('12', '新型材料'), ('13', '电子信息'),
+                                         ('14', '生物科学'), ('15', '农林牧业'),
+                                         ('19', '电气自动化'),
+                                         ('23', '安全防护')), default='0',
                                 verbose_name=u'行业分类', null=True, blank=True)
+    # category = models.CharField(max_length=3,
+    #                             choices=(('0', '未分类'), ('1', '太赫兹'), ('2', '遥感成像'), ('3', '高可靠嵌入式'), ('4', '智能识别'),
+    #                                      ('5', '化学化工'), ('6', '新能源'), ('7', '机械'), ('8', '环保和资源'), ('9', '交通运输'),
+    #                                      ('10', '橡胶塑料'), ('11', '仪器仪表'), ('12', '新型材料'), ('13', '电子信息'),
+    #                                      ('14', '医药与医疗'), ('15', '农林牧业'), ('16', '海洋开发'), ('17', '航空航天'),
+    #                                      ('18', '采矿治金'), ('19', '电气自动化'), ('20', '包装印刷'), ('21', '教育休闲'),
+    #                                      ('22', '钒钛产业'), ('23', '安全防护')), default='0',
+    #                             verbose_name=u'行业分类', null=True, blank=True)
     # IMGTITLE = models.CharField(max_length=50, verbose_name=u'缩略图', default='', null=True, blank=True)
     # IMGNAME = models.CharField(max_length=50, verbose_name=u'缩略图名称', default='', null=True, blank=True)
     lssc = models.CharField(max_length=50, verbose_name=u'当前权利状态', default='', null=True, blank=True)
@@ -50,7 +65,8 @@ class SSDPatent(models.Model):
     debee = models.TextField(max_length=1000, verbose_name=u'简要说明-英文', default='', null=True, blank=True)
     depc = models.TextField(max_length=1000, verbose_name=u'简要说明-中文', default='', null=True, blank=True)
     # imgo = models.CharField(max_length=200, verbose_name=u'原始图', default='', null=True, blank=True)
-    imgo = models.ImageField(upload_to='image/%Y/%m', default='image/default.png', max_length=200, verbose_name=u'原始图', null=True, blank=True)
+    imgo = models.ImageField(upload_to='image/%Y/%m', default='image/default.png', max_length=200, verbose_name=u'原始图',
+                             null=True, blank=True)
     # IMGO = models.CharField(max_length=50, verbose_name=u'原始图', default='', null=True, blank=True)
     absoimgpath = models.CharField(max_length=200, verbose_name=u'摘要图', default='', null=True, blank=True)
     pdfexist = models.CharField(max_length=50, verbose_name=u'是否存在PDF', default='', null=True, blank=True)

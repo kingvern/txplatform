@@ -421,6 +421,9 @@ class MyPublishView(LoginRequiredMixin, View):
     redirect_field_name = 'next'
 
     def get(self, request):
+
+
+
         patent_list = SSDPatent.objects.filter(seller=request.user)
         project_list = Project.objects.filter(seller=request.user)
         return render(request, "usercenter-myPublish.html", {
@@ -492,7 +495,7 @@ class IndexView(View):
         bar_pic = Banner.objects.filter(if_toutiao=True)[:1][0]
 
         # patent_bar = SSDPatent.objects.all().order_by('-click_num')[:10]
-        patent_bar = SSDPatent.objects.all().filter(shop_status='3')[:10]
+        patent_bar = SSDPatent.objects.all().filter(shop_status='3')[:5]
         patent_0 = SSDPatent.objects.all().filter(pdt='发明')[:12]
         patent_1 = SSDPatent.objects.all().filter(pdt='实用新型')[:12]
         patent_2 = SSDPatent.objects.all().filter(pdt='外观设计')[:12]

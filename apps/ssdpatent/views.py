@@ -12,7 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from ssdpatent.adminx import SSDPatentAdmin
 from .models import SSDPatent
 from .forms import AddSSDPatentForm, ModifySSDPatentForm
-from operation.models import UserFavorite
+from operation.models import UserFavorite, PatentComments
 
 
 # Create your views here.
@@ -47,11 +47,11 @@ class SSDPatentListView(View):
 
         FIELD = (
             ('0', '未分类'), ('1', '太赫兹'), ('2', '遥感成像'), ('3', '高可靠嵌入式'), ('4', '智能识别'),
-             ('5', '化学化工'), ('6', '新能源'), ('7', '机械'), ('8', '环保和资源'), ('9', '交通运输'),
-             ('10', '橡胶塑料'), ('11', '仪器仪表'), ('12', '新型材料'), ('13', '电子信息'),
-             ('14', '医药与医疗'), ('15', '农林牧业'), ('16', '海洋开发'), ('17', '航空航天'),
-             ('18', '采矿治金'), ('19', '电气自动化'), ('20', '包装印刷'), ('21', '教育休闲'),
-             ('22', '钒钛产业'), ('23', '安全防护'))
+            ('5', '化学化工'), ('6', '新能源'), ('7', '机械'), ('8', '环保和资源'), ('9', '交通运输'),
+            ('21', '教育'), ('11', '仪器仪表'), ('12', '新型材料'), ('13', '电子信息'),
+            ('14', '生物科学'), ('15', '农林牧业'),
+            ('19', '电气自动化'),
+            ('23', '安全防护'))
 
         # field_categorys_array = []
         # for field_category in field_categorys:
@@ -187,6 +187,8 @@ class SSDPatentDetailView(View):
 
         patent.available = True
 
+        comments = PatentComments.objects.filter(patent=patent).order_by("-add_time")
+
         # 必须是用户已登录我们才需要判断。
         if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user, fav_id=patent.id, fav_type=1):
@@ -205,6 +207,7 @@ class SSDPatentDetailView(View):
             relate_patents = relate_patents.filter(~Q(id=patent.id))[0:2]
         return render(request, "patent-detail.html", {
             "patent": patent,
+            "comments": comments,
             "relate_patents": relate_patents,
         })
 
@@ -260,3 +263,4 @@ class ModifyView(LoginRequiredMixin, View):
             "patent": patent,
             'patent_form': modify_patent_form
         })
+

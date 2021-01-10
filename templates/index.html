@@ -81,13 +81,13 @@
             <div class="index-row">
                 <div class="index-rank-box rank-box">
                     <div class="rank-title">
-                        <span>本站十佳</span>
+                        <span>本站</span>
                         <span>最具价值成果</span>
                     </div>
                     <div class="rank-list">
                         {% for patent in patent_bar %}
                             <div class="rank-item">
-                                <a href="/ssdpatent/detail/{{ patent.id }}/">{{ patent.tic }}</a>
+                                <a href="/ssdpatent/detail/{{ patent.id }}/">{{ forloop.counter }}.{{ patent.tic }}</a>
                             </div>
                         {% endfor %}
                     </div>
