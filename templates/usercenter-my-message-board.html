@@ -1,0 +1,114 @@
+{% extends 'usercenter-base.html' %}
+{% block title %}我的订单{% endblock %}
+
+{% load staticfiles %}
+
+{% block right_content %}
+    <div class="head">
+        <span>我的留言</span>
+    </div>
+    <div class="manage">
+
+        <table class="table table-bordered  manage-table" id="patent-table">
+            <thead>
+            <tr>
+                <th>留言编号</th>
+                <th>专利名称</th>
+                <th>专利类型</th>
+                <th>联系人姓名</th>
+                <th>联系人电话</th>
+                <th>预算</th>
+
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for message_board in message_board_list %}
+                <tr key="{{ message_board.id }}">
+                    <td>{{ message_board.id }}</td>
+                    <td>{{ message_board.patent_name }}</td>
+                    <td>{{ message_board.category }}</td>
+                    <td>{{ message_board.contact_name }}</td>
+                    <td>{{ message_board.contact_phone }}</td>
+                    <td>{{ message_board.budget }}</td>
+                    <td>
+                            <span class="delete_message_board clickable">删除</span>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript">
+
+
+        function delete_message_board(current_elem, id, type) {
+
+            console.log(current_elem, id, type)
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:delete_message_board" %}",
+                data: {'id': id, 'type': type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+
+                        window.location.href = "{% url 'users:my_message_board' %}";
+                    }
+                },
+            });
+        }
+
+
+
+        $('.cancel_order').on('click', function () {
+            let that = this
+            layer.open({
+                content: '您确定要取消订单吗？'
+                , btn: ['确定', '取消']
+                , yes: function (index, layero) {
+                    cancel_order($(that), $(that).parent().parent().attr('key'), 1);
+                }
+                , btn2: function (index, layero) {
+                }
+                , cancel: function () {
+                }
+            });
+            {#setTimeout(window.location.reload(), 3000);#}
+        });
+        $('.delete_message_board').on('click', function () {
+            let that = this
+            layer.open({
+                content: '您确定要删除留言吗？'
+                , btn: ['确定', '取消']
+                , yes: function (index, layero) {
+                    delete_message_board($(that), $(that).parent().parent().attr('key'), 1);
+
+                }
+                , btn2: function (index, layero) {
+                }
+                , cancel: function () {
+                }
+            });
+            {#setTimeout(window.location.reload(), 3000);#}
+        });
+
+
+    </script>
+{% endblock %}

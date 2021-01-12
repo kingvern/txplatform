@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% block title %}专利展示{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/patent.css' %}">
+{% endblock %}
+{% block custom_bread %}
+    <section class="container">
+        <ul class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            <li><a href="{% url 'ssdpatent:list' %}">专利商品列表</a></li>
+            <li class="active">{{ patent.tic }}</li>
+        </ul>
+    </section>
+{% endblock %}
+{% block content %}
+
+
+    <section class="container detail-module">
+        <span class="detail-title">
+         留言
+        </span>
+        <div class="detail-content">
+            <!--发布评论-->
+            <div id="panel-body">
+                <div class="form-group">
+                    <label class="control-label requiredField">联系人名字</label>
+                    <input id="comment-input-contact-name" class="text-field admintextinputwidget form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label requiredField">联系人电话</label>
+                    <input id="comment-input-contact-phone" class="text-field admintextinputwidget form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label requiredField">预算</label>
+                    <input id="comment-input-budget" class="text-field admintextinputwidget form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label requiredField">描述</label>
+                    <textarea id="comment-textarea" class="text-field admintextinputwidget form-control"  placeholder="发表您的意向" ></textarea>
+                </div>
+
+                <div class="module-item-btn-box">
+                    <span id="comment-submit" class="module-item-btn">发表评论</span>
+                </div>
+            </div>
+{#            <div class="comment-list">#}
+{#                <div class="mod-post" id="comment-list">#}
+{##}
+{#                    {% for comment in comments %}#}
+{#                        <div class="post-row">#}
+{#                            <div class="media">#}
+{#                                <span target="_blank"><img src='{{ MEDIA_URL }}{{ comment.user.avatar }}' width='40'#}
+{#                                                           height='40'/></span>#}
+{#                            </div>#}
+{#                            <div class="bd">#}
+{#                                <div class="tit">#}
+{#                                    <span target="">{{ comment.user.id }}</span>#}
+{#                                </div>#}
+{#                                <p class="cnt">{{ comment.comment }}</p>#}
+{#                                <div class="">#}
+{#                                    <span title="创建时间" class="">时间：{{ comment.add_time }}</span>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{##}
+{#                </div>#}
+{#            </div>#}
+        </div>
+    </section>
+
+
+
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript">
+        //关注分享
+        function add_fav(current_elem, fav_id, fav_type) {
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url "operation:add_fav" %}",
+                data: {'fav_id': fav_id, 'fav_type': fav_type},
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status == 'fail') {
+                        if (data.msg == '用户未登录') {
+                            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+                        } else {
+                            alert(data.msg)
+                        }
+
+                    } else if (data.status == 'success') {
+                        if (data.msg === '关注') {
+                            current_elem.addClass('module-item-btn')
+                            current_elem.removeClass('module-item-btn-faved')
+                            current_elem.text(data.msg)
+                        } else {
+                            current_elem.addClass('module-item-btn-faved')
+                            current_elem.removeClass('module-item-btn')
+                            current_elem.text(data.msg)
+                        }
+                    }
+                },
+            });
+        }
+
+        $('.fav').on('click', function () {
+            add_fav($(this), {{ patent.id }}, 1);
+        });
+
+        //添加评论
+        $('#comment-submit').on('click', function () {
+            let comment = $("#comment-textarea").val()
+            let contact_name = $("#comment-input-contact-name").val()
+            let contact_phone = $("#comment-input-contact-phone").val()
+            let budget = $("#comment-input-budget").val()
+
+            if (comment == "") {
+                alert("评论不能为空")
+                return
+            } else {
+                console.log(comment)
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "{% url 'operation:add_comment' %}",
+                    data: {
+                        'patent_id':{{ patent.id }},
+                        'comment': comment,
+                        'contact_name': contact_name,
+                        'contact_phone': contact_phone,
+                        'budget': budget
+                    },
+                    async: true,
+                    beforeSend: function (xhr, settings) {
+                        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    },
+                    success: function (data) {
+                        console.log(data)
+                        if (data.status == 'fail') {
+                            if (data.msg == '用户未登录') {
+                                window.location.href = "{% url 'login' %}";
+                            } else {
+                                alert(data.msg)
+                            }
+
+                        } else if (data.status == 'success') {
+                            alert('提交成功')
+                            window.location.reload();//刷新当前页面.
+                        }
+                    },
+                });
+
+            }
+
+        });
+
+
+    </script>
+{% endblock %}

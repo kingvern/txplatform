@@ -2,7 +2,8 @@
 
 from django.conf.urls import url, include
 from .views import AddFavView, AddJoinView, CancelPublishView, \
-    DeletePublishView, OrderView, CancelOrderView, DeleteOrderView, GetOrderPDF, AddCommentsView
+    DeletePublishView, OrderView, CancelOrderView, DeleteOrderView, GetOrderPDF, AddCommentsView, MessageBoardView, \
+    DeleteMessageBoardView
 
 # from django.urls import path, re_path
 
@@ -24,5 +25,8 @@ urlpatterns = [
 
     url('get_order_pdf/', GetOrderPDF.as_view(), name="get_order_pdf"),
 
-    url(r'^add_comment/', AddCommentsView.as_view(), name="add_comment"),
+    url('delete_message_board/', DeleteMessageBoardView.as_view(), name="delete_message_board"),
+
+
+    url(r'^add_comment/', AddCommentsView.as_view(), name="add_comment")
 ]

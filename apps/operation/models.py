@@ -188,14 +188,40 @@ class PatentComments(models.Model):
     # 会涉及两个外键: 1. 用户， 2. 专利。import进来
     patent = models.ForeignKey(SSDPatent, on_delete=models.CASCADE, verbose_name=u"专利")
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name=u"用户")
-    comment = models.CharField(max_length=250, verbose_name=u"评论")
-    contact_name = models.CharField(max_length=250, verbose_name=u"联系人名字")
-    contact_phone = models.CharField(max_length=250, verbose_name=u"联系人电话")
-    budget = models.IntegerField(default=0, verbose_name=u"预算")
+    comments = models.CharField(max_length=250, verbose_name=u"评论", default='', null=True, blank=True)
+    contact_name = models.CharField(max_length=250, verbose_name=u"联系人名字", default='', null=True, blank=True)
+    contact_phone = models.CharField(max_length=250, verbose_name=u"联系人电话", default='', null=True, blank=True)
+    budget = models.IntegerField(default=0, verbose_name=u"预算",  null=True, blank=True)
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u"评论时间")
 
     class Meta:
         verbose_name = u"专利评论"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return '用户({0})对于《{1}》 评论 :'.format(self.user, self.patent)
+
+
+class MessageBoard(models.Model):
+    # 会涉及1个外键: 1. 用户
+    patent_name = models.CharField(max_length=250, verbose_name=u"专利名")
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name=u"用户", default='', null=True, blank=True)
+    comments = models.TextField(max_length=250, verbose_name=u"评论", default='', null=True, blank=True)
+    contact_name = models.CharField(max_length=250, verbose_name=u"联系人名字", default='', null=True, blank=True)
+    contact_phone = models.CharField(max_length=250, verbose_name=u"联系人电话", default='', null=True, blank=True)
+    budget = models.IntegerField(default=0, verbose_name=u"预算", null=True, blank=True)
+    category = models.CharField(max_length=3,
+                                choices=(('0', '未分类'), ('1', '太赫兹'), ('2', '遥感成像'), ('3', '高可靠嵌入式'), ('4', '智能识别'),
+                                         ('5', '化学化工'), ('6', '新能源'), ('7', '机械'), ('8', '环保和资源'), ('9', '交通运输'),
+                                         ('21', '教育'), ('11', '仪器仪表'), ('12', '新型材料'), ('13', '电子信息'),
+                                         ('14', '生物科学'), ('15', '农林牧业'),
+                                         ('19', '电气自动化'),
+                                         ('23', '安全防护')), default='0',
+                                verbose_name=u'行业分类', null=True, blank=True)
+    add_time = models.DateTimeField(default=datetime.now, verbose_name=u"评论时间")
+
+    class Meta:
+        verbose_name = u"留言板"
         verbose_name_plural = verbose_name
 
     def __str__(self):

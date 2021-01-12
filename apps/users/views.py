@@ -11,7 +11,7 @@ from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
-from operation.models import UserFavorite, UserMessage, BuyerPatent, BuyerProject
+from operation.models import UserFavorite, UserMessage, BuyerPatent, BuyerProject, MessageBoard
 from policy.models import Policy, Banner
 from project.models import Project
 from ssdpatent.models import SSDPatent
@@ -570,6 +570,16 @@ class MyFavGalleryView(LoginRequiredMixin, View):
             gallery_list.append(gallery)
         return render(request, "usercenter-fav-gallery.html", {
             "gallery_list": gallery_list
+        })
+
+class MyMessageBoardView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
+    def get(self, request):
+        message_board_list = MessageBoard.objects.filter(user=request.user)
+        return render(request, "usercenter-my-message-board.html", {
+            "message_board_list": message_board_list
         })
 
 

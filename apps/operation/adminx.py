@@ -3,7 +3,7 @@
 
 import xadmin
 
-from .models import UserAsk, UserFavorite, UserMessage, BuyerPatent, BuyerProject, PatentComments
+from .models import UserAsk, UserFavorite, UserMessage, BuyerPatent, BuyerProject, PatentComments, MessageBoard
 
 from datetime import datetime
 
@@ -68,15 +68,22 @@ class BuyerProjectAdmin(object):
     relfield_style = 'fk-ajax'
     list_editable = ['step', 'contract', 'prof', 'protocol', 'staff']
 
+
 class PatentCommentsAdmin(object):
     list_display = ['id', 'patent', 'contact_name', 'contact_phone', 'budget', 'add_time']
     search_fields = ['id', 'patent', 'contact_name', 'contact_phone', 'budget', 'add_time']
     list_filter = ['id', 'patent', 'contact_name', 'contact_phone', 'budget', 'add_time']
 
 
+class MessageBoardAdmin(object):
+    list_display = ['id', 'patent', 'category', 'contact_name', 'contact_phone', 'budget', 'add_time']
+    search_fields = ['id', 'patent', 'category', 'contact_name', 'contact_phone', 'budget', 'add_time']
+    list_filter = ['id', 'patent', 'category', 'contact_name', 'contact_phone', 'budget', 'add_time']
+
+
 # xadmin.site.register(UserAsk, UserAskAdmin)
 # xadmin.site.register(UserFavorite, UserFavoriteAdmin)
 # xadmin.site.register(UserMessage, UserMessageAdmin)
 xadmin.site.register(BuyerPatent, BuyerPatentAdmin)
-xadmin.site.register(PatentComments, PatentCommentsAdmin)
-# xadmin.site.register(BuyerProject, BuyerProjectAdmin)
+# xadmin.site.register(PatentComments, PatentCommentsAdmin)
+xadmin.site.register(MessageBoard, MessageBoardAdmin)

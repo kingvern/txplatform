@@ -1,9 +1,11 @@
 # _*_ coding: utf-8 _*_
 
 from django.conf.urls import url, include
+
+from operation.views import MessageBoardView
 from .views import UserInfoView, UploadImageView, UpdatePwdView, MyFavView, MyMessageView, MyOrderView, \
     ForCodeView, MyPublishView, UserAuthView, MyFavPolicyView, MySellOrderView, AgreementView, \
-    MyFavIncubatorView, MyFavGalleryView
+    MyFavIncubatorView, MyFavGalleryView, MyMessageBoardView
 
 urlpatterns = [
     # 中心展示
@@ -32,5 +34,12 @@ urlpatterns = [
 
     url('fav_policy/', MyFavPolicyView.as_view(), name="fav_policy"),
     url('fav_incubator/', MyFavIncubatorView.as_view(), name="fav_incubator"),
-    url('fav_gallery/', MyFavGalleryView.as_view(), name="fav_gallery"),
+
+    url(r'message_board/', MessageBoardView.as_view(), name="message_board"),
+
+    url(r'myMessageBoard/', MyMessageBoardView.as_view(), name="my_message_board"),
+
+    url('fav_gallery/', MyFavGalleryView.as_view(), name="fav_gallery")
+
+
 ]

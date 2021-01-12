@@ -2,29 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91c2da21-d35c-41e8-84f0-6005e63dedf5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/txplatform.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/txplatform.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/messageboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/usercenter-message-board.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/usercenter-my-message-board.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/operation/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/operation/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/operation/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/operation/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/operation/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/ssdpatent/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/ssdpatent/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/ssdpatent/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/ssdpatent/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/ssdpatent/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/club.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/club.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/usercenter.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/usercenter.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/patent-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/patent-detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/usercenter-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/usercenter-myPublish.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-myPublish.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/usercenter-publish-patent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usercenter-publish-patent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/txplatform/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/txplatform/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,26 +77,26 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates" />
+      <recent name="$PROJECT_DIR$/static/img" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/apps/club/migrations" />
+      <recent name="$PROJECT_DIR$/apps/gallery/migrations" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/extra_apps/xadmin/templates/xadmin" />
       <recent name="$PROJECT_DIR$/static/img" />
       <recent name="$PROJECT_DIR$/media/image" />
       <recent name="$PROJECT_DIR$/apps/scrap" />
       <recent name="$PROJECT_DIR$/static/css/bootstrap" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/static/img" />
-      <recent name="$PROJECT_DIR$/templates" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/apps/club/migrations" />
-      <recent name="$PROJECT_DIR$/apps/gallery/migrations" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -348,7 +339,8 @@
       <workItem from="1600449647512" duration="167000" />
       <workItem from="1600919008139" duration="1194000" />
       <workItem from="1604120138126" duration="9537000" />
-      <workItem from="1610264297702" duration="12244000" />
+      <workItem from="1610264297702" duration="12711000" />
+      <workItem from="1610474143615" duration="6638000" />
     </task>
     <servers />
   </component>
@@ -385,11 +377,6 @@
           <url>file://$PROJECT_DIR$/apps/scrap/scrap_patent.py</url>
           <line>31</line>
           <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/apps/operation/views.py</url>
-          <line>304</line>
-          <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/apps/operation/views.py</url>

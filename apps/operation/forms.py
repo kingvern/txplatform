@@ -1,7 +1,7 @@
 # _*_ coding: utf-8 _*_
 from django import forms
 
-from .models import SSDPatent
+from .models import SSDPatent, MessageBoard
 
 
 # class AddPatentForm(forms.ModelForm):
@@ -16,3 +16,8 @@ class AddOrderForm(forms.Form):
     order_contact = forms.CharField(required=True)
     order_mobile = forms.CharField(required=True, min_length=7, max_length=11)
     agree = forms.BooleanField(required=True)
+
+class MessageBoardForm(forms.ModelForm):
+    class Meta:
+        model = MessageBoard
+        exclude = ['user', 'add_time']

@@ -1,0 +1,93 @@
+{% extends 'usercenter-base.html' %}
+{% block title %} 留言板{% endblock %}
+{% load staticfiles %}
+
+{% block custom_css %}
+
+{% endblock %}
+
+{% block right_content %}
+    <div class="head">
+        <span>留言</span>
+    </div>
+    <div class="content">
+        <form action="{% url 'users:message_board' %}"  method="POST" id="message_board_form">
+            {% csrf_token %}
+
+            <table class="table table-nobordered usercenter-table">
+                <tbody>
+                <tr>
+                    <td class="th">{{ message_board_form.patent_name.label }}:</td>
+                    <td>
+                        <div class="input">
+                            {{ message_board_form.patent_name }}
+                            <span>{{ message_board_form.errors.patent_name.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="th">{{ message_board_form.contact_name.label }}:</td>
+                    <td>
+                        <div class="input">
+                            {{ message_board_form.contact_name }}
+                            <span>{{ message_board_form.errors.contact_name.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">{{ message_board_form.contact_phone.label }}:</td>
+                    <td>
+                        <div class="input">
+                            {{ message_board_form.contact_phone }}
+                            <span>{{ message_board_form.errors.contact_phone.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">{{ message_board_form.category.label }}:</td>
+                    <td>
+                        <div class="input">
+                            {{ message_board_form.category }}
+{#                            <select name="category">#}
+                                {# 这里我们遍历form表单中的SELVALUE这个字典,然后把key,value成对取出  #}
+{#                                {% for key,value in message_board_form.CATEGORY_LIST %}#}
+{#                                    <option value="{{ key }}">{{ value }}</option>#}
+{#                                {% endfor %}#}
+{#                            </select>#}
+                            <span>{{ message_board_form.errors.category.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="th">{{ message_board_form.budget.label }}:</td>
+                    <td>
+                        <div class="input">
+                            {{ message_board_form.budget }}
+                            <span>{{ message_board_form.errors.budget.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">{{ message_board_form.comment.label }}:</td>
+                    <td>
+                        <div class="input">
+                            {{ message_board_form.comment }}
+                            <span>{{ message_board_form.errors.comment.0 }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="submit-btn">保存</button>
+                    </td>
+                    <td class="th"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </form>
+    </div>
+{% endblock %}

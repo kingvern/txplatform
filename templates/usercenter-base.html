@@ -130,8 +130,12 @@
                         </div>
                         <a class="sidebar-panel-item {% ifequal  '/users/myorder/' request.path %} sidebar-active{% endifequal %}"
                            href="{% url 'users:myorder' %}">我的订单</a>
-                        <a class="sidebar-panel-item {% ifequal  '/users/myfav/' request.path %} sidebar-active{% endifequal %}"
-                           href="{% url 'users:myfav' %}">技术关注</a>
+{#                        <a class="sidebar-panel-item {% ifequal  '/users/myfav/' request.path %} sidebar-active{% endifequal %}"#}
+{#                           href="{% url 'users:myfav' %}">技术关注</a>#}
+                        <a class="sidebar-panel-item {% ifequal  '/users/myMessageBoard/' request.path %} sidebar-active{% endifequal %}"
+                           href="{% url 'users:my_message_board' %}">我的留言</a>
+                    <a class="sidebar-panel-item {% ifequal  '/users/message_board/' request.path %} sidebar-active{% endifequal %}"
+                           href="{% url 'users:message_board' %}">留言</a>
                     </div>
                     <div class="sidebar-panel">
                         <div class="sidebar-panel-title">

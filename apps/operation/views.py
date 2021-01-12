@@ -11,13 +11,13 @@ from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 
 from txplatform import settings
-from operation.models import UserFavorite, UserJoin, BuyerPatent, BuyerProject, PatentComments
+from operation.models import UserFavorite, UserJoin, BuyerPatent, BuyerProject, PatentComments, MessageBoard
 from policy.models import Policy
 from ssdpatent.models import SSDPatent
 from project.models import Project
 from incubator.models import Couveuse, Park, Financial
 from gallery.models import Gallery
-from .forms import AddOrderForm
+from .forms import AddOrderForm, MessageBoardForm
 from users.models import UserProfile
 from txplatform.settings import APIKEY
 
@@ -517,3 +517,43 @@ class AddCommentsView(View):
             return HttpResponse('{"status":"success", "msg":"评论成功"}', content_type='application/json')
         else:
             return HttpResponse('{"status":"fail", "msg":"评论失败"}', content_type='application/json')
+
+
+class MessageBoardView(LoginRequiredMixin, View):
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
+    def post(self, request, *args, **kwargs):
+        message_board_form = MessageBoardForm(request.POST)
+        if message_board_form.is_valid():
+            message_board = message_board_form.save(commit=False)
+            message_board.user = request.user
+            message_board.save()
+            return HttpResponseRedirect(reverse('users:my_message_board'))
+        else:
+            # 通过json的dumps方法把字典转换为json字符串
+            return render(request, 'usercenter-message-board.html', {'message_board_form': message_board_form})
+
+    def get(self, request):
+        message_board_form = MessageBoardForm()
+        return render(request, 'usercenter-message-board.html', {'message_board_form': message_board_form})
+
+class DeleteMessageBoardView(View):
+    """
+    删除功能
+    """
+
+    def post(self, request):
+        # 默认值取0是因为空串转int报错
+        id = request.POST.get('id', 0)
+        # 取到你收藏的类别，从前台提交的ajax请求中取
+
+        # 判断用户是否登录:即使没登录会有一个匿名的user
+        if not request.user.is_authenticated:
+            # 未登录时返回json提示未登录，跳转到登录页面是在ajax中做的
+            return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
+
+        messageboard = MessageBoard.objects.get(id=int(id))
+        messageboard.delete()
+        return HttpResponse('{"status":"success", "msg":"已经删除"}', content_type='application/json')
