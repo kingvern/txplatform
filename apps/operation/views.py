@@ -557,3 +557,53 @@ class DeleteMessageBoardView(View):
         messageboard = MessageBoard.objects.get(id=int(id))
         messageboard.delete()
         return HttpResponse('{"status":"success", "msg":"已经删除"}', content_type='application/json')
+
+
+class MessageBoardListView(LoginRequiredMixin, View):
+
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
+    def get(self, request):
+        all_message_board = MessageBoard.objects.all().filter(if_show=True)
+
+        field_category = request.GET.get('field_category', '')
+
+        if field_category:
+            all_message_board = all_message_board.filter(category=field_category)
+
+        message_board_nums = all_message_board.count()
+
+        FIELD = (
+            ('0', '未分类'), ('1', '太赫兹'), ('2', '遥感成像'), ('3', '高可靠嵌入式'), ('4', '智能识别'),
+            ('5', '化学化工'), ('6', '新能源'), ('7', '机械'), ('8', '环保和资源'), ('9', '交通运输'),
+            ('21', '教育'), ('11', '仪器仪表'), ('12', '新型材料'), ('13', '电子信息'),
+            ('14', '生物科学'), ('15', '农林牧业'),
+            ('19', '电气自动化'),
+            ('23', '安全防护'))
+
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        p = Paginator(all_message_board, 10, request=request)
+
+        message_boards = p.page(page)
+
+        return render(request, 'messageboard-list.html', {
+            'field_category_id': field_category,
+            'field_categorys': FIELD,
+            'message_boards': message_boards,
+            'message_board_nums': message_board_nums,
+        })
+
+class MessageBoardDetailView(View):
+
+    def get(self, request, messageboard_id):
+        # 此处的id为表默认为我们添加的值。
+        message_board = MessageBoard.objects.get(id=int(messageboard_id))
+
+        return render(request, "messageboard-detail.html", {
+            "message_board": message_board
+        })

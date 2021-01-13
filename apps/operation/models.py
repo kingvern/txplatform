@@ -206,7 +206,7 @@ class MessageBoard(models.Model):
     # 会涉及1个外键: 1. 用户
     patent_name = models.CharField(max_length=250, verbose_name=u"专利名")
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name=u"用户", default='', null=True, blank=True)
-    comments = models.TextField(max_length=250, verbose_name=u"评论", default='', null=True, blank=True)
+    comments = models.TextField(verbose_name=u"评论", default='', null=True, blank=True)
     contact_name = models.CharField(max_length=250, verbose_name=u"联系人名字", default='', null=True, blank=True)
     contact_phone = models.CharField(max_length=250, verbose_name=u"联系人电话", default='', null=True, blank=True)
     budget = models.IntegerField(default=0, verbose_name=u"预算", null=True, blank=True)
@@ -218,6 +218,7 @@ class MessageBoard(models.Model):
                                          ('19', '电气自动化'),
                                          ('23', '安全防护')), default='0',
                                 verbose_name=u'行业分类', null=True, blank=True)
+    if_show = models.BooleanField(default=False, verbose_name='是否显示')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u"评论时间")
 
     class Meta:

@@ -3,7 +3,7 @@
 from django.conf.urls import url, include
 from .views import AddFavView, AddJoinView, CancelPublishView, \
     DeletePublishView, OrderView, CancelOrderView, DeleteOrderView, GetOrderPDF, AddCommentsView, MessageBoardView, \
-    DeleteMessageBoardView
+    DeleteMessageBoardView, MessageBoardListView, MessageBoardDetailView
 
 # from django.urls import path, re_path
 
@@ -27,6 +27,12 @@ urlpatterns = [
 
     url('delete_message_board/', DeleteMessageBoardView.as_view(), name="delete_message_board"),
 
+    url(r'message_board_list/', MessageBoardListView.as_view(), name="message_board_list"),
 
-    url(r'^add_comment/', AddCommentsView.as_view(), name="add_comment")
+    url(r'^message_board_detail/(?P<messageboard_id>\d+)/', MessageBoardDetailView.as_view(), name='message_board_detail'),
+
+
+
+
+    url(r'add_comment/', AddCommentsView.as_view(), name="add_comment")
 ]

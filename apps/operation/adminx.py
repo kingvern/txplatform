@@ -76,9 +76,11 @@ class PatentCommentsAdmin(object):
 
 
 class MessageBoardAdmin(object):
-    list_display = ['id', 'patent', 'category', 'contact_name', 'contact_phone', 'budget', 'add_time']
-    search_fields = ['id', 'patent', 'category', 'contact_name', 'contact_phone', 'budget', 'add_time']
-    list_filter = ['id', 'patent', 'category', 'contact_name', 'contact_phone', 'budget', 'add_time']
+    list_display = ['id', 'patent_name', 'category', 'contact_name', 'contact_phone', 'budget', 'add_time',  'if_show']
+    search_fields = ['id', 'patent_name', 'category', 'contact_name', 'contact_phone', 'budget', 'add_time', 'comments', 'if_show']
+    list_filter = ['id', 'patent_name', 'category', 'contact_name', 'contact_phone', 'budget', 'add_time',  'if_show']
+    relfield_style = 'fk-ajax'
+    list_editable = ['if_show']
 
 
 # xadmin.site.register(UserAsk, UserAskAdmin)
